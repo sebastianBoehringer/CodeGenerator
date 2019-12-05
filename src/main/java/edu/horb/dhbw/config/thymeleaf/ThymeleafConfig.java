@@ -1,11 +1,20 @@
-package Config.Thymeleaf;
+package edu.horb.dhbw.config.thymeleaf;
 
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 public class ThymeleafConfig {
-    public static ITemplateResolver textTemplateResolver(String language) {
+
+    public static TemplateEngine templateEngine(String language) {
+
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(textTemplateResolver(language));
+        return templateEngine;
+    }
+
+    private static ITemplateResolver textTemplateResolver(String language) {
 
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("/templates/");

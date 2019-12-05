@@ -1,9 +1,10 @@
-package datacore;
+package edu.horb.dhbw.datacore.enums;
 
-public enum VisibilityModifier {
+public enum VisibilityKind {
     PUBLIC,
     PRIVATE,
-    NONE;
+    PROTECTED,
+    PACKAGE;
 
     /**
      * Returns the name of this enum constant, as contained in the
@@ -23,7 +24,12 @@ public enum VisibilityModifier {
                 break;
             case PRIVATE:
                 ret = "private";
-            case NONE:
+            case PROTECTED:
+                ret = "protected";
+                break;
+            case PACKAGE:
+                ret = "";
+                break;
         }
         return ret;
     }

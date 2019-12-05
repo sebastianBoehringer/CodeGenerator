@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1"
+           xmi:version="2.1" xmi:id="_ZNJB0BEjEeqmgc633rmsYw" name="Model">
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_ZNJB1BEjEeqmgc633rmsYw" name="State Machine">
+        <region xmi:id="_ZNJB1REjEeqmgc633rmsYw">
+            <subvertex xmi:type="uml:State" xmi:id="_ZNJB1hEjEeqmgc633rmsYw" name="Try"/>
+            <subvertex xmi:type="uml:State" xmi:id="_ZNJB1xEjEeqmgc633rmsYw" name="Error"/>
+            <subvertex xmi:type="uml:FinalState" xmi:id="_ZNJB2BEjEeqmgc633rmsYw" name="Final State"/>
+            <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZNJB2REjEeqmgc633rmsYw" name="Choice" kind="choice"/>
+            <transition xmi:type="uml:Transition" xmi:id="_ZNJB2hEjEeqmgc633rmsYw" name="Transition"
+                        source="_ZNJB1hEjEeqmgc633rmsYw" target="_ZNJB2REjEeqmgc633rmsYw"/>
+            <transition xmi:type="uml:Transition" xmi:id="_ZNJB2xEjEeqmgc633rmsYw" name="repeat"
+                        source="_ZNJB1xEjEeqmgc633rmsYw" target="_ZNJB1hEjEeqmgc633rmsYw"/>
+            <transition xmi:type="uml:Transition" xmi:id="_ZNJB3BEjEeqmgc633rmsYw" name="Transition"
+                        source="_ZNJB2REjEeqmgc633rmsYw" target="_ZNJB1xEjEeqmgc633rmsYw"
+                        guard="_ZNJB3REjEeqmgc633rmsYw">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_ZNJB3REjEeqmgc633rmsYw" name="failed"
+                           constrainedElement="_ZNJB3BEjEeqmgc633rmsYw">
+                    <specification xmi:type="uml:LiteralString" xmi:id="_ZNJB3hEjEeqmgc633rmsYw" value="failed"/>
+                </ownedRule>
+            </transition>
+            <transition xmi:type="uml:Transition" xmi:id="_ZNJB3xEjEeqmgc633rmsYw" name="Transition1"
+                        source="_ZNJB2REjEeqmgc633rmsYw" target="_ZNJB2BEjEeqmgc633rmsYw"
+                        guard="_ZNJB4BEjEeqmgc633rmsYw">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_ZNJB4BEjEeqmgc633rmsYw" name="else"
+                           constrainedElement="_ZNJB3xEjEeqmgc633rmsYw">
+                    <specification xmi:type="uml:LiteralString" xmi:id="_ZNJB4REjEeqmgc633rmsYw" value="else"/>
+                </ownedRule>
+            </transition>
+        </region>
+    </packagedElement>
+</uml:Model>
