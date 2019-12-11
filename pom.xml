@@ -21,12 +21,16 @@
     </build>
     <packaging>jar</packaging>
     <dependencies>
+
+        <!-- utility dependency to reduce boilerplate code -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
         </dependency>
+        <!-- utility dependency to reduce boilerplate code -->
 
+        <!-- logging dependencies-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -39,24 +43,32 @@
             <version>1.0.9</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.8</version>
-        </dependency>
+        <!-- logging dependencies-->
 
+        <!-- Template Engines -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>3.0.11.RELEASE</version>
         </dependency>
+        <!-- Template Engines -->
 
+        <!-- Testing dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.0.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Testing dependencies -->
+
 
     </dependencies>
 
