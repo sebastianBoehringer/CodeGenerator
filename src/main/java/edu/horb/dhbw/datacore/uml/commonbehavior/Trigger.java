@@ -17,9 +17,4 @@ import java.util.List;
 public class Trigger extends NamedElement {
     private Event event;
     private List<Port> port = new ArrayList<>();
-
-    public void setPort(List<Port> port) {
-
-        this.port.addAll(port);
-    }
 }

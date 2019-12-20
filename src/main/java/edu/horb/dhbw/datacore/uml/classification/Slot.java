@@ -18,9 +18,4 @@ public class Slot extends Element {
     private List<ValueSpecification> value = new ArrayList<>();
     private InstanceSpecification owningInstance;
     private StructuralFeature definingFeature;
-
-    public void setValue(List<ValueSpecification> value) {
-
-        this.value.addAll(value);
-    }
 }

@@ -30,24 +30,4 @@ public class State extends Vertex {
     private List<Region> region = new ArrayList<>();
     private Constraint stateInvariant;
     private StateMachine submachince;
-
-    public void setConnection(List<ConnectionPointReference> connection) {
-
-        this.connection.addAll(connection);
-    }
-
-    public void setConnectionPoint(List<Pseudostate> connectionPoint) {
-
-        this.connectionPoint.addAll(connectionPoint);
-    }
-
-    public void setDeferrableTrigger(List<Trigger> deferrableTrigger) {
-
-        this.deferrableTrigger.addAll(deferrableTrigger);
-    }
-
-    public void setRegion(List<Region> region) {
-
-        this.region.addAll(region);
-    }
 }

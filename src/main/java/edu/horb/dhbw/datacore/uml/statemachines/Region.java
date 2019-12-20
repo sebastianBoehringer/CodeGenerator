@@ -18,14 +18,4 @@ public class Region extends Namespace {
     private StateMachine stateMachine;
     private List<Vertex> subvertex = new ArrayList<>();
     private List<Transition> transition = new ArrayList<>();
-
-    public void setSubvertex(List<Vertex> subvertex) {
-
-        this.subvertex.addAll(subvertex);
-    }
-
-    public void setTransition(List<Transition> transition) {
-
-        this.transition.addAll(transition);
-    }
 }

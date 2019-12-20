@@ -19,19 +19,4 @@ public class Interface extends Classifier {
     private List<Classifier> nestedClassifier = new ArrayList<>();
     private List<Property> ownedAttribute = new ArrayList<>();
     private List<Operation> ownedOperation = new ArrayList<>();
-
-    public void setNestedClassifier(List<Classifier> nestedClassifier) {
-
-        this.nestedClassifier.addAll(nestedClassifier);
-    }
-
-    public void setOwnedAttribute(List<Property> ownedAttribute) {
-
-        this.ownedAttribute.addAll(ownedAttribute);
-    }
-
-    public void setOwnedOperation(List<Operation> ownedOperation) {
-
-        this.ownedOperation.addAll(ownedOperation);
-    }
 }

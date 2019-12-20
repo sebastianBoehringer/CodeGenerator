@@ -7,7 +7,7 @@ import java.net.URI;
 
 @Data
 public abstract class CommonElements {
-    private String type;
+    private String umlType;
     private String id;
     private String name;
     private String uuid;

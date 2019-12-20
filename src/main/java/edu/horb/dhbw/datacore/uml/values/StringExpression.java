@@ -15,9 +15,4 @@ import java.util.List;
 public class StringExpression extends Expression {
     private List<StringExpression> subExpression = new ArrayList<>();
     private StringExpression owningExpression;
-
-    public void setSubExpression(List<StringExpression> subExpression) {
-
-        this.subExpression.addAll(subExpression);
-    }
 }

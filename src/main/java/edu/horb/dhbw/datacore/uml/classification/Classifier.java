@@ -27,33 +27,5 @@ public abstract class Classifier extends PackageableElement {
     private List<Feature> feature = new ArrayList<>();
     private GeneralizationSet powertypeExtent;
 
-    public void setAttribute(List<Property> attribute) {
 
-        this.attribute.addAll(attribute);
-    }
-
-    public void setInheritedMembers(List<NamedElement> inheritedMembers) {
-
-        this.inheritedMembers.addAll(inheritedMembers);
-    }
-
-    public void setFeature(List<Feature> feature) {
-
-        this.feature.addAll(feature);
-    }
-
-    public void setCollaborationUse(List<CollaborationUse> collaborationUse) {
-
-        this.collaborationUse.addAll(collaborationUse);
-    }
-
-    public void setGeneralization(List<Generalization> generalization) {
-
-        this.generalization.addAll(generalization);
-    }
-
-    public void setSubstitution(List<Substitution> substitution) {
-
-        this.substitution.addAll(substitution);
-    }
 }

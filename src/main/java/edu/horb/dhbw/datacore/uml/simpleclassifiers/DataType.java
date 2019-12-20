@@ -18,14 +18,4 @@ import java.util.List;
 public class DataType extends Classifier {
     private List<Property> ownedAttribute = new ArrayList<>();
     private List<Operation> ownedOperation = new ArrayList<>();
-
-    public void setOwnedAttribute(List<Property> ownedAttribute) {
-
-        this.ownedAttribute.addAll(ownedAttribute);
-    }
-
-    public void setOwnedOperation(List<Operation> ownedOperation) {
-
-        this.ownedOperation.addAll(ownedOperation);
-    }
 }

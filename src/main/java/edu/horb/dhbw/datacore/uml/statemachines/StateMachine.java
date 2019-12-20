@@ -17,14 +17,4 @@ public class StateMachine extends Behavior {
     private List<Pseudostate> connectionPoint = new ArrayList<>();
     private List<Region> region = new ArrayList<>();
     private State submachineState;
-
-    public void setConnectionPoint(List<Pseudostate> connectionPoint) {
-
-        this.connectionPoint.addAll(connectionPoint);
-    }
-
-    public void setRegion(List<Region> region) {
-
-        this.region.addAll(region);
-    }
 }

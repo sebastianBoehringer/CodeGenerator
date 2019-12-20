@@ -22,24 +22,4 @@ public class Association extends Relationship {
     private List<Property> ownedEnd = new ArrayList<>();
     private List<Property> memberEnd = new ArrayList<>();
     private List<Type> endType = new ArrayList<>();
-
-    public void setEndType(List<Type> endType) {
-
-        this.endType.addAll(endType);
-    }
-
-    public void setNavigableOwnedEnd(List<Property> navigableOwnedEnd) {
-
-        this.navigableOwnedEnd.addAll(navigableOwnedEnd);
-    }
-
-    public void setMemberEnd(List<Property> memberEnd) {
-
-        this.memberEnd.addAll(memberEnd);
-    }
-
-    public void setOwnedEnd(List<Property> ownedEnd) {
-
-        this.ownedEnd.addAll(ownedEnd);
-    }
 }

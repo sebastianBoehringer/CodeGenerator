@@ -32,10 +32,6 @@ public class Property extends StructuralFeature {
     private DataType datatype;
     private UMLClass umlClass;
 
-    public void setQualifier(List<Property> qualifier) {
-
-        this.qualifier.addAll(qualifier);
-    }
 
 
 }

@@ -13,9 +13,4 @@ import java.util.List;
 public class Comment {
     private String body;
     private List<Element> annotatedElement = new ArrayList<>();
-
-    public void setAnnotatedElement(List<Element> annotatedElement) {
-
-        this.annotatedElement.addAll(annotatedElement);
-    }
 }

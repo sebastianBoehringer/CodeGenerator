@@ -2,10 +2,7 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CollaborationUse extends NamedElement {
     private List<Dependency> roleBinding = new ArrayList<>();
-    //private Collaboration type;
-
-    public void setRoleBinding(List<Dependency> roleBinding) {
-
-        this.roleBinding.addAll(roleBinding);
-    }
+    @Getter(AccessLevel.NONE)
+    private Collaboration type;
+    //TODO issue with attribute of same name
 }

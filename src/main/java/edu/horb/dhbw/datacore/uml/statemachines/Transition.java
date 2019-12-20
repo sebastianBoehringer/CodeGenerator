@@ -25,9 +25,4 @@ public class Transition extends Namespace {
     private Vertex source;
     private Vertex target;
     private List<Trigger> trigger = new ArrayList<>();
-
-    public void setTrigger(List<Trigger> trigger) {
-
-        this.trigger.addAll(trigger);
-    }
 }

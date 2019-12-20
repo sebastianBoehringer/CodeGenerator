@@ -26,24 +26,4 @@ public abstract class Behavior extends UMLClass {
     private List<Constraint> precondition = new ArrayList<>();
     private BehavioralFeature specification;
     private BehavioredClassifier context;
-
-    public void setOwnedParameter(List<Parameter> ownedParameter) {
-
-        this.ownedParameter.addAll(ownedParameter);
-    }
-
-    public void setOwnedParameterSet(List<ParameterSet> ownedParameterSet) {
-
-        this.ownedParameterSet.addAll(ownedParameterSet);
-    }
-
-    public void setPostcondition(List<Constraint> postcondition) {
-
-        this.postcondition.addAll(postcondition);
-    }
-
-    public void setPrecondition(List<Constraint> precondition) {
-
-        this.precondition.addAll(precondition);
-    }
 }

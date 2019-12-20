@@ -17,9 +17,4 @@ import java.util.List;
 public class ComponentRealization extends Realization {
     private Component abstraction;
     private List<Classifier> realizingClassifier = new ArrayList<>();
-
-    public void setRealizingClassifier(List<Classifier> realizingClassifier) {
-
-        this.realizingClassifier.addAll(realizingClassifier);
-    }
 }

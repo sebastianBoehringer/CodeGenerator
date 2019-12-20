@@ -27,24 +27,4 @@ public class UMLClass extends EncapsulatedClassifier {
     {
         setIsAbstract(Boolean.FALSE);
     }
-
-    public void setExtension(List<Extension> extension) {
-
-        this.extension.addAll(extension);
-    }
-
-    public void setNestedClassifier(List<Classifier> nestedClassifier) {
-
-        this.nestedClassifier.addAll(nestedClassifier);
-    }
-
-    public void setOwnedAttribute(List<Property> ownedAttribute) {
-
-        this.ownedAttribute.addAll(ownedAttribute);
-    }
-
-    public void setOwnedOperation(List<Operation> ownedOperation) {
-
-        this.ownedOperation.addAll(ownedOperation);
-    }
 }

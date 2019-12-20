@@ -18,11 +18,7 @@ import java.util.List;
 public class Connector extends Feature {
     private ConnectorKind kind;
     private List<ConnectorEnd> end = new ArrayList<>();
-    //private Association type;
+    private Association type;
+    //todo issue with attribute of same name
     private Behavior contract;
-
-    public void setEnd(List<ConnectorEnd> end) {
-
-        this.end.addAll(end);
-    }
 }

@@ -14,9 +14,4 @@ import java.util.List;
 @AllArgsConstructor
 public class Enumeration extends DataType {
     private List<EnumerationLiteral> ownedLiteral = new ArrayList<>();
-
-    public void setOwnedLiteral(List<EnumerationLiteral> ownedLiteral) {
-
-        this.ownedLiteral.addAll(ownedLiteral);
-    }
 }

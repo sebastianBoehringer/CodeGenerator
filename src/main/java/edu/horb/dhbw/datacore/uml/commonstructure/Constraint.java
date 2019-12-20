@@ -18,8 +18,4 @@ public class Constraint extends PackageableElement {
     private Namespace context;
     private List<Element> constrainedElement = new ArrayList<>();
 
-    public void setConstrainedElement(List<Element> constrainedElement) {
-
-        this.constrainedElement.addAll(constrainedElement);
-    }
 }

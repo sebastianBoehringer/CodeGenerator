@@ -15,11 +15,7 @@ public class Generalization extends DirectedRelationship {
     private Boolean isSubstitutable;
     private Classifier specific;
     private Classifier general;
-
     private List<GeneralizationSet> generalizationSet = new ArrayList<>();
 
-    public void setGeneralizationSet(List<GeneralizationSet> generalizationSet) {
 
-        this.generalizationSet.addAll(generalizationSet);
-    }
 }

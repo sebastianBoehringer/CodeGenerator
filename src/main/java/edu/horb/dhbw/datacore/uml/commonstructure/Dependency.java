@@ -15,13 +15,4 @@ public class Dependency extends PackageableElement {
     private List<NamedElement> client;
     private List<NamedElement> supplier;
 
-    public void setClient(List<NamedElement> client) {
-
-        this.client.addAll(client);
-    }
-
-    public void setSupplier(List<NamedElement> supplier) {
-
-        this.supplier.addAll(supplier);
-    }
 }

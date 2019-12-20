@@ -23,13 +23,5 @@ public abstract class BehavioralFeature extends Feature {
     private Behavior method;
     private List<Type> raisedException = new ArrayList<>();
 
-    public void setOwnedParameter(List<Parameter> ownedParameter) {
 
-        this.ownedParameter.addAll(ownedParameter);
-    }
-
-    public void setOwnedParameterSet(List<ParameterSet> ownedParameterSet) {
-
-        this.ownedParameterSet.addAll(ownedParameterSet);
-    }
 }

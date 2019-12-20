@@ -31,6 +31,7 @@ public enum VisibilityKind {
             case PACKAGE:
                 ret = "";
                 break;
+            default:
         }
         return ret;
     }

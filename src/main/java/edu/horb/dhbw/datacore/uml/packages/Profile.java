@@ -17,14 +17,4 @@ import java.util.List;
 public class Profile extends UMLPackage {
     private List<ElementImport> metaclassReference = new ArrayList<>();
     private List<PackageImport> metamodelReference = new ArrayList<>();
-
-    public void setMetaclassReference(List<ElementImport> metaclassReference) {
-
-        this.metaclassReference.addAll(metaclassReference);
-    }
-
-    public void setMetamodelReference(List<PackageImport> metamodelReference) {
-
-        this.metamodelReference.addAll(metamodelReference);
-    }
 }

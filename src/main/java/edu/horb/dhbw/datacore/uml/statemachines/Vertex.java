@@ -17,14 +17,4 @@ public abstract class Vertex extends NamedElement {
     private Region container;
     private List<Transition> incoming = new ArrayList<>();
     private List<Transition> outgoing = new ArrayList<>();
-
-    public void setIncoming(List<Transition> incoming) {
-
-        this.incoming.addAll(incoming);
-    }
-
-    public void setOutgoing(List<Transition> outgoing) {
-
-        this.outgoing.addAll(outgoing);
-    }
 }

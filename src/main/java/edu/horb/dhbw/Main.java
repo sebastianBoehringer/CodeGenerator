@@ -14,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class Main {
+public final class Main {
 
-    public static void main(String[] args)
+    private Main() {
+
+    }
+
+    public static void main(final String[] args)
             throws Exception {
 
         TemplateEngine engine = ThymeleafConfig.templateEngine("");
@@ -30,7 +34,9 @@ public class Main {
         }
         context.setVariable("methods", operations);
 
-        String xmiFile = "src/main/resources/xmi/2SMs.xmi";       // XMI file with the UML model
+        String xmiFile =
+                "src/main/resources/xmi/2SMs.xmi";       // XMI file with the
+        // UML model
 
 
         Writer fileWriter = new FileWriter("./target/test.java");

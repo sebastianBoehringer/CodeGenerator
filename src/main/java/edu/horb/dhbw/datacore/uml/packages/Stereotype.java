@@ -16,9 +16,4 @@ import java.util.List;
 public class Stereotype extends UMLClass {
     private List<Image> icon = new ArrayList<>();
     private Profile profile;
-
-    public void setIcon(List<Image> icon) {
-
-        this.icon.addAll(icon);
-    }
 }

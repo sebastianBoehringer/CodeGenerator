@@ -19,24 +19,4 @@ public abstract class StructuredClassifier extends Classifier {
     private List<Connector> ownedConnector = new ArrayList<>();
     private List<ConnectableElement> role = new ArrayList<>();
     private List<Property> part = new ArrayList<>();
-
-    public void setRole(List<ConnectableElement> role) {
-
-        this.role.addAll(role);
-    }
-
-    public void setPart(List<Property> part) {
-
-        this.part.addAll(part);
-    }
-
-    public void setOwnedAttribute(List<Property> ownedAttribute) {
-
-        this.ownedAttribute.addAll(ownedAttribute);
-    }
-
-    public void setOwnedConnector(List<Connector> ownedConnector) {
-
-        this.ownedConnector.addAll(ownedConnector);
-    }
 }

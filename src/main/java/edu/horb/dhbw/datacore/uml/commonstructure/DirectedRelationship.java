@@ -15,14 +15,4 @@ import java.util.List;
 public abstract class DirectedRelationship extends Relationship {
     List<Element> source = new ArrayList<>();
     List<Element> target = new ArrayList<>();
-
-    public void setSource(List<Element> source) {
-
-        this.source.addAll(source);
-    }
-
-    public void setTarget(List<Element> target) {
-
-        this.target.addAll(target);
-    }
 }

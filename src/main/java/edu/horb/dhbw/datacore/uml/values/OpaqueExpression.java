@@ -19,14 +19,4 @@ public class OpaqueExpression extends ValueSpecification {
     private List<String> language = new ArrayList<>();
     private Behavior behavior;
     private Parameter result;
-
-    public void setBody(List<String> body) {
-
-        this.body.addAll(body);
-    }
-
-    public void setLanguage(List<String> language) {
-
-        this.language.addAll(language);
-    }
 }

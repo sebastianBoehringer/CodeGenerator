@@ -20,14 +20,4 @@ public class Port extends Property {
     private Boolean isService = Boolean.TRUE;
     private List<Interface> required = new ArrayList<>();
     private List<Interface> provided = new ArrayList<>();
-
-    public void setRequired(List<Interface> required) {
-
-        this.required.addAll(required);
-    }
-
-    public void setProvided(List<Interface> provided) {
-
-        this.provided.addAll(provided);
-    }
 }

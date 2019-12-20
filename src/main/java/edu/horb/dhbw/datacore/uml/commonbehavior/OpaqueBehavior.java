@@ -16,14 +16,4 @@ import java.util.List;
 public class OpaqueBehavior extends BehavioralFeature {
     private List<String> body = new ArrayList<>();
     private List<String> language = new ArrayList<>();
-
-    public void setBody(List<String> body) {
-
-        this.body.addAll(body);
-    }
-
-    public void setLanguage(List<String> language) {
-
-        this.language.addAll(language);
-    }
 }

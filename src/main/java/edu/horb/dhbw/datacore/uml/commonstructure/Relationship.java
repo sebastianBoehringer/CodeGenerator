@@ -14,9 +14,4 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class Relationship extends Element {
     private List<Element> relatedElement = new ArrayList<>();
-
-    public void setRelatedElement(List<Element> relatedElement) {
-
-        this.relatedElement.addAll(relatedElement);
-    }
 }

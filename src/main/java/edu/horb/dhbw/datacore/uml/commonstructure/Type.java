@@ -9,10 +9,4 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public abstract class Type extends PackageableElement {
 
-    public Type(String typename) {
-
-        this.setName(typename);
-    }
-
-
 }

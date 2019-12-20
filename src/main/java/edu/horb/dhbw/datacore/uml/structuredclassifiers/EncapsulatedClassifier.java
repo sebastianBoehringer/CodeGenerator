@@ -14,9 +14,4 @@ import java.util.List;
 @NoArgsConstructor
 public class EncapsulatedClassifier extends StructuredClassifier {
     private List<Port> ownedPort = new ArrayList<>();
-
-    public void setOwnedPort(List<Port> ownedPort) {
-
-        this.ownedPort.addAll(ownedPort);
-    }
 }

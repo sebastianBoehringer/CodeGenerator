@@ -15,9 +15,4 @@ import java.util.List;
 public class Expression extends ValueSpecification {
     private String symbol;
     private List<ValueSpecification> operand = new ArrayList<>();
-
-    public void setOperand(List<ValueSpecification> operand) {
-
-        this.operand.addAll(operand);
-    }
 }

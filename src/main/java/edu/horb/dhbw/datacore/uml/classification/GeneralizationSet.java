@@ -17,9 +17,6 @@ public class GeneralizationSet extends PackageableElement {
     private List<Generalization> generalization = new ArrayList<>();
     private Classifier powertype;
 
-    public void setGeneralization(List<Generalization> generalization) {
 
-        this.generalization.addAll(generalization);
-    }
 
 }

@@ -19,8 +19,4 @@ public class InstanceSpecification extends PackageableElement {
     private ValueSpecification specification;
     private Classifier classifier;
 
-    public void setSlot(List<Slot> slot) {
-
-        this.slot.addAll(slot);
-    }
 }
