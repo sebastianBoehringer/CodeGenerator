@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
  * Usually this would specialize an UML metaclass called RedefinableElement.
  * Since the Codegenerator does not support redefinition it instead
  * specializes {@link NamedElement} which is the only generalization of
- * RedefinalbeElement.
+ * RedefinableElement.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
