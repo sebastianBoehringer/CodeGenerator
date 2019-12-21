@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,26 +15,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.values;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 /**
- * Specifies a boolean value.
+ * Contains classes representing the UML package Values.
  * <br/>
- * See subclauses 8.2 and 8.6.8 of the UML specification for more details.
+ * See clause 8 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class LiteralBoolean extends LiteralSpecification<Boolean> {
-    /**
-     * The specified value.
-     */
-    private Boolean value = false;
-}
+package edu.horb.dhbw.datacore.uml.values;
