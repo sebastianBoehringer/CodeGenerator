@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,32 +15,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.enums;
-
 /**
- * Indicates the effect a behavior has on the values of its parameters.
+ * Contains classes representing the UML package Classification.
  * <br/>
- * See subclauses 9.4 and 9.9.15 of the UML specification for more details.
+ * See clause 9 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-public enum ParameterEffectKind {
-    /**
-     * The behavior creates a value.
-     */
-    CREATE,
-    /**
-     * The behavior only reads the value of a parameter and its associated
-     * links.
-     */
-    READ,
-    /**
-     * The behavior may change attributes of the parameter and its associated
-     * links.
-     */
-    UPDATE,
-    /**
-     * The behavior deletes the object. It does not exist after execution
-     * anymore.
-     */
-    DELETE
-}
+package edu.horb.dhbw.datacore.uml.classification;
