@@ -29,7 +29,7 @@ import java.util.List;
  * <br/>
  * See subclauses 7.7 and 7.8.4 of the UML specification for more details.
  * <br/>
- * This class is supposed to be a generalization of
+ * This class is supposed to be a specialization of
  * {@link DirectedRelationship} and {@link PackageableElement}. It currently
  * only inherits {@link PackageableElement}.
  */
