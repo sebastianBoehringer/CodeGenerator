@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,22 +15,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonstructure;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * Signifies that the client requires the supplier to function.
+ * Contains classes representing the UML package Common Structure.
  * <br/>
- * See subclauses 7.7 (especially 7.7.3.2) and 7.8.23 of the UML specification
- * for more details. The only differnece to {@link Dependency} is the added
- * semantic meaning.
+ * See clause 7 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public class Usage extends Dependency {
-}
+package edu.horb.dhbw.datacore.uml.commonstructure;

@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,22 +15,16 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonstructure;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * Signifies that the client requires the supplier to function.
+ * This package collects all the different kinds of enumerations used
+ * throughout the UML specification.
  * <br/>
- * See subclauses 7.7 (especially 7.7.3.2) and 7.8.23 of the UML specification
- * for more details. The only differnece to {@link Dependency} is the added
- * semantic meaning.
+ * Instead of keeping them in their original package, i. e. the package the
+ * UML specification puts them in, I have made the choice to collect them
+ * separately. This design choice may be changed at a later point in time.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public class Usage extends Dependency {
-}
+package edu.horb.dhbw.datacore.uml.enums;
