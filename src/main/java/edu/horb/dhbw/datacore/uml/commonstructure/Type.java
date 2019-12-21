@@ -21,6 +21,7 @@ import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Constrains the value of a {@link TypedElement}.
@@ -30,6 +31,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public abstract class Type extends PackageableElement {
     /**
      * The  {@link UMLPackage} owning this type.
