@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2019 Sebastian Boehringer.
+ *  This file is part of the CodeGenerator.
+ *
+ *  CodeGenerator is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ *  option) any later version.
+ * CodeGenerator is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+ * License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
@@ -10,16 +27,81 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A modular part of a system interacting with the other parts via its
+ * required and provided interfaces.
+ * <br/>
+ * See subclauses 11.6 and 11.8.6 of the UML specification for more details.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Component extends UMLClass {
+    /**
+     * If this is {@code true} then this component is realized by just having
+     * instances of its parts around, i. e. one does not need to initialize
+     * the component itself.
+     */
     private Boolean isIndirectlyInstantiated = Boolean.TRUE;
+    /**
+     * All model elements related to the definition of this component.
+     */
     private List<PackageableElement> packagedElement = new ArrayList<>();
+    /**
+     * The elements realizing this component.
+     */
     private List<ComponentRealization> realization = new ArrayList<>();
+    /**
+     * The set of interfaces this component provides to the rest of the
+     * system. This attribute can be derived .
+     */
     private List<Interface> provided = new ArrayList<>();
+    /**
+     * The set of interfaces this component requires to function. This
+     * attribute can be derived.
+     */
     private List<Interface> required = new ArrayList<>();
+
+    /**
+     * Adds a new packageableElement to {@link #packagedElement}.
+     *
+     * @param element The packageableElement to add
+     */
+    public void addPackagedElement(final PackageableElement element) {
+
+        packagedElement.add(element);
+    }
+
+    /**
+     * Adds a new componentRealization to {@link #realization}.
+     *
+     * @param componentRealization The componentRealization to add
+     */
+    public void addRealization(final ComponentRealization componentRealization) {
+
+        realization.add(componentRealization);
+    }
+
+    /**
+     * Adds a new interface to {@link #provided}.
+     *
+     * @param anInterface The interface to add
+     */
+    public void addProvided(final Interface anInterface) {
+
+        provided.add(anInterface);
+    }
+
+    /**
+     * Adds a new interface to {@link #required}.
+     *
+     * @param anInterface The interface to add
+     */
+    public void addRequired(final Interface anInterface) {
+
+        required.add(anInterface);
+    }
 
 
 }
