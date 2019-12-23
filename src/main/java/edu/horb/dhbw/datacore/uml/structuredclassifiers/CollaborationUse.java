@@ -1,19 +1,59 @@
+/*
+ * Copyright (c) 2019 Sebastian Boehringer.
+ *  This file is part of the CodeGenerator.
+ *
+ *  CodeGenerator is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ *  option) any later version.
+ * CodeGenerator is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+ * License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Shows the application of a {@link Collaboration}.
+ * <br/>
+ * See subclauses 11.7 and 11.8.5 of the UML specification for more details.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CollaborationUse extends NamedElement {
+public final class CollaborationUse extends NamedElement {
+    /**
+     * A mapping between features of the collaboration and features of
+     * {@link #getOwner()} of this collaborationUse.
+     */
     private List<Dependency> roleBinding = new ArrayList<>();
-    @Getter(AccessLevel.NONE)
+    /**
+     * The collaboration this collaborationUse shows an application of.
+     */
     private Collaboration type;
-    //TODO issue with attribute of same name
+
+    /**
+     * Adds a new dependency to {@link #roleBinding}.
+     *
+     * @param dependency The dependency to add
+     */
+    public void addRoleBinding(final Dependency dependency) {
+
+        roleBinding.add(dependency);
+    }
 }

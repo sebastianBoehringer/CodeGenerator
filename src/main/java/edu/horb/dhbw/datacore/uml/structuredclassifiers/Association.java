@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2019 Sebastian Boehringer.
+ *  This file is part of the CodeGenerator.
+ *
+ *  CodeGenerator is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ *  option) any later version.
+ * CodeGenerator is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+ * License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Property;
@@ -11,15 +28,71 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A way to classify links which are tuples refering to
+ * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}s.
+ * <br/>
+ * See subclauses 11.5 and 11.8.1 of the UML specification for more details.
+ * This should be a specialization of both {@link Relationship} and
+ * {@link edu.horb.dhbw.datacore.uml.classification.Classifier}. It currently
+ * only inherits from {@link Relationship}.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Association extends Relationship {
-    //TODO erbt auch von Classifier
+    //TODO resolve inheritance
+    /**
+     * If this is  {@code true} the association can be derived with the help
+     * other elements in the model.
+     */
     private Boolean isDerived = Boolean.FALSE;
+    /**
+     * Navigable ends which are owned by the association.
+     */
     private List<Property> navigableOwnedEnd = new ArrayList<>();
+    /**
+     * Ends owned by the association.
+     */
     private List<Property> ownedEnd = new ArrayList<>();
+    /**
+     * The elements participating in this association.
+     */
     private List<Property> memberEnd = new ArrayList<>();
+    /**
+     * The types of the elements participating in this association. This
+     * attribute can be derived.
+     */
     private List<Type> endType = new ArrayList<>();
+
+    /**
+     * Adds a new property to {@link #navigableOwnedEnd}.
+     *
+     * @param property The property to add
+     */
+    public void addNavigableOwnedEnd(final Property property) {
+
+        navigableOwnedEnd.add(property);
+    }
+
+    /**
+     * Adds a new property to {@link #ownedEnd}.
+     *
+     * @param property The property to add
+     */
+    public void addOwnedEnd(final Property property) {
+
+        ownedEnd.add(property);
+    }
+
+    /**
+     * Adds a new property to {@link #memberEnd}.
+     *
+     * @param property The property to add
+     */
+    public void addMemberEnd(final Property property) {
+
+        memberEnd.add(property);
+    }
 }
