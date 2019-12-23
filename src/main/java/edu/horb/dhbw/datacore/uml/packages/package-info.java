@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,27 +15,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.packages;
-
-import edu.horb.dhbw.datacore.uml.classification.Property;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 /**
- * Ties an {@link Extension} to a {@link Stereotype}.
+ * Contains classes representing the UML package Packages.
  * <br/>
- * See subclauses 12.3 and 12.4.2 of the UML specification for more details.
+ * See clause 12 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class ExtensionEnd extends Property {
-    /**
-     * The stereotype the extension is tied to.
-     */
-    private Stereotype stereotype;
-}
+package edu.horb.dhbw.datacore.uml.packages;
