@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2019 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
@@ -14,21 +15,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.simpleclassifiers;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * Represents a type without any substructure, i. e. it has a single
- * attribute, its value. Examples of primitive types are string,
- * {@link edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural}, etc.
+ * Contains classes representing the UML package Simple Classifiers.
  * <br/>
- * See subclauses 10.2 (especially 10.2.3.2) and 10.5.7 of the UML
- * specification for more details.
+ * See clause 10 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class PrimitiveType extends DataType {
-}
+package edu.horb.dhbw.datacore.uml.simpleclassifiers;
