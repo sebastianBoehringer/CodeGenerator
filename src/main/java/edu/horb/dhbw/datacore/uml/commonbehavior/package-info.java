@@ -14,23 +14,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonbehavior;
-
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 /**
- * Something that can trigger effects by occurring.
+ * Contains classes representing the UML package Common Behavior.
  * <br/>
- * See subclauses 13.3 and 13.4.5 of the UML specification for more details.
+ * See clause 13 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class Event extends PackageableElement {
-}
+package edu.horb.dhbw.datacore.uml.commonbehavior;
