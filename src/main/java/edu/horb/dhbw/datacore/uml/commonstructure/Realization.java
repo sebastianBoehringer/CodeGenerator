@@ -20,6 +20,7 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents that the client is actually the implementation of the supplier.
@@ -31,6 +32,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Realization extends Abstraction {
 
 }

@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.values;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Specifies a string value.
@@ -29,7 +28,6 @@ import lombok.NoArgsConstructor;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public final class LiteralString extends LiteralSpecification<String> {
     /**

@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,6 +31,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
 public abstract class LiteralSpecification<T> extends ValueSpecification {
 
     /**

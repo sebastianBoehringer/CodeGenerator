@@ -17,8 +17,10 @@
 
 package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Represents a type without any substructure, i. e. it has a single
@@ -30,5 +32,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PrimitiveType extends DataType {
 }

@@ -21,7 +21,6 @@ import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Specifies an unlimited natural value.
@@ -30,12 +29,11 @@ import lombok.NoArgsConstructor;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public final class LiteralUnlimitedNatural
         extends LiteralSpecification<UnlimitedNatural> {
     /**
      * The specified value.
      */
-    private UnlimitedNatural value = new UnlimitedNatural(0L);
+    private UnlimitedNatural value;
 }

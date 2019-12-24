@@ -17,8 +17,10 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * An element that has a type specified for it.
@@ -27,6 +29,8 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class TypedElement extends NamedElement {
 
     /**
