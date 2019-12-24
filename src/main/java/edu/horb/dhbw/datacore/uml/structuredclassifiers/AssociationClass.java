@@ -17,6 +17,11 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  * A special case of an {@link Association} where the association itself owns
  * {@link edu.horb.dhbw.datacore.uml.classification.Property}s.
@@ -25,6 +30,10 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
  * This should specialize both {@link Association} and {@link UMLClass}. It
  * only inherits from {@link Association}.
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public final class AssociationClass extends Association {
     //TODO resolve inheritance
 }

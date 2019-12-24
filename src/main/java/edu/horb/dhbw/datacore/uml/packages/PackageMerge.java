@@ -18,8 +18,10 @@
 package edu.horb.dhbw.datacore.uml.packages;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * A special way to add a package to another one. The concepts for two
@@ -32,6 +34,8 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public final class PackageMerge extends DirectedRelationship {
     /**
      * The package merged into {@link #receivingPackage}.

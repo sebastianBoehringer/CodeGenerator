@@ -1,5 +1,6 @@
 package edu.horb.dhbw.datacore.uml.values;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -10,10 +11,11 @@ import lombok.ToString;
  */
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public final class LiteralNull extends LiteralSpecification<Object> {
+@AllArgsConstructor
+public final class LiteralNull extends LiteralSpecification<Void> {
 
     @Override
-    public Object getValue() {
+    public Void getValue() {
 
         return null;
     }

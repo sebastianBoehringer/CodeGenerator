@@ -20,6 +20,7 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Signifies that the client requires the supplier to function.
@@ -31,5 +32,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Usage extends Dependency {
 }

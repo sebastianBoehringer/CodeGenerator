@@ -21,6 +21,7 @@ import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * An {@link Element} that can be owned by an
@@ -34,6 +35,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public abstract class PackageableElement extends NamedElement {
 
     {
