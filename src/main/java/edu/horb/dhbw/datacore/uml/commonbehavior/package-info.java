@@ -16,7 +16,6 @@
  */
 /**
  * Contains classes representing the UML package Common Behavior.
- * <br/>
  * See clause 13 of the UML specification for more details.
  *
  * @author sebastianBoehringer

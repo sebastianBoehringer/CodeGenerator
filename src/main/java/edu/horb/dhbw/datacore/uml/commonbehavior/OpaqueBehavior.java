@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <br/>
+ * A kind of behavior that is specified with a language that is not UML.
  * See subclauses 13.2 and 13.4.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

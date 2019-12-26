@@ -33,7 +33,6 @@ import java.util.List;
 
 /**
  * A behavior describes how a {@link BehavioredClassifier} acts over time.
- * <br/>
  * See subclauses 13.2 and 13.4.2 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

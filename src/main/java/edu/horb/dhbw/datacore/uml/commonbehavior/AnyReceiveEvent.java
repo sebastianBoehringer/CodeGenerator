@@ -20,18 +20,15 @@ package edu.horb.dhbw.datacore.uml.commonbehavior;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
- * An event that is triggered by receiving any kind fo message. The event is
- * not triggered if any other {@link Trigger} is relying on a more specific
- * message.
- * <br/>
+ * An event that is triggered by receiving any kind fo message.
+ * The event is not triggered if any other {@link Trigger} is relying on a
+ * more specific message.
  * See subclauses 13.3 and 13.4.1 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public final class AnyReceiveEvent extends MessageEvent {
 }

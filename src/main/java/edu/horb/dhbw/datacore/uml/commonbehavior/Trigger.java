@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * A trigger may react to a certain event type and may invoke a special
  * behavior.
- * <br/>
  * See subclauses 13.3 and 13.4.11 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

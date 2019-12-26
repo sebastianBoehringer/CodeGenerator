@@ -20,17 +20,14 @@ package edu.horb.dhbw.datacore.uml.commonbehavior;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * An event that is received by the reception of a message, i. e. by calling
  * an operation or receiving a signal.
- * <br/>
  * See subclauses 13.3 and 13.4.7 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class MessageEvent extends Event {
 }

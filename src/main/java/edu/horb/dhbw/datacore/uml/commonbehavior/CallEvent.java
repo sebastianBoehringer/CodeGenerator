@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Triggers when a certain operation is invoked on an object.
- * <br/>
  * See subclauses 13.3 and 13.4.3 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

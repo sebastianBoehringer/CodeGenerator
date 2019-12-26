@@ -21,16 +21,13 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Something that can trigger effects by occurring.
- * <br/>
  * See subclauses 13.3 and 13.4.5 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public abstract class Event extends PackageableElement {
 }

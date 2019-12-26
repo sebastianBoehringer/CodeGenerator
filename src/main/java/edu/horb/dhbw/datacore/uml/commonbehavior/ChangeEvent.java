@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * An event that fires when its {@link #changeExpression} becomes {@code true}.
- * <br/>
  * See subclauses 13.3 and 13.4.4 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
