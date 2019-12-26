@@ -27,7 +27,6 @@ import lombok.NoArgsConstructor;
  * An Abstraction is a Relationship that relates two Elements or sets of
  * Elements that represent the same concept at different levels of
  * abstraction or from different viewpoints.
- * <br/>
  * See subclauses 7.7 and 7.8.1 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

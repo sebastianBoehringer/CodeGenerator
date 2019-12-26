@@ -17,7 +17,6 @@
  */
 /**
  * Contains classes representing the UML package Common Structure.
- * <br/>
  * See clause 7 of the UML specification for more details.
  *
  * @author sebastianBoehringer

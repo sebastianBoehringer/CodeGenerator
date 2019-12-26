@@ -21,12 +21,10 @@ import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * An {@link Element} that can be owned by an
  * {@link edu.horb.dhbw.datacore.uml.packages.UMLPackage}.
- * <br/>
  * See subclauses 7.4 and 7.8.12 of the UML specification for more details.
  * The only differences besides the added semantic meaning is that
  * {@link #getVisbility()} defaults to {@link VisibilityKind#PUBLIC}.
@@ -35,7 +33,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public abstract class PackageableElement extends NamedElement {
 
     {

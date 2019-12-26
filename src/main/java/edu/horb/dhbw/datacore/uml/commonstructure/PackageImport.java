@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
  * Represents a relation that imports all elements with a
  * {@link VisibilityKind} that is not {@link VisibilityKind#PRIVATE} into the
  * owning {@link Namespace}.
- * <br/>
  * See subclauses 7.4 and 7.8.11 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * Namespaces collect {@link Element}s that can be identified via their name.
- * <br/>
  * See subclauses 7.4 and 7.8.10 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

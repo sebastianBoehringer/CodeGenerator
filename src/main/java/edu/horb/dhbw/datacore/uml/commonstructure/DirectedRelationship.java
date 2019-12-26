@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * Represents a relationship between a source and a target.
- * <br/>
  * It might apply to multiple sources and/or targets. See subclauses 7.2 and
  * 7.8.5 of the UML specification for more details.
  */

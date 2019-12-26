@@ -28,7 +28,6 @@ import java.util.List;
 
 /**
  * Represents an assertion about an {@link Element}.
- * <br/>
  * See subclauses 7.6 and 7.8.3 of the UML specification for more details
  */
 @EqualsAndHashCode(callSuper = true)
@@ -38,7 +37,6 @@ import java.util.List;
 public class Constraint extends PackageableElement {
     /**
      * A condition evaluating to a boolean value.
-     * <br/>
      * This must return {@code true} for the constraint to hold.
      */
     private ValueSpecification specification;

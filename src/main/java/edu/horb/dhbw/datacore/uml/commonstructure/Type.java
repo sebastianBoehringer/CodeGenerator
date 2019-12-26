@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Constrains the value of a {@link TypedElement}.
- * <br/>
  * See subclauses 7.5 and 7.8.21 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

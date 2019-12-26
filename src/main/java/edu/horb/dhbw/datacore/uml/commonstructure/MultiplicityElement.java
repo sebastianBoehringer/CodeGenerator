@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Defines the cardinality of the attribute it is applied to.
- * <br/>
  * See subclauses 7.5 and 7.8.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

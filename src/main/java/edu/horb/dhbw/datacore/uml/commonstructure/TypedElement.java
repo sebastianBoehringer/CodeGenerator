@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * An element that has a type specified for it.
- * <br/>
  * See subclauses 7.5 and 7.8.22 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

@@ -20,11 +20,9 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Represents that the client is actually the implementation of the supplier.
- * <br/>
  * See subclauses 7.7 (especially 7.7.3.4) and 7.8.14 of the UML specification
  * for more details.
  * The only difference to {@link Abstraction} is the added semantic meaning.
@@ -32,7 +30,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Realization extends Abstraction {
 
 }

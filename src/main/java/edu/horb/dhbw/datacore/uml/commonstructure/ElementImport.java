@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 /**
  * Allows an {@link Element} of a different {@link Namespace} to be
  * referenced in this namespace without a fully qualified name.
- * <br/>
  * See subclauses 7.4 and 7.8.7 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

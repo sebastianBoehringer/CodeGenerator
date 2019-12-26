@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * An {@link Element} which may hold a name.
- * <br/>
  * See subclauses 7.4 (especially 7.4.3.2) and 7.8.9 of the UML specification
  * for more details.
  */

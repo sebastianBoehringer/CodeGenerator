@@ -28,7 +28,6 @@ import java.util.List;
 
 /**
  * Represents a part of a model.
- * <br/>
  * This is the basic building block of UML.
  * See subclauses 7.2 and 7.8.6 of the UML specification for more details.
  */

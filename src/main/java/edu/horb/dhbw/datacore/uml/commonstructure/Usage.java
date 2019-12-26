@@ -20,18 +20,15 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Signifies that the client requires the supplier to function.
- * <br/>
  * See subclauses 7.7 (especially 7.7.3.2) and 7.8.23 of the UML specification
- * for more details. The only differnece to {@link Dependency} is the added
+ * for more details. The only difference to {@link Dependency} is the added
  * semantic meaning.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Usage extends Dependency {
 }

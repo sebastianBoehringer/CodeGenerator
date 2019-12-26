@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * Specifies a kind of relationship between tow {@link Element}s.
- * <br/>
  * See subclauses 7.2 (especially 7.2.3.3) and 7.8.15 of the UML specification
  * for more details.
  */

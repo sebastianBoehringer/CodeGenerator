@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * Represents information useful to the reader.
- * <br/>
  * See subclauses 7.2 (especially 7.2.3.2) and 7.8.2 of the UML specification
  * for more details.
  */
