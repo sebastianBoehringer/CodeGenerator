@@ -21,7 +21,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 /**
  * Defines the different kinds of
  * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector}s.
- * <br/>
  * See subclauses 11.2 and 11.8.12 of the UML specification for more details.
  */
 public enum ConnectorKind {

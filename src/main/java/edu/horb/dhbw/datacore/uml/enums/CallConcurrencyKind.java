@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 /**
  * Specifies the semantics of a concurrent call to a
  * {@link edu.horb.dhbw.datacore.uml.classification.BehavioralFeature}.
- * <br/>
  * See subclauses 9.4 and 9.9.3 of the UML specification for more details.
  */
 public enum CallConcurrencyKind {

@@ -19,7 +19,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 
 /**
  * Indicates the effect a behavior has on the values of its parameters.
- * <br/>
  * See subclauses 9.4 and 9.9.15 of the UML specification for more details.
  */
 public enum ParameterEffectKind {

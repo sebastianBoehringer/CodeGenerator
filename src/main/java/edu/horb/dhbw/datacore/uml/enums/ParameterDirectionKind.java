@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 /**
  * Determines the way a parameter is used in an
  * {@link edu.horb.dhbw.datacore.uml.classification.Operation}.
- * <br/>
  * See subclauses 9.4 and 9.9.14 of the UML specification for more details.
  */
 public enum ParameterDirectionKind {

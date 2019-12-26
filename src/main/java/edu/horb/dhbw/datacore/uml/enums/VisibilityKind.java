@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 /**
  * Determines the visibility of
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.Element}s in a Model.
- * <br/>
  * See subclauses 7.4 and 7.8.23 of the UML specification for more details.
  */
 public enum VisibilityKind {

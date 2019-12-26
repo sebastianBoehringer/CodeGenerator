@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.enums;
 /**
  * Specifies the aggregation of a
  * {@link edu.horb.dhbw.datacore.uml.classification.Property}.
- * <br/>
  * See subclauses 9.5 and 9.9.1 of the UML specification for more details.
  */
 public enum AggregationKind {

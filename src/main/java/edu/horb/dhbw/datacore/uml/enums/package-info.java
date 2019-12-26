@@ -18,7 +18,6 @@
 /**
  * This package collects all the different kinds of enumerations used
  * throughout the UML specification.
- * <br/>
  * Instead of keeping them in their original package, i. e. the package the
  * UML specification puts them in, I have made the choice to collect them
  * separately. This design choice may be changed at a later point in time.
