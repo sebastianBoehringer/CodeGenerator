@@ -28,9 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A profile is the main way to customize UML. This is mainly done by
- * utilizing {@link Stereotype}s.
- * <br/>
+ * A profile is the main way to customize UML.
+ * This is mainly done by utilizing {@link Stereotype}s.
  * See subclauses 12.3 and 12.4.7 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

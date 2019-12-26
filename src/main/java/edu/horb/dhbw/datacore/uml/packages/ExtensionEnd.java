@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Ties an {@link Extension} to a {@link Stereotype}.
- * <br/>
  * See subclauses 12.3 and 12.4.2 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

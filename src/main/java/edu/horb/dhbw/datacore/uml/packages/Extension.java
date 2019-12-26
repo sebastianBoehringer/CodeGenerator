@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Indicates that a metaclass is extended via a {@link Stereotype}.
- * <br/>
  * See subclauses 12.3 and 12.4.1 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
@@ -48,6 +47,6 @@ public final class Extension extends Association {
     /**
      * The end of the extension that connects to a {@link Stereotype}.
      */
-    private ExtensionEnd ownedEnd;
+    private ExtensionEnd ownedExtensionEnd;
 
 }

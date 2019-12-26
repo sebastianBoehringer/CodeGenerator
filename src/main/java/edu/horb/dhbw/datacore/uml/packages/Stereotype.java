@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Defines how a metaclass may be extended. This is also the basis for
  * defining profiles so that one may use domain specific terminology.
- * <br/>
  * See subclauses 12.3 and 12.4.9 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

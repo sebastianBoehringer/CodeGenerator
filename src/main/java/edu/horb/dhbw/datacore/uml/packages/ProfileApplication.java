@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Shows which {@link Profile}s have been applied to an {@link UMLPackage}.
- * <br/>
  * See subclauses 12.3 and 12.4.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

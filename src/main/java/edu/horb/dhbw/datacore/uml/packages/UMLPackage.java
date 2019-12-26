@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * The main way to logically group {@link PackageableElement}s.
- * <br/>
  * See subclauses 12.2 and 12.4.5 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

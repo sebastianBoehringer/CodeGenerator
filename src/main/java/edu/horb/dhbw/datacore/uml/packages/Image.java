@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Defines a graphical image for an UML element.
- * <br/>
  * See subclauses 12.3 and 12.4.3 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
