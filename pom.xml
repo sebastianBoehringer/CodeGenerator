@@ -15,7 +15,27 @@
                 <configuration>
                     <source>13</source>
                     <target>13</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
+                <version>3.8.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <show>private</show>
+                    <nosince>true</nosince>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -69,6 +89,13 @@
         </dependency>
         <!-- Testing dependencies -->
 
+        <!-- Dependency for XMI-parsing. This has to be installed into your
+        local repository since it is not distributed on maven central.-->
+        <dependency>
+            <groupId>com.SDMetrics</groupId>
+            <artifactId>open-core</artifactId>
+            <version>2.35</version>
+        </dependency>
 
     </dependencies>
 
