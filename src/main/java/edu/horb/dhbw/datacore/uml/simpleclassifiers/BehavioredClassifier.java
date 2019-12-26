@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * A classifier that can own {@link Behavior}s.
- * <br/>
  * See subclauses 10.4 and 10.5.1 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

@@ -14,21 +14,12 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.statemachines;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * Signifies that a {@link Region} has completed its execution when this
- * state is entered. This does add nothing special to {@link State} besides
- * the additional semantic meaning.
- * See subclauses 14.2 and 14.5.2 of the UML specification for more details.
+ * Contains classes representing the UML package StateMachines.
+ * See clause 14 of the UML specification for more details.
+ *
+ * @author sebastianBoehringer
+ * @version 0.1
+ * @since 0.1
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public final class FinalState extends State {
-}
+package edu.horb.dhbw.datacore.uml.statemachines;

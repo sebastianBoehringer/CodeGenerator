@@ -17,7 +17,6 @@
  */
 /**
  * Contains classes representing the UML package Simple Classifiers.
- * <br/>
  * See clause 10 of the UML specification for more details.
  *
  * @author sebastianBoehringer

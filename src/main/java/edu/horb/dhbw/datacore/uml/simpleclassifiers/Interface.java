@@ -31,7 +31,6 @@ import java.util.List;
 /**
  * Defines a contract that a {@link BehavioredClassifier} can implement via
  * an {@link InterfaceRealization}.
- * <br/>
  * See subclauses 10.4 and 10.5.5 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

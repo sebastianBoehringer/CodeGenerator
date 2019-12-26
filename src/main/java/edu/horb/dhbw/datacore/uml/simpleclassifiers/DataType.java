@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * A special set of classifiers that can be identified by their value.
- * <br/>
  * See subclauses 10.2 and 10.5.2 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

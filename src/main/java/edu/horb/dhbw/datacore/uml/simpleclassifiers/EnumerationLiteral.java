@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * Specifies a value of an {@link Enumeration}.
- * <br/>
  * See subclauses 10.2 and 10.5.4 of the UML specification for more details.
  * This also constrains {@link #getClassifier()} to return a singleton list
  * whose only value is {@link #enumeration}.

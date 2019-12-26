@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,13 +25,11 @@ import lombok.NoArgsConstructor;
  * Represents a type without any substructure, i. e. it has a single
  * attribute, its value. Examples of primitive types are string,
  * {@link edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural}, etc.
- * <br/>
  * See subclauses 10.2 (especially 10.2.3.2) and 10.5.7 of the UML
  * specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class PrimitiveType extends DataType {
 }

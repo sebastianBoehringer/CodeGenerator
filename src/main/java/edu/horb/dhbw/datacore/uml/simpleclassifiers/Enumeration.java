@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * A datatype whose values can be enumerated.
- * <br/>
  * See subclauses 10.2 and 10.5.3 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
