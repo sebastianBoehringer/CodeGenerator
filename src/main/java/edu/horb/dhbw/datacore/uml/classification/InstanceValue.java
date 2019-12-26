@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Identifies a certain instance.
- * <br/>
  * See subclauses 9.8 and 9.9.10 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

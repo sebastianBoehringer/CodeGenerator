@@ -35,7 +35,6 @@ import java.util.List;
  * Specifies the invokation of a
  * {@link edu.horb.dhbw.datacore.uml.commonbehavior.Behavior} associated to a
  * {@link BehavioralFeature}.
- * <br/>
  * See subclauses 9.6 and 9.9.11 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

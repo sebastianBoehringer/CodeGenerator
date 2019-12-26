@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Describes part of the structure of a classifier.
- * <br/>
  * See subclauses 9.4 and 9.9.21 of the UML specification for more details.
  * This should specialize
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement},

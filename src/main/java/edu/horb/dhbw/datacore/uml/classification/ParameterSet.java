@@ -25,10 +25,9 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * Represents alternative inputs/ outputs of a {@link BehavioralFeature}. It
- * accepts only one parameter of the set as input and produces only one of
+ * Represents alternative inputs/ outputs of a {@link BehavioralFeature}.
+ * It accepts only one parameter of the set as input and produces only one of
  * the parameters as output
- * <br/>
  * See subclauses 9.2 and 9.9.16 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

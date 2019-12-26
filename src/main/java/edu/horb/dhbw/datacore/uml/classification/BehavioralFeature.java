@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * Specifies an aspect of the behavior of the owning {@link Classifier}.
- * <br/>
  * See subclauses 9.4 and 9.9.2 of the UML specification for more details.
  * This should be a specialization of {@link Feature} and
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}. It currently

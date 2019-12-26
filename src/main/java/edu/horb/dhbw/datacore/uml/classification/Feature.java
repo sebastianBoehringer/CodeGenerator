@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Defines a behavioral or structural characteristic of a {@link Classifier}.
- * <br/>
  * See subclauses 9.4 and 9.9.6 of the UML specification for more details.
  * Usually this would specialize an UML metaclass called RedefinableElement.
  * Since the Codegenerator does not support redefinition it instead

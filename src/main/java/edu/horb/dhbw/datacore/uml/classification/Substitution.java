@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 /**
  * Describes that classifier conforms to a contract and thus instances of the
  * classifier can be used in the contract's place.
- * <br/>
  * See subclauses 9.2 (especially 9.2.3.4) and 9.9.22 of the UML specification
  * for more details.
  */

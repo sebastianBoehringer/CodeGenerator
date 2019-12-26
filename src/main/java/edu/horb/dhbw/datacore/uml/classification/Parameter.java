@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * Represents an argument for the invocation of a behavior.
- * <br/>
  * See subclauses 9.4 (especially 9.4.3.4) and 9.9.13 of the UML specification
  * for more details.
  * This should specializes both {@link ConnectableElement} and

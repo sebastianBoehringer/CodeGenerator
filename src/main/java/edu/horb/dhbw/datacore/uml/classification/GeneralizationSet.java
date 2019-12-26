@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * A special way to group {@link Generalization}s and add more semantic
  * meaning to them.
- * <br/>
  * See subclauses 9.7 and 9.9.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

@@ -33,7 +33,6 @@ import java.util.List;
 
 /**
  * Represents the attributes of a classifier.
- * <br/>
  * See subclauses 9.5 and 9.9.17 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

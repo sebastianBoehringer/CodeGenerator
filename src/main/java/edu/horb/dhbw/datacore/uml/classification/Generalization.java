@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * Represents the relationship between two classifier where the one
  * specializes the other.
- * <br/>
  * See subclauses 9.2 (especially 9.2.3.2) and 9.9.7 of the UML specification
  * for more details.
  */

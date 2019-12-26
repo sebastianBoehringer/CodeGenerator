@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Encapsulates a value for a {@link StructuralFeature} of an
  * {@link InstanceSpecification}.
- * <br/>
  * See subclauses 9.8 and 9.9.20 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

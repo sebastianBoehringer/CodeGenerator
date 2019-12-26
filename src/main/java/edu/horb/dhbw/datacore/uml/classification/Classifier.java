@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * Represents a way to classify a set of instances according to their features.
- * <br/>
  * See subclauses 9.2 and 9.9.4 of the UML specification for more details.
  * This should be a specialization of
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.Type} and

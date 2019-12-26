@@ -28,9 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents an instance of the model(ed element). This can be used as a way
- * to represent a (default) constructor.
- * <br/>
+ * Represents an instance of the model(ed element).
+ * This can be used as a way to represent a (default) constructor.
  * See subclauses 9.8 and 9.9.9 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
