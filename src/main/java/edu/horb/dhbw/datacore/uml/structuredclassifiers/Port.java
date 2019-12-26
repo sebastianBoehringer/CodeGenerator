@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Specifies an interaction point between an {@link EncapsulatedClassifier}
  * and its environment.
- * <br/>
  * See subclauses 11.3 and 11.8.14 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
@@ -44,8 +43,8 @@ public final class Port extends Property {
      */
     private Boolean isBehavior = Boolean.FALSE;
     /**
-     * Determines how {@link #required} and {@link #provided} are derived. If
-     * this is {@code true} {@link #provided} is derived by collecting the
+     * Determines how {@link #required} and {@link #provided} are derived.
+     * If this is {@code true} {@link #provided} is derived by collecting the
      * {@link Interface}s the port (and its supertypes) realize,
      * {@link #required} is derived by collecting the interfaces used by the
      * ports and its supertypes. If this is {@code false} the way of deriving

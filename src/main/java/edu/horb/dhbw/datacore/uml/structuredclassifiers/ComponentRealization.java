@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Defines the {@link Classifier}s that realize the contract laid out by a
  * {@link Component}.
- * <br/>
  * See subclauses 11.6 and 11.8.7 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

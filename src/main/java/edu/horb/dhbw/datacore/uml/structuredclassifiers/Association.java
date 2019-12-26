@@ -29,9 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A way to classify links which are tuples refering to
+ * A way to classify links which are tuples referring to
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}s.
- * <br/>
  * See subclauses 11.5 and 11.8.1 of the UML specification for more details.
  * This should be a specialization of both {@link Relationship} and
  * {@link edu.horb.dhbw.datacore.uml.classification.Classifier}. It currently

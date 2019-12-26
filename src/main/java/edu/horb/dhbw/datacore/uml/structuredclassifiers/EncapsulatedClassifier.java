@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * A classifier that can own ports.
- * <br/>
  * See subclauses 11.3 and 11.8.13 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * A modular part of a system interacting with the other parts via its
  * required and provided interfaces.
- * <br/>
  * See subclauses 11.6 and 11.8.6 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

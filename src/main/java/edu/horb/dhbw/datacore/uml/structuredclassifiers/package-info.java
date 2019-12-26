@@ -17,7 +17,6 @@
  */
 /**
  * Contains classes representing the UML package Structured Classifiers.
- * <br/>
  * See clause 11 of the UML specification for more details.
  *
  * @author sebastianBoehringer

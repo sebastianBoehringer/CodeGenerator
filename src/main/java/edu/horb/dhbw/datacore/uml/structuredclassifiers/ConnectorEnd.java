@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Represents an endpoint of a {@link Connector}.
- * <br/>
  * See subclauses 11.2 and 11.8.11 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

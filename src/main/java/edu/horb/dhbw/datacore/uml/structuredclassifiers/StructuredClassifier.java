@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * A classifier that can have an internal structure.
- * <br/>
  * See subclauses 11.2 and 11.8.15 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

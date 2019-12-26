@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * Shows the application of a {@link Collaboration}.
- * <br/>
  * See subclauses 11.7 and 11.8.5 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

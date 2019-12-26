@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * Classifies a set of objects and describes their structure and behavior.
- * <br/>
  * See subclauses 11.4 and 11.8.3 of the UML specification for more details.
  * This should specialize both
  * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier}

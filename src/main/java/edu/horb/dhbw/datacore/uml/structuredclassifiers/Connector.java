@@ -31,7 +31,6 @@ import java.util.List;
 /**
  * Specifies a link between actual instances and not their associated
  * classifiers (which is what an {@link Association} does).
- * <br/>
  * See subclauses 11.2 and 11.8.10 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
@@ -44,10 +43,10 @@ public final class Connector extends Feature {
      */
     private ConnectorKind kind;
     /**
-     * The ends of the connector. By using those the instances connected by
-     * this connector can be identified. The length of the list must always
-     * be greater than or equal to {@code 2}. Otherwise the connector could
-     * not connect anything.
+     * The ends of the connector.
+     * By using those the instances connected by this connector can be
+     * identified. The length of the list must always be greater than or
+     * equal to {@code 2}. Otherwise the connector could not connect anything.
      */
     private List<ConnectorEnd> end = new ArrayList<>();
     /**

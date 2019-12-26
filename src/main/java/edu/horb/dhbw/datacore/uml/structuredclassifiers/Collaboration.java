@@ -29,7 +29,6 @@ import java.util.List;
 /**
  * Describes the collaboration of elements each performing a specialized
  * function.
- * <br/>
  * See subclauses 11.7 and 11.8.4 of the UML specification for more details.
  * This should specialize both {@link BehavioredClassifier} and
  * {@link StructuredClassifier}. It currently only inherits from

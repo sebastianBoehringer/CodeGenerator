@@ -28,7 +28,6 @@ import java.util.List;
 
 /**
  * Represents a participant of the inner structure of a classifier.
- * <br/>
  * See subclauses 11.2 and 11.8.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
