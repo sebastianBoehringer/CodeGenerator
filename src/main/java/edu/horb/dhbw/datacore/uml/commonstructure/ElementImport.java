@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ElementImport extends DirectedRelationship {
+public final class ElementImport extends DirectedRelationship {
     /**
      * Defines the unqualified name of the imported element. This name should
      * not clash with any names already included in the
@@ -45,11 +45,11 @@ public class ElementImport extends DirectedRelationship {
      */
     private VisibilityKind visibility = VisibilityKind.PUBLIC;
     /**
-     * The {@link Namespace} importing the element.
-     */
-    private Namespace importingNamespace;
-    /**
      * The element that is being imported into this {@link Namespace}.
      */
     private PackageableElement importedElement;
+    /**
+     * The {@link Namespace} importing the element.
+     */
+    private Namespace importingNamespace;
 }

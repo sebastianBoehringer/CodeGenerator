@@ -35,7 +35,8 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class EncapsulatedClassifier extends StructuredClassifier {
     /**
-     *
+     * The ports owned by the classifier.
+     * This attribute can be derived
      */
     private List<Port> ownedPort = new ArrayList<>();
 

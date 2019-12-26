@@ -34,15 +34,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StringExpression extends Expression {
-    /**
-     * The subexpressions of this expression.
-     */
-    private List<StringExpression> subExpression = new ArrayList<>();
+public final class StringExpression extends Expression {
     /**
      * The expression that owns this expression.
      */
     private StringExpression owningExpression;
+    /**
+     * The subexpressions of this expression.
+     */
+    private List<StringExpression> subExpression = new ArrayList<>();
 
     /**
      * Adds a new expression to {@link #subExpression}.

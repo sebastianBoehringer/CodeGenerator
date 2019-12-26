@@ -34,16 +34,12 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class Generalization extends DirectedRelationship {
+public final class Generalization extends DirectedRelationship {
     /**
      * If {@code true} the specific classifier can be used in place of the
      * more general.
      */
-    private Boolean isSubstitutable;
-    /**
-     * The specific classifier in the relationship.
-     */
-    private Classifier specific;
+    private Boolean isSubstitutable = Boolean.TRUE;
     /**
      * The general classifier in the relationship.
      */
@@ -52,6 +48,10 @@ public class Generalization extends DirectedRelationship {
      * The generalizationSets this generalization is a part of.
      */
     private List<GeneralizationSet> generalizationSet = new ArrayList<>();
+    /**
+     * The specific classifier in the relationship.
+     */
+    private Classifier specific;
 
     /**
      * Adds a new generalizationSet to {@link #generalizationSet}.

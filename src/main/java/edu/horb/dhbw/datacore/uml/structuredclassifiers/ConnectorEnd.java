@@ -34,10 +34,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class ConnectorEnd extends MultiplicityElement {
     /**
-     * The connectableElement attached to this end of the connector.
-     */
-    private ConnectableElement role;
-    /**
      * This attribute can be derived. It references the end that defines the
      * association with which the owning {@link Connector} is typed.
      */
@@ -46,4 +42,8 @@ public final class ConnectorEnd extends MultiplicityElement {
      * The role of the connectableElement this connectorEnd is attached to.
      */
     private Property partWithPort;
+    /**
+     * The connectableElement attached to this end of the connector.
+     */
+    private ConnectableElement role;
 }

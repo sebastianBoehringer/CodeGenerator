@@ -33,7 +33,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class GeneralizationSet extends PackageableElement {
+public final class GeneralizationSet extends PackageableElement {
     /**
      * If this is {@code true} all possible specializations have been defined.
      * Thus an instance of the general classifier has to also be an instance
@@ -41,14 +41,14 @@ public class GeneralizationSet extends PackageableElement {
      * are specializing classifiers of dog. This is a complete
      * generalizationSet as there are no more possibilities for a dog's gender.
      */
-    private boolean isCovering = false;
+    private Boolean isCovering = Boolean.FALSE;
     /**
      * If this is {@code true} the specific classifiers do not share members.
      * Otherwise they have at least one member in common. Take the example of
      * a dog's gender again. This is also a disjoint generalizationSet as a
      * dog cannot be male and female at the same time.
      */
-    private boolean isDisjoint = false;
+    private boolean isDisjoint = Boolean.FALSE;
     /**
      * The generalizations that are part of this generalizationSet.
      */

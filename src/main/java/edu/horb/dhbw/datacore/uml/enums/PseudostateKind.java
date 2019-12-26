@@ -66,7 +66,6 @@ public enum PseudostateKind {
      * synchronization or parallelism.
      */
     JUNCTION,
-
     /**
      * Used to represent a conditional branch. Only one of its outgoing
      * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s may be

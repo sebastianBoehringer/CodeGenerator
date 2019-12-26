@@ -39,10 +39,6 @@ import java.util.List;
 @Deprecated
 public final class ConnectionPointReference extends Vertex {
     /**
-     * The state defining the reference.
-     */
-    private State state;
-    /**
      * The entry points this reference refers to.
      */
     private List<Pseudostate> entry = new ArrayList<>();
@@ -50,4 +46,8 @@ public final class ConnectionPointReference extends Vertex {
      * The exit points this reference refers to.
      */
     private List<Pseudostate> exit = new ArrayList<>();
+    /**
+     * The state defining the reference.
+     */
+    private State state;
 }

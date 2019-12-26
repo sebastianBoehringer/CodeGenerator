@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Component extends UMLClass {
+public final class Component extends UMLClass {
     /**
      * If this is {@code true} then this component is realized by just having
      * instances of its parts around, i. e. one does not need to initialize
@@ -48,14 +48,14 @@ public class Component extends UMLClass {
      */
     private List<PackageableElement> packagedElement = new ArrayList<>();
     /**
-     * The elements realizing this component.
-     */
-    private List<ComponentRealization> realization = new ArrayList<>();
-    /**
      * The set of interfaces this component provides to the rest of the
      * system. This attribute can be derived .
      */
     private List<Interface> provided = new ArrayList<>();
+    /**
+     * The elements realizing this component.
+     */
+    private List<ComponentRealization> realization = new ArrayList<>();
     /**
      * The set of interfaces this component requires to function. This
      * attribute can be derived.

@@ -40,8 +40,13 @@ import java.util.List;
 public final class Connector extends Feature {
     /**
      * The type of the connector.
+     * This attribute can be derived
      */
     private ConnectorKind kind;
+    /**
+     * Behaviors that specify valid ways to interact via the connector.
+     */
+    private List<Behavior> contract = new ArrayList<>();
     /**
      * The ends of the connector.
      * By using those the instances connected by this connector can be
@@ -54,10 +59,6 @@ public final class Connector extends Feature {
      * the connector.
      */
     private Association type;
-    /**
-     * Behaviors that specify valid ways to interact via the connector.
-     */
-    private List<Behavior> contract = new ArrayList<>();
 
     /**
      * Adds a new behavior to {@link #contract}.

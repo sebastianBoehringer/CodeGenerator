@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Profile extends UMLPackage {
+public final class Profile extends UMLPackage {
     /**
      * References metaclasses this profile may extend.
      */

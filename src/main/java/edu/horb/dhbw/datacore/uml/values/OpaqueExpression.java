@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OpaqueExpression extends ValueSpecification {
+public final class OpaqueExpression extends ValueSpecification {
     /**
      * The textual definition of this expression.
      */

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interval extends ValueSpecification {
+public final class Interval extends ValueSpecification {
     /**
      * The maximum value of this interval.
      */

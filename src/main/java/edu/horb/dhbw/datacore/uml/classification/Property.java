@@ -34,12 +34,17 @@ import java.util.List;
 /**
  * Represents the attributes of a classifier.
  * See subclauses 9.5 and 9.9.17 of the UML specification for more details.
+ * This should specialize both
+ * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}
+ * and {@link StructuralFeature}. It currently only inherits from
+ * {@link StructuralFeature}.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Property extends StructuralFeature {
+    //TODO resolve inheritance
     /**
      * Specifies the type of aggregation for this property.
      */
@@ -65,13 +70,9 @@ public class Property extends StructuralFeature {
      */
     private Boolean isID = Boolean.FALSE;
     /**
-     * The default value for this property.
+     * The association this property is part of. This is optional.
      */
-    private ValueSpecification defaultValue;
-    /**
-     * Optional list of qualifier attributes for the association end.
-     */
-    private List<Property> qualifier;
+    private Association association;
     /**
      * The end of the association that has a qualifier. The qualifier can be
      * used to uniquely identify each instance having an association. E. g.
@@ -80,36 +81,40 @@ public class Property extends StructuralFeature {
      */
     private Property associationEnd;
     /**
-     * The association owning the property. Only this, {@link #umlClass},
-     * {@link #datatype} or {@link #anInterface} may be set.
+     * The class that this property is a part of. Only this,
+     * {@link #datatype}, {@link #owningAssociation} or {@link #anInterface}
+     * may be set.
      */
-    private Association owningAssociation;
-    /**
-     * The association this property is part of. This is optional.
-     */
-    private Association association;
-    /**
-     * The interface this property is a part of. Only this, {@link #datatype}
-     * , {@link #owningAssociation} or {@link #umlClass} may be set.
-     */
-    private Interface anInterface;
+    private UMLClass umlClass;
     /**
      * The datatype this property is a part of. Only this, {@link #umlClass}
      * , {@link #owningAssociation}or {@link #anInterface} may be set.
      */
     private DataType datatype;
     /**
-     * The class that this property is a part of. Only this,
-     * {@link #datatype}, {@link #owningAssociation} or {@link #anInterface}
-     * may be set.
+     * The default value for this property.
      */
-    private UMLClass umlClass;
-
+    private ValueSpecification defaultValue;
+    /**
+     * The interface this property is a part of. Only this, {@link #datatype}
+     * , {@link #owningAssociation} or {@link #umlClass} may be set.
+     */
+    private Interface anInterface;
     /**
      * If this property participates in a binary association, this is the
      * other end of said association.
      */
     private Property opposite;
+    /**
+     * The association owning the property. Only this, {@link #umlClass},
+     * {@link #datatype} or {@link #anInterface} may be set.
+     */
+    private Association owningAssociation;
+    /**
+     * Optional list of qualifier attributes for the association end.
+     */
+    private List<Property> qualifier;
+
 
     /**
      * The properties this property is a subset of.

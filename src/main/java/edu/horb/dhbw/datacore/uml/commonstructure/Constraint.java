@@ -36,18 +36,18 @@ import java.util.List;
 @AllArgsConstructor
 public class Constraint extends PackageableElement {
     /**
-     * A condition evaluating to a boolean value.
-     * This must return {@code true} for the constraint to hold.
+     * The {@link Element}s this constraint applies to.
      */
-    private ValueSpecification specification;
+    private List<Element> constrainedElement = new ArrayList<>();
     /**
      * The {@link Namespace} that owns this constraint.
      */
     private Namespace context;
     /**
-     * The {@link Element}s this constraint applies to.
+     * A condition evaluating to a boolean value.
+     * This must return {@code true} for the constraint to hold.
      */
-    private List<Element> constrainedElement = new ArrayList<>();
+    private ValueSpecification specification;
 
     /**
      * Adds a new element to {@link #constrainedElement}.

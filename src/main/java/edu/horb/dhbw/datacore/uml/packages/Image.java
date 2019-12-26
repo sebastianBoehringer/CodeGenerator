@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Image extends Element {
+public final class Image extends Element {
     /**
      * The serialization of the image.
      */

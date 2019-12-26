@@ -48,6 +48,15 @@ public class Association extends Relationship {
      */
     private Boolean isDerived = Boolean.FALSE;
     /**
+     * The types of the elements participating in this association. This
+     * attribute can be derived.
+     */
+    private List<Type> endType = new ArrayList<>();
+    /**
+     * The elements participating in this association.
+     */
+    private List<Property> memberEnd = new ArrayList<>();
+    /**
      * Navigable ends which are owned by the association.
      */
     private List<Property> navigableOwnedEnd = new ArrayList<>();
@@ -55,15 +64,6 @@ public class Association extends Relationship {
      * Ends owned by the association.
      */
     private List<Property> ownedEnd = new ArrayList<>();
-    /**
-     * The elements participating in this association.
-     */
-    private List<Property> memberEnd = new ArrayList<>();
-    /**
-     * The types of the elements participating in this association. This
-     * attribute can be derived.
-     */
-    private List<Type> endType = new ArrayList<>();
 
     /**
      * Adds a new property to {@link #navigableOwnedEnd}.

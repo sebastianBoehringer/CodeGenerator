@@ -34,5 +34,5 @@ public final class LiteralBoolean extends LiteralSpecification<Boolean> {
     /**
      * The specified value.
      */
-    private Boolean value = false;
+    private Boolean value = Boolean.FALSE;
 }

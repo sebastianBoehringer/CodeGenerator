@@ -38,7 +38,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Collaboration extends BehavioredClassifier {
+public final class Collaboration extends BehavioredClassifier {
     //TODO resolve inheritance
     /**
      * The participants of this collaboration.

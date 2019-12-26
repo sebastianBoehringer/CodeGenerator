@@ -85,7 +85,7 @@ public class UnlimitedNatural {
 
         if (nestedValue == null || nestedValue < 0) {
             throw new IllegalArgumentException(
-                    String.format("Parsed value [%d] is less than 0",
+                    String.format("Parsed value [%d] is less than 0 or null",
                                   nestedValue));
         }
     }

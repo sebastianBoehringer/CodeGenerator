@@ -38,6 +38,10 @@ import java.util.List;
 @NoArgsConstructor
 public class InstanceSpecification extends PackageableElement {
     /**
+     * The classifier(s) of the specified instance.
+     */
+    private List<Classifier> classifier = new ArrayList<>();
+    /**
      * A slot represents the value of a {@link StructuralFeature} of the
      * classifier specified by this instanceSpecification.
      */
@@ -46,10 +50,6 @@ public class InstanceSpecification extends PackageableElement {
      * Specifies how to construct the instance.
      */
     private ValueSpecification specification;
-    /**
-     * The classifier(s) of the specified instance.
-     */
-    private List<Classifier> classifier = new ArrayList<>();
 
     /**
      * Adds a new classifier to {@link #classifier}.

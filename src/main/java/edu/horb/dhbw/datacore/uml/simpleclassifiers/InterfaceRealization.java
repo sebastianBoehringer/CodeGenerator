@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InterfaceRealization extends Realization {
+public final class InterfaceRealization extends Realization {
     /**
      * The interface realized by {@link #implementingClassifier}.
      */

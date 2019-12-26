@@ -21,13 +21,13 @@ public abstract class MultiplicityElement extends Element {
      * applies if the attribute can be multivalued, i. e. {@link #upper} is
      * greater than {@code 0}.
      */
-    private Boolean ordered = false;
+    private Boolean isOrdered = Boolean.FALSE;
     /**
      * Defines if the value of the attributes should be unique. This only
      * applies if the attribute can be multivalued, i. e. {@link #upper} is
      * greater than {@code 0}.
      */
-    private Boolean unique = true;
+    private Boolean isUnique = Boolean.TRUE;
     /**
      * The lower bound of the cardinality. If this equals to {@code 0} the
      * attribute is optional. The value is derived by evaluating

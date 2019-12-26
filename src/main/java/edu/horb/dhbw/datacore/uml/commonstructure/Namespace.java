@@ -39,6 +39,15 @@ public abstract class Namespace extends NamedElement {
      */
     private List<ElementImport> elementImport = new ArrayList<>();
     /**
+     * The elements imported into this namespace. This attribute can be derived.
+     */
+    private List<PackageableElement> importedMember = new ArrayList<>();
+    /**
+     * All {@link NamedElement}s available to this namespace. This includes
+     * the imported as well as the owned ones. This attribute can be derived.
+     */
+    private List<NamedElement> member = new ArrayList<>();
+    /**
      * The {@link NamedElement}s this namespace owns. This attribute can be
      * derived.
      */
@@ -51,15 +60,6 @@ public abstract class Namespace extends NamedElement {
      * The {@link PackageImport}s this namespace owns.
      */
     private List<PackageImport> packageImport = new ArrayList<>();
-    /**
-     * All {@link NamedElement}s available to this namespace. This includes
-     * the imported as well as the owned ones. This attribute can be derived.
-     */
-    private List<NamedElement> member = new ArrayList<>();
-    /**
-     * The elements imported into this namespace. This attribute can be derived.
-     */
-    private List<PackageableElement> importedMember = new ArrayList<>();
 
     /**
      * Adds a new elementImport to {@link #elementImport}.

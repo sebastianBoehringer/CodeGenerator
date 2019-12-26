@@ -46,6 +46,11 @@ public abstract class Behavior extends UMLClass {
      */
     private Boolean isReentrant = Boolean.TRUE;
     /**
+     * The context in which this behavior is defined. This attribute can be
+     * derived.
+     */
+    private BehavioredClassifier context;
+    /**
      * The possible arguments for the invocation of this behavior.
      */
     private List<Parameter> ownedParameter = new ArrayList<>();
@@ -65,11 +70,6 @@ public abstract class Behavior extends UMLClass {
      * The feature this behavior implements.
      */
     private BehavioralFeature specification;
-    /**
-     * The context in which this behavior is defined. This attribute can be
-     * derived.
-     */
-    private BehavioredClassifier context;
 
     /**
      * Adds a new parameterSet to {@link #ownedParameterSet}.

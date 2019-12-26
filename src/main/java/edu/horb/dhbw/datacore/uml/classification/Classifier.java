@@ -46,51 +46,50 @@ public abstract class Classifier extends Type {
      * If this is {@code true} the classifier cannot be instantiated directly.
      */
     private Boolean isAbstract = Boolean.FALSE;
-
-    /**
-     * The generalizing classifiers. This attribute can be derived.
-     */
-    private List<Classifier> general = new ArrayList<>();
     /**
      * If this is {@code true} the classifier cannot be specialized.
      */
     private Boolean isFinalSpecialization = Boolean.FALSE;
-    /**
-     * The collaborationUse this classifier owns.
-     */
-    private List<CollaborationUse> collaborationUse = new ArrayList<>();
-    /**
-     * Indicates the collaboration representing this classifier.
-     */
-    private CollaborationUse representation;
-    /**
-     * The generalizations of the classifier.
-     */
-    private List<Generalization> generalization = new ArrayList<>();
-    /**
-     * The substitutions owned by the classifier. For UML substitution does
-     * not always apply to a Generalization/Specialization relationship.
-     */
-    private List<Substitution> substitution = new ArrayList<>();
     /**
      * All properties that are direct attibutes of the classifier. This
      * attribute can be derived.
      */
     private List<Property> attribute = new ArrayList<>();
     /**
-     * All the members inherited by generalizing other classifiers. This
-     * attribute can be derived.
+     * The collaborationUses this classifier owns.
      */
-    private List<NamedElement> inheritedMember = new ArrayList<>();
+    private List<CollaborationUse> collaborationUse = new ArrayList<>();
     /**
      * Features directly defined in the classifier. Does not include
      * inherited ones.
      */
     private List<Feature> feature = new ArrayList<>();
     /**
+     * The generalizing classifiers. This attribute can be derived.
+     */
+    private List<Classifier> general = new ArrayList<>();
+    /**
+     * The generalizations of the classifier.
+     */
+    private List<Generalization> generalization = new ArrayList<>();
+    /**
+     * All the members inherited by generalizing other classifiers. This
+     * attribute can be derived.
+     */
+    private List<NamedElement> inheritedMember = new ArrayList<>();
+    /**
      * The generalizationSet this classifier belongs to.
      */
-    private GeneralizationSet powertypeExtent;
+    private List<GeneralizationSet> powertypeExtent = new ArrayList<>();
+    /**
+     * Indicates the collaboration representing this classifier.
+     */
+    private CollaborationUse representation;
+    /**
+     * The substitutions owned by the classifier. For UML substitution does
+     * not always apply to a Generalization/Specialization relationship.
+     */
+    private List<Substitution> substitution = new ArrayList<>();
 
 
     /**

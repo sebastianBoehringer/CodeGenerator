@@ -24,6 +24,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An {@link Element} which may hold a name.
  * See subclauses 7.4 (especially 7.4.3.2) and 7.8.9 of the UML specification
@@ -41,7 +44,7 @@ public abstract class NamedElement extends Element {
     private String name;
     /**
      * The fully qualified name of this named element. This must be unique in
-     * the entire model. THe attribute can be derived by chaining the name of
+     * the entire model. The attribute can be derived by chaining the name of
      * the namespace(s) this element is in and finally the name of this
      * element.
      */
@@ -50,7 +53,11 @@ public abstract class NamedElement extends Element {
      * Determines the visibility of this element outside of its
      * {@link #namespace}.
      */
-    private VisibilityKind visbility;
+    private VisibilityKind visibility;
+    /**
+     * The dependencies where the element plays the client role.
+     */
+    private List<Dependency> clientDependency = new ArrayList<>();
     /**
      * The expression that determines this elements name.
      */
@@ -60,4 +67,14 @@ public abstract class NamedElement extends Element {
      * {@link #getOwner}.
      */
     private Namespace namespace;
+
+    /**
+     * Adds a new dependency to {@link #clientDependency}.
+     *
+     * @param dependency The dependency to add
+     */
+    public void addClientDependency(final Dependency dependency) {
+
+        clientDependency.add(dependency);
+    }
 }

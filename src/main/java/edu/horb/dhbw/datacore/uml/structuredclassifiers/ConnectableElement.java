@@ -36,7 +36,8 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class ConnectableElement extends TypedElement {
     /**
-     * {@link ConnectorEnd}s attached to this connectableElement.
+     * {@link ConnectorEnd}s attached to this connectableElement. This
+     * attribute can be derived.
      */
     private List<ConnectorEnd> end = new ArrayList<>();
 

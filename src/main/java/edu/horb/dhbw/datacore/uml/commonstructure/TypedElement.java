@@ -31,7 +31,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class TypedElement extends NamedElement {
-
     /**
      * The type of this element.
      */

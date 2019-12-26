@@ -37,6 +37,10 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class BehavioredClassifier extends Classifier {
     /**
+     * Describes the behavior of the classifier.
+     */
+    private Behavior classifierBehavior;
+    /**
      * The {@link InterfaceRealization} relationships this classifier
      * participates in. This can be seen as a list of interfaces this
      * classifier implements
@@ -46,10 +50,6 @@ public abstract class BehavioredClassifier extends Classifier {
      * Behaviors this classifier owns.
      */
     private List<Behavior> ownedBehavior = new ArrayList<>();
-    /**
-     * Describes the behavior of the classifier.
-     */
-    private Behavior classifierBehavior;
 
     /**
      * Adds a new behavior to {@link #ownedBehavior}.

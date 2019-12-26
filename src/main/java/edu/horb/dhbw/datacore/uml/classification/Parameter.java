@@ -24,7 +24,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Parameter extends ConnectableElement {
+public final class Parameter extends ConnectableElement {
     //TODO resolve inheritance
     /**
      * Represents a default value that should be used if no value is passed
@@ -54,12 +54,10 @@ public class Parameter extends ConnectableElement {
      * A valueSpecification for the default value.
      */
     private ValueSpecification defaultValue;
-
     /**
      * The operation that is using this parameter.
      */
     private Operation operation;
-
     /**
      * The parameterSets this parameter is a part of.
      */

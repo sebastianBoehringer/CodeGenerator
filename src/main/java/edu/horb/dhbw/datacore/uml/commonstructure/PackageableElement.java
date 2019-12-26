@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
  * {@link edu.horb.dhbw.datacore.uml.packages.UMLPackage}.
  * See subclauses 7.4 and 7.8.12 of the UML specification for more details.
  * The only differences besides the added semantic meaning is that
- * {@link #getVisbility()} defaults to {@link VisibilityKind#PUBLIC}.
+ * {@link #getVisibility()} defaults to {@link VisibilityKind#PUBLIC}.
  * {@link NamedElement} does not set a default value.
  */
 @EqualsAndHashCode(callSuper = true)
@@ -36,6 +36,6 @@ import lombok.EqualsAndHashCode;
 public abstract class PackageableElement extends NamedElement {
 
     {
-        setVisbility(VisibilityKind.PUBLIC);
+        setVisibility(VisibilityKind.PUBLIC);
     }
 }

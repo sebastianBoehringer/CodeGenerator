@@ -39,7 +39,7 @@ public abstract class Element extends CommonElements {
     /**
      * The comments owned by this element.
      */
-    private List<Comment> comment = new ArrayList<>();
+    private List<Comment> ownedComment = new ArrayList<>();
     /**
      * The elements owned by this element.
      */
@@ -50,13 +50,13 @@ public abstract class Element extends CommonElements {
     private Element owner;
 
     /**
-     * Adds a new comment to the {@link #comment}s.
+     * Adds a new comment to the {@link #ownedComment}s.
      *
-     * @param newComment The comment to add
+     * @param comment The comment to add
      */
-    public void addComment(final Comment newComment) {
+    public void addComment(final Comment comment) {
 
-        comment.add(newComment);
+        ownedComment.add(comment);
     }
 
     /**

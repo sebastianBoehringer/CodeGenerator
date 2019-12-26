@@ -58,17 +58,17 @@ public final class Port extends Property {
      */
     private Boolean isService = Boolean.TRUE;
     /**
-     * The interfaces specifying the functionality the
-     * {@link EncapsulatedClassifier} offers to the rest of the system. The
-     * attribute can be derived.
-     */
-    private List<Interface> required = new ArrayList<>();
-    /**
      * The interfaces the {@link EncapsulatedClassifier} expects the rest of
      * the system to handle. This characterizes how the rest of the system
      * interacts with the port. The attribute can be derived.
      */
     private List<Interface> provided = new ArrayList<>();
+    /**
+     * The interfaces specifying the functionality the
+     * {@link EncapsulatedClassifier} offers to the rest of the system. The
+     * attribute can be derived.
+     */
+    private List<Interface> required = new ArrayList<>();
 
     /**
      * Adds a new interface to {@link #provided}.

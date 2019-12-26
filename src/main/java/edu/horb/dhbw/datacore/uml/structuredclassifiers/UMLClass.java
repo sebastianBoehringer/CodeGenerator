@@ -42,12 +42,21 @@ import java.util.List;
 @NoArgsConstructor
 public class UMLClass extends EncapsulatedClassifier {
     //TODO resolve inheritance
-
+    /**
+     * If this is {@code true} the class cannot be instantiated directly.
+     */
+    private Boolean isAbstract = Boolean.FALSE;
     /**
      * If {@code true} this class is referred to as an active class. Active
      * classes execute their associated behavior immediately upon creation.
      */
     private Boolean isActive = Boolean.FALSE;
+    /**
+     * If the class is used as a metaclass this specifies the extensions, e.
+     * g. {@link edu.horb.dhbw.datacore.uml.packages.Stereotype}s, applicable
+     * to it.
+     */
+    private List<Extension> extension = new ArrayList<>();
     /**
      * Classifiers owned by this class which are not
      * {@link edu.horb.dhbw.datacore.uml.commonbehavior.Behavior}s.
@@ -57,17 +66,10 @@ public class UMLClass extends EncapsulatedClassifier {
      * Operations of this class.
      */
     private List<Operation> ownedOperation = new ArrayList<>();
-
     /**
      * The generalizations of this class. The attribute can be derived.
      */
     private List<UMLClass> superClass = new ArrayList<>();
-    /**
-     * If the class is used as a metaclass this specifies the extensions, e.
-     * g. {@link edu.horb.dhbw.datacore.uml.packages.Stereotype}s, applicable
-     * to it.
-     */
-    private List<Extension> extension = new ArrayList<>();
 
     /**
      * Adds a new classifier to {@link #nestedClassifier}.

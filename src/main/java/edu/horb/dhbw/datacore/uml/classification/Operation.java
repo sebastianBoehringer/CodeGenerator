@@ -41,7 +41,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Operation extends BehavioralFeature {
+public final class Operation extends BehavioralFeature {
     /**
      * If this is {@code true} the return parameter of the operation is
      * ordered. This attribute can be derived.
@@ -70,6 +70,21 @@ public class Operation extends BehavioralFeature {
      */
     private Constraint bodyCondition;
     /**
+     * The class that owns this operation. Either this, {@link #anInterface} or
+     * {@link #datatype} is set.
+     */
+    private UMLClass umlClass;
+    /**
+     * The datatype that owns this operation. Either this,
+     * {@link #anInterface} or {@link #umlClass} is set.
+     */
+    private DataType datatype;
+    /**
+     * The interface that owns this operation. Either this, {@link #datatype}
+     * or {@link #umlClass} is set.
+     */
+    private Interface anInterface;
+    /**
      * Constraints on the state of the system after the operation has completed.
      */
     private List<Constraint> postcondition = new ArrayList<>();
@@ -83,21 +98,6 @@ public class Operation extends BehavioralFeature {
      */
     private Type type;
 
-    /**
-     * The interface that owns this operation. Either this, {@link #datatype}
-     * or {@link #umlClass} is set.
-     */
-    private Interface anInterface;
-    /**
-     * The class that owns this operation. Either this, {@link #anInterface} or
-     * {@link #datatype} is set.
-     */
-    private UMLClass umlClass;
-    /**
-     * The datatype that owns this operation. Either this,
-     * {@link #anInterface} or {@link #umlClass} is set.
-     */
-    private DataType datatype;
 
 
 }

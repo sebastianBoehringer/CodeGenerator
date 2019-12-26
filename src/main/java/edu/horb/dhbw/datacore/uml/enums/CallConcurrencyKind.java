@@ -37,7 +37,6 @@ public enum CallConcurrencyKind {
      * has completed its execution.
      */
     GUARDED,
-
     /**
      * Multiple invocations may occur. None of these will be blocked.
      */

@@ -31,12 +31,16 @@ import java.util.List;
 /**
  * The main way to logically group {@link PackageableElement}s.
  * See subclauses 12.2 and 12.4.5 of the UML specification for more details.
+ * This should specialize both  {@link Namespace} and
+ * {@link PackageableElement}. It currently inherits from just
+ * {@link Namespace}.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UMLPackage extends Namespace {
+    //TODO resolve inheritance
     /**
      * An identifier for the package.
      */
@@ -62,13 +66,13 @@ public class UMLPackage extends Namespace {
      */
     private List<PackageMerge> packageMerge = new ArrayList<>();
     /**
-     * The profiles applied to this package.
-     */
-    private List<ProfileApplication> profileApplication = new ArrayList<>();
-    /**
      * The elements owned by this package.
      */
     private List<PackageableElement> packagedElement = new ArrayList<>();
+    /**
+     * The profiles applied to this package.
+     */
+    private List<ProfileApplication> profileApplication = new ArrayList<>();
 
     /**
      * Adds a new package to {@link #nestedPackage}.

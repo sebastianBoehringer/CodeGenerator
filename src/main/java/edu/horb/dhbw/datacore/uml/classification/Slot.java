@@ -36,19 +36,19 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Slot extends Element {
+public final class Slot extends Element {
     /**
-     * The value(s) held by the slot.
+     * The feature constraining the values that this slot can hold.
      */
-    private List<ValueSpecification> value = new ArrayList<>();
+    private StructuralFeature definingFeature;
     /**
      * The instanceSpecification owning the slot.
      */
     private InstanceSpecification owningInstance;
     /**
-     * The feature constraining the values that this slot can hold.
+     * The value(s) held by the slot.
      */
-    private StructuralFeature definingFeature;
+    private List<ValueSpecification> value = new ArrayList<>();
 
     /**
      * Adds a new valueSpecification to {@link #value}.

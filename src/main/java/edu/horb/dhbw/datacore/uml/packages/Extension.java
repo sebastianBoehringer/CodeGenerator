@@ -17,12 +17,16 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
+import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Indicates that a metaclass is extended via a {@link Stereotype}.
@@ -34,12 +38,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class Extension extends Association {
     /**
-     * If this is {@code true} an instance of this extension is created
-     * whenever an instance of {@link #metaclass} is created. This attribute
-     * can be derived
-     */
-    private Boolean isRequired = Boolean.FALSE;
-    /**
      * The {@link UMLClass} that is extended by this extension. This attribute
      * can be derived.
      */
@@ -48,5 +46,20 @@ public final class Extension extends Association {
      * The end of the extension that connects to a {@link Stereotype}.
      */
     private ExtensionEnd ownedExtensionEnd;
+    /**
+     * If this is {@code true} an instance of this extension is created
+     * whenever an instance of {@link #metaclass} is created. This attribute
+     * can be derived
+     */
+    private Boolean isRequired = Boolean.FALSE;
 
+    /**
+     * Returns {@link #ownedExtensionEnd} as the redefinition in the
+     * specification states.
+     */
+    @Override
+    public List<Property> getOwnedEnd() {
+
+        return Collections.singletonList(ownedExtensionEnd);
+    }
 }

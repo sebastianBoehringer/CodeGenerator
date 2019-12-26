@@ -45,14 +45,14 @@ public abstract class StructuredClassifier extends Classifier {
      */
     private List<Connector> ownedConnector = new ArrayList<>();
     /**
-     * Roles that instances can play in the classifier.
-     */
-    private List<ConnectableElement> role = new ArrayList<>();
-    /**
      * Instances owned by the classifier via composition, i. e.  properties
      * where {@link Property#getIsComposite()} is {@code true}.
      */
     private List<Property> part = new ArrayList<>();
+    /**
+     * Roles that instances can play in the classifier.
+     */
+    private List<ConnectableElement> role = new ArrayList<>();
 
     /**
      * Adds a new connectableElement to {@link #role}.

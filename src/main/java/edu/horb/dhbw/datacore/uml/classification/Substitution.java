@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Substitution extends Realization {
+public final class Substitution extends Realization {
     /**
      * The contract the {@link #substitutingClassifier} conforms to. It may
      * be used in its place.

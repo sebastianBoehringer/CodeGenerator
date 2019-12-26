@@ -37,10 +37,12 @@ import java.util.List;
 public abstract class DirectedRelationship extends Relationship {
     /**
      * The sources of this directed relationship.
+     * This attribute can be derived.
      */
     private List<Element> source = new ArrayList<>();
     /**
      * The targets of this directed relationship.
+     * This attribute can be derived.
      */
     private List<Element> target = new ArrayList<>();
 

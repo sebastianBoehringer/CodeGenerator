@@ -43,7 +43,7 @@ public class Dependency extends PackageableElement {
     private List<NamedElement> client;
 
     /**
-     * The elements depending ton the {@link #client}s.
+     * The elements depending on the {@link #client}s.
      */
     private List<NamedElement> supplier;
 

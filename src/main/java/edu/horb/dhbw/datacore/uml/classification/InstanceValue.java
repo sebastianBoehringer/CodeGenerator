@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class InstanceValue extends ValueSpecification {
+public final class InstanceValue extends ValueSpecification {
     /**
      * Represents the specified value.
      */

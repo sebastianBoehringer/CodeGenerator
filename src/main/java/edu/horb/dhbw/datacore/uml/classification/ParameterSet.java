@@ -32,7 +32,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ParameterSet extends NamedElement {
+public final class ParameterSet extends NamedElement {
     /**
      * Determines when to start/ end execution.
      */

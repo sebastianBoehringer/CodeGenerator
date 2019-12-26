@@ -49,7 +49,11 @@ public abstract class BehavioralFeature extends Feature {
      * If this attribute is {@code true}, the behavioralFeature has no
      * implementation.
      */
-    private Boolean isAbstract = false;
+    private Boolean isAbstract = Boolean.FALSE;
+    /**
+     * The Behavior that implements the feature.
+     */
+    private List<Behavior> method;
     /**
      * The parameters for this feature.
      */
@@ -58,10 +62,6 @@ public abstract class BehavioralFeature extends Feature {
      * The parameterSets owned by the feature.
      */
     private List<ParameterSet> ownedParameterSet = new ArrayList<>();
-    /**
-     * The Behavior that implements the feature.
-     */
-    private Behavior method;
     /**
      * The exceptions this feature can raise when it is invoked.
      */
@@ -95,6 +95,16 @@ public abstract class BehavioralFeature extends Feature {
     public void addParameter(final Parameter parameter) {
 
         ownedParameter.add(parameter);
+    }
+
+    /**
+     * Adds a new behavior to {@link #method}.
+     *
+     * @param behavior The behavior to add
+     */
+    public void addMethod(final Behavior behavior) {
+
+        method.add(behavior);
     }
 
 

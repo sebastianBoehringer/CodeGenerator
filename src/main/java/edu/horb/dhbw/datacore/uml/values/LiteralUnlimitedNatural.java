@@ -34,5 +34,5 @@ public final class LiteralUnlimitedNatural
     /**
      * The specified value.
      */
-    private UnlimitedNatural value;
+    private UnlimitedNatural value = new UnlimitedNatural(0L);
 }

@@ -22,8 +22,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 /**
  * A datatype whose values can be enumerated.
@@ -33,11 +32,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Enumeration extends DataType {
+public final class Enumeration extends DataType {
     /**
      * The literals specifying the possible values of this enumeration.
      */
-    private List<EnumerationLiteral> ownedLiteral = new ArrayList<>();
+    private LinkedHashSet<EnumerationLiteral> ownedLiteral =
+            new LinkedHashSet<>();
 
     /**
      * Adds a new enumerationLiteral  to {@link #ownedLiteral}.

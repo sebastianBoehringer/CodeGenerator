@@ -34,8 +34,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IntervalConstraint extends Constraint {
-
+public final class IntervalConstraint extends Constraint {
     /**
      * The interval specifying this constraint.
      */
