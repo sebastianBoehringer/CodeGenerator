@@ -20,7 +20,6 @@
  * and Real values. Besides UnlimitedNatural all primitive types can be
  * represented by inbuilt types, e. g. {@link java.lang.Long} for Integer and
  * {@link java.lang.String} for String.
- * <br/>
  * See clause 21 of the UML specification for more details.
  */
 package edu.horb.dhbw.datacore.uml.primitivetypes;

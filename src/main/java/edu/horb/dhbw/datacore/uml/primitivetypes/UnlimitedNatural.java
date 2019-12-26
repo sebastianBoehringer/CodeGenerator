@@ -20,18 +20,18 @@ package edu.horb.dhbw.datacore.uml.primitivetypes;
 import lombok.Data;
 
 /**
- * A class representing the primitive datatype UnlimitedNatural. It can hold
- * the numbers 0, 1, 2, ... and onward. Furthermore there is the special
- * value called unlimited which is represented by an asterisk "*". Since the
- * language does not allow for such a value it is set to
+ * A class representing the primitive datatype UnlimitedNatural.
+ * It can hold the numbers 0, 1, 2, ... and onward. Furthermore there is the
+ * special value called unlimited which is represented by an asterisk "*".
+ * Since the language does not allow for such a value it is set to
  * {@link Long#MAX_VALUE} instead. Another option would be to use
  * {@link Long#MIN_VALUE} but that would make comparisons feel awkward.
  */
 @Data
 public class UnlimitedNatural {
     /**
-     * Represents the special value unlimited as {@link Long#MAX_VALUE}. Since
-     * UnlimitedNatural is most often used in conjunction with
+     * Represents the special value unlimited as {@link Long#MAX_VALUE}.
+     * Since UnlimitedNatural is most often used in conjunction with
      * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}
      * it is assumed that this value will never be used as an actual value
      * for an upper (or even lower) bound of the multiplicity element. This
@@ -47,9 +47,9 @@ public class UnlimitedNatural {
     private long value;
 
     /**
-     * Constructs a new UnlimitedNatural from the String. This throws
-     * {@link IllegalArgumentException} if the parameter is not a valid
-     * representation of a long or an asterisk (*). It also throws the
+     * Constructs a new UnlimitedNatural from the String.
+     * This throws {@link IllegalArgumentException} if the parameter is not a
+     * valid representation of a long or an asterisk (*). It also throws the
      * exception if the parsed value is negative, i. e. less than {@code 0}.
      *
      * @param string The string from which the value should be parsed.
@@ -75,9 +75,9 @@ public class UnlimitedNatural {
     }
 
     /**
-     * Constructs a new UnlimitedNatural by boxing the given parameter. This
-     * throws an {@link IllegalArgumentException} if the paramter is null or
-     * less than {@code 0}.
+     * Constructs a new UnlimitedNatural by boxing the given parameter.
+     * This throws an {@link IllegalArgumentException} if the paramter is
+     * null or less than {@code 0}.
      *
      * @param nestedValue The long value this unlimitedNatural should wrap
      */
