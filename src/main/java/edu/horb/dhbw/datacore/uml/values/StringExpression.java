@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * Specifies a String value that is computed by concatenating all of the
  * values of its subexpressions.
- * <br/>
  * See subclauses 8.3 and 8.6.17 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

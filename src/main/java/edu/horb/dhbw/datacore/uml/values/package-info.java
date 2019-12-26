@@ -17,7 +17,6 @@
  */
 /**
  * Contains classes representing the UML package Values.
- * <br/>
  * See clause 8 of the UML specification for more details.
  *
  * @author sebastianBoehringer

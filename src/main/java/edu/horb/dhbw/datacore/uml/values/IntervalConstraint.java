@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
  * {@link Interval}. The constraint holds, if the constrained value is within
  * the {@link #specification}, i. e. its value is greater or equal to the
  * minimum value and less or equal to the maximum value.
- * <br/>
  * See subclauses 8.5 and 8.6.7 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

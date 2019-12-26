@@ -23,7 +23,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Specifies a real value.
- * <br/>
  * See subclauses 8.2 and 8.6.11 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

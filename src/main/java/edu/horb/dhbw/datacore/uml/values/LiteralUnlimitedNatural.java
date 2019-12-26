@@ -24,7 +24,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Specifies an unlimited natural value.
- * <br/>
  * See subclauses 8.2 and 8.6.14 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

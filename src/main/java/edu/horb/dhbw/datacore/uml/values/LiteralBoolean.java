@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Specifies a boolean value.
- * <br/>
  * See subclauses 8.2 and 8.6.8 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

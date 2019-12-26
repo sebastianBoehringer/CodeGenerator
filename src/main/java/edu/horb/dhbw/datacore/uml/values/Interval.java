@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * Defines the range between to {@link ValueSpecification}s.
- * <br/>
  * See subclauses 8.5 and 8.6.6 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

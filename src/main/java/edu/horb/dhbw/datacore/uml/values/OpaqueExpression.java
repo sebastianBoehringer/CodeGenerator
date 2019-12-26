@@ -30,7 +30,6 @@ import java.util.List;
 /**
  * Represents an expression which does not use UML, i. e. it is expressed
  * using a different language.
- * <br/>
  * See subclauses 8.3 and 8.6.16 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

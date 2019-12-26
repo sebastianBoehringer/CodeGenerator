@@ -24,7 +24,6 @@ import lombok.EqualsAndHashCode;
 /**
  * Denotes that the value of the ValueSpecification does not need to be
  * computed, i. e. the value is constant.
- * <br/>
  * See subclauses 8.2 and 8.6.12 of the UML specification for more details.
  *
  * @param <T> The type of the constant value that this specification returns.

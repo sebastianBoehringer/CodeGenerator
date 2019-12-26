@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * Specifies a value by applying the operation represented by the
  * {@link #symbol} to each of the {@link #operand}s.
- * <br/>
  * See subclauses 8.3 and 8.6.5 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

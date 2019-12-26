@@ -6,7 +6,6 @@ import lombok.ToString;
 
 /**
  * Specifies the lack of a value.
- * <br/>
  * See subclauses 8.2 and 8.6.10 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)

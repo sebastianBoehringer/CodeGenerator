@@ -23,7 +23,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Specifies a string value.
- * <br/>
  * See subclauses 8.2 and 8.6.13 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
