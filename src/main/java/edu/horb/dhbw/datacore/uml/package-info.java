@@ -16,7 +16,6 @@
  */
 /**
  * Classes representing the classes of UML with the (mostly) same names.
- * <br/>
  * Due to naming conflicts classes like Class are called
  * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass}.
  * You may access the current UML specification at
