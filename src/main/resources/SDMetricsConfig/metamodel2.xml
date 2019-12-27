@@ -123,9 +123,13 @@ other part of SDMetrics.
         <attribute name="connectors" type="ref" multiplicity="many">The
             connectors owned by the element.
         </attribute>
+        <attribute name="ownedbehaviors" type="ref" multiplicity="many">Behavior
+            specifications owned by the collaboration.
+        </attribute>
     </modelelement>
 
     <modelelement name="interface">
+        <attribute name="visibility">Visibility of the interface.</attribute>
         <attribute name="ownedattributes" type="ref" multiplicity="many">The
             attributes of the interface.
         </attribute>
@@ -140,7 +144,7 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="datatype">
+    <modelelement name="datatype" parent="classifier">
         <attribute name="ownedattributes" type="ref" multiplicity="many">The
             attributes of the element.
         </attribute>
@@ -197,7 +201,8 @@ other part of SDMetrics.
             the property.
         </attribute>
         <attribute name="static">If the property describes instances
-        of or the classifier itself.</attribute>
+            of or the classifier itself.
+        </attribute>
     </modelelement>
 
     <modelelement name="port" parent="property"/>
@@ -282,6 +287,8 @@ other part of SDMetrics.
     <modelelement name="interfacerealization">
         <attribute name="contract" type="ref">Link to the realized interface.
         </attribute>
+        <attribute name="implementation" type="ref">Link to the
+            realizing classifier.</attribute>
     </modelelement>
 
     <modelelement name="dependency">
@@ -309,9 +316,6 @@ other part of SDMetrics.
     <!-- instance specifications, connectors. -->
 
     <modelelement name="collaboration" parent="class">
-        <attribute name="ownedbehaviors" type="ref" multiplicity="many">Behavior
-            specifications owned by the collaboration.
-        </attribute>
     </modelelement>
 
     <modelelement name="interaction" parent="class">

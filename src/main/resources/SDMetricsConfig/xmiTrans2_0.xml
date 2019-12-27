@@ -110,9 +110,9 @@ other part of SDMetrics.
         <trigger name="interfacerealizations" type="xmi2assoc"
                  src="uml:InterfaceRealization"
                  attr="interfaceRealization"/>
-
         <trigger name="connectors" type="xmi2assoc" src="uml:Connector"
                  attr="ownedConnector"/>
+        <trigger name="ownedbehaviors" type="xmi2assoc" attr="ownedBehavior"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interface" xmipattern="uml:Interface"
@@ -125,6 +125,8 @@ other part of SDMetrics.
                  attr="nestedClassifier"/>
         <trigger name="generalizations" type="xmi2assoc"
                  src="uml:Generalization" attr="generalization"/>
+        <trigger name="visibility" type="attrval" attr="visibility"/>
+        <trigger name="visibility" type="ctext" src="visibility"/>
     </xmitransformation>
 
     <xmitransformation modelelement="datatype" xmipattern="uml:DataType"
@@ -249,6 +251,9 @@ other part of SDMetrics.
                        xmipattern="uml:InterfaceRealization">
         <trigger name="contract" type="xmi2assoc" attr="contract"/>
         <trigger name="contract" type="xmi2assoc" attr="supplier"/>
+        <trigger name="implementation" type="xmi2assoc" attr="client"/>
+        <trigger name="implementation" type="xmi2assoc"
+                 attr="implementingClassifier"/>
     </xmitransformation>
     <!-- also allow uml:Implementation from earlier versions of the UML2 metamodel. -->
     <xmitransformation modelelement="interfacerealization"
@@ -289,7 +294,6 @@ other part of SDMetrics.
 
     <xmitransformation modelelement="collaboration"
                        xmipattern="uml:Collaboration" recurse="true">
-        <trigger name="ownedbehaviors" type="xmi2assoc" attr="ownedBehavior"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interaction" xmipattern="uml:Interaction"
