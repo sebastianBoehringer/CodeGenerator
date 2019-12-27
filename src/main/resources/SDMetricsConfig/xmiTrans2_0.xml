@@ -591,6 +591,8 @@ other part of SDMetrics.
         <trigger name="subvertices" type="xmi2assoc" attr="subvertex"/>
         <trigger name="transitions" type="xmi2assoc" attr="transition"
                  src="uml:Transition"/>
+        <trigger name="statemachine" type="xmi2assoc" attr="stateMachine"/>
+        <trigger name="state" type="xmi2assoc" attr="state"/>
     </xmitransformation>
 
     <xmitransformation modelelement="state" xmipattern="uml:State"

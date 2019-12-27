@@ -513,7 +513,7 @@ other part of SDMetrics.
 
 
     <!-- state machines -->
-    <modelelement name="statemachine">
+    <modelelement name="statemachine" parent="behavior">
         <attribute name="regions" type="ref" multiplicity="many">The top-level
             regions owned by the state machine.
         </attribute>
@@ -531,6 +531,12 @@ other part of SDMetrics.
         </attribute>
         <attribute name="transitions" type="ref" multiplicity="many">The
             transitions contained in the region.
+        </attribute>
+        <attribute name="statemachine" type="ref">The statemachine
+            owning the region.
+        </attribute>
+        <attribute name="state" type="ref">The state owning the
+            region.
         </attribute>
     </modelelement>
 
