@@ -231,10 +231,44 @@ other part of SDMetrics.
         <trigger name="ownedmembers" type="xmi2assoc" attr="ownedType"/>
         <trigger name="ownedmembers" type="xmi2assoc" attr="nestedPackage"
                  src="uml:Package"/>
+        <trigger name="profileapplications" type="xmi2assoc"
+                 attr="profileApplication"/>
     </xmitransformation>
+
     <xmitransformation modelelement="model" xmipattern="uml:Model"
                        recurse="true" requirexmiid="false"/>
 
+    <xmitransformation modelelement="profile" xmipattern="uml:Profile"
+                       recurse="true">
+        <trigger name="metaclasses" type="xmi2assoc"
+                 attr="metaclassReference" src="uml:ElementImport"/>
+        <trigger name="metapackages" type="xmi2assoc"
+                 attr="metamodelReference" src="uml:PackageImport"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="profileapplication"
+                       xmipattern="uml:ProfileApplication">
+        <trigger name="applied" type="xmi2assoc" attr="appliedProfile"/>
+        <trigger name="applied" type="xmi2assoc" attr="target"/>
+        <trigger name="applying" type="xmi2assoc" attr="applyingPackage"/>
+        <trigger name="applying" type="xmi2assoc" attr="source"/>
+        <trigger name="strict" type="attrval" attr="isStrict"/>
+        <trigger name="strict" type="ctext" src="isStrict"/>
+    </xmitransformation>
+
+
+    <xmitransformation modelelement="elementimport"
+                       xmipattern="uml:ElementImport" recurse="true">
+        <trigger name="imported" type="xmi2assoc" attr="importedElement"/>
+        <trigger name="imported" type="xmi2assoc" attr="target"/>
+        <trigger name="importer" type="xmi2assoc" attr="importingNamespace"/>
+        <trigger name="importer" type="xmi2assoc" attr="source"/>
+        <trigger name="visibility" type="attrval" attr="visibility"/>
+        <trigger name="visibility" type="ctext" src="visibility"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="packageimport"
+                       xmipattern="uml:PackageImport"/>
     <!-- relationships: association, generalization, ... -->
     <xmitransformation modelelement="association" xmipattern="uml:Association"
                        recurse="true">

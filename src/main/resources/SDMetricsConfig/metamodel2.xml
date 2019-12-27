@@ -265,8 +265,43 @@ other part of SDMetrics.
         <attribute name="ownedmembers" type="ref" multiplicity="many">The owned
             member elements.
         </attribute>
+        <attribute name="profileapplications" type="ref"
+                   multiplicity="many">The profiles applied to the
+            package.
+        </attribute>
     </modelelement>
+
     <modelelement name="model" parent="package"/>
+
+    <modelelement name="profile" parent="package">
+        <attribute name="metaclasses" type="ref" multiplicity="many">The
+            metaclasses that may be extended.
+        </attribute>
+        <attribute name="metapackages" type="ref"
+                   multiplicity="many">Packages containing metaclasses.
+        </attribute>
+    </modelelement>
+
+    <modelelement name="profileapplication">
+        <attribute name="applied" type="ref">The profile applied to
+            the package.</attribute>
+        <attribute name="applying" type="ref">The package applying
+            the profile.</attribute>
+        <attribute name="strict">Boolean indicating if filtering
+            should be used.</attribute>
+    </modelelement>
+
+    <modelelement name="elementimport">
+        <attribute name="importer" type="ref">The importing
+            namespace.
+        </attribute>
+        <attribute name="imported" type="ref">The imported element.</attribute>
+        <attribute name="visibility">The visibility of the imported element
+            in the importing namespace.
+        </attribute>
+    </modelelement>
+
+    <modelelement name="packageimport" parent="elementimport"/>
 
     <!-- relationships: association, generalization, ... -->
     <modelelement name="association">
@@ -746,7 +781,7 @@ other part of SDMetrics.
 
 
     <!-- comments, stereotypes  -->
-    <modelelement name="stereotype"/>
+    <modelelement name="stereotype" parent="class"/>
 
     <modelelement name="comment">
         <attribute name="body">The comment text.</attribute>
