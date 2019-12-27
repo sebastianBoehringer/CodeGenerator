@@ -408,7 +408,7 @@ other part of SDMetrics.
     </modelelement>
 
     <modelelement name="transition">
-        <attribute name="kind" type="data">The kind of transition: external,
+        <attribute name="kind">The kind of transition: external,
             internal, or local.
         </attribute>
         <attribute name="isprotocol">Boolean indicating if this is a protocol
@@ -457,7 +457,7 @@ other part of SDMetrics.
     </modelelement>
 
     <modelelement name="event">
-        <attribute name="kind" type="data">The kind of event (signal, call,
+        <attribute name="kind">The kind of event (signal, call,
             change, time, anyreceive).
         </attribute>
         <attribute name="linkedeventelement" type="ref">The element (signal,
@@ -509,7 +509,7 @@ other part of SDMetrics.
 
     <modelelement
             name="sdmetricsabstractaction"> <!--  Convenience type to define the XMI transformations for all actions -->
-        <attribute name="kind" type="data">The kind of action: send, return,
+        <attribute name="kind">The kind of action: send, return,
             create, etc (there are many).
         </attribute>
         <attribute name="inputs" type="ref" multiplicity="many">The input pins
@@ -660,7 +660,7 @@ other part of SDMetrics.
 
     <!-- UML diagram information -->
     <modelelement name="diagram">
-        <attribute name="type" type="data">The type of diagram (class diagram,
+        <attribute name="type">The type of diagram (class diagram,
             sequence diagram, etc).
         </attribute>
     </modelelement>
