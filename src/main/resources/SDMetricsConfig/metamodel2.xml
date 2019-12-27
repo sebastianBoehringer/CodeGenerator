@@ -103,6 +103,26 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
+    <!-- Abstract stuff from common behavior -->
+
+    <modelelement name="behavior" parent="class">
+        <attribute name="reentrant">Boolean indicating if the
+            behavior can be executed multiple times at the same time.
+        </attribute>
+        <attribute name="parameters" type="ref" multiplicity="many">The
+            parameters of the behavior.
+        </attribute>
+        <attribute name="post" type="ref">The postcondition of the
+            behavior.
+        </attribute>
+        <attribute name="pre" type="ref">The precondition of the
+            behavior.
+        </attribute>
+        <attribute name="specification" type="ref">The operation the
+            behavior implements.
+        </attribute>
+    </modelelement>
+
     <!-- classes, interfaces, attributes, operations -->
     <modelelement name="class" parent="classifier">
         <attribute name="ownedattributes" type="ref" multiplicity="many">The
@@ -284,11 +304,14 @@ other part of SDMetrics.
 
     <modelelement name="profileapplication">
         <attribute name="applied" type="ref">The profile applied to
-            the package.</attribute>
+            the package.
+        </attribute>
         <attribute name="applying" type="ref">The package applying
-            the profile.</attribute>
+            the profile.
+        </attribute>
         <attribute name="strict">Boolean indicating if filtering
-            should be used.</attribute>
+            should be used.
+        </attribute>
     </modelelement>
 
     <modelelement name="elementimport">
@@ -779,6 +802,11 @@ other part of SDMetrics.
     </modelelement>
     <modelelement name="manifestation" parent="abstraction"/>
 
+    <!-- concrete behaviors -->
+
+    <modelelement name="opaquebehavior" parent="opaqueExpression"/>
+
+    <modelelement name="functionbehavior" parent="opaqueBehavior"/>
 
     <!-- comments, stereotypes  -->
     <modelelement name="stereotype" parent="class"/>

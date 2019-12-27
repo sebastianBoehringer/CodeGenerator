@@ -94,6 +94,20 @@ other part of SDMetrics.
         <trigger name="visibility" type="attrval" attr="visibility"/>
         <trigger name="visibility" type="ctext" src="visibility"/>
     </xmitransformation>
+
+    <!-- abstract stuff from common behavior -->
+
+    <xmitransformation modelelement="behavior"
+                       xmipattern="uml:Behavior">
+        <trigger name="reentrant" type="attrval" attr="isReentrant"/>
+        <trigger name="reentrant" type="ctext" src="isReentrant"/>
+        <trigger name="parameters" type="xmi2assoc" attr="ownedParameter"/>
+        <trigger name="parameters" type="xmi2assoc" attr="ownedMember"/>
+        <trigger name="pre" type="xmi2assoc" attr="precondition"/>
+        <trigger name="post" type="xmi2assoc" attr="postcondition"/>
+        <trigger name="specification" type="xmi2assoc" attr="specification"/>
+    </xmitransformation>
+
     <!-- classes, interfaces, attributes, operations -->
     <xmitransformation modelelement="class" xmipattern="uml:Class"
                        recurse="true">
@@ -1134,6 +1148,12 @@ other part of SDMetrics.
         <trigger name="value" type="ignore"/>
     </xmitransformation>
 
+    <!-- concrete behaviors -->
+
+    <xmitransformation modelelement="opaquebehavior"
+                       xmipattern="uml:OpaqueBehavior"/>
+    <xmitransformation modelelement="functionbehavior"
+                       xmipattern="uml:FunctionBehavior"/>
 
     <!-- stereotypes, comments -->
     <xmitransformation modelelement="stereotype" xmipattern="uml:Stereotype"/>
