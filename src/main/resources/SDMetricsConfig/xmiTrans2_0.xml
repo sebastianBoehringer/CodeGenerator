@@ -48,13 +48,15 @@ other part of SDMetrics.
     </xmitransformation>
 
     <!-- Abstract stuff for reusability -->
+
+    <!-- Abstract stuff from common structure -->
     <xmitransformation modelelement="typedelement"
-                       xmipattern="uml:Type">
+                       xmipattern="uml:Type" recurse="true">
         <trigger name="type" type="xmi2assoc" attr="type"/>
     </xmitransformation>
 
     <xmitransformation modelelement="multiplicityelement"
-                       xmipattern="uml:MultiplicityElement">
+                       xmipattern="uml:MultiplicityElement" recurse="true">
         <trigger name="ordered" type="attrval" attr="isOrdered"/>
         <trigger name="ordered" type="ctext" src="isOrdered"/>
         <trigger name="unique" type="attrval" attr="isUnique"/>
@@ -67,15 +69,34 @@ other part of SDMetrics.
         <trigger name="upper" type="ctext" src="upper"/>
     </xmitransformation>
 
+    <!-- abstract stuff from classification -->
+
+    <xmitransformation modelelement="classifier"
+                       xmipattern="uml:Classifier" recurse="true">
+        <trigger name="abstract" type="attrval" attr="isAbstract"/>
+        <trigger name="abstract" type="ctext" src="isAbstract"/>
+        <trigger name="visibility" type="attrval" attr="visibility"/>
+        <trigger name="visibility" type="ctext" src="visibility"/>
+        <trigger name="leaf" type="attrval" attr="isFinalSpecialization"/>
+        <trigger name="leaf" type="ctext" src="isFinalSpecialization"/>
+        <trigger name="collaborationuses" type="xmi2assoc"
+                 attr="collaborationUse" src="uml:CollaborationUse"/>
+        <trigger name="generalization" type="xmi2assoc"
+                 src="uml:Generalization" attr="generalization"/>
+        <trigger name="substitution" type="xmi2assoc" src="uml:Substitution"
+                 attr="substitution"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="feature"
+                       xmipattern="uml:Feature">
+        <trigger name="static" type="attrval" attr="isStatic"/>
+        <trigger name="static" type="ctext" src="isStatic"/>
+        <trigger name="visibility" type="attrval" attr="visibility"/>
+        <trigger name="visibility" type="ctext" src="visibility"/>
+    </xmitransformation>
     <!-- classes, interfaces, attributes, operations -->
     <xmitransformation modelelement="class" xmipattern="uml:Class"
                        recurse="true">
-        <trigger name="visibility" type="attrval" attr="visibility"/>
-        <trigger name="visibility" type="ctext" src="visibility"/>
-        <trigger name="abstract" type="attrval" attr="isAbstract"/>
-        <trigger name="abstract" type="ctext" src="isAbstract"/>
-        <trigger name="leaf" type="attrval" attr="isLeaf"/>
-        <trigger name="leaf" type="ctext" src="isLeaf"/>
         <trigger name="ownedattributes" type="xmi2assoc" src="uml:Property"
                  attr="ownedAttribute"/>
         <trigger name="ownedoperations" type="xmi2assoc" src="uml:Operation"
@@ -149,6 +170,9 @@ other part of SDMetrics.
         <trigger name="aggregation" type="ctext" src="aggregation"/>
         <trigger name="qualifiers" type="xmi2assoc" src="uml:Property"
                  attr="qualifier"/>
+        <trigger name="default" type="xmi2assoc" attr="defaultValue"/>
+        <trigger name="static" type="attrval" attr="isStatic"/>
+        <trigger name="static" type="ctext" src="isStatic"/>
     </xmitransformation>
 
     <xmitransformation modelelement="port" xmipattern="uml:Port"
@@ -156,14 +180,16 @@ other part of SDMetrics.
 
     <xmitransformation modelelement="operation" xmipattern="uml:Operation"
                        recurse="true">
-        <trigger name="visibility" type="attrval" attr="visibility"/>
-        <trigger name="visibility" type="ctext" src="visibility"/>
         <trigger name="abstract" type="attrval" attr="isAbstract"/>
         <trigger name="abstract" type="ctext" src="isAbstract"/>
         <trigger name="isquery" type="attrval" attr="isQuery"/>
         <trigger name="isquery" type="ctext" src="isQuery"/>
         <trigger name="ownedparameters" type="xmi2assoc" src="uml:Parameter"
                  attr="ownedParameter"/>
+        <trigger name="concurrency" type="attrval" attr="concurrency"/>
+        <trigger name="concurrency" type="ctext" src="concurrency"/>
+        <trigger name="exceptions" type="ctext" src="raisedException"/>
+        <trigger name="exceptions" type="xmi2assoc" attr="raisedException"/>
     </xmitransformation>
 
     <xmitransformation modelelement="parameter" xmipattern="uml:Parameter"
@@ -171,6 +197,11 @@ other part of SDMetrics.
         <trigger name="kind" type="attrval" attr="direction"/>
         <trigger name="kind" type="ctext" src="direction"/>
         <trigger name="parametertype" type="xmi2assoc" attr="type"/>
+        <trigger name="exception" type="attrval" attr="isException"/>
+        <trigger name="exception" type="ctext" src="isException"/>
+        <trigger name="stream" type="attrval" attr="isStream"/>
+        <trigger name="stream" type="ctext" src="isStream"/>
+        <trigger name="default" type="xmi2assoc" attr="defaultValue"/>
     </xmitransformation>
 
     <xmitransformation modelelement="method" xmipattern="uml:Method"
@@ -210,6 +241,9 @@ other part of SDMetrics.
     <xmitransformation modelelement="generalization"
                        xmipattern="uml:Generalization">
         <trigger name="general" type="xmi2assoc" attr="general"/>
+        <trigger name="specific" type="xmi2assoc" attr="specific"/>
+        <trigger name="substitutable" type="attrval" attr="isSubstitutable"/>
+        <trigger name="substitutable" type="ctext" src="isSubstitutable"/>
     </xmitransformation>
     <xmitransformation modelelement="interfacerealization"
                        xmipattern="uml:InterfaceRealization">
@@ -270,8 +304,14 @@ other part of SDMetrics.
     <xmitransformation modelelement="instancespecification"
                        xmipattern="uml:InstanceSpecification" recurse="true">
         <trigger name="classifier" type="xmi2assoc" attr="classifier"/>
-        <trigger name="deployments" type="xmi2assoc" attr="deployment"
-                 src="uml:Deployment"/>
+        <trigger name="slots" type="xmi2assoc" src="uml:Slot" attr="slot"/>
+        <trigger name="specification" type="xmi2assoc" attr="specification"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="slot"
+                       xmipattern="uml:Slot">
+        <trigger name="defining" type="xmi2assoc" attr="definingFeature"/>
+        <trigger name="value" type="xmi2assoc" attr="value"/>
     </xmitransformation>
 
     <xmitransformation modelelement="lifeline" xmipattern="uml:Lifeline">
@@ -1021,7 +1061,10 @@ other part of SDMetrics.
         <trigger name="language" type="ctext" src="language"/>
     </xmitransformation>
     <xmitransformation modelelement="instancevalue"
-                       xmipattern="uml:InstanceValue"/>
+                       xmipattern="uml:InstanceValue">
+        <trigger name="instance" type="xmi2assoc" attr="instance"
+                 src="uml:InstanceSpecification"/>
+    </xmitransformation>
     <xmitransformation modelelement="literalboolean"
                        xmipattern="uml:LiteralBoolean"/>
     <xmitransformation modelelement="literalinteger"

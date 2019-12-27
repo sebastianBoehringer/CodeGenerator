@@ -46,6 +46,8 @@ other part of SDMetrics.
     </modelelement>
 
     <!-- Abstract stuff defined for reusability -->
+
+    <!-- Abstract stuff from common structure -->
     <modelelement name="typedelement">
         <attribute name="type" type="ref"/>
     </modelelement>
@@ -67,17 +69,42 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <!-- classes, interfaces, attributes, operations -->
-    <modelelement name="class">
-        <attribute name="visibility">Visibility of the element (public,
-            protected, package, private).
-        </attribute>
+    <!-- abstract stuff from classification -->
+
+    <modelelement name="classifier">
         <attribute name="abstract">Boolean indicating if the element is
             abstract.
         </attribute>
         <attribute name="leaf">Boolean indicating if the element can have
             specializations.
         </attribute>
+        <attribute name="visibility">Visibility of the element (public,
+            protected, package, private).
+        </attribute>
+        <attribute name="collaborationuses" type="ref"
+                   multiplicity="many">CollaborationUses owned by
+            the classifier
+        </attribute>
+        <attribute name="generalization" type="ref" multiplicity="many">
+            Generalizations where this classifier is the specializing one.
+        </attribute>
+        <attribute name="substitution" type="ref"
+                   multiplicity="many">
+            Substitutions owned by the classifier.
+        </attribute>
+    </modelelement>
+
+    <modelelement name="feature">
+        <attribute name="static">Boolean indicating if the feature
+            applies to instance of or the classifier itself
+        </attribute>
+        <attribute name="visibility">Visibility of the operation (public,
+            private, protected, package).
+        </attribute>
+    </modelelement>
+
+    <!-- classes, interfaces, attributes, operations -->
+    <modelelement name="class" parent="classifier">
         <attribute name="ownedattributes" type="ref" multiplicity="many">The
             attributes of the element.
         </attribute>
@@ -166,14 +193,17 @@ other part of SDMetrics.
         <attribute name="qualifiers" type="ref" multiplicity="many">The
             qualifier attributes of the property.
         </attribute>
+        <attribute name="default" type="ref">The default value for
+            the property.
+        </attribute>
+        <attribute name="static">If the property describes instances
+        of or the classifier itself.</attribute>
     </modelelement>
 
     <modelelement name="port" parent="property"/>
 
-    <modelelement name="operation">
-        <attribute name="visibility">Visibility of the operation (public,
-            private, protected, package).
-        </attribute>
+    <modelelement name="operation" parent="feature">
+
         <attribute name="abstract">Boolean indicating if operation is
             abstract.
         </attribute>
@@ -183,6 +213,12 @@ other part of SDMetrics.
         <attribute name="ownedparameters" type="ref" multiplicity="many">The
             parameters of the operation.
         </attribute>
+        <attribute name="concurrency">The concurrency of the
+            operation.
+        </attribute>
+        <attribute name="exceptions" type="ref" multiplicity="many">The
+            exceptions that could occur during the execution of the operation.
+        </attribute>
     </modelelement>
 
     <modelelement name="parameter" parent="multiplicityelement">
@@ -191,6 +227,16 @@ other part of SDMetrics.
         </attribute>
         <attribute name="parametertype" type="ref">Reference to the parameter
             type (class, data type etc).
+        </attribute>
+        <attribute name="effect">CRUD effect on the parameter.</attribute>
+        <attribute name="exception">Boolean indicating whether the
+            parameter is an exception.
+        </attribute>
+        <attribute name="stream">Boolean indicatin whether the
+            parameter is streamed.
+        </attribute>
+        <attribute name="default" type="ref">The default value for
+            the parameter.
         </attribute>
     </modelelement>
 
@@ -223,6 +269,13 @@ other part of SDMetrics.
     <modelelement name="generalization">
         <attribute name="general" type="ref">Link to the parent in the
             generalization.
+        </attribute>
+        <attribute name="specific" type="ref">Link to the child in
+            the generalization.
+        </attribute>
+        <attribute name="substitutable">
+            Boolean indicating if the specific classifier can be used in the
+            general's stead.
         </attribute>
     </modelelement>
 
@@ -277,8 +330,20 @@ other part of SDMetrics.
         <attribute name="classifier" type="ref" multiplicity="many">Links to the
             classifiers that this entity is an instance of.
         </attribute>
-        <attribute name="deployments" type="ref" multiplicity="many">The
-            deployments where this instance specification is the target.
+        <attribute name="slots" type="ref" multiplicity="many">Holding the
+            values for the attributes of the classifier.
+        </attribute>
+        <attribute name="specification" type="ref">A specification
+            on how to compute the instance.
+        </attribute>
+    </modelelement>
+
+    <modelelement name="slot">
+        <attribute name="defining" type="ref">The feature that gets
+            its value from the slot.
+        </attribute>
+        <attribute name="value" type="ref">The value held by the
+            slot.
         </attribute>
     </modelelement>
 
@@ -594,7 +659,11 @@ other part of SDMetrics.
             language(s) of the body string(s).
         </attribute>
     </modelelement>
-    <modelelement name="instancevalue"/>
+    <modelelement name="instancevalue">
+        <attribute name="instance" type="ref">The specification for
+            the instance.
+        </attribute>
+    </modelelement>
 
     <modelelement name="literalboolean" parent="literal"/>
 
