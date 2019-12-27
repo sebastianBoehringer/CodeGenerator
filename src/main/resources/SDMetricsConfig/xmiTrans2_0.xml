@@ -113,6 +113,8 @@ other part of SDMetrics.
         <trigger name="connectors" type="xmi2assoc" src="uml:Connector"
                  attr="ownedConnector"/>
         <trigger name="ownedbehaviors" type="xmi2assoc" attr="ownedBehavior"/>
+        <trigger name="generalization" type="xmi2assoc" attr="superClass"/>
+        <trigger name="generalization" type="xmi2assoc" attr="generalization"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interface" xmipattern="uml:Interface"
@@ -178,7 +180,14 @@ other part of SDMetrics.
     </xmitransformation>
 
     <xmitransformation modelelement="port" xmipattern="uml:Port"
-                       recurse="true"/>
+                       recurse="true">
+        <trigger name="behavior" type="attrval" attr="isBehavior"/>
+        <trigger name="behavior" type="ctext" src="isBehavior"/>
+        <trigger name="conjugated" type="attrval" attr="isConjugated"/>
+        <trigger name="conjugated" type="ctext" src="isConjugated"/>
+        <trigger name="service" type="attrval" attr="isService"/>
+        <trigger name="service" type="ctext" src="isService"/>
+    </xmitransformation>
 
     <xmitransformation modelelement="operation" xmipattern="uml:Operation"
                        recurse="true">
@@ -294,6 +303,13 @@ other part of SDMetrics.
 
     <xmitransformation modelelement="collaboration"
                        xmipattern="uml:Collaboration" recurse="true">
+    </xmitransformation>
+
+    <xmitransformation modelelement="collaborationuse"
+                       xmipattern="uml:CollaborationUse"
+                       recurse="true">
+        <trigger name="roles" type="xmi2assoc" attr="roleBinding"/>
+        <trigger name="type" type="xmi2assoc" attr="type"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interaction" xmipattern="uml:Interaction"
@@ -418,7 +434,9 @@ other part of SDMetrics.
     <xmitransformation modelelement="realization"
                        xmipattern="uml:ComponentRealization"><!-- new in UML 2.1 -->
         <trigger name="supplier" type="xmi2assoc" attr="realizingClassifier"/>
+        <trigger name="supplier" type="xmi2assoc" attr="supplier"/>
         <trigger name="client" type="xmi2assoc" attr="abstraction"/>
+        <trigger name="client" type="xmi2assoc" attr="client"/>
     </xmitransformation>
 
     <xmitransformation modelelement="node" xmipattern="uml:Node" recurse="true">

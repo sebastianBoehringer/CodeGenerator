@@ -166,7 +166,7 @@ other part of SDMetrics.
 
     <modelelement name="primitivetype" parent="datatype"/>
 
-    <modelelement name="connector">
+    <modelelement name="connector" parent="typedelement">
         <attribute name="ends" type="ref" multiplicity="many">The connector ends
             of the connector.
         </attribute>
@@ -205,7 +205,19 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="port" parent="property"/>
+    <modelelement name="port" parent="property">
+        <attribute name="behavior">Boolean indicating if the
+            incoming requests are delegated to the
+            ClassifierBehavior.
+        </attribute>
+        <attribute name="conjugated">Boolean indicating how to
+            derive the provided and required interfaces of the port.
+        </attribute>
+        <attribute name="service">Boolean indicating if the rest of
+            the system can use part of the functionality of the
+            component via the port.
+        </attribute>
+    </modelelement>
 
     <modelelement name="operation" parent="feature">
 
@@ -288,7 +300,8 @@ other part of SDMetrics.
         <attribute name="contract" type="ref">Link to the realized interface.
         </attribute>
         <attribute name="implementation" type="ref">Link to the
-            realizing classifier.</attribute>
+            realizing classifier.
+        </attribute>
     </modelelement>
 
     <modelelement name="dependency">
@@ -316,6 +329,15 @@ other part of SDMetrics.
     <!-- instance specifications, connectors. -->
 
     <modelelement name="collaboration" parent="class">
+    </modelelement>
+
+    <modelelement name="collaborationuse">
+        <attribute name="roles" type="ref" multiplicity="many">Relates a
+            feature of the collaboration to a feature of the classifier.
+        </attribute>
+        <attribute name="type" type="ref">The collaboration used
+            here.
+        </attribute>
     </modelelement>
 
     <modelelement name="interaction" parent="class">
