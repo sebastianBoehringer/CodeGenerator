@@ -45,6 +45,28 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
+    <!-- Abstract stuff defined for reusability -->
+    <modelelement name="typedelement">
+        <attribute name="type" type="ref"/>
+    </modelelement>
+
+    <modelelement name="multiplicityelement" parent="typedelement">
+        <attribute name="ordered">Boolean indicating if the
+            element is ordered.
+        </attribute>
+        <attribute name="unique">Boolean indicating if the value(s)
+            of the elemnt are unique
+        </attribute>
+        <attribute name="lower">Result of lower specification</attribute>
+        <attribute name="lowerValue" type="ref">The lower bound for the
+            multiplicity.
+        </attribute>
+        <attribute name="upper">Result of upper specification</attribute>
+        <attribute name="upperValue" type="ref">The upper bound for the
+            multiplicity.
+        </attribute>
+    </modelelement>
+
     <!-- classes, interfaces, attributes, operations -->
     <modelelement name="class">
         <attribute name="visibility">Visibility of the element (public,
@@ -119,13 +141,13 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="connectorend">
+    <modelelement name="connectorend" parent="multiplicityelement">
         <attribute name="role" type="ref">The element that is attached at this
             connector end.
         </attribute>
     </modelelement>
 
-    <modelelement name="property">
+    <modelelement name="property" parent="typedelement">
         <attribute name="visibility">Visibility of the feature (public, private,
             protected, package).
         </attribute>
@@ -163,19 +185,7 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="parameter">
-        <attribute name="ordered">Boolean indicating if the
-            operation is ordered.
-        </attribute>
-        <attribute name="unique">Boolean indicating if the value(s)
-            of the parameter are unique
-        </attribute>
-        <attribute name="lower" type="ref">The lower bound for the
-            multiplicity.
-        </attribute>
-        <attribute name="upper" type="ref">The upper bound for the
-            multiplicity.
-        </attribute>
+    <modelelement name="parameter" parent="multiplicityelement">
         <attribute name="kind">The direction of the parameter: in (default),
             out, inout, return.
         </attribute>
@@ -230,7 +240,11 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="abstraction" parent="dependency"/>
+    <modelelement name="abstraction" parent="dependency">
+        <attribute name="mapping" type="ref">
+            States the kind of abstraction between supplier(s) and client(s).
+        </attribute>
+    </modelelement>
 
     <modelelement name="realization" parent="abstraction"/>
 
@@ -418,7 +432,22 @@ other part of SDMetrics.
 
     <modelelement name="constraint">
         <attribute name="specification" type="ref">The condition
-            that determines wether this constraint holds.
+            that determines whether this constraint holds.
+        </attribute>
+        <attribute name="constrainedElement" type="ref"
+                   multiplicity="many">The elements affected by the
+            constraint
+        </attribute>
+    </modelelement>
+
+    <modelelement name="interval">
+        <attribute name="max">Upper bound of the range.</attribute>
+        <attribute name="min">Lower bound of the range.</attribute>
+    </modelelement>
+
+    <modelelement name="intervalconstraint" parent="constraint">
+        <attribute name="intervalspecification" type="ref">The
+            interval specifying the constraint
         </attribute>
     </modelelement>
 
@@ -553,21 +582,31 @@ other part of SDMetrics.
     <!-- Value specifications  -->
     <modelelement name="expression"/>
 
-    <modelelement name="opaqueexpression"/>
+    <modelelement name="literal">
+        <attribute name="value">The literal value</attribute>
+    </modelelement>
 
+    <modelelement name="opaqueexpression">
+        <attribute name="body" multiplicity="many">The
+            body of the expression.
+        </attribute>
+        <attribute name="language" multiplicity="many">The
+            language(s) of the body string(s).
+        </attribute>
+    </modelelement>
     <modelelement name="instancevalue"/>
 
-    <modelelement name="literalboolean"/>
+    <modelelement name="literalboolean" parent="literal"/>
 
-    <modelelement name="literalinteger"/>
+    <modelelement name="literalinteger" parent="literal"/>
 
-    <modelelement name="literalreal"/>
+    <modelelement name="literalreal" parent="literal"/>
 
-    <modelelement name="literalstring"/>
+    <modelelement name="literalstring" parent="literal"/>
 
-    <modelelement name="literalunlimitednatural"/>
+    <modelelement name="literalunlimitednatural" parent="literal"/>
 
-    <modelelement name="literalnull"/>
+    <modelelement name="literalnull" parent="literal"/>
 
     <!-- components, nodes -->
     <modelelement name="component" parent="class">

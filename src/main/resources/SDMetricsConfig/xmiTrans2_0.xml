@@ -47,6 +47,26 @@ other part of SDMetrics.
                  src="uml:Comment"/>
     </xmitransformation>
 
+    <!-- Abstract stuff for reusability -->
+    <xmitransformation modelelement="typedelement"
+                       xmipattern="uml:Type">
+        <trigger name="type" type="xmi2assoc" attr="type"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="multiplicityelement"
+                       xmipattern="uml:MultiplicityElement">
+        <trigger name="ordered" type="attrval" attr="isOrdered"/>
+        <trigger name="ordered" type="ctext" src="isOrdered"/>
+        <trigger name="unique" type="attrval" attr="isUnique"/>
+        <trigger name="unique" type="ctext" src="isUnique"/>
+        <trigger name="lowerValue" type="xmi2assoc" attr="lowerValue"/>
+        <trigger name="upperValue" type="xmi2assoc" attr="upperValue"/>
+        <trigger name="lower" type="attrval" attr="lower"/>
+        <trigger name="lower" type="ctext" src="lower"/>
+        <trigger name="upper" type="attrval" attr="upper"/>
+        <trigger name="upper" type="ctext" src="upper"/>
+    </xmitransformation>
+
     <!-- classes, interfaces, attributes, operations -->
     <xmitransformation modelelement="class" xmipattern="uml:Class"
                        recurse="true">
@@ -151,12 +171,6 @@ other part of SDMetrics.
         <trigger name="kind" type="attrval" attr="direction"/>
         <trigger name="kind" type="ctext" src="direction"/>
         <trigger name="parametertype" type="xmi2assoc" attr="type"/>
-        <trigger name="ordered" type="attrval" attr="isOrdered"/>
-        <trigger name="ordered" type="ctext" src="isOrdered"/>
-        <trigger name="unique" type="attrval" attr="isUnique"/>
-        <trigger name="unique" type="ctext" src="isUnique"/>
-        <trigger name="lower" type="xmi2assoc" attr="lowerValue"/>
-        <trigger name="upper" type="xmi2assoc" attr="upperValue"/>
     </xmitransformation>
 
     <xmitransformation modelelement="method" xmipattern="uml:Method"
@@ -216,13 +230,17 @@ other part of SDMetrics.
         <trigger name="client" type="xmi2assoc" attr="client"/>
     </xmitransformation>
 
-    <xmitransformation modelelement="abstraction" xmipattern="uml:Abstraction"/>
+    <xmitransformation modelelement="abstraction" xmipattern="uml:Abstraction">
+        <trigger name="mapping" type="xmi2assoc" attr="mapping"/>
+    </xmitransformation>
+
     <xmitransformation modelelement="realization" xmipattern="uml:Realization">
         <trigger name="supplier" type="xmi2assoc" attr="realizingClassifier"/>
         <trigger name="supplier" type="xmi2assoc" attr="supplier"/>
         <trigger name="client" type="xmi2assoc" attr="abstraction"/>
         <trigger name="client" type="xmi2assoc" attr="client"/>
     </xmitransformation>
+
     <xmitransformation modelelement="substitution"
                        xmipattern="uml:Substitution">
         <trigger name="supplier" type="xmi2assoc" attr="contract"/>
@@ -576,9 +594,26 @@ other part of SDMetrics.
                        recurse="true">
         <trigger name="specification" type="xmi2assoc"
                  attr="specification"/>
+        <trigger name="constrainedElement" type="xmi2assoc"
+                 attr="constrainedElement"/>
     </xmitransformation>
 
+    <xmitransformation modelelement="interval"
+                       xmipattern="uml:Interval" recurse="true">
+        <trigger name="max" type="xmi2assoc" attr="max"/>
+        <trigger name="max" type="attrval" attr="max"/>
+        <trigger name="max" type="ctext" src="max"/>
+        <trigger name="min" type="xmi2assoc" attr="min"/>
+        <trigger name="min" type="attrval" attr="min"/>
+        <trigger name="min" type="ctext" src="min"/>
+    </xmitransformation>
 
+    <xmitransformation modelelement="intervalconstraint"
+                       xmipattern="uml:IntervalConstraint"
+                       recurse="true">
+        <trigger name="intervalspecification" type="xmi2assoc"
+                 attr="specification" src="uml:Interval"/>
+    </xmitransformation>
     <!-- activities -->
 
     <xmitransformation modelelement="activity" xmipattern="uml:Activity"
@@ -971,10 +1006,20 @@ other part of SDMetrics.
                  src="uml:InputPin"/>
     </xmitransformation>
 
-    <!-- value specifications, we count them, but we are not interested in their contents -->
+    <!-- value specifications, we count them, but we are indeed interested in
+    their contents -->
+    <xmitransformation modelelement="literal"
+                       xmipattern="xmi:LiteralSpecification" recurse="true"
+    >
+        <trigger name="value" type="ctext" src="value"/>
+        <trigger name="value" type="attrval" attr="value"/>
+    </xmitransformation>
     <xmitransformation modelelement="expression" xmipattern="uml:Expression"/>
     <xmitransformation modelelement="opaqueexpression"
-                       xmipattern="uml:OpaqueExpression"/>
+                       xmipattern="uml:OpaqueExpression">
+        <trigger name="body" type="ctext" src="body"/>
+        <trigger name="language" type="ctext" src="language"/>
+    </xmitransformation>
     <xmitransformation modelelement="instancevalue"
                        xmipattern="uml:InstanceValue"/>
     <xmitransformation modelelement="literalboolean"
@@ -986,7 +1031,9 @@ other part of SDMetrics.
                        xmipattern="uml:LiteralString"/>
     <xmitransformation modelelement="literalunlimitednatural"
                        xmipattern="uml:LiteralUnlimitedNatural"/>
-    <xmitransformation modelelement="literalnull" xmipattern="uml:LiteralNull"/>
+    <xmitransformation modelelement="literalnull" xmipattern="uml:LiteralNull">
+        <trigger name="value" type="ignore"/>
+    </xmitransformation>
 
 
     <!-- stereotypes, comments -->
