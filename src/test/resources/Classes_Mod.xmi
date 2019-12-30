@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701"
+           xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1"
+           xmi:id="_LuJHwCraEeqsY_98xKd5uQ" name="Tests">
+    <eAnnotations xmi:id="_LuJHwSraEeqsY_98xKd5uQ" source="Objing">
+        <contents xmi:type="uml:Property" xmi:id="_LuJHwiraEeqsY_98xKd5uQ"
+                  name="exporterVersion">
+            <defaultValue xmi:type="uml:LiteralString"
+                          xmi:id="_LuJHwyraEeqsY_98xKd5uQ" value="3.0.0"/>
+        </contents>
+    </eAnnotations>
+    <packagedElement xmi:type="uml:Class" xmi:id="_LuJHxCraEeqsY_98xKd5uQ"
+                     name="Class">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_LuJHxSraEeqsY_98xKd5uQ"
+                        name="member" visibility="public" isUnique="false">
+            <ownedComment xmi:type="uml:Comment"
+                          xmi:id="_LuJHxiraEeqsY_98xKd5uQ">
+                <body>&lt;Enter note text here&gt;</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType"
+                  href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
+        </ownedAttribute>
+        <ownedOperation xmi:type="uml:Operation"
+                        xmi:id="_LuJHxyraEeqsY_98xKd5uQ" name="operation"
+                        visibility="public">
+            <ownedParameter xmi:id="_LuJHyCraEeqsY_98xKd5uQ" name="p1"
+                            isUnique="false">
+                <type xmi:type="uml:PrimitiveType"
+                      href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural"
+                            xmi:id="_LuJHySraEeqsY_98xKd5uQ" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger"
+                            xmi:id="_LuJHyiraEeqsY_98xKd5uQ" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString"
+                              xmi:id="_LuJHyyraEeqsY_98xKd5uQ" value=""/>
+            </ownedParameter>
+            <ownedParameter xmi:id="_LuJHzCraEeqsY_98xKd5uQ" isUnique="false"
+                            direction="return">
+                <type xmi:type="uml:PrimitiveType"
+                      href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural"
+                            xmi:id="_LuJHzSraEeqsY_98xKd5uQ" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger"
+                            xmi:id="_LuJHziraEeqsY_98xKd5uQ" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString"
+                              xmi:id="_LuJHzyraEeqsY_98xKd5uQ" value=""/>
+            </ownedParameter>
+        </ownedOperation>
+    </packagedElement>
+</uml:Model>

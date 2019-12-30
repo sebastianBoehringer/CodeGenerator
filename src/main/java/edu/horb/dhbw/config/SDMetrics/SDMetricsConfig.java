@@ -17,10 +17,7 @@
 
 package edu.horb.dhbw.config.SDMetrics;
 
-import com.sdmetrics.model.MetaModel;
-import com.sdmetrics.model.Model;
-import com.sdmetrics.model.XMIReader;
-import com.sdmetrics.model.XMITransformations;
+import com.sdmetrics.model.*;
 import com.sdmetrics.util.XMLParser;
 import lombok.NonNull;
 
@@ -42,12 +39,20 @@ public final class SDMetricsConfig {
     private static final String XMITRANSURL =
             "src/main/resources/SDMetricsConfig/xmiTrans2_0.xml";
 
+    /**
+     * Private constructor to prevent instances of the class from being created.
+     */
     private SDMetricsConfig() {
 
     }
 
     /**
-     * Parses the given xmi-file.
+     * Parses the given xmi-file. Use {@link #parseXMI(MetaModel, String)} to
+     * be able to use methods like
+     * {@link Model#getElements(MetaModelElement)} as for some reason
+     * {@link MetaModelElement} does not override
+     * {@link Object#equals(Object)} so you actually have to keep a reference
+     * to the {@link MetaModel}.
      *
      * @param xmiFile The path to the xmi file which the parser should process
      * @return {@link Model} representing the read file
@@ -58,13 +63,64 @@ public final class SDMetricsConfig {
             throws Exception {
 
         XMLParser parser = new XMLParser();
-        MetaModel metaModel = new MetaModel();
-        parser.parse(METAMODELURL, metaModel.getSAXParserHandler());
-        XMITransformations trans = new XMITransformations(metaModel);
-        parser.parse(XMITRANSURL, trans.getSAXParserHandler());
+        MetaModel metaModel = createMetaModel();
         Model model = new Model(metaModel);
-        XMIReader xmiReader = new XMIReader(trans, model);
+        XMIReader xmiReader =
+                new XMIReader(createTransformations(parser, metaModel), model);
         parser.parse(xmiFile, xmiReader);
         return model;
     }
+
+    /**
+     * @param metaModel The metaModel defining the types to collect
+     * @param pathToXMI The path to the xmi file
+     * @return A model containing the elements that were collected during
+     * parsing
+     *
+     * @throws Exception If anything goes wrong during the parsing
+     */
+    public static Model parseXMI(
+            @NonNull final MetaModel metaModel, @NonNull final String pathToXMI)
+            throws Exception {
+
+        XMLParser parser = new XMLParser();
+        Model model = new Model(metaModel);
+        XMIReader xmiReader =
+                new XMIReader(createTransformations(parser, metaModel), model);
+        parser.parse(pathToXMI, xmiReader);
+        return model;
+
+    }
+
+    /**
+     * @param parser    The parser for the xml files
+     * @param metaModel The metamodel to which the transformations apply
+     * @return An instantiated XMITransformations object
+     *
+     * @throws Exception If anything goes wrong during parsing
+     */
+    private static XMITransformations createTransformations(final XMLParser parser, final MetaModel metaModel)
+            throws Exception {
+
+        XMITransformations trans = new XMITransformations(metaModel);
+        parser.parse(XMITRANSURL, trans.getSAXParserHandler());
+        return trans;
+    }
+
+    /**
+     * Creates an instance of the default metamodel for UML 2.x.
+     *
+     * @return The metaModel
+     *
+     * @throws Exception If anything goes wrong during xml parsing.
+     */
+    public static MetaModel createMetaModel()
+            throws Exception {
+
+        XMLParser parser = new XMLParser();
+        MetaModel metaModel = new MetaModel();
+        parser.parse(METAMODELURL, metaModel.getSAXParserHandler());
+        return metaModel;
+    }
+
 }
