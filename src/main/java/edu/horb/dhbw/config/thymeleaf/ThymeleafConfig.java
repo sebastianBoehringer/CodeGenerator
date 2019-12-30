@@ -27,6 +27,9 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 public final class ThymeleafConfig {
 
+    /**
+     * Private constructor to prevent instances of the class from being created.
+     */
     private ThymeleafConfig() {
 
     }
