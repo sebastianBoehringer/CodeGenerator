@@ -35,8 +35,8 @@ public final class ProfileApplication extends DirectedRelationship {
     /**
      * If this is {@code true} the available metaclasses for the package must
      * be filtered. Thus only the metaclasses referenced by either
-     * {@link Profile#getMetaclassReference()} or
-     * {@link Profile#getMetamodelReference()} are available in the package.
+     * {@link Profile#metaclassReference} or
+     * {@link Profile#metamodelReference} are available in the package.
      */
     private Boolean isStrict = Boolean.FALSE;
     /**

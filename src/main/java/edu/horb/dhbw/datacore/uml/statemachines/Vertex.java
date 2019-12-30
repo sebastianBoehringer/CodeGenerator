@@ -42,13 +42,13 @@ public abstract class Vertex extends NamedElement {
     private Region container;
     /**
      * All transitions that enter the vertex.
-     * I. e. all transitions where {@link Transition#getTarget()} equals this
+     * I. e. all transitions where {@link Transition#target} equals this
      * vertex. Thus this attribute can be derived.
      */
     private List<Transition> incoming = new ArrayList<>();
     /**
      * All transitions that leave the vertex.
-     * I. e. all transitions where {@link Transition#getSource()} equals this
+     * I. e. all transitions where {@link Transition#source} equals this
      * vertex. Thus the attribute can be derived.
      */
     private List<Transition> outgoing = new ArrayList<>();

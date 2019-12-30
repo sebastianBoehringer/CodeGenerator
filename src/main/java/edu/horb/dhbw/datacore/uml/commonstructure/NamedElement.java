@@ -64,7 +64,7 @@ public abstract class NamedElement extends Element {
     private StringExpression nameExpression;
     /**
      * The namespace this element belongs to. This can be derived via
-     * {@link #getOwner}.
+     * {@link #owner}.
      */
     private Namespace namespace;
 

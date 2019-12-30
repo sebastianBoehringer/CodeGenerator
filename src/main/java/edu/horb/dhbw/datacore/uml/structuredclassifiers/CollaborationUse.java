@@ -38,7 +38,7 @@ import java.util.List;
 public final class CollaborationUse extends NamedElement {
     /**
      * A mapping between features of the collaboration and features of
-     * {@link #getOwner()} of this collaborationUse.
+     * {@link #owner} of this collaborationUse.
      */
     private List<Dependency> roleBinding = new ArrayList<>();
     /**
