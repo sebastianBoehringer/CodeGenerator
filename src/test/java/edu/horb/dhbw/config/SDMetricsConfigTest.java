@@ -31,7 +31,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 public class SDMetricsConfigTest {
 
@@ -132,8 +134,9 @@ public class SDMetricsConfigTest {
     @DataProvider(name = "classes")
     public Object[][] provideClasses() {
 
-        return new Object[][]{{"src/test/resources/Classes_Mod.xmi"},
-                              {"src/test/resources/Classes_Pap.xmi"}};
+        return new Object[][]{
+                {"src/test/resources/classdiagrams/Classes_Mod.xmi"},
+                {"src/test/resources/classdiagrams/Classes_Pap.xmi"}};
     }
 
     private void assertIsPrimitiveType(@NonNull final ModelElement e) {
