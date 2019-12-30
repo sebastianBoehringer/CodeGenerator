@@ -165,7 +165,11 @@ other part of SDMetrics.
 
     <modelelement name="enumerationliteral"/>
 
-    <modelelement name="primitivetype" parent="datatype"/>
+    <modelelement name="primitivetype" parent="datatype">
+        <attribute name="href">A link to the predefined primitive
+            type
+        </attribute>
+    </modelelement>
 
     <modelelement name="connector" parent="typedelement">
         <attribute name="ends" type="ref" multiplicity="many">The connector ends

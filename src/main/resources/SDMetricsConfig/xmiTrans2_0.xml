@@ -53,6 +53,7 @@ other part of SDMetrics.
     <xmitransformation modelelement="typedelement"
                        xmipattern="uml:Type" recurse="true">
         <trigger name="type" type="xmi2assoc" attr="type"/>
+        <trigger name="type" type="cattrval" src="type" attr="href"/>
     </xmitransformation>
 
     <xmitransformation modelelement="multiplicityelement"
@@ -163,7 +164,9 @@ other part of SDMetrics.
     <xmitransformation modelelement="enumerationliteral"
                        xmipattern="uml:EnumerationLiteral"/>
     <xmitransformation modelelement="primitivetype"
-                       xmipattern="uml:PrimitiveType"/>
+                       xmipattern="uml:PrimitiveType" requirexmiid="false">
+        <trigger name="href" type="attrval" attr="href"/>
+    </xmitransformation>
 
     <xmitransformation modelelement="connector" xmipattern="uml:Connector"
                        recurse="true">
