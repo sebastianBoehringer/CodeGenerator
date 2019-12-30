@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import lombok.NonNull;
+
 /**
  * Determines the visibility of
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.Element}s in a Model.
@@ -75,5 +77,16 @@ public enum VisibilityKind {
             default:
         }
         return ret;
+    }
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static VisibilityKind from(@NonNull final String string) {
+
+        return VisibilityKind.valueOf(string.toUpperCase());
     }
 }
