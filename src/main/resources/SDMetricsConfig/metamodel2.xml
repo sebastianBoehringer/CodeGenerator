@@ -103,25 +103,6 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <!-- Abstract stuff from common behavior -->
-
-    <modelelement name="behavior" parent="class">
-        <attribute name="reentrant">Boolean indicating if the
-            behavior can be executed multiple times at the same time.
-        </attribute>
-        <attribute name="parameters" type="ref" multiplicity="many">The
-            parameters of the behavior.
-        </attribute>
-        <attribute name="post" type="ref">The postcondition of the
-            behavior.
-        </attribute>
-        <attribute name="pre" type="ref">The precondition of the
-            behavior.
-        </attribute>
-        <attribute name="specification" type="ref">The operation the
-            behavior implements.
-        </attribute>
-    </modelelement>
 
     <!-- classes, interfaces, attributes, operations -->
     <modelelement name="class" parent="classifier">
@@ -278,7 +259,25 @@ other part of SDMetrics.
     </modelelement>
 
     <modelelement name="method"/>
+    <!-- Abstract stuff from common behavior -->
 
+    <modelelement name="behavior" parent="class">
+        <attribute name="reentrant">Boolean indicating if the
+            behavior can be executed multiple times at the same time.
+        </attribute>
+        <attribute name="parameters" type="ref" multiplicity="many">The
+            parameters of the behavior.
+        </attribute>
+        <attribute name="post" type="ref">The postcondition of the
+            behavior.
+        </attribute>
+        <attribute name="pre" type="ref">The precondition of the
+            behavior.
+        </attribute>
+        <attribute name="specification" type="ref">The operation the
+            behavior implements.
+        </attribute>
+    </modelelement>
     <!-- models, packages -->
 
     <modelelement name="package">
@@ -810,9 +809,9 @@ other part of SDMetrics.
 
     <!-- concrete behaviors -->
 
-    <modelelement name="opaquebehavior" parent="opaqueExpression"/>
+    <modelelement name="opaquebehavior" parent="opaqueexpression"/>
 
-    <modelelement name="functionbehavior" parent="opaqueBehavior"/>
+    <modelelement name="functionbehavior" parent="opaquebehavior"/>
 
     <!-- comments, stereotypes  -->
     <modelelement name="stereotype" parent="class"/>
