@@ -50,12 +50,9 @@ public final class SDMetricsConfig {
     }
 
     /**
-     * Parses the given xmi-file. Use {@link #parseXMI(MetaModel, String)} to
-     * be able to use methods like
-     * {@link Model#getElements(MetaModelElement)} as for some reason
-     * {@link MetaModelElement} does not override
-     * {@link Object#equals(Object)} so you actually have to keep a reference
-     * to the {@link MetaModel}.
+     * Parses the given xmi-file. If you already have a {@link MetaModel}
+     * present consider using {@link #parseXMI(MetaModel, String)} as that
+     * method does not create a new {@link MetaModel} while this method will.
      *
      * @param xmiFile The path to the xmi file which the parser should process
      * @return {@link Model} representing the read file
