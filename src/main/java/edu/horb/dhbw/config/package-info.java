@@ -19,7 +19,7 @@
  * Contains utility classes that are concerned with the configuration of
  * entire frameworks. This differs from "normal" utility classes as they
  * often deal with a single class (or a small number of them), i. e. the main
- * difference between classes in the package edu.horb.dhbw.utility and this
+ * difference between classes in the package edu.horb.dhbw.util and this
  * package is the scope they apply to.
  * This package also deals with the configuration of the CodeGenerator.
  *
