@@ -21,6 +21,7 @@ import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
+import lombok.NonNull;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -35,8 +36,6 @@ import static org.testng.Assert.*;
 public class SDMetricsConfigTest {
 
     private MetaModel metaModel;
-    private static final String METAMODELURL =
-            "src/main/resources/SDMetricsConfig/metamodel2.xml";
 
     @BeforeClass
     public void init()
@@ -82,6 +81,10 @@ public class SDMetricsConfigTest {
                                    property.getPlainAttribute("visibility")
                                            .toLowerCase()),
                    "Property should be public");
+        ModelElement propertyType = property.getRefAttribute("type");
+        assertIsPrimitiveType(propertyType);
+        assertTypeIsPrimitiveString(propertyType);
+
         Collection<?> ownedOperations =
                 clazz.getSetAttribute("ownedoperations");
         assertEquals(ownedOperations.size(), 1,
@@ -96,6 +99,7 @@ public class SDMetricsConfigTest {
         assertTrue(Pattern.matches(pattern,
                                    operation.getPlainAttribute("visibility")),
                    "Operation should be public");
+
         Collection<?> ownedParameters =
                 operation.getSetAttribute("ownedparameters");
         assertEquals(ownedParameters.size(), 2,
@@ -115,6 +119,13 @@ public class SDMetricsConfigTest {
         assertEquals(inParam.getName(), "p1",
                      "Input parameter should be named p1");
 
+        ModelElement inType = inParam.getRefAttribute("type");
+        assertIsPrimitiveType(inType);
+        assertTypeIsPrimitiveString(inType);
+        ModelElement returnType = returnParam.getRefAttribute("type");
+        assertIsPrimitiveType(returnType);
+        assertTypeIsPrimitiveString(returnType);
+
 
     }
 
@@ -123,5 +134,18 @@ public class SDMetricsConfigTest {
 
         return new Object[][]{{"src/test/resources/Classes_Mod.xmi"},
                               {"src/test/resources/Classes_Pap.xmi"}};
+    }
+
+    private void assertIsPrimitiveType(@NonNull final ModelElement e) {
+
+        assertEquals(e.getType().getName(), "primitivetype",
+                     "e should be a primitive type");
+    }
+
+    private void assertTypeIsPrimitiveString(@NonNull final ModelElement e) {
+
+        assertEquals(e.getPlainAttribute("href").replaceFirst(".*#", "")
+                             .toLowerCase(), "string",
+                     "The primitive type should be string");
     }
 }
