@@ -17,7 +17,10 @@
 
 package edu.horb.dhbw.config.SDMetrics;
 
-import com.sdmetrics.model.*;
+import com.sdmetrics.model.MetaModel;
+import com.sdmetrics.model.Model;
+import com.sdmetrics.model.XMIReader;
+import com.sdmetrics.model.XMITransformations;
 import com.sdmetrics.util.XMLParser;
 import lombok.NonNull;
 
