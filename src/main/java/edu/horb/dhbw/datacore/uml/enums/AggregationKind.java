@@ -36,5 +36,16 @@ public enum AggregationKind {
      * Indicates that the property is part of the composite. If the composite
      * is deleted so is the property.
      */
-    COMPOSITE
+    COMPOSITE;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static AggregationKind from(final String string) {
+
+        return AggregationKind.valueOf(string.toUpperCase());
+    }
 }
