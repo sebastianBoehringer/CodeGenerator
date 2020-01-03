@@ -120,8 +120,6 @@ other part of SDMetrics.
                  attr="ownedPort"/>
         <trigger name="nestedclassifiers" type="xmi2assoc"
                  attr="nestedClassifier"/>
-        <trigger name="generalizations" type="xmi2assoc"
-                 src="uml:Generalization" attr="generalization"/>
         <trigger name="interfacerealizations" type="xmi2assoc"
                  src="uml:InterfaceRealization"
                  attr="interfaceRealization"/>
@@ -129,7 +127,8 @@ other part of SDMetrics.
                  attr="ownedConnector"/>
         <trigger name="ownedbehaviors" type="xmi2assoc" attr="ownedBehavior"/>
         <trigger name="generalization" type="xmi2assoc" attr="superClass"/>
-        <trigger name="generalization" type="xmi2assoc" attr="generalization"/>
+        <trigger name="generalization" type="xmi2assoc"
+                 src="uml:Generalization" attr="generalization"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interface" xmipattern="uml:Interface"

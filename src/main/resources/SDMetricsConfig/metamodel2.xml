@@ -115,9 +115,6 @@ other part of SDMetrics.
         <attribute name="nestedclassifiers" type="ref" multiplicity="many">The
             nested classifiers of the element.
         </attribute>
-        <attribute name="generalizations" type="ref" multiplicity="many">The
-            generalizations owned by the element.
-        </attribute>
         <attribute name="interfacerealizations" type="ref" multiplicity="many">
             The interface realizations owned by the element.
         </attribute>
@@ -183,7 +180,7 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="property" parent="typedelement">
+    <modelelement name="property" parent="multiplicityelement">
         <attribute name="visibility">Visibility of the feature (public, private,
             protected, package).
         </attribute>
