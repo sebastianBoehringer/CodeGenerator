@@ -19,7 +19,9 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.packages.Extension;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,14 +36,16 @@ import java.util.List;
  * This should specialize both
  * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier}
  * and {@link EncapsulatedClassifier}. It currently inherits from
- * {@link EncapsulatedClassifier}.
+ * {@link EncapsulatedClassifier}, the fields and added methods from
+ * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier}
+ * have been copied over. This is arguably not a pretty solution as
+ * substitution goes down the drain but it has to work.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UMLClass extends EncapsulatedClassifier {
-    //TODO resolve inheritance
     /**
      * If this is {@code true} the class cannot be instantiated directly.
      */
@@ -70,6 +74,50 @@ public class UMLClass extends EncapsulatedClassifier {
      * The generalizations of this class. The attribute can be derived.
      */
     private List<UMLClass> superClass = new ArrayList<>();
+
+    /**
+     * Describes the behavior of the classifier.
+     * Exists to circumvent the issue with multiple inheritance in Java. This
+     * field is basically the same as
+     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#classifierBehavior}.
+     */
+    private Behavior classifierBehavior;
+    /**
+     * The {@link InterfaceRealization} relationships this classifier
+     * participates in. This can be seen as a list of interfaces this
+     * classifier implements.
+     * Exists to circumvent the issue with multiple inheritance in Java. This
+     * field is basically the same as
+     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#interfaceRealization}.
+     */
+    private List<InterfaceRealization> interfaceRealization = new ArrayList<>();
+    /**
+     * Behaviors this classifier owns.
+     * Exists to circumvent the issue with multiple inheritance in Java. This
+     * field is basically the same as
+     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#ownedBehavior}.
+     */
+    private List<Behavior> ownedBehavior = new ArrayList<>();
+
+    /**
+     * Adds a new behavior to {@link #ownedBehavior}.
+     *
+     * @param behavior The behavior to add
+     */
+    public void addOwnedBehavior(final Behavior behavior) {
+
+        ownedBehavior.add(behavior);
+    }
+
+    /**
+     * Adds a new interfaceRealization to {@link #interfaceRealization}.
+     *
+     * @param realization The interfaceRealization to add
+     */
+    public void addInterfaceRealization(final InterfaceRealization realization) {
+
+        interfaceRealization.add(realization);
+    }
 
     /**
      * Adds a new classifier to {@link #nestedClassifier}.

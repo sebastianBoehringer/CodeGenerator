@@ -21,6 +21,7 @@ import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,10 @@ import java.util.List;
  * This should specialize both
  * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}
  * and {@link StructuralFeature}. It currently only inherits from
- * {@link StructuralFeature}.
+ * {@link StructuralFeature}. The fields from
+ * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}
+ * have been copied over. This is not the most elegant solution to the issue
+ * of multiple inheritance.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -114,12 +118,30 @@ public class Property extends StructuralFeature {
      * Optional list of qualifier attributes for the association end.
      */
     private List<Property> qualifier;
-
-
     /**
      * The properties this property is a subset of.
      */
     private List<Property> subsettedProperty = new ArrayList<>();
+
+    /**
+     * {@link ConnectorEnd}s attached to this connectableElement. This
+     * attribute can be derived.
+     * Copied from
+     * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}.
+     */
+    private List<ConnectorEnd> end = new ArrayList<>();
+
+    /**
+     * Adds a new connectorEnd to {@link #end}.
+     * Copied from
+     * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}.
+     *
+     * @param connectorEnd The connectorEnd to add
+     */
+    public void addEnd(final ConnectorEnd connectorEnd) {
+
+        end.add(connectorEnd);
+    }
 
     /**
      * Adds a new property to {@link #qualifier}.
