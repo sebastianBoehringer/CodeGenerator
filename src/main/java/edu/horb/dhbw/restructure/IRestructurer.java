@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -19,12 +19,19 @@ package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.CommonElements;
 import lombok.NonNull;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface IRestructurer<T> {
+/**
+ * An interface that provides the restructuring functionality.
+ *
+ * @param <T> The type of element this restructurer produces from a
+ *            {@link ModelElement}
+ */
+public interface IRestructurer<T extends CommonElements> {
 
     /**
      * Transforms (parts of) a model into a collection corresponding uml class
@@ -53,7 +60,7 @@ public interface IRestructurer<T> {
      * @return {@code true} if the IRestructurer already processed the
      * instance, {@code false} otherwise
      */
-    boolean wasProcessed(@NonNull String id);
+    boolean wasProcessed(String id);
 
     /**
      * Returns an element identified by the given id if the IRestructurer
@@ -63,5 +70,5 @@ public interface IRestructurer<T> {
      * @return An optional wrapping the element if it was already processed,
      * an empty Optional otherwise
      */
-    Optional<T> getProcessed(@NonNull String id);
+    Optional<T> getProcessed(String id);
 }
