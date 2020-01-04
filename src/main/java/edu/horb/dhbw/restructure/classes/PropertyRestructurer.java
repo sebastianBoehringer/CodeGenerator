@@ -27,6 +27,7 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -67,12 +68,15 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         property.setId(id);
 
+        //TODO context
+
         property.setName(element.getName());
 
         String visibility = element.getPlainAttribute("visibility");
-        property.setVisibility(visibility == null || visibility.equals("")
-                               ? VisibilityKind.PUBLIC
-                               : VisibilityKind.from(visibility));
+        property.setVisibility(
+                StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
+                                                : VisibilityKind
+                        .from(visibility));
 
         //TODO type
 
@@ -114,9 +118,10 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
                 delegateRestructuring(association, Association.class));
 
         String aggregation = element.getPlainAttribute("aggregation");
-        property.setAggregation(aggregation == null || "".equals(aggregation)
-                                ? AggregationKind.NONE
-                                : AggregationKind.from(aggregation));
+        property.setAggregation(
+                StringUtils.isEmpty(aggregation) ? AggregationKind.NONE
+                                                 : AggregationKind
+                        .from(aggregation));
 
         //TODO Property has subclasses
         Collection<ModelElement> qualifiers = (Collection<ModelElement>) element

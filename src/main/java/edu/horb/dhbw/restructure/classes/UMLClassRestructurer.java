@@ -32,6 +32,7 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.extern.slf4j.Slf4j;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -80,6 +81,8 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
         clazz.setName(element.getName());
         log.info("Working on UML class [{}]", clazz.getName());
 
+        //TODO context
+
         clazz.setIsAbstract(
                 Boolean.valueOf(element.getPlainAttribute("abstract")));
 
@@ -87,9 +90,10 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
                 Boolean.valueOf(element.getPlainAttribute("leaf")));
 
         String visibility = element.getPlainAttribute("visibility");
-        clazz.setVisibility(visibility == null || visibility.equals("")
-                            ? VisibilityKind.PUBLIC
-                            : VisibilityKind.from(visibility));
+        clazz.setVisibility(
+                StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
+                                                : VisibilityKind
+                        .from(visibility));
 
         Collection<ModelElement> collaborationUses =
                 (Collection<ModelElement>) element
