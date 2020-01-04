@@ -19,13 +19,27 @@ package edu.horb.dhbw.restructure;
 
 
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.restructure.classes.ConnectorRestructurer;
+import edu.horb.dhbw.restructure.classes.EnumerationLiteralRestructurer;
+import edu.horb.dhbw.restructure.classes.EnumerationRestructurer;
+import edu.horb.dhbw.restructure.classes.GeneralizationRestructurer;
+import edu.horb.dhbw.restructure.classes.InterfaceRealizationRestructurer;
+import edu.horb.dhbw.restructure.classes.InterfaceRestructurer;
 import edu.horb.dhbw.restructure.classes.OperationRestructurer;
 import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
 import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
+import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
 import lombok.RequiredArgsConstructor;
 
@@ -62,16 +76,25 @@ public class IRestructurerMediator {
 
         classToRestructurer = new HashMap<>(DEFAULT_SIZE);
         classToRestructurer.put(UMLClass.class, new UMLClassRestructurer(this));
-       /* classToRestructurer.put(Connector.class, new ConnectorRestructurer());
         classToRestructurer
-                .put(Generalization.class, new GeneralizationRestructurer());
+                .put(Connector.class, new ConnectorRestructurer(this));
+        classToRestructurer.put(Generalization.class,
+                                new GeneralizationRestructurer(this));
         classToRestructurer.put(InterfaceRealization.class,
-                                new InterfaceRealizationRestructurer());*/
+                                new InterfaceRealizationRestructurer(this));
         classToRestructurer.put(Property.class, new PropertyRestructurer(this));
         classToRestructurer
                 .put(Operation.class, new OperationRestructurer(this));
         classToRestructurer
                 .put(Parameter.class, new ParameterRestructurer(this));
+        classToRestructurer
+                .put(Interface.class, new InterfaceRestructurer(this));
+        classToRestructurer
+                .put(Enumeration.class, new EnumerationRestructurer(this));
+        classToRestructurer.put(EnumerationLiteral.class,
+                                new EnumerationLiteralRestructurer(this));
+        classToRestructurer
+                .put(Substitution.class, new SubstitutionRestructurer(this));
     }
 
     /**
