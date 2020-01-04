@@ -18,48 +18,33 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.restructure.IRestructurer;
-import edu.horb.dhbw.restructure.IRestructurerMediator;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
 
-public class PropertyRestructurerTest {
-
-    private IRestructurerMediator factory =
-            new IRestructurerMediator(new HashMap<>());
+public class PropertyRestructurerTest extends BaseRestructurerTest {
 
     @BeforeClass
     public void init() {
 
-        factory.register(Property.class, new PropertyRestructurer(factory));
+        mediator.register(Property.class, new PropertyRestructurer(mediator));
     }
 
     @Test(dataProvider = "classdiagramfiles")
     public void onlyClassRestructuring(final String pathToFile) {
 
-        System.out.println(String.format("Testing file %s", pathToFile));
-        Model model;
-        try {
-            model = SDMetricsConfig.parseXMI(pathToFile);
-        } catch (Exception e) {
-            Assert.fail("Encountered an exception while processing xmi", e);
-            return;
-        }
+        Model model = parseXMI(pathToFile);
 
         IRestructurer<Property> restructurer =
-                factory.getIRestructurer(Property.class);
+                mediator.getIRestructurer(Property.class);
         Collection<Property> properties = restructurer.restructure(model);
         properties = properties.stream()
                 .filter(e -> !e.getName().equalsIgnoreCase("exporterversion"))
@@ -92,13 +77,5 @@ public class PropertyRestructurerTest {
             assertEquals(property.getIsStatic(), Boolean.FALSE,
                          "Default is false");
         }
-    }
-
-    @DataProvider(name = "classdiagramfiles")
-    public Object[][] provideClasses() {
-
-        return new Object[][]{
-                {"src/test/resources/classdiagrams/Classes_Mod.xmi"},
-                {"src/test/resources/classdiagrams/Classes_Pap.xmi"}};
     }
 }

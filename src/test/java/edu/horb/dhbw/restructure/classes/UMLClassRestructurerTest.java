@@ -18,45 +18,31 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.restructure.IRestructurer;
-import edu.horb.dhbw.restructure.IRestructurerMediator;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 import static org.testng.Assert.assertEquals;
 
-public class UMLClassRestructurerTest {
-
-    private IRestructurerMediator factory =
-            new IRestructurerMediator(new HashMap<>());
+public class UMLClassRestructurerTest extends BaseRestructurerTest {
 
     @BeforeClass
     public void init() {
 
-        factory.register(UMLClass.class, new UMLClassRestructurer(factory));
+        mediator.register(UMLClass.class, new UMLClassRestructurer(mediator));
     }
 
     @Test(dataProvider = "classdiagramfiles")
     public void onlyClassRestructuring(final String pathToFile) {
-        System.out.println(String.format("Testing file %s", pathToFile));
-        Model model;
-        try {
-            model = SDMetricsConfig.parseXMI(pathToFile);
-        } catch (Exception e) {
-            Assert.fail("Encountered an exception while processing xmi", e);
-            return;
-        }
+
+        Model model = parseXMI(pathToFile);
 
         IRestructurer<UMLClass> restructurer =
-                factory.getIRestructurer(UMLClass.class);
+                mediator.getIRestructurer(UMLClass.class);
         Collection<UMLClass> classes = restructurer.restructure(model);
         assertEquals(classes.size(), 1,
                      "There should have been exactly one class");
@@ -73,14 +59,5 @@ public class UMLClassRestructurerTest {
             assertEquals(aClass.getIsFinalSpecialization(), Boolean.FALSE,
                          "Default is false");
         }
-
-    }
-
-    @DataProvider(name = "classdiagramfiles")
-    public Object[][] provideClasses() {
-
-        return new Object[][]{
-                {"src/test/resources/classdiagrams/Classes_Mod.xmi"},
-                {"src/test/resources/classdiagrams/Classes_Pap.xmi"}};
     }
 }
