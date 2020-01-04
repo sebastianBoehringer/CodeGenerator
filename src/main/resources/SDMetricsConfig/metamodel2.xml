@@ -43,6 +43,9 @@ other part of SDMetrics.
         <attribute name="comments" type="ref" multiplicity="many">The comments
             for the model element.
         </attribute>
+        <attribute name="umltype">The uml type of the element. This
+            is useful when an attribute has an abstract class as its type.
+        </attribute>
     </modelelement>
 
     <!-- Abstract stuff defined for reusability -->

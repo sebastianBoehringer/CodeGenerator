@@ -42,7 +42,7 @@ other part of SDMetrics.
         <trigger name="id" type="attrval" attr="xmi:id"/>
         <trigger name="name" type="attrval" attr="name"/>
         <trigger name="name" type="ctext" src="name"/>
-
+        <trigger name="umltype" type="attrval" attr="xmi:type"/>
         <trigger name="comments" type="xmi2assoc" attr="ownedComment"
                  src="uml:Comment"/>
     </xmitransformation>
@@ -304,10 +304,13 @@ other part of SDMetrics.
     <xmitransformation modelelement="generalization"
                        xmipattern="uml:Generalization">
         <trigger name="general" type="xmi2assoc" attr="general"/>
+        <trigger name="general" type="xmi2assoc" attr="target"/>
         <trigger name="specific" type="xmi2assoc" attr="specific"/>
+        <trigger name="specific" type="xmi2assoc" attr="source"/>
         <trigger name="substitutable" type="attrval" attr="isSubstitutable"/>
         <trigger name="substitutable" type="ctext" src="isSubstitutable"/>
     </xmitransformation>
+    
     <xmitransformation modelelement="interfacerealization"
                        xmipattern="uml:InterfaceRealization">
         <trigger name="contract" type="xmi2assoc" attr="contract"/>
