@@ -18,11 +18,9 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.restructure.IRestructurer;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

@@ -21,7 +21,6 @@ import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -92,7 +91,7 @@ public abstract class RestructurerBase<T extends CommonElements>
         Collection<ModelElement> classes =
                 model.getElements(metaModel.getType(umlType));
         List<T> processed = classes.size() > 0 ? new ArrayList<>()
-                                                      : Collections.emptyList();
+                                               : Collections.emptyList();
         for (ModelElement element : classes) {
             processed.add(restructure(element));
         }

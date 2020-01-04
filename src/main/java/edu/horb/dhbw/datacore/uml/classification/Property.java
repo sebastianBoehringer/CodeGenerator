@@ -48,7 +48,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Property extends StructuralFeature {
-    //TODO resolve inheritance
     /**
      * Specifies the type of aggregation for this property.
      */

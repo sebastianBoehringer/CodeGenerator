@@ -99,5 +99,4 @@ public final class Operation extends BehavioralFeature {
     private Type type;
 
 
-
 }

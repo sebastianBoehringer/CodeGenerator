@@ -51,6 +51,7 @@ public final class Interface extends Classifier {
      * Operations that belong to this interface.
      */
     private List<Operation> ownedOperation = new ArrayList<>();
+
     /**
      * Adds a new property to {@link #ownedAttribute}.
      *
