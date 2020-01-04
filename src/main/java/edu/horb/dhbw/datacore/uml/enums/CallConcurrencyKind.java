@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import lombok.NonNull;
+
 /**
  * Specifies the semantics of a concurrent call to a
  * {@link edu.horb.dhbw.datacore.uml.classification.BehavioralFeature}.
@@ -40,5 +42,16 @@ public enum CallConcurrencyKind {
     /**
      * Multiple invocations may occur. None of these will be blocked.
      */
-    CONCURRENT
+    CONCURRENT;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static CallConcurrencyKind from(@NonNull final String string) {
+
+        return CallConcurrencyKind.valueOf(string.toUpperCase());
+    }
 }

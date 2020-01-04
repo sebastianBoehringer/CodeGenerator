@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import lombok.NonNull;
+
 /**
  * Indicates the effect a behavior has on the values of its parameters.
  * See subclauses 9.4 and 9.9.15 of the UML specification for more details.
@@ -40,5 +42,23 @@ public enum ParameterEffectKind {
      * The behavior deletes the object. It does not exist after execution
      * anymore.
      */
-    DELETE
+    DELETE,
+    /**
+     * The effect of the behavior on the parameter is not known.
+     * This special value indicates that the modelling tool did not serialize
+     * the effect attribute of the uml class Parameter. That attribute does
+     * not have a default value, which is expressed by this enum value.
+     */
+    UNDEFINED;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static ParameterEffectKind from(@NonNull final String string) {
+
+        return ParameterEffectKind.valueOf(string.toUpperCase());
+    }
 }

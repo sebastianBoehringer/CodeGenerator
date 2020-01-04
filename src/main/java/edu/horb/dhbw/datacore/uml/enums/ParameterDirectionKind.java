@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import lombok.NonNull;
+
 /**
  * Determines the way a parameter is used in an
  * {@link edu.horb.dhbw.datacore.uml.classification.Operation}.
@@ -39,5 +41,16 @@ public enum ParameterDirectionKind {
     /**
      * The parameter holds the computation result of the operation.
      */
-    RETURN
+    RETURN;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static ParameterDirectionKind from(@NonNull final String string) {
+
+        return ParameterDirectionKind.valueOf(string.toUpperCase());
+    }
 }
