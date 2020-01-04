@@ -19,9 +19,9 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
-import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.packages.Extension;
-import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,16 +36,20 @@ import java.util.List;
  * This should specialize both
  * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier}
  * and {@link EncapsulatedClassifier}. It currently inherits from
- * {@link EncapsulatedClassifier}, the fields and added methods from
- * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier}
- * have been copied over. This is arguably not a pretty solution as
- * substitution goes down the drain but it has to work.
+ * {@link BehavioredClassifier}, the fields and added methods from
+ * {@link EncapsulatedClassifier} and consequently {@link StructuredClassifier}
+ * have been copied over. This is arguably not an elegant solution but will
+ * work for the uml specification. The reason is that in the specification no
+ * class has an attribute of type {@link StructuredClassifier} or
+ * {@link EncapsulatedClassifier}, but there is one of type
+ * {@link BehavioredClassifier}, e. g. in
+ * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization}.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UMLClass extends EncapsulatedClassifier {
+public class UMLClass extends BehavioredClassifier {
     /**
      * If this is {@code true} the class cannot be instantiated directly.
      */
@@ -74,50 +78,6 @@ public class UMLClass extends EncapsulatedClassifier {
      * The generalizations of this class. The attribute can be derived.
      */
     private List<UMLClass> superClass = new ArrayList<>();
-
-    /**
-     * Describes the behavior of the classifier.
-     * Exists to circumvent the issue with multiple inheritance in Java. This
-     * field is basically the same as
-     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#classifierBehavior}.
-     */
-    private Behavior classifierBehavior;
-    /**
-     * The {@link InterfaceRealization} relationships this classifier
-     * participates in. This can be seen as a list of interfaces this
-     * classifier implements.
-     * Exists to circumvent the issue with multiple inheritance in Java. This
-     * field is basically the same as
-     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#interfaceRealization}.
-     */
-    private List<InterfaceRealization> interfaceRealization = new ArrayList<>();
-    /**
-     * Behaviors this classifier owns.
-     * Exists to circumvent the issue with multiple inheritance in Java. This
-     * field is basically the same as
-     * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier#ownedBehavior}.
-     */
-    private List<Behavior> ownedBehavior = new ArrayList<>();
-
-    /**
-     * Adds a new behavior to {@link #ownedBehavior}.
-     *
-     * @param behavior The behavior to add
-     */
-    public void addOwnedBehavior(final Behavior behavior) {
-
-        ownedBehavior.add(behavior);
-    }
-
-    /**
-     * Adds a new interfaceRealization to {@link #interfaceRealization}.
-     *
-     * @param realization The interfaceRealization to add
-     */
-    public void addInterfaceRealization(final InterfaceRealization realization) {
-
-        interfaceRealization.add(realization);
-    }
 
     /**
      * Adds a new classifier to {@link #nestedClassifier}.
@@ -157,5 +117,89 @@ public class UMLClass extends EncapsulatedClassifier {
     public void addExtension(final Extension newExtension) {
 
         extension.add(newExtension);
+    }
+
+    /**
+     * The attributes owned by the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> ownedAttribute = new ArrayList<>();
+    /**
+     * The connectors connected to this classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Connector> ownedConnector = new ArrayList<>();
+    /**
+     * Instances owned by the classifier via composition, i. e.  properties
+     * where {@link Property#isComposite} is {@code true}.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> part = new ArrayList<>();
+    /**
+     * Roles that instances can play in the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<ConnectableElement> role = new ArrayList<>();
+
+    /**
+     * Adds a new connectableElement to {@link #role}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param element The element to add
+     */
+    public void addRole(final ConnectableElement element) {
+
+        role.add(element);
+    }
+
+    /**
+     * Adds a new property to {@link #part}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param property The property to add
+     */
+    public void addPart(final Property property) {
+
+        part.add(property);
+    }
+
+    /**
+     * Adds a new connector to {@link #ownedConnector}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param connector The connector to add
+     */
+    public void addOwnedConnector(final Connector connector) {
+
+        ownedConnector.add(connector);
+    }
+
+    /**
+     * Adds a new property to {@link #ownedAttribute}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param property The property to add
+     */
+    public void addOwnedAttribute(final Property property) {
+
+        ownedAttribute.add(property);
+    }
+
+    /**
+     * The ports owned by the classifier.
+     * This attribute can be derived.
+     * Copied from {@link EncapsulatedClassifier}.
+     */
+    private List<Port> ownedPort = new ArrayList<>();
+
+    /**
+     * Adds a new port to {@link #ownedPort}.
+     * Copied from {@link EncapsulatedClassifier}.
+     *
+     * @param port The port to add
+     */
+    public void addOwnedPort(final Port port) {
+
+        ownedPort.add(port);
     }
 }
