@@ -21,6 +21,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public final class Generalization extends DirectedRelationship {
     /**
      * If {@code true} the specific classifier can be used in place of the
