@@ -17,8 +17,6 @@
 
 package edu.horb.dhbw.restructure.classes;
 
-import com.sdmetrics.model.MetaModel;
-import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
@@ -33,14 +31,10 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,29 +56,14 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
 
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
      *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
     public UMLClassRestructurer(final IRestructurerMediator iRestructurerMediator) {
-        //TODO rename from creator to sth more appropriate
-        super(iRestructurerMediator);
-    }
 
-    @Override
-    public @NonNull Collection<UMLClass> restructure(final Model model) {
-
-        final MetaModel metaModel = model.getMetaModel();
-        Collection<ModelElement> classes =
-                model.getElements(metaModel.getType("class"));
-        List<UMLClass> processed = classes.size() > 0 ? new ArrayList<>()
-                                                      : Collections.emptyList();
-        for (ModelElement aClass : classes) {
-            processed.add(restructure(aClass));
-        }
-
-        return processed;
+        super(iRestructurerMediator, "class");
     }
 
     @Override

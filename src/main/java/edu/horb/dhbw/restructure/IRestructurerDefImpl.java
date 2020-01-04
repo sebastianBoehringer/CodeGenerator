@@ -35,16 +35,20 @@ import java.util.Optional;
 public final class IRestructurerDefImpl extends RestructurerBase<Element> {
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
      *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
     public IRestructurerDefImpl(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator);
+        super(iRestructurerMediator, "Irrelevant");
     }
 
+    /**
+     * @param model The model to restructure
+     * @return An empty list in every case
+     */
     @Override
     public @NonNull Collection<Element> restructure(
             @NonNull final Model model) {
@@ -52,18 +56,30 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
         return Collections.emptyList();
     }
 
+    /**
+     * @param element The modelElement to restructure
+     * @return Always {@code null}
+     */
     @Override
     public Element restructure(@NonNull final ModelElement element) {
 
         return null;
     }
 
+    /**
+     * @param id The id of an element
+     * @return {@code false} in every case
+     */
     @Override
     public boolean wasProcessed(final String id) {
 
         return false;
     }
 
+    /**
+     * @param id The id of an element
+     * @return An empty {@link Optional} in every case
+     */
     @Override
     public Optional<Element> getProcessed(final String id) {
 

@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.restructure.classes;
 
-import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
@@ -29,11 +28,8 @@ import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -50,30 +46,14 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
      *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
     public PropertyRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator);
-    }
-
-    @Override
-    public @NonNull Collection<Property> restructure(
-            @NonNull final Model model) {
-
-        Collection<ModelElement> properties =
-                model.getElements(model.getMetaModel().getType("property"));
-        if (properties.size() == 0) {
-            return Collections.emptyList();
-        }
-        List<Property> processed = new ArrayList<>();
-        for (ModelElement property : properties) {
-            processed.add(restructure(property));
-        }
-        return processed;
+        super(iRestructurerMediator, "property");
     }
 
     @Override
@@ -93,7 +73,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         property.setVisibility(visibility == null || visibility.equals("")
                                ? VisibilityKind.PUBLIC
                                : VisibilityKind.from(visibility));
-
 
         //TODO type
 

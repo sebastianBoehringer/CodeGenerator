@@ -17,13 +17,16 @@
 
 package edu.horb.dhbw.restructure;
 
+import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +52,12 @@ public abstract class RestructurerBase<T extends CommonElements>
     private IRestructurerMediator mediator;
 
     /**
+     * The name of the element from the metamodel the {@link IRestructurer}
+     * processes.
+     */
+    private final String umlType;
+
+    /**
      * Constructor.
      * Initializes the reference to an {@link IRestructurerMediator} that
      * provides other {@link IRestructurer}s so that they may process the
@@ -56,10 +65,14 @@ public abstract class RestructurerBase<T extends CommonElements>
      *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
+     * @param type                  The name of the metamodelelement this class
+     *                              processes
      */
-    public RestructurerBase(final IRestructurerMediator iRestructurerMediator) {
+    public RestructurerBase(final IRestructurerMediator iRestructurerMediator,
+                            @NonNull final String type) {
 
         mediator = iRestructurerMediator;
+        umlType = type;
     }
 
     /**
@@ -72,8 +85,20 @@ public abstract class RestructurerBase<T extends CommonElements>
      * @param model The model to restructure
      * @return A collection with the restructured uml classes.
      */
-    @NonNull
-    public abstract Collection<T> restructure(@NonNull Model model);
+    @Override
+    public @NonNull Collection<T> restructure(final Model model) {
+
+        final MetaModel metaModel = model.getMetaModel();
+        Collection<ModelElement> classes =
+                model.getElements(metaModel.getType(umlType));
+        List<T> processed = classes.size() > 0 ? new ArrayList<>()
+                                                      : Collections.emptyList();
+        for (ModelElement element : classes) {
+            processed.add(restructure(element));
+        }
+
+        return processed;
+    }
 
     /**
      * Restructures a single element instead of the entire model.
