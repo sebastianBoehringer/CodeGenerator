@@ -28,21 +28,20 @@ import java.util.Optional;
 /**
  * The default implementation for an {@link RestructurerBase}.
  * None of the methods actually process the data in any sort or way. This
- * will allow {@link IRestructurerFactory} to always provide an
+ * will allow {@link IRestructurerMediator} to always provide an
  * {@link RestructurerBase} that can handle the given type.
  */
 public final class IRestructurerDefImpl extends RestructurerBase<Element> {
-
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerFactory)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
      *
-     * @param creator A factory where other {@link RestructurerBase}s are
-     *                registered
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
      */
-    public IRestructurerDefImpl(final IRestructurerFactory creator) {
+    public IRestructurerDefImpl(final IRestructurerMediator iRestructurerMediator) {
 
-        super(creator);
+        super(iRestructurerMediator);
     }
 
     @Override

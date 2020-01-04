@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.restructure.IRestructurer;
-import edu.horb.dhbw.restructure.IRestructurerFactory;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -37,8 +37,8 @@ import static org.testng.Assert.assertEquals;
 
 public class PropertyRestructurerTest {
 
-    private IRestructurerFactory factory =
-            new IRestructurerFactory(new HashMap<>());
+    private IRestructurerMediator factory =
+            new IRestructurerMediator(new HashMap<>());
 
     @BeforeClass
     public void init() {

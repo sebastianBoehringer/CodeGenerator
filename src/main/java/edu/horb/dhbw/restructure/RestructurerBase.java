@@ -46,19 +46,20 @@ public abstract class RestructurerBase<T extends CommonElements>
      */
     @Getter
     @Setter
-    private IRestructurerFactory factory;
+    private IRestructurerMediator mediator;
 
     /**
      * Constructor.
-     * Initializes the reference to an {@link IRestructurerFactory} that
-     * provides other {@link RestructurerBase}s so that they may process the
+     * Initializes the reference to an {@link IRestructurerMediator} that
+     * provides other {@link IRestructurer}s so that they may process the
      * other uml classes a class can own.
      *
-     * @param creator The factory instantiating the restructurer
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
      */
-    public RestructurerBase(final IRestructurerFactory creator) {
+    public RestructurerBase(final IRestructurerMediator iRestructurerMediator) {
 
-        factory = creator;
+        mediator = iRestructurerMediator;
     }
 
     /**
@@ -147,7 +148,7 @@ public abstract class RestructurerBase<T extends CommonElements>
                                   vClass.getSimpleName()));
             return null;
         }
-        IRestructurer<V> restructurer = factory.getIRestructurer(vClass);
+        IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);
         System.out.println(String.format("Element is %s", element.getName()));
         String xmiId = element.getXMIID();
         if (restructurer.wasProcessed(xmiId)) {

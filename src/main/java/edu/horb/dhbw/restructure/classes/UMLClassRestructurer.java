@@ -30,7 +30,8 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
-import edu.horb.dhbw.restructure.IRestructurerFactory;
+import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -61,14 +62,14 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
 
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerFactory)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
      *
-     * @param creator A factory where other {@link RestructurerBase} are
-     *                registered
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
      */
-    public UMLClassRestructurer(final IRestructurerFactory creator) {
+    public UMLClassRestructurer(final IRestructurerMediator iRestructurerMediator) {
         //TODO rename from creator to sth more appropriate
-        super(creator);
+        super(iRestructurerMediator);
     }
 
     @Override

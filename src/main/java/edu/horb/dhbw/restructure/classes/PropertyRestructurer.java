@@ -24,7 +24,8 @@ import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
-import edu.horb.dhbw.restructure.IRestructurerFactory;
+import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 
@@ -49,14 +50,14 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerFactory)}.
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator)}.
      *
-     * @param creator A factory where other {@link RestructurerBase} are
-     *                registered
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
      */
-    public PropertyRestructurer(final IRestructurerFactory creator) {
+    public PropertyRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(creator);
+        super(iRestructurerMediator);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class IRestructurerFactory {
+public class IRestructurerMediator {
 
     /**
      * The number of {@link IRestructurer}s registered when using the default
@@ -54,7 +54,7 @@ public class IRestructurerFactory {
      * Initializes {@link #classToRestructurer} with some default
      * {@link IRestructurer}s.
      */
-    public IRestructurerFactory() {
+    public IRestructurerMediator() {
 
         classToRestructurer = new HashMap<>(DEFAULT_SIZE);
         classToRestructurer.put(UMLClass.class, new UMLClassRestructurer(this));
