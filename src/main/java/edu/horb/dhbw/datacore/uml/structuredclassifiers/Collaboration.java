@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
+import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,14 +33,14 @@ import java.util.List;
  * See subclauses 11.7 and 11.8.4 of the UML specification for more details.
  * This should specialize both {@link BehavioredClassifier} and
  * {@link StructuredClassifier}. It currently only inherits from
- * {@link BehavioredClassifier}.
+ * {@link BehavioredClassifier}, the methods and fields from
+ * {@link StructuredClassifier} have been copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public final class Collaboration extends BehavioredClassifier {
-    //TODO resolve inheritance
     /**
      * The participants of this collaboration.
      */
@@ -53,5 +54,71 @@ public final class Collaboration extends BehavioredClassifier {
     public void addCollaborationRole(final ConnectableElement element) {
 
         collaborationRole.add(element);
+    }
+
+    /**
+     * The attributes owned by the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> ownedAttribute = new ArrayList<>();
+    /**
+     * The connectors connected to this classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Connector> ownedConnector = new ArrayList<>();
+    /**
+     * Instances owned by the classifier via composition, i. e.  properties
+     * where {@link Property#isComposite} is {@code true}.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> part = new ArrayList<>();
+    /**
+     * Roles that instances can play in the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<ConnectableElement> role = new ArrayList<>();
+
+    /**
+     * Adds a new connectableElement to {@link #role}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param element The element to add
+     */
+    public void addRole(final ConnectableElement element) {
+
+        role.add(element);
+    }
+
+    /**
+     * Adds a new property to {@link #part}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param property The property to add
+     */
+    public void addPart(final Property property) {
+
+        part.add(property);
+    }
+
+    /**
+     * Adds a new connector to {@link #ownedConnector}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param connector The connector to add
+     */
+    public void addOwnedConnector(final Connector connector) {
+
+        ownedConnector.add(connector);
+    }
+
+    /**
+     * Adds a new property to {@link #ownedAttribute}.
+     * Copied from {@link StructuredClassifier}.
+     *
+     * @param property The property to add
+     */
+    public void addOwnedAttribute(final Property property) {
+
+        ownedAttribute.add(property);
     }
 }
