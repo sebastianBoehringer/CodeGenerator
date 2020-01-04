@@ -18,6 +18,11 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import lombok.AllArgsConstructor;
@@ -33,14 +38,15 @@ import java.util.List;
  * See subclauses 9.4 and 9.9.2 of the UML specification for more details.
  * This should be a specialization of {@link Feature} and
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}. It currently
- * only inherits from {@link Feature}.
+ * only inherits from {@link Feature}, the fields and methods special to
+ * {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace} have been
+ * copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BehavioralFeature extends Feature {
-    //TODO resolve inheritance
     /**
      * Specifies the semantics of concurrent calls.
      */
@@ -105,6 +111,106 @@ public abstract class BehavioralFeature extends Feature {
     public void addMethod(final Behavior behavior) {
 
         method.add(behavior);
+    }
+
+    /**
+     * References to the owned ElementImports.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<ElementImport> elementImport = new ArrayList<>();
+    /**
+     * The elements imported into this namespace. This attribute can be derived.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<PackageableElement> importedMember = new ArrayList<>();
+    /**
+     * All {@link NamedElement}s available to this namespace. This includes
+     * the imported as well as the owned ones. This attribute can be derived.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<NamedElement> member = new ArrayList<>();
+    /**
+     * The {@link NamedElement}s this namespace owns. This attribute can be
+     * derived.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<NamedElement> ownedMember = new ArrayList<>();
+    /**
+     * The {@link Constraint}s owned by this namespace.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<Constraint> ownedRule = new ArrayList<>();
+    /**
+     * The {@link PackageImport}s this namespace owns.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     */
+    private List<PackageImport> packageImport = new ArrayList<>();
+
+    /**
+     * Adds a new elementImport to {@link #elementImport}.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param newElementImport The {@link ElementImport} to add
+     */
+    public void addElementImport(final ElementImport newElementImport) {
+
+        elementImport.add(newElementImport);
+    }
+
+    /**
+     * Adds a new constraint to {@link #ownedRule}.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param rule The constraint to add
+     */
+    public void addRule(final Constraint rule) {
+
+        ownedRule.add(rule);
+    }
+
+    /**
+     * Adds a new element to {@link #member}.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addMember(final NamedElement element) {
+
+        member.add(element);
+    }
+
+    /**
+     * Adds a new element to {@link #ownedMember}. The namespace is the owner of
+     * this element.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addOwnedMember(final NamedElement element) {
+
+        ownedMember.add(element);
+    }
+
+    /**
+     * Adds a new imported element to {@link #importedMember}.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addImportedMember(final PackageableElement element) {
+
+        importedMember.add(element);
+    }
+
+    /**
+     * Adds a new packageImport to {@link #packageImport}.
+     * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
+     *
+     * @param newPackageImport The packageImport to add
+     */
+    public void addPackageImport(final PackageImport newPackageImport) {
+
+        packageImport.add(newPackageImport);
     }
 
 
