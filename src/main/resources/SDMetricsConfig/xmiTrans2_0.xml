@@ -229,6 +229,8 @@ other part of SDMetrics.
         <trigger name="stream" type="attrval" attr="isStream"/>
         <trigger name="stream" type="ctext" src="isStream"/>
         <trigger name="default" type="xmi2assoc" attr="defaultValue"/>
+        <trigger name="effect" type="attrval" attr="effect"/>
+        <trigger name="effect" type="ctext" src="effect"/>
     </xmitransformation>
 
     <xmitransformation modelelement="method" xmipattern="uml:Method"

@@ -1,25 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_hMDKMC5QEeq-bqajiwtF7g" name="Tests">
-  <eAnnotations xmi:id="_hMDKMS5QEeq-bqajiwtF7g" source="Objing">
-    <contents xmi:type="uml:Property" xmi:id="_hMDKMi5QEeq-bqajiwtF7g" name="exporterVersion">
-      <defaultValue xmi:type="uml:LiteralString" xmi:id="_hMDKMy5QEeq-bqajiwtF7g" value="3.0.0"/>
+<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_yXVJMC76Eeq9CqwOjISNVA" name="Tests">
+  <eAnnotations xmi:id="_yXVJMS76Eeq9CqwOjISNVA" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_yXVJMi76Eeq9CqwOjISNVA" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_yXVJMy76Eeq9CqwOjISNVA" value="3.0.0"/>
     </contents>
   </eAnnotations>
-  <packagedElement xmi:type="uml:Class" xmi:id="_hMDKNC5QEeq-bqajiwtF7g" name="Class">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_hMDKNS5QEeq-bqajiwtF7g" name="member" visibility="public">
+  <packagedElement xmi:type="uml:Class" xmi:id="_yXVJNC76Eeq9CqwOjISNVA" name="Class">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_yXVJNS76Eeq9CqwOjISNVA" name="member" visibility="public">
       <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
     </ownedAttribute>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_hMDKNi5QEeq-bqajiwtF7g" name="operation" visibility="public">
-      <ownedParameter xmi:id="_hMDKNy5QEeq-bqajiwtF7g" name="p1" isUnique="false">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_yXVJNi76Eeq9CqwOjISNVA" name="operation" visibility="public">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_yXVJNy76Eeq9CqwOjISNVA">
+        <body>&lt;Enter note text here&gt;</body>
+      </ownedComment>
+      <ownedParameter xmi:id="_yXVJOC76Eeq9CqwOjISNVA" name="p1">
         <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hMDKOC5QEeq-bqajiwtF7g" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hMDKOS5QEeq-bqajiwtF7g" value="1"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_hMDKOi5QEeq-bqajiwtF7g" value=""/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yXVJOS76Eeq9CqwOjISNVA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yXVJOi76Eeq9CqwOjISNVA" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yXVJOy76Eeq9CqwOjISNVA" value=""/>
       </ownedParameter>
-      <ownedParameter xmi:id="_hMDKOy5QEeq-bqajiwtF7g" isUnique="false" direction="return">
+      <ownedParameter xmi:id="_yXVJPC76Eeq9CqwOjISNVA" direction="return">
         <type xmi:type="uml:PrimitiveType" href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hMDKPC5QEeq-bqajiwtF7g" value="1"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hMDKPS5QEeq-bqajiwtF7g" value="1"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_hMDKPi5QEeq-bqajiwtF7g" value=""/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yXVJPS76Eeq9CqwOjISNVA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yXVJPi76Eeq9CqwOjISNVA" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_yXVJPy76Eeq9CqwOjISNVA" value=""/>
       </ownedParameter>
     </ownedOperation>
   </packagedElement>

@@ -11,7 +11,7 @@
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_d07G8CraEeqjCfl34NK7zg" name="return" direction="return">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedParameter>
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jHoWsCraEeqjCfl34NK7zg" name="p1">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jHoWsCraEeqjCfl34NK7zg" name="p1" effect="read">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedParameter>
     </ownedOperation>
