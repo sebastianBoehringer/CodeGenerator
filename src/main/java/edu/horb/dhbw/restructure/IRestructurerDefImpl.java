@@ -23,6 +23,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import lombok.NonNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -48,7 +49,7 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
     public @NonNull Collection<Element> restructure(
             @NonNull final Model model) {
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
