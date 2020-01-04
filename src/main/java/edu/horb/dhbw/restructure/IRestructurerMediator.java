@@ -19,8 +19,12 @@ package edu.horb.dhbw.restructure;
 
 
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.classification.Operation;
+import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.restructure.classes.OperationRestructurer;
+import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
 import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +68,10 @@ public class IRestructurerMediator {
         classToRestructurer.put(InterfaceRealization.class,
                                 new InterfaceRealizationRestructurer());*/
         classToRestructurer.put(Property.class, new PropertyRestructurer(this));
+        classToRestructurer
+                .put(Operation.class, new OperationRestructurer(this));
+        classToRestructurer
+                .put(Parameter.class, new ParameterRestructurer(this));
     }
 
     /**
