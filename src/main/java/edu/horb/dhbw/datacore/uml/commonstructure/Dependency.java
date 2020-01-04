@@ -22,6 +22,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,14 +30,15 @@ import java.util.List;
  * See subclauses 7.7 and 7.8.4 of the UML specification for more details.
  * This class is supposed to be a specialization of
  * {@link DirectedRelationship} and {@link PackageableElement}. It currently
- * only inherits {@link PackageableElement}.
+ * only inherits {@link PackageableElement}, the fields and methods from
+ * {@link DirectedRelationship} and also {@link Relationship} have been
+ * copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dependency extends PackageableElement {
-    //TODO resolve inheritance
     /**
      * The elements dependent on the {@link #supplier}s.
      */
@@ -65,6 +67,58 @@ public class Dependency extends PackageableElement {
     public void addSupplier(final NamedElement element) {
 
         supplier.add(element);
+    }
+
+    /**
+     * The elements this relationship exists between. This can be derived.
+     * Copied from {@link Relationship}.
+     */
+    private List<Element> relatedElement = new ArrayList<>();
+
+    /**
+     * Adds a new element to {@link #relatedElement}.
+     * Copied from {@link Relationship}.
+     *
+     * @param element The element to add
+     */
+    public void addRelatedElement(final Element element) {
+
+        relatedElement.add(element);
+    }
+
+    /**
+     * The sources of this directed relationship.
+     * This attribute can be derived.
+     * Copied from {@link DirectedRelationship}.
+     */
+    private List<Element> source = new ArrayList<>();
+    /**
+     * The targets of this directed relationship.
+     * This attribute can be derived.
+     * Copied from {@link DirectedRelationship}.
+     */
+    private List<Element> target = new ArrayList<>();
+
+    /**
+     * Adds a new element to {@link #source}.
+     * Copied from {@link DirectedRelationship}.
+     *
+     * @param element The element to add.
+     */
+    public void addSource(final Element element) {
+
+        source.add(element);
+    }
+
+    /**
+     * Adds a new element to {@link #target}.
+     * Copied from {@link DirectedRelationship}.
+     *
+     * @param element The element to add.
+     */
+    public void addTarget(final Element element) {
+
+        target.add(element);
     }
 
 }
