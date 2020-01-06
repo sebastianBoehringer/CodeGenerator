@@ -1,9 +1,11 @@
 package edu.horb.dhbw.datacore.uml.values;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Specifies a set of values.
@@ -11,11 +13,19 @@ import lombok.EqualsAndHashCode;
  * This should specialize both
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement} and
  * {@link PackageableElement}. It currently just inherits from
- * {@link PackageableElement}.
+ * {@link PackageableElement}, the field from
+ * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement} has been
+ * copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public abstract class ValueSpecification extends PackageableElement {
-    //TODO resolve inheritance issue
+    /**
+     * The type of this element.
+     * Copied over from
+     * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}.
+     */
+    private Type type;
 }

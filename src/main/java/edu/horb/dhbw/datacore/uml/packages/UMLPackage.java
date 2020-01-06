@@ -17,7 +17,11 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.AllArgsConstructor;
@@ -33,14 +37,14 @@ import java.util.List;
  * See subclauses 12.2 and 12.4.5 of the UML specification for more details.
  * This should specialize both  {@link Namespace} and
  * {@link PackageableElement}. It currently inherits from just
- * {@link Namespace}.
+ * {@link PackageableElement}, the methods and fields from {@link Namespace}
+ * have been copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UMLPackage extends Namespace {
-    //TODO resolve inheritance
+public class UMLPackage extends PackageableElement {
     /**
      * An identifier for the package.
      */
@@ -133,4 +137,104 @@ public class UMLPackage extends Namespace {
 
         packagedElement.add(element);
     }
+
+    /**
+     * References to the owned ElementImports.
+     * Copied from {@link Namespace}.
+     */
+    private List<ElementImport> elementImport = new ArrayList<>();
+    /**
+     * The elements imported into this namespace. This attribute can be derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<PackageableElement> importedMember = new ArrayList<>();
+    /**
+     * All {@link NamedElement}s available to this namespace. This includes
+     * the imported as well as the owned ones. This attribute can be derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<NamedElement> member = new ArrayList<>();
+    /**
+     * The {@link NamedElement}s this namespace owns. This attribute can be
+     * derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<NamedElement> ownedMember = new ArrayList<>();
+    /**
+     * The {@link Constraint}s owned by this namespace.
+     * Copied from {@link Namespace}.
+     */
+    private List<Constraint> ownedRule = new ArrayList<>();
+    /**
+     * The {@link PackageImport}s this namespace owns.
+     */
+    private List<PackageImport> packageImport = new ArrayList<>();
+
+    /**
+     * Adds a new elementImport to {@link #elementImport}.
+     * Copied from {@link Namespace}.
+     *
+     * @param newElementImport The {@link ElementImport} to add
+     */
+    public void addElementImport(final ElementImport newElementImport) {
+
+        elementImport.add(newElementImport);
+    }
+
+    /**
+     * Adds a new constraint to {@link #ownedRule}.
+     * Copied from {@link Namespace}.
+     *
+     * @param rule The constraint to add
+     */
+    public void addRule(final Constraint rule) {
+
+        ownedRule.add(rule);
+    }
+
+    /**
+     * Adds a new element to {@link #member}.
+     * Copied from {@link Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addMember(final NamedElement element) {
+
+        member.add(element);
+    }
+
+    /**
+     * Adds a new element to {@link #ownedMember}. The namespace is the owner of
+     * this element.
+     * Copied from {@link Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addOwnedMember(final NamedElement element) {
+
+        ownedMember.add(element);
+    }
+
+    /**
+     * Adds a new imported element to {@link #importedMember}.
+     * Copied from {@link Namespace}.
+     *
+     * @param element The element to add
+     */
+    public void addImportedMember(final PackageableElement element) {
+
+        importedMember.add(element);
+    }
+
+    /**
+     * Adds a new packageImport to {@link #packageImport}.
+     * Copied from {@link Namespace}.
+     *
+     * @param newPackageImport The packageImport to add
+     */
+    public void addPackageImport(final PackageImport newPackageImport) {
+
+        packageImport.add(newPackageImport);
+    }
+
 }
