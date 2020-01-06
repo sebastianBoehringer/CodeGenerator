@@ -19,16 +19,19 @@ package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class ConnectorEndRestructurer
         extends RestructurerBase<ConnectorEnd> {
 
@@ -58,14 +61,18 @@ public final class ConnectorEndRestructurer
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading connectorend from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         ConnectorEnd end = new ConnectorEnd();
         end.setId(id);
 
+        log.info("Processing ordered for connectorend [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         end.setIsOrdered(Boolean.valueOf(ordered));
 
+        log.info("Processing unique for connectorend [{}]", id);
         String unique = element.getPlainAttribute("unique");
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
@@ -77,16 +84,19 @@ public final class ConnectorEndRestructurer
         }
         end.setIsUnique(isUnique);
 
+        log.info("Processing lower for connectorend [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (lower != null && !("".equals(lower))) {
             end.setLower(Integer.parseInt(lower));
         }
+        log.info("Processing upper for connectorend [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (upper != null && !("".equals(upper))) {
             end.setUpper(new UnlimitedNatural(upper));
         }
+        log.info("Processing role for connectorend [{}]", id);
         ModelElement role = element.getRefAttribute("role");
-        //TODO process role, type classifier
+        end.setRole(delegateRestructuring(role, ConnectableElement.class));
 
         ALREADY_PROCESSED.put(id, end);
         return end;

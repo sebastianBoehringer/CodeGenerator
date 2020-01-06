@@ -25,12 +25,14 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class ConnectorRestructurer extends RestructurerBase<Connector> {
 
     /**
@@ -65,13 +67,17 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading connector from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         Connector connector = new Connector();
 
+        log.info("Processing type for connector [{}]", id);
         ModelElement type = element.getRefAttribute("type");
         connector.setType(delegateRestructuring(type, Association.class));
 
+        log.info("Processing ends for connector [{}]", id);
         Collection<ModelElement> ends =
                 (Collection<ModelElement>) element.getSetAttribute("ends");
         connector.setEnd(delegateMany(ends, ConnectorEnd.class));

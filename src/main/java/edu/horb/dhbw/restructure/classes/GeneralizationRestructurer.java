@@ -23,12 +23,14 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class GeneralizationRestructurer
         extends RestructurerBase<Generalization> {
     /**
@@ -56,15 +58,22 @@ public final class GeneralizationRestructurer
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading generalization from "
+                             + "cache", id);
             return ALREADY_PROCESSED.get(id);
         }
         Generalization generalization = new Generalization();
         generalization.setId(id);
 
+        log.info("Processing general for enumeration [{}]", id);
         ModelElement general = element.getRefAttribute("general");
         //TODO general
+
+        log.info("Processing specific for enumeration [{}]", id);
         ModelElement specific = element.getRefAttribute("specific");
         //TODO specific
+
+        log.info("Processing substitutable for enumeration [{}]", id);
         String substitutable = element.getPlainAttribute("substitutable");
         generalization.setIsSubstitutable(
                 StringUtils.isEmpty(substitutable) ? Boolean.TRUE : Boolean

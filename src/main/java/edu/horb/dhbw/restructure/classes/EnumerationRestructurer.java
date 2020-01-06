@@ -29,6 +29,7 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
@@ -37,6 +38,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class EnumerationRestructurer
         extends RestructurerBase<Enumeration> {
     /**
@@ -64,37 +66,46 @@ public final class EnumerationRestructurer
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading enumeration from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         Enumeration enumeration = new Enumeration();
         enumeration.setId(id);
 
+        log.info("Processing ownedliterals for enumeration [{}]", id);
         Collection<ModelElement> literals = (Collection<ModelElement>) element
                 .getRefAttribute("ownedliterals");
         enumeration.setOwnedLiteral(new LinkedHashSet<>(
                 delegateMany(literals, EnumerationLiteral.class)));
 
+        log.info("Processing ownedattributes for enumeration [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         enumeration.setOwnedAttribute(delegateMany(attributes, Property.class));
 
+        log.info("Processing ownedoperations for enumeration [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         enumeration
                 .setOwnedOperation(delegateMany(operations, Operation.class));
 
+        log.info("Processing generalizations for enumeration [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         enumeration.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
+        log.info("Processing abstract for enumeration [{}]", id);
         String isAbstract = element.getPlainAttribute("abstract");
         enumeration.setIsAbstract(Boolean.valueOf(isAbstract));
 
+        log.info("Processing leaf for enumeration [{}]", id);
         String leaf = element.getPlainAttribute("leaf");
         enumeration.setIsFinalSpecialization(Boolean.valueOf(leaf));
 
+        log.info("Processing visibility for enumeration [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind kind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -102,6 +113,7 @@ public final class EnumerationRestructurer
                         .from(visibility);
         enumeration.setVisibility(kind);
 
+        log.info("Processing substitution for enumeration [{}]", id);
         Collection<ModelElement> substitutions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("substitution");

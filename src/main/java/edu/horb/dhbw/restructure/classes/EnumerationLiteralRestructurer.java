@@ -23,9 +23,11 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
+@Slf4j
 public final class EnumerationLiteralRestructurer
         extends RestructurerBase<EnumerationLiteral> {
     //TODO no need for cashing right?
@@ -48,6 +50,7 @@ public final class EnumerationLiteralRestructurer
 
         String id = element.getXMIID();
         literal.setId(id);
+        log.info("Processing name for enumerationliteral [{}]", id);
         literal.setName(element.getName());
 
         return literal;

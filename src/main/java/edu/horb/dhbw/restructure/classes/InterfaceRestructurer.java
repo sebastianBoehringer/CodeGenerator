@@ -27,6 +27,7 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class InterfaceRestructurer extends RestructurerBase<Interface> {
     /**
      * A map holding all the {@link Interface}s that have already been
@@ -60,25 +62,31 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading interface from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         Interface anInterface = new Interface();
 
         anInterface.setId(id);
 
+        log.info("Processing name for interface [{}]", id);
         String name = element.getPlainAttribute("name");
         anInterface.setName(name);
 
+        log.info("Processing visibility for interface [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         anInterface.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
+        log.info("Processing ownedattributes for interface [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         anInterface.setOwnedAttribute(delegateMany(attributes, Property.class));
 
+        log.info("Processing ownedoperations for interface [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         anInterface
@@ -86,6 +94,7 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
 
         //TODO nestedclassifiers
 
+        log.info("Processing generalizations for interface [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");

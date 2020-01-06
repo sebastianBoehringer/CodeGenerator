@@ -20,12 +20,14 @@ package edu.horb.dhbw.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class OperationRestructurer extends RestructurerBase<Operation> {
 
     /**
@@ -67,22 +70,27 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading operation from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         Operation operation = new Operation();
 
         operation.setId(id);
 
+        log.info("Processing name for operation [{}]", id);
         String name = element.getPlainAttribute("name");
         operation.setName(name);
 
         //TODO context
 
+        log.info("Processing static for operation [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         operation.setIsStatic(Boolean.valueOf(isStatic));
 
         //there is no default visibility for operations in the uml
         // specification. Here, public is used
+        log.info("Processing visibility for operation [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind visibilityKind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -90,24 +98,31 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
                         .from(visibility);
         operation.setVisibility(visibilityKind);
 
+        log.info("Processing abstract for operation [{}]", id);
         String isAbstract = element.getPlainAttribute("abstract");
         operation.setIsAbstract(Boolean.valueOf(isAbstract));
 
+        log.info("Processing isquery for operation [{}]", id);
         String query = element.getPlainAttribute("isquery");
         operation.setIsQuery(Boolean.valueOf(query));
 
+        log.info("Processing ownedparameters for operation [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("ownedparameters");
         operation.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
+        log.info("Processing concurrency for operation [{}]", id);
         String concurrency = element.getPlainAttribute("concurrency");
-        CallConcurrencyKind concurrencyKind =
-                concurrency == null || "".equals(concurrency)
-                ? CallConcurrencyKind.SEQUENTIAL
-                : CallConcurrencyKind.from(concurrency);
+        CallConcurrencyKind concurrencyKind = StringUtils.isEmpty(concurrency)
+                                              ? CallConcurrencyKind.SEQUENTIAL
+                                              : CallConcurrencyKind
+                                                      .from(concurrency);
         operation.setConcurrency(concurrencyKind);
 
-        //TODO exceptions
+        log.info("Processing name for exceptions [{}]", id);
+        Collection<ModelElement> exceptions = (Collection<ModelElement>) element
+                .getSetAttribute("exceptions");
+        operation.setRaisedException(delegateMany(exceptions, Type.class));
 
         ALREADY_PROCESSED.put(operation.getId(), operation);
         return operation;

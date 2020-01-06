@@ -19,19 +19,23 @@ package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
+import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class ParameterRestructurer extends RestructurerBase<Parameter> {
 
     /**
@@ -60,20 +64,25 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading parameter from cache",
+                     id);
             return ALREADY_PROCESSED.get(id);
         }
         Parameter parameter = new Parameter();
 
         parameter.setId(id);
 
+        log.info("Processing name for parameter [{}]", id);
         String name = element.getPlainAttribute("name");
         parameter.setName(name);
 
         //TODO contexts
 
+        log.info("Processing ordered for parameter [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         parameter.setIsOrdered(Boolean.valueOf(ordered));
 
+        log.info("Processing unique for parameter [{}]", id);
         String unique = element.getPlainAttribute("unique");
         boolean isUnique;
         //Default value for isUnique is true, see uml specification subclause
@@ -85,43 +94,61 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
         }
         parameter.setIsUnique(isUnique);
 
+        log.info("Processing lower for parameter [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (lower != null && !("".equals(lower))) {
             parameter.setLower(Integer.parseInt(lower));
         }
+        log.info("Processing upper for parameter [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (upper != null && !("".equals(upper))) {
             parameter.setUpper(new UnlimitedNatural(upper));
         }
 
-        //TODO lowerValue
+        log.info("Processing lowerValue for parameter [{}]", id);
+        ModelElement lowerValue = element.getRefAttribute("lowerValue");
+        parameter.setLowerValue(
+                delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        //TODO upperValue
+        log.info("Processing upperValue for parameter [{}]", id);
+        ModelElement upperValue = element.getRefAttribute("upperValue");
+        parameter.setUpperValue(
+                delegateRestructuring(upperValue, ValueSpecification.class));
 
-
-        //TODO type
-
+        log.info("Processing kind for parameter [{}]", id);
         String kind = element.getPlainAttribute("kind");
         ParameterDirectionKind directionKind =
                 StringUtils.isEmpty(kind) ? ParameterDirectionKind.IN
                                           : ParameterDirectionKind.from(kind);
         parameter.setDirection(directionKind);
 
-        //TODO parametertype
+        log.info("Processing parametertype for parameter [{}]", id);
+        ModelElement type = element.getRefAttribute("parametertype");
+        parameter.setType(delegateRestructuring(type, Type.class));
 
+        log.info("Processing effect for parameter [{}]", id);
         String effect = element.getPlainAttribute("effect");
         ParameterEffectKind effectKind =
                 StringUtils.isEmpty(effect) ? ParameterEffectKind.UNDEFINED
                                             : ParameterEffectKind.from(effect);
         parameter.setEffect(effectKind);
 
+        log.info("Processing exception for parameter [{}]", id);
         String exception = element.getPlainAttribute("exception");
         parameter.setIsException(Boolean.valueOf(exception));
 
+        log.info("Processing stream for parameter [{}]", id);
         String stream = element.getPlainAttribute("stream");
         parameter.setIsStream(Boolean.valueOf(stream));
 
-        //TODO default
+        log.info("Processing default for parameter [{}]", id);
+        ModelElement defaults = element.getRefAttribute("default");
+        parameter.setDefaultValue(
+                delegateRestructuring(defaults, ValueSpecification.class));
+
+        log.info("Processing defaultstring for parameter [{}]", id);
+        String defaultString = element.getPlainAttribute("defaultstring");
+        parameter.setDefaults(defaultString);
 
         ALREADY_PROCESSED.put(parameter.getId(), parameter);
         return parameter;

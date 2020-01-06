@@ -18,6 +18,7 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
@@ -72,77 +73,86 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading class from cache", id);
             return ALREADY_PROCESSED.get(id);
         }
         UMLClass clazz = new UMLClass();
 
         clazz.setId(id);
 
+        log.info("Processing name for class [{}]", id);
         clazz.setName(element.getName());
-        log.info("Working on UML class [{}]", clazz.getName());
 
         //TODO context
-
+        log.info("Processing abstract for class [{}]", id);
         clazz.setIsAbstract(
                 Boolean.valueOf(element.getPlainAttribute("abstract")));
 
+        log.info("Processing leaf for class [{}]", id);
         clazz.setIsFinalSpecialization(
                 Boolean.valueOf(element.getPlainAttribute("leaf")));
 
+        log.info("Processing visibility for class [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         clazz.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
+        log.info("Processing collaborationuses for class [{}]", id);
         Collection<ModelElement> collaborationUses =
                 (Collection<ModelElement>) element
                         .getSetAttribute("collaborationuses");
         clazz.setCollaborationUse(
                 delegateMany(collaborationUses, CollaborationUse.class));
 
+        log.info("Processing generalization for class [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalization");
         clazz.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
+        log.info("Processing substitution for class [{}]", id);
         Collection<ModelElement> substitutions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("substitution");
         clazz.setSubstitution(delegateMany(substitutions, Substitution.class));
 
+        log.info("Processing ownedattributes for class [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
-        log.info("Attributes: [{}]", attributes);
         clazz.setOwnedAttribute(delegateMany(attributes, Property.class));
 
+        log.info("Processing ownedoperations for class [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         clazz.setOwnedOperation(delegateMany(operations, Operation.class));
 
-        //TODO nested classifiers
+        log.info("Processing nestedclassifiers for class [{}]", id);
+        Collection<ModelElement> nestedClassifiers =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("nestedclassifiers");
+        clazz.setNestedClassifier(
+                delegateMany(nestedClassifiers, Classifier.class));
 
+        log.info("Processing interfacerealizations for class [{}]", id);
         Collection<ModelElement> interfaceRealizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("interfacerealizations");
         clazz.setInterfaceRealization(delegateMany(interfaceRealizations,
                                                    InterfaceRealization.class));
 
+        log.info("Processing connectors for class [{}]", id);
         Collection<ModelElement> connectors = (Collection<ModelElement>) element
                 .getSetAttribute("connectors");
         clazz.setOwnedConnector(delegateMany(connectors, Connector.class));
 
+        log.info("Processing ownedbehaviors for class [{}]", id);
         Collection<ModelElement> behaviors = (Collection<ModelElement>) element
                 .getSetAttribute("ownedbehaviors");
         clazz.setOwnedBehavior(delegateMany(behaviors, Behavior.class));
 
-        log.info("Resulting class is [{}]", clazz.toString());
-        log.info("Name [{}], ID [{}]", clazz.getName(), clazz.getId());
-        log.info("Abstract [{}], leaf [{}]", clazz.getIsAbstract(),
-                 clazz.getIsFinalSpecialization());
-        log.info("Visibility [{}]", clazz.getVisibility());
-        log.info("==============================================");
         ALREADY_PROCESSED.put(clazz.getId(), clazz);
         return clazz;
     }

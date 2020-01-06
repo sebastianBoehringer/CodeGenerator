@@ -25,11 +25,13 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class InterfaceRealizationRestructurer
         extends RestructurerBase<InterfaceRealization> {
 
@@ -67,6 +69,8 @@ public final class InterfaceRealizationRestructurer
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading InterfaceRealization "
+                             + "from cache", id);
             return ALREADY_PROCESSED.get(id);
         }
 
@@ -74,14 +78,17 @@ public final class InterfaceRealizationRestructurer
 
         realization.setId(id);
 
+        log.info("Processing name for interfacerealization [{}]", id);
         String name = element.getPlainAttribute("name");
         realization.setName(name);
 
+        log.info("Processing contract for interfacerealization [{}]", id);
         ModelElement contract = element.getRefAttribute("contract");
         Interface anInterface =
                 delegateRestructuring(contract, Interface.class);
         realization.setContract(anInterface);
 
+        log.info("Processing implementation for interfacerealization [{}]", id);
         ModelElement implementation = element.getRefAttribute("implementation");
         UMLClass implementer =
                 delegateRestructuring(implementation, UMLClass.class);

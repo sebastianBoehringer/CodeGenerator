@@ -25,12 +25,14 @@ import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class SlotRestructurer extends RestructurerBase<Slot> {
 
     /**
@@ -58,15 +60,18 @@ public final class SlotRestructurer extends RestructurerBase<Slot> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading slot from cache", id);
             return ALREADY_PROCESSED.get(id);
         }
 
         Slot slot = new Slot();
 
+        log.info("Processing defining for slot [{}]", id);
         ModelElement defining = element.getRefAttribute("defining");
         slot.setDefiningFeature(
                 delegateRestructuring(defining, Property.class));
 
+        log.info("Processing values for slot [{}]", id);
         Collection<ModelElement> values =
                 (Collection<ModelElement>) element.getSetAttribute("value");
         slot.setValue(delegateMany(values, ValueSpecification.class));

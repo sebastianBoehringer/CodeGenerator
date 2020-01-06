@@ -19,14 +19,17 @@ package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
+import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
@@ -34,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public final class PropertyRestructurer extends RestructurerBase<Property> {
 
     /**
@@ -62,6 +66,7 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading property from cache", id);
             return ALREADY_PROCESSED.get(id);
         }
         Property property = new Property();
@@ -69,24 +74,25 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         property.setId(id);
 
         //TODO context
-
+        log.info("Processing name for property [{}]", id);
         property.setName(element.getName());
 
+        log.info("Processing visibility for property [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         property.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        //TODO type
-
+        log.info("Processing ordered for property [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         property.setIsOrdered(Boolean.valueOf(ordered));
 
+        log.info("Processing unique for property [{}]", id);
         String unique = element.getPlainAttribute("unique");
-        boolean isUnique;
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
+        boolean isUnique;
         if (unique == null || "".equals(unique)) {
             isUnique = true;
         } else {
@@ -94,29 +100,43 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         }
         property.setIsUnique(isUnique);
 
+        log.info("Processing lower for property [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (lower != null && !("".equals(lower))) {
             property.setLower(Integer.parseInt(lower));
         }
+
+        log.info("Processing upper for property [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (upper != null && !("".equals(upper))) {
             property.setUpper(new UnlimitedNatural(upper));
         }
 
-        //TODO lowerValue
+        log.info("Processing lowerValue for parameter [{}]", id);
+        ModelElement lowerValue = element.getRefAttribute("lowerValue");
+        property.setLowerValue(
+                delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        //TODO upperValue
+        log.info("Processing upperValue for parameter [{}]", id);
+        ModelElement upperValue = element.getRefAttribute("upperValue");
+        property.setUpperValue(
+                delegateRestructuring(upperValue, ValueSpecification.class));
 
-        //TODO propertytype
+        log.info("Processing propertytype for property [{}]", id);
+        ModelElement type = element.getRefAttribute("propertytype");
+        property.setType(delegateRestructuring(type, Type.class));
 
+        log.info("Processing isreadonly for property [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
         property.setIsReadOnly(Boolean.valueOf(readOnly));
 
         //TODO Association has subclasses
+        log.info("Processing association for property [{}]", id);
         ModelElement association = element.getRefAttribute("association");
         property.setAssociation(
                 delegateRestructuring(association, Association.class));
 
+        log.info("Processing aggregation for property [{}]", id);
         String aggregation = element.getPlainAttribute("aggregation");
         property.setAggregation(
                 StringUtils.isEmpty(aggregation) ? AggregationKind.NONE
@@ -124,12 +144,17 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
                         .from(aggregation));
 
         //TODO Property has subclasses
+        log.info("Processing qualifiers for property [{}]", id);
         Collection<ModelElement> qualifiers = (Collection<ModelElement>) element
                 .getSetAttribute("qualifiers");
         property.setQualifier(delegateMany(qualifiers, Property.class));
 
-        //TODO default
+        log.info("Processing default for property [{}]", id);
+        ModelElement defaultValue = element.getRefAttribute("default");
+        property.setDefaultValue(
+                delegateRestructuring(defaultValue, ValueSpecification.class));
 
+        log.info("Processing static for property [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         property.setIsStatic(Boolean.valueOf(isStatic));
 
