@@ -715,6 +715,7 @@ other part of SDMetrics.
                  attr="specification"/>
         <trigger name="constrainedElement" type="xmi2assoc"
                  attr="constrainedElement"/>
+        <trigger name="context" type="xmi2assoc" attr="context"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interval"
