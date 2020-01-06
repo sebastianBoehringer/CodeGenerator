@@ -32,6 +32,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Deprecated
 public final class ParameterSet extends NamedElement {
     /**
      * Determines when to start/ end execution.

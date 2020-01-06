@@ -36,5 +36,4 @@ public abstract class Type extends PackageableElement {
      * The  {@link UMLPackage} owning this type.
      */
     private UMLPackage aPackage;
-
 }

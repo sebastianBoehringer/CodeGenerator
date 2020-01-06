@@ -33,6 +33,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@Deprecated
 public final class GeneralizationSet extends PackageableElement {
     /**
      * If this is {@code true} all possible specializations have been defined.
