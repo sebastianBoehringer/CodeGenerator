@@ -271,28 +271,7 @@ public final class LookupUtil {
      */
     public static Class<? extends Constraint> constraintFromUMLType(
             @NonNull final String umlType) {
-        /**
-         * Maps the type of an uml class to the corresponding java class.
-         * This method specializes on classes extending {@link Realization}.
-         * This method does NOT trim the namespace.
-         *
-         * @param umlType The value of the attribute xmi:type
-         * @return The class corresponding to this particular type
-         */
-        public static Class<? extends Realization> realizationFromUMLType(
-        @NonNull final String umlType) {
 
-            switch (umlType) {
-                case "substitution":
-                    return Substitution.class;
-                case "interfacerealization":
-                    return InterfaceRealization.class;
-                case "componentrealization":
-                    return ComponentRealization.class;
-                default:
-                    return null;
-            }
-        }
         switch (umlType) {
             case "constraint":
                 return Constraint.class;
