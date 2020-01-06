@@ -24,14 +24,20 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.datacore.uml.packages.Stereotype;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Component;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
@@ -55,6 +61,10 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
     private static final Map<String, UMLClass> ALREADY_PROCESSED =
             new HashMap<>();
 
+    /**
+     * The name of the metamodel element this restructurer processes.
+     */
+    private static final String PROCESSED_METAMODEL_ELEMENT = "class";
 
     /**
      * Constructor delegating to
@@ -65,12 +75,24 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
      */
     public UMLClassRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator, "class");
+        super(iRestructurerMediator, PROCESSED_METAMODEL_ELEMENT);
     }
 
     @Override
     public UMLClass restructure(final ModelElement element) {
 
+        String umlType = XMIUtil.getUMLType(element);
+        if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
+            log.info("Trying to delegate from constraint to specialized type "
+                             + "for [{}]", umlType);
+            Class<? extends UMLClass> aClass = resolveFromType(umlType);
+            if (aClass == null) {
+                log.warn("Did not find matching class for [{}], restructuring "
+                                 + "as constraint", umlType);
+            } else {
+                return delegateRestructuring(element, aClass);
+            }
+        }
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
             log.info("Found id [{}] in cache, loading class from cache", id);
@@ -161,5 +183,28 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
     public Optional<UMLClass> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    private Class<? extends UMLClass> resolveFromType(final String umlType) {
+
+        switch (umlType) {
+            case "behavior":
+                return Behavior.class;
+            case "statemachine":
+                return StateMachine.class;
+            case "component":
+                return Component.class;
+            case "functionbehavior":
+                return FunctionBehavior.class;
+            case "opaquebehavior":
+                return OpaqueBehavior.class;
+            case "stereotype":
+                return Stereotype.class;
+            //TODO remove when resolved inheritance
+            /*case "associationclass":
+                return AssociationClass.class;*/
+            default:
+                return null;
+        }
     }
 }

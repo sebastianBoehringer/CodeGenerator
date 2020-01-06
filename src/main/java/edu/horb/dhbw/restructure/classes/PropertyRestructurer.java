@@ -22,12 +22,15 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.datacore.uml.packages.ExtensionEnd;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -50,6 +53,11 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
             new HashMap<>();
 
     /**
+     * The name of the metamodel element this restructurer can process.
+     */
+    private static final String PROCESSED_METAMODEL_ELEMENT = "property";
+
+    /**
      * Constructor delegating to
      * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
      *
@@ -58,17 +66,32 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
      */
     public PropertyRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator, "property");
+        super(iRestructurerMediator, PROCESSED_METAMODEL_ELEMENT);
     }
 
     @Override
     public Property restructure(@NonNull final ModelElement element) {
+
+        String umlType = XMIUtil.getUMLType(element);
+        if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
+            log.info("Trying to delegate from property to specialized type for"
+                             + " [{}]", umlType);
+
+            Class<? extends Property> toRestructure = resolveFromType(umlType);
+            if (toRestructure == null) {
+                log.warn("Did not find matching class for [{}], restructuring "
+                                 + "as property", umlType);
+            } else {
+                return delegateRestructuring(element, toRestructure);
+            }
+        }
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
             log.info("Found id [{}] in cache, loading property from cache", id);
             return ALREADY_PROCESSED.get(id);
         }
+
         Property property = new Property();
 
         property.setId(id);
@@ -93,7 +116,7 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
         boolean isUnique;
-        if (unique == null || "".equals(unique)) {
+        if (StringUtils.isEmpty(unique)) {
             isUnique = true;
         } else {
             isUnique = Boolean.parseBoolean(unique);
@@ -102,13 +125,13 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         log.info("Processing lower for property [{}]", id);
         String lower = element.getPlainAttribute("lower");
-        if (lower != null && !("".equals(lower))) {
+        if (StringUtils.isEmpty(lower)) {
             property.setLower(Integer.parseInt(lower));
         }
 
         log.info("Processing upper for property [{}]", id);
         String upper = element.getPlainAttribute("upper");
-        if (upper != null && !("".equals(upper))) {
+        if (StringUtils.isEmpty(upper)) {
             property.setUpper(new UnlimitedNatural(upper));
         }
 
@@ -124,7 +147,9 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         log.info("Processing propertytype for property [{}]", id);
         ModelElement type = element.getRefAttribute("propertytype");
-        property.setType(delegateRestructuring(type, Type.class));
+        property.setType(
+
+                delegateRestructuring(type, Type.class));
 
         log.info("Processing isreadonly for property [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
@@ -143,7 +168,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
                                                  : AggregationKind
                         .from(aggregation));
 
-        //TODO Property has subclasses
         log.info("Processing qualifiers for property [{}]", id);
         Collection<ModelElement> qualifiers = (Collection<ModelElement>) element
                 .getSetAttribute("qualifiers");
@@ -166,5 +190,17 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
     public Optional<Property> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    private Class<? extends Property> resolveFromType(final String umlType) {
+
+        switch (umlType) {
+            case "extensionend":
+                return ExtensionEnd.class;
+            case "port":
+                return Port.class;
+            default:
+                return null;
+        }
     }
 }

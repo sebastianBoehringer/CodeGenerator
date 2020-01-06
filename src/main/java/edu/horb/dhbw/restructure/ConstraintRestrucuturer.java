@@ -20,7 +20,9 @@ package edu.horb.dhbw.restructure;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +33,10 @@ import java.util.Optional;
 @Slf4j
 public final class ConstraintRestrucuturer
         extends RestructurerBase<Constraint> {
+    /**
+     * The name of the metamodel element this restructurer processes.
+     */
+    private static final String PROCESSED_METAMODEL_ELEMENT = "constraint";
 
     /**
      * A map holding all the {@link Constraint}s that have already been
@@ -50,11 +56,24 @@ public final class ConstraintRestrucuturer
      */
     public ConstraintRestrucuturer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator, "constraint");
+        super(iRestructurerMediator, PROCESSED_METAMODEL_ELEMENT);
     }
 
     @Override
     public Constraint restructure(@NonNull final ModelElement element) {
+
+        String umlType = XMIUtil.getUMLType(element);
+        if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
+            log.info("Trying to delegate from constraint to specialized type "
+                             + "for [{}]", umlType);
+            Class<? extends Constraint> aClass = resolveFromType(umlType);
+            if (aClass == null) {
+                log.warn("Did not find matching class for [{}], restructuring "
+                                 + "as constraint", umlType);
+            } else {
+                return delegateRestructuring(element, aClass);
+            }
+        }
 
         String id = element.getXMIID();
         if (ALREADY_PROCESSED.containsKey(id)) {
@@ -83,6 +102,12 @@ public final class ConstraintRestrucuturer
     @Override
     public Optional<Constraint> getProcessed(@NonNull final String id) {
 
-        return Optional.empty();
+        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    private Class<? extends Constraint> resolveFromType(final String umlType) {
+
+        return "intervalconstraint".equals(umlType) ? IntervalConstraint.class
+                                                    : null;
     }
 }
