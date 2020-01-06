@@ -130,6 +130,8 @@ public final class LookupUtil {
             @NonNull final String umlType) {
 
         switch (umlType) {
+            case "realization":
+                return Realization.class;
             case "substitution":
                 return Substitution.class;
             case "interfacerealization":
@@ -152,7 +154,8 @@ public final class LookupUtil {
     public static Class<? extends Abstraction> abstractionFromUMLType(
             @NonNull final String umlType) {
 
-        return realizationFromUMLType(umlType);
+        return "abstraction".equals(umlType) ? Abstraction.class
+                                             : realizationFromUMLType(umlType);
     }
 
     /**
@@ -166,8 +169,14 @@ public final class LookupUtil {
     public static Class<? extends Dependency> dependencyFromUMLType(
             @NonNull final String umlType) {
 
-        return "usage".equals(umlType) ? Usage.class
-                                       : abstractionFromUMLType(umlType);
+        switch (umlType) {
+            case "usage":
+                return Usage.class;
+            case "dependency":
+                return Dependency.class;
+            default:
+                return abstractionFromUMLType(umlType);
+        }
     }
 
     /**
@@ -262,7 +271,28 @@ public final class LookupUtil {
      */
     public static Class<? extends Constraint> constraintFromUMLType(
             @NonNull final String umlType) {
+        /**
+         * Maps the type of an uml class to the corresponding java class.
+         * This method specializes on classes extending {@link Realization}.
+         * This method does NOT trim the namespace.
+         *
+         * @param umlType The value of the attribute xmi:type
+         * @return The class corresponding to this particular type
+         */
+        public static Class<? extends Realization> realizationFromUMLType(
+        @NonNull final String umlType) {
 
+            switch (umlType) {
+                case "substitution":
+                    return Substitution.class;
+                case "interfacerealization":
+                    return InterfaceRealization.class;
+                case "componentrealization":
+                    return ComponentRealization.class;
+                default:
+                    return null;
+            }
+        }
         switch (umlType) {
             case "constraint":
                 return Constraint.class;
@@ -717,10 +747,6 @@ public final class LookupUtil {
             return aClass;
         }
         aClass = vertexFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        aClass = typeFromUMLType(umlType);
         if (aClass != null) {
             return aClass;
         }
