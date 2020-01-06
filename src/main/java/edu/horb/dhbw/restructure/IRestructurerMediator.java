@@ -25,7 +25,9 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
@@ -33,6 +35,8 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.datacore.uml.values.Interval;
+import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
 import edu.horb.dhbw.restructure.classes.ConnectorEndRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationLiteralRestructurer;
@@ -59,7 +63,7 @@ public class IRestructurerMediator {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 15;
+    private static final int DEFAULT_SIZE = 17;
 
     /**
      * The mappings to use.
@@ -70,7 +74,7 @@ public class IRestructurerMediator {
      * The default {@link IRestructurer} to use if no specialized one is
      * registered in {@link #classToRestructurer}.
      */
-    private final IRestructurer<?> defaultImplementation =
+    private final IRestructurer<? extends Element> defaultImplementation =
             new IRestructurerDefImpl(this);
 
     /**
@@ -106,6 +110,10 @@ public class IRestructurerMediator {
                 .put(Constraint.class, new ConstraintRestrucuturer(this));
         classToRestructurer
                 .put(ConnectorEnd.class, new ConnectorEndRestructurer(this));
+        classToRestructurer.put(IntervalConstraint.class,
+                                new IntervalConstraintRestrucuturer(this));
+        classToRestructurer.put(Comment.class, new CommentRestructurer(this));
+        classToRestructurer.put(Interval.class, new IntervalRestructurer(this));
     }
 
     /**
@@ -127,6 +135,7 @@ public class IRestructurerMediator {
      * @return An IRestructurer transforming a
      * {@link com.sdmetrics.model.Model} to a T
      */
+    @NonNull
     public <T extends CommonElements> IRestructurer<T> getIRestructurer(
             @NonNull final Class<T> clazz) {
 
