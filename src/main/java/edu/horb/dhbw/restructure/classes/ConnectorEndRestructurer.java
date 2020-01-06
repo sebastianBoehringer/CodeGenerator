@@ -26,6 +26,7 @@ import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,12 +87,12 @@ public final class ConnectorEndRestructurer
 
         log.info("Processing lower for connectorend [{}]", id);
         String lower = element.getPlainAttribute("lower");
-        if (lower != null && !("".equals(lower))) {
+        if (!StringUtils.isEmpty(lower)) {
             end.setLower(Integer.parseInt(lower));
         }
         log.info("Processing upper for connectorend [{}]", id);
         String upper = element.getPlainAttribute("upper");
-        if (upper != null && !("".equals(upper))) {
+        if (!StringUtils.isEmpty(upper)) {
             end.setUpper(new UnlimitedNatural(upper));
         }
         log.info("Processing role for connectorend [{}]", id);

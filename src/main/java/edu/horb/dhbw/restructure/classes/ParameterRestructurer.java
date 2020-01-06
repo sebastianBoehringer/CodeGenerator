@@ -96,12 +96,12 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
 
         log.info("Processing lower for parameter [{}]", id);
         String lower = element.getPlainAttribute("lower");
-        if (lower != null && !("".equals(lower))) {
+        if (!StringUtils.isEmpty(lower)) {
             parameter.setLower(Integer.parseInt(lower));
         }
         log.info("Processing upper for parameter [{}]", id);
         String upper = element.getPlainAttribute("upper");
-        if (upper != null && !("".equals(upper))) {
+        if (!StringUtils.isEmpty(upper)) {
             parameter.setUpper(new UnlimitedNatural(upper));
         }
 
