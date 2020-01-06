@@ -825,6 +825,9 @@ other part of SDMetrics.
 
     <modelelement name="comment">
         <attribute name="body">The comment text.</attribute>
+        <attribute name="annotated" type="ref" multiplicity="many">
+            The elements the comment applies to.
+        </attribute>
     </modelelement>
 
 
