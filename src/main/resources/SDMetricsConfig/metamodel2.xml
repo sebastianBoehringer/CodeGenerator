@@ -429,8 +429,8 @@ other part of SDMetrics.
         <attribute name="defining" type="ref">The feature that gets
             its value from the slot.
         </attribute>
-        <attribute name="value" type="ref">The value held by the
-            slot.
+        <attribute name="value" type="ref" multiplicity="many">
+            The value held by the slot.
         </attribute>
     </modelelement>
 
