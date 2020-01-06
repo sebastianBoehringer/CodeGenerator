@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.primitivetypes;
 
 import lombok.Data;
+import org.thymeleaf.util.StringUtils;
 
 /**
  * A class representing the primitive datatype UnlimitedNatural.
@@ -48,9 +49,12 @@ public class UnlimitedNatural {
 
     /**
      * Constructs a new UnlimitedNatural from the String.
-     * This throws {@link IllegalArgumentException} if the parameter is not a
-     * valid representation of a long or an asterisk (*). It also throws the
-     * exception if the parsed value is negative, i. e. less than {@code 0}.
+     * If the string is {@code null} or empty, {@link #value} will be set to
+     * {@code 0}.
+     * The constructor throws {@link IllegalArgumentException} if the parameter
+     * is not a valid representation of a long or an asterisk (*). It also
+     * throws the exception if the parsed value is negative, i. e. less than
+     * {@code 0}.
      *
      * @param string The string from which the value should be parsed.
      */
@@ -67,9 +71,14 @@ public class UnlimitedNatural {
             if ("*".equals(string)) {
                 value = Long.MAX_VALUE;
             } else {
-                throw new IllegalArgumentException(String.format(
-                        "Could not parse [%s] as long "
-                                + "and it wasnt [*] either", string));
+                if (StringUtils.isEmpty(string)) {
+                    //default value for literalunlimited natural is 0
+                    value = 0L;
+                } else {
+                    throw new IllegalArgumentException(String.format(
+                            "Could not parse [%s] as long and it wasnt "
+                                    + "[*] either", string));
+                }
             }
         }
     }
