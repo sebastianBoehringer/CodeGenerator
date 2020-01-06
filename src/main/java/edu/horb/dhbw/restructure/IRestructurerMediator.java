@@ -23,13 +23,17 @@ import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.restructure.classes.ConnectorEndRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationLiteralRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationRestructurer;
@@ -39,8 +43,10 @@ import edu.horb.dhbw.restructure.classes.InterfaceRestructurer;
 import edu.horb.dhbw.restructure.classes.OperationRestructurer;
 import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
 import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
+import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
@@ -53,7 +59,7 @@ public class IRestructurerMediator {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 8;
+    private static final int DEFAULT_SIZE = 15;
 
     /**
      * The mappings to use.
@@ -95,6 +101,11 @@ public class IRestructurerMediator {
                                 new EnumerationLiteralRestructurer(this));
         classToRestructurer
                 .put(Substitution.class, new SubstitutionRestructurer(this));
+        classToRestructurer.put(Slot.class, new SlotRestructurer(this));
+        classToRestructurer
+                .put(Constraint.class, new ConstraintRestrucuturer(this));
+        classToRestructurer
+                .put(ConnectorEnd.class, new ConnectorEndRestructurer(this));
     }
 
     /**
@@ -102,8 +113,9 @@ public class IRestructurerMediator {
      * @param restructurer The restructurer to add
      * @param <T>          Ensuring that the class and the restructurer match
      */
-    public <T extends CommonElements> void register(final Class<T> clazz,
-                                                    final IRestructurer<T> restructurer) {
+    public <T extends CommonElements> void register(
+            @NonNull final Class<T> clazz,
+            @NonNull final IRestructurer<T> restructurer) {
 
         classToRestructurer.put(clazz, restructurer);
     }
@@ -115,7 +127,8 @@ public class IRestructurerMediator {
      * @return An IRestructurer transforming a
      * {@link com.sdmetrics.model.Model} to a T
      */
-    public <T extends CommonElements> IRestructurer<T> getIRestructurer(final Class<T> clazz) {
+    public <T extends CommonElements> IRestructurer<T> getIRestructurer(
+            @NonNull final Class<T> clazz) {
 
         return (RestructurerBase<T>) classToRestructurer
                 .getOrDefault(clazz, defaultImplementation);
