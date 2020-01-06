@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PackageImport extends DirectedRelationship {
+public final class PackageImport extends DirectedRelationship {
     /**
      * The visibility of the imported elements in the
      * {@link #importingNamespace}.
