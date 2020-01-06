@@ -260,6 +260,9 @@ other part of SDMetrics.
         <attribute name="default" type="ref">The default value for
             the parameter.
         </attribute>
+        <attribute name="defaultstring">
+            String representing the default value
+        </attribute>
     </modelelement>
 
     <modelelement name="method"/>
