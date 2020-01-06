@@ -19,13 +19,15 @@ package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
-import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -66,7 +68,8 @@ public final class ConstraintRestrucuturer
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.info("Trying to delegate from constraint to specialized type "
                              + "for [{}]", umlType);
-            Class<? extends Constraint> aClass = resolveFromType(umlType);
+            Class<? extends Constraint> aClass =
+                    LookupUtil.constraintFromUMLType(umlType);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
                                  + "as constraint", umlType);
@@ -94,7 +97,13 @@ public final class ConstraintRestrucuturer
         ModelElement context = element.getRefAttribute("context");
         constraint.setContext(delegateRestructuring(context, Namespace.class));
 
-        log.debug("Saving constraint [{}] in cache", id);
+        log.info("Processing constrainedElement for constraint [{}]", id);
+        Collection<ModelElement> constrained =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("constrainedElement");
+        constraint.setConstrainedElement(
+                delegateMany(constrained, Element.class));
+
         ALREADY_PROCESSED.put(id, constraint);
         return constraint;
     }
@@ -105,9 +114,4 @@ public final class ConstraintRestrucuturer
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 
-    private Class<? extends Constraint> resolveFromType(final String umlType) {
-
-        return "intervalconstraint".equals(umlType) ? IntervalConstraint.class
-                                                    : null;
-    }
 }

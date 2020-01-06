@@ -22,14 +22,13 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import edu.horb.dhbw.datacore.uml.packages.ExtensionEnd;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
+import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -77,7 +76,8 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
             log.info("Trying to delegate from property to specialized type for"
                              + " [{}]", umlType);
 
-            Class<? extends Property> toRestructure = resolveFromType(umlType);
+            Class<? extends Property> toRestructure =
+                    LookupUtil.propertyFromUMLType(umlType);
             if (toRestructure == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
                                  + "as property", umlType);
@@ -125,13 +125,13 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         log.info("Processing lower for property [{}]", id);
         String lower = element.getPlainAttribute("lower");
-        if (StringUtils.isEmpty(lower)) {
+        if (!StringUtils.isEmpty(lower)) {
             property.setLower(Integer.parseInt(lower));
         }
 
         log.info("Processing upper for property [{}]", id);
         String upper = element.getPlainAttribute("upper");
-        if (StringUtils.isEmpty(upper)) {
+        if (!StringUtils.isEmpty(upper)) {
             property.setUpper(new UnlimitedNatural(upper));
         }
 
@@ -190,17 +190,5 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
     public Optional<Property> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    private Class<? extends Property> resolveFromType(final String umlType) {
-
-        switch (umlType) {
-            case "extensionend":
-                return ExtensionEnd.class;
-            case "port":
-                return Port.class;
-            default:
-                return null;
-        }
     }
 }

@@ -24,19 +24,15 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
-import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
-import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import edu.horb.dhbw.datacore.uml.packages.Stereotype;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
-import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.Component;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
+import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -83,12 +79,13 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
 
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
-            log.info("Trying to delegate from constraint to specialized type "
+            log.info("Trying to delegate from class to specialized type "
                              + "for [{}]", umlType);
-            Class<? extends UMLClass> aClass = resolveFromType(umlType);
+            Class<? extends UMLClass> aClass =
+                    LookupUtil.classFromUMLType(umlType);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
-                                 + "as constraint", umlType);
+                                 + "as class", umlType);
             } else {
                 return delegateRestructuring(element, aClass);
             }
@@ -183,28 +180,5 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
     public Optional<UMLClass> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    private Class<? extends UMLClass> resolveFromType(final String umlType) {
-
-        switch (umlType) {
-            case "behavior":
-                return Behavior.class;
-            case "statemachine":
-                return StateMachine.class;
-            case "component":
-                return Component.class;
-            case "functionbehavior":
-                return FunctionBehavior.class;
-            case "opaquebehavior":
-                return OpaqueBehavior.class;
-            case "stereotype":
-                return Stereotype.class;
-            //TODO remove when resolved inheritance
-            /*case "associationclass":
-                return AssociationClass.class;*/
-            default:
-                return null;
-        }
     }
 }
