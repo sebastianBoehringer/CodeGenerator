@@ -33,7 +33,6 @@ import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
-import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
@@ -705,13 +704,8 @@ public final class LookupUtil {
     public static Class<? extends NamedElement> namedFromUMLType(
             @NonNull final String umlType) {
 
-        switch (umlType) {
-            case "trigger":
-                return Trigger.class;
-            case "collaborationuse":
-                return CollaborationUse.class;
-            default:
-                break;
+        if ("collaborationuse".equals(umlType)) {
+            return CollaborationUse.class;
         }
         Class<? extends NamedElement> aClass = featureFromUMLType(umlType);
         if (aClass != null) {

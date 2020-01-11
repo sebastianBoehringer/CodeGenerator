@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.uml.statemachines;
 
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
-import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
@@ -79,12 +78,6 @@ public class State extends Vertex {
      * {@link edu.horb.dhbw.datacore.uml.enums.PseudostateKind#EXITPOINT}.
      */
     private List<Pseudostate> connectionPoint = new ArrayList<>();
-    /**
-     * Triggers that the statemachine may choose to ignore.
-     * Triggers can only be ignored as long as they do not trigger
-     * transitions out of the state.
-     */
-    private List<Trigger> deferrableTrigger = new ArrayList<>();
     /**
      * A behavior that is executed while this state is active.
      */

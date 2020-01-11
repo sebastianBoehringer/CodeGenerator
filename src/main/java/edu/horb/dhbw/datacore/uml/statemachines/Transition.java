@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.uml.statemachines;
 
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
-import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
@@ -26,9 +25,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Connects two vertices.
@@ -64,8 +60,4 @@ public final class Transition extends Namespace {
      * The vertex the transition is going to.
      */
     private Vertex target;
-    /**
-     * The triggers that may fire the transition.
-     */
-    private List<Trigger> trigger = new ArrayList<>();
 }
