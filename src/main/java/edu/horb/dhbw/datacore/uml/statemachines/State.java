@@ -32,10 +32,9 @@ import java.util.List;
 /**
  * Represents a situation that can occur during the execution of a
  * {@link StateMachine}.
- * This should specialize both {@link Vertex} and
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}. It only
- * inherits from {@link Vertex}, the methods and fields from
- * {@link Namespace} have been copied over.
+ * This should specialize both Vertex and {@link Namespace}. Due to modelling
+ * there is no need for Vertex to exist as a class which is why this class
+ * does not have trouble with resolving multiple inheritance.
  * See subclauses 14.2 and 14.5.9 of the UML specification for more details.
  */
 @EqualsAndHashCode(callSuper = true)
