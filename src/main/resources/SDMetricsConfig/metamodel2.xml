@@ -404,18 +404,6 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="interaction" parent="class">
-        <attribute name="lifelines" type="ref" multiplicity="many">The lifelines
-            involved in the interaction.
-        </attribute>
-        <attribute name="messages" type="ref" multiplicity="many">The messages
-            sent within the interaction.
-        </attribute>
-        <attribute name="fragments" type="ref" multiplicity="many">The message
-            occurrence specifications and combined fragments of the interaction.
-        </attribute>
-    </modelelement>
-
     <modelelement name="instancespecification">
         <attribute name="classifier" type="ref" multiplicity="many">Links to the
             classifiers that this entity is an instance of.
@@ -436,87 +424,6 @@ other part of SDMetrics.
             The value held by the slot.
         </attribute>
     </modelelement>
-
-    <modelelement name="lifeline">
-        <attribute name="represents" type="ref">The interaction participant that
-            this lifeline represents.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="message">
-        <attribute name="receiveevent" type="ref">Occurrence specification for
-            the message reception.
-        </attribute>
-        <attribute name="sendevent" type="ref">Occurrence specification for the
-            message sending.
-        </attribute>
-        <attribute name="sort">The sort of communication (synchCall, asynchCall,
-            asynchSignal, etc.).
-        </attribute>
-    </modelelement>
-
-    <modelelement name="occurrencespec">
-        <attribute name="covered" type="ref">The lifeline on which this
-            occurrence specification appears.
-        </attribute>
-        <attribute name="kind">The type of this occurrence specification
-            (execution, message, destruction) (since UML2.4).
-        </attribute>
-        <attribute name="event" type="ref">The occurring event (up to UML2.3).
-        </attribute>
-    </modelelement>
-
-    <modelelement name="combinedfragment">
-        <attribute name="operator">The interaction operator (alt, loop, break,
-            opt, par, ref, etc.)
-        </attribute>
-        <attribute name="covered" type="ref" multiplicity="many">The lifelines
-            covered by this combined fragment.
-        </attribute>
-        <attribute name="operands" type="ref" multiplicity="many">The
-            interaction operands of this combined fragment.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="interactionoperand">
-        <attribute name="fragments" type="ref" multiplicity="many">The message
-            occurrence specifications and combined
-            fragments of the interaction operand.
-        </attribute>
-    </modelelement>
-
-
-    <!-- use case model -->
-    <modelelement name="actor" parent="class"/>
-
-    <modelelement name="usecase" parent="class">
-        <attribute name="includes" type="ref" multiplicity="many">The include
-            relationships owned by the use case.
-        </attribute>
-        <attribute name="extends" type="ref" multiplicity="many">The extend
-            relationships owned by the use case.
-        </attribute>
-        <attribute name="extensionpoints" type="ref" multiplicity="many">The
-            extension points owned by the use case.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="extensionpoint"/>
-
-    <modelelement name="usecaseextend">
-        <attribute name="extendedcase" type="ref">The use case that is
-            extended.
-        </attribute>
-        <attribute name="usecaseextensionpoint" type="ref">The extension point
-            in the extended use case.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="usecaseinclude">
-        <attribute name="usecaseaddition" type="ref">The included use case.
-        </attribute>
-    </modelelement>
-
 
     <!-- state machines -->
     <modelelement name="statemachine" parent="behavior">
@@ -627,119 +534,6 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-
-    <!-- activities -->
-
-    <modelelement name="activity">
-        <attribute name="nodes" type="ref" multiplicity="many">The action,
-            control, and object nodes of the activity.
-        </attribute>
-        <attribute name="edges" type="ref" multiplicity="many">The control and
-            object flows of the activity.
-        </attribute>
-        <attribute name="groups" type="ref" multiplicity="many">The groups of
-            the activity.
-        </attribute>
-    </modelelement>
-
-    <modelelement
-            name="sdmetricsabstractactivitygroup"> <!--  Convenience type to define the XMI transformations for all activity groups -->
-        <attribute name="edges" type="ref" multiplicity="many">The contained
-            edges of the group.
-        </attribute>
-        <attribute name="nodes" type="ref" multiplicity="many">The contained
-            nodes of the group.
-        </attribute>
-        <attribute name="groups" type="ref" multiplicity="many">The subgroups of
-            the group.
-        </attribute>
-        <attribute name="handlers" type="ref" multiplicity="many">The exception
-            handlers of the structured node group.
-        </attribute>
-        <attribute name="pins" type="ref" multiplicity="many">Pins owned by the
-            activity group.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="activitygroup" parent="sdmetricsabstractactivitygroup">
-        <attribute name="kind">The kind of group: partition, interruptible,
-            expansion, structured, conditional, loop,
-            sequence.
-        </attribute>
-    </modelelement>
-
-    <modelelement
-            name="sdmetricsabstractaction"> <!--  Convenience type to define the XMI transformations for all actions -->
-        <attribute name="kind">The kind of action: send, return,
-            create, etc (there are many).
-        </attribute>
-        <attribute name="inputs" type="ref" multiplicity="many">The input pins
-            of the action.
-        </attribute>
-        <attribute name="outputs" type="ref" multiplicity="many">The output pins
-            of the action.
-        </attribute>
-        <attribute name="handlers" type="ref" multiplicity="many">The exception
-            handlers owned by the action.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="action" parent="sdmetricsabstractaction"/>
-
-    <modelelement name="controlnode">
-        <attribute name="kind">The kind of control node: initial, activityfinal,
-            flowfinal, fork, join, merge, or
-            decision.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="objectnode">
-        <attribute name="kind">The kind of object node: centralbuffer,
-            datastore, activityparameter, or expansion.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="pin">
-        <attribute name="kind">The kind of pin (input, output, value,
-            actioninput).
-        </attribute>
-        <attribute name="type" type="ref">The type of the pin.</attribute>
-    </modelelement>
-
-
-    <modelelement name="controlflow">
-        <attribute name="source" type="ref">Source of the control flow.
-        </attribute>
-        <attribute name="target" type="ref">Target of the control flow.
-        </attribute>
-        <attribute name="guard" type="ref">Guard of the control flow.
-        </attribute>
-    </modelelement>
-    <modelelement name="objectflow">
-        <attribute name="source" type="ref">Source of the object flow.
-        </attribute>
-        <attribute name="target" type="ref">Target of the object flow.
-        </attribute>
-        <attribute name="guard" type="ref">Guard of the control flow.
-        </attribute>
-    </modelelement>
-
-
-    <modelelement name="signal"/>
-    <modelelement name="exceptionhandler">
-        <attribute name="handlerbody" type="ref">The node that handles the
-            exception.
-        </attribute>
-        <attribute name="exceptioninput" type="ref">The input node of the
-            handler body that received the exception
-            token.
-        </attribute>
-    </modelelement>
-    <modelelement name="reception">
-        <attribute name="signal" type="ref">Signal handled by this reception.
-        </attribute>
-    </modelelement>
-
     <!-- Value specifications  -->
     <modelelement name="expression"/>
 
@@ -783,37 +577,6 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="node" parent="class">
-        <attribute name="nestednodes" type="ref" multiplicity="many">The
-            subnodes located on the node.
-        </attribute>
-        <attribute name="deployments" type="ref" multiplicity="many">The
-            deployment links owned by the node (=deployment location).
-        </attribute>
-        <attribute name="kind">The type of node (regular, executionenvironment,
-            device)
-        </attribute>
-    </modelelement>
-
-    <modelelement name="artifact" parent="class">
-        <attribute name="nestedartifacts" type="ref" multiplicity="many">The
-            artifacts that are defined (nested) within the artifact.
-        </attribute>
-        <attribute name="manifestations" type="ref" multiplicity="many">The
-            manifestation links to the model elements that are manifested in the
-            artifact.
-        </attribute>
-    </modelelement>
-
-    <modelelement name="deploymentspec" parent="artifact"/>
-
-    <modelelement name="deployment" parent="dependency">
-        <attribute name="configurations" type="ref" multiplicity="many">The
-            deployment specifications that parameterize the deployment.
-        </attribute>
-    </modelelement>
-    <modelelement name="manifestation" parent="abstraction"/>
-
     <!-- concrete behaviors -->
 
     <modelelement name="opaquebehavior" parent="opaqueexpression"/>
@@ -829,21 +592,6 @@ other part of SDMetrics.
             The elements the comment applies to.
         </attribute>
     </modelelement>
-
-
-    <!-- UML diagram information -->
-    <modelelement name="diagram">
-        <attribute name="type">The type of diagram (class diagram,
-            sequence diagram, etc).
-        </attribute>
-    </modelelement>
-
-    <modelelement name="diagramelement">
-        <attribute name="element" type="ref">The element that is shown on the
-            diagram.
-        </attribute>
-    </modelelement>
-
 
 </sdmetricsmetamodel>
 
