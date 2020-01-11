@@ -21,19 +21,14 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-import java.util.Optional;
-
-public final class ClassifierRestructurer extends RestructurerBase<Classifier> {
+public final class ClassifierRestructurer
+        extends DelegatingRestructurer<Classifier> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -50,21 +45,4 @@ public final class ClassifierRestructurer extends RestructurerBase<Classifier> {
         return delegateRestructuring(element, clazz);
     }
 
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
-    }
-
-    /**
-     * @param id The id of an element
-     * @return {@link Optional#EMPTY} as this restructurer does not cache
-     */
-    @Override
-    public Optional<Classifier> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
-    }
 }

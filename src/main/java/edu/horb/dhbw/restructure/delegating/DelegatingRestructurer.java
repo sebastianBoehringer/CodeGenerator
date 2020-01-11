@@ -17,30 +17,46 @@
 
 package edu.horb.dhbw.restructure.delegating;
 
-import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
+import edu.horb.dhbw.datacore.uml.CommonElements;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.util.LookupUtil;
-import edu.horb.dhbw.util.XMIUtil;
+import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 
-public final class BehavioralFeatureRestructurer
-        extends DelegatingRestructurer<BehavioralFeature> {
+import java.util.Optional;
+
+public abstract class DelegatingRestructurer<T extends CommonElements>
+        extends RestructurerBase<T> {
     /**
+     * Constructor delegating to
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
+     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
+     * @param type                  The name of the metamodel element this
+     *                              restructurer handels.
      */
-    public BehavioralFeatureRestructurer(final IRestructurerMediator iRestructurerMediator) {
+    public DelegatingRestructurer(final IRestructurerMediator iRestructurerMediator,
+                                  @NonNull final String type) {
 
-        super(iRestructurerMediator, "behavioralfeature");
+        super(iRestructurerMediator, type);
     }
 
+    /**
+     * No op as this restructurer does not cache.
+     */
     @Override
-    public BehavioralFeature restructure(@NonNull final ModelElement element) {
+    public void cleanCache() {
 
-        Class<? extends BehavioralFeature> clazz = LookupUtil
-                .behavioralFeatureFromUMLType(XMIUtil.getUMLType(element));
-        return delegateRestructuring(element, clazz);
+    }
+
+    /**
+     * @param id The id of an element
+     * @return {@link Optional#EMPTY} as this restructurer does not cache
+     */
+    @Override
+    public Optional<T> getProcessed(@NonNull final String id) {
+
+        return Optional.empty();
     }
 }

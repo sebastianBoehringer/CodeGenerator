@@ -21,19 +21,13 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.StructuralFeature;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-import java.util.Optional;
-
 public final class StructuralFeatureRestructurer
-        extends RestructurerBase<StructuralFeature> {
+        extends DelegatingRestructurer<StructuralFeature> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -48,23 +42,5 @@ public final class StructuralFeatureRestructurer
         Class<? extends StructuralFeature> clazz = LookupUtil
                 .structuralFeatureFromUMLType(XMIUtil.getUMLType(element));
         return delegateRestructuring(element, clazz);
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
-    }
-
-    /**
-     * @param id The id of an element
-     * @return {@link Optional#EMPTY} as this restructurer does not cache
-     */
-    @Override
-    public Optional<StructuralFeature> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
     }
 }
