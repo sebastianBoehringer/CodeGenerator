@@ -166,8 +166,8 @@ other part of SDMetrics.
     <modelelement name="enumerationliteral"/>
 
     <modelelement name="primitivetype" parent="datatype">
-        <attribute name="href">A link to the predefined primitive
-            type
+        <attribute name="href">
+            A link to the predefined primitive type
         </attribute>
     </modelelement>
 
@@ -357,6 +357,23 @@ other part of SDMetrics.
         <attribute name="substitutable">
             Boolean indicating if the specific classifier can be used in the
             general's stead.
+        </attribute>
+    </modelelement>
+    <modelelement name="generalizationset">
+        <attribute name="disjoint">
+            Boolean indicating if a classifier can only be classified by
+            one specialization in the set. Default is false.
+        </attribute>
+        <attribute name="covering">
+            Boolean indicating if allspecializations for this generalizationset
+            have been found. Default is false.
+        </attribute>
+        <attribute name="generalizations" type="ref"
+                   multiplicity="many">
+            The generalizations participating in this set.
+        </attribute>
+        <attribute name="powertype" type="ref">
+            The powertype of the generalization. Whatever that is.
         </attribute>
     </modelelement>
 

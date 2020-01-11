@@ -312,7 +312,16 @@ other part of SDMetrics.
         <trigger name="substitutable" type="attrval" attr="isSubstitutable"/>
         <trigger name="substitutable" type="ctext" src="isSubstitutable"/>
     </xmitransformation>
-    
+
+    <xmitransformation modelelement="generalizationset"
+                       xmipattern="uml:GeneralizationSet">
+        <trigger name="covering" type="attrval" attr="isCovering"/>
+        <trigger name="covering" type="ctext" src="isCovering"/>
+        <trigger name="disjoint" type="attrval" attr="isDisjoint"/>
+        <trigger name="disjoint" type="ctext" src="isDisjoint"/>
+        <trigger name="generalizations" type="xmi2assoc" attr="generalization"/>
+        <trigger name="powertype" type="xmi2assoc" attr="powertype"/>
+    </xmitransformation>
     <xmitransformation modelelement="interfacerealization"
                        xmipattern="uml:InterfaceRealization">
         <trigger name="contract" type="xmi2assoc" attr="contract"/>
