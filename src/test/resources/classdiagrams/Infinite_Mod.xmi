@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_FRgC0DROEeqOxuTTSWST-Q" name="Package">
+  <eAnnotations xmi:id="_FRgC0TROEeqOxuTTSWST-Q" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_FRgC0jROEeqOxuTTSWST-Q" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_FRgC0zROEeqOxuTTSWST-Q" value="3.0.0"/>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FRgC1DROEeqOxuTTSWST-Q" name="Class">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_FRgC1TROEeqOxuTTSWST-Q" name="testCase" visibility="public">
+      <ownedParameter xmi:id="_FRgC1jROEeqOxuTTSWST-Q" type="_FRgC1DROEeqOxuTTSWST-Q" isUnique="false" direction="return">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FRgC1zROEeqOxuTTSWST-Q" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FRgC2DROEeqOxuTTSWST-Q" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_FRgC2TROEeqOxuTTSWST-Q" value=""/>
+      </ownedParameter>
+    </ownedOperation>
+  </packagedElement>
+</uml:Model>

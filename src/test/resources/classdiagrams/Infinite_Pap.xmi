@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_IhLgUDRNEeq9p8kHQ_4eFg" name="infinite">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_IryN0DRNEeq9p8kHQ_4eFg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_PHMLADRNEeq9p8kHQ_4eFg" name="Class">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_TSVVwDRNEeq9p8kHQ_4eFg" name="testCase">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_cZNasDRNEeq9p8kHQ_4eFg" type="_PHMLADRNEeq9p8kHQ_4eFg" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+</uml:Model>
