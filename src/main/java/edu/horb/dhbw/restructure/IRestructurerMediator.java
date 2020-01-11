@@ -197,7 +197,6 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                                 new ValueSpecRestrucuturer(this));
         classToRestructurer.put(LiteralSpecification.class,
                                 new LiteralSpecRestructurer(this));
-        System.out.println(classToRestructurer.size());
     }
 
     /**

@@ -95,8 +95,10 @@ public final class IntervalConstraintRestrucuturer
 
         return Optional.empty();
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

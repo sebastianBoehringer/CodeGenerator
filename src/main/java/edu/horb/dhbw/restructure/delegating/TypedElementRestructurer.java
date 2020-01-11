@@ -18,7 +18,6 @@
 package edu.horb.dhbw.restructure.delegating;
 
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;

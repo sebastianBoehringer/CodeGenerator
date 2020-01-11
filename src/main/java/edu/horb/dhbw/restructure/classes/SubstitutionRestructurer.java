@@ -104,8 +104,10 @@ public final class SubstitutionRestructurer
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

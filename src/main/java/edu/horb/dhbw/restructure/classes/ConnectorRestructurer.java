@@ -89,6 +89,7 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
 
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

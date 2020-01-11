@@ -115,6 +115,7 @@ public final class ConstraintRestrucuturer
 
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

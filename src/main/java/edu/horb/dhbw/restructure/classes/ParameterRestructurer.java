@@ -158,8 +158,10 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

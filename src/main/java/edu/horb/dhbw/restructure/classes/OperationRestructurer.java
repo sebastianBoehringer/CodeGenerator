@@ -126,8 +126,10 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
 
         return operation;
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

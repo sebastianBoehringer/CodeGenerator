@@ -81,8 +81,10 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

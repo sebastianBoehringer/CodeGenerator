@@ -50,8 +50,7 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
      * @return An empty list in every case
      */
     @Override
-    public @NonNull List<Element> restructure(
-            @NonNull final Model model) {
+    public @NonNull List<Element> restructure(@NonNull final Model model) {
 
         return Collections.emptyList();
     }

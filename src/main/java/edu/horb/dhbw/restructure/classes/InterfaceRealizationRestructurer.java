@@ -96,8 +96,10 @@ public final class InterfaceRealizationRestructurer
 
         return realization;
     }
+
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

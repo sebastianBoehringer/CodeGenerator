@@ -111,6 +111,7 @@ public final class ConnectorEndRestructurer
 
     @Override
     public void cleanCache() {
+
         ALREADY_PROCESSED.clear();
     }
 }

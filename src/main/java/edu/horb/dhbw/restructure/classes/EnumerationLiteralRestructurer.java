@@ -82,5 +82,6 @@ public final class EnumerationLiteralRestructurer
      */
     @Override
     public void cleanCache() {
+
     }
 }
