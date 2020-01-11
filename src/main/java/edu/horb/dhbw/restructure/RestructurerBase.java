@@ -21,7 +21,6 @@ import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
-import edu.horb.dhbw.util.CollectionUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
