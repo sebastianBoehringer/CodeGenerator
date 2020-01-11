@@ -59,6 +59,10 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.datacore.uml.statemachines.Region;
+import edu.horb.dhbw.datacore.uml.statemachines.State;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
+import edu.horb.dhbw.datacore.uml.statemachines.Transition;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
@@ -111,6 +115,10 @@ import edu.horb.dhbw.restructure.delegating.TypedElementRestructurer;
 import edu.horb.dhbw.restructure.delegating.ValueSpecRestrucuturer;
 import edu.horb.dhbw.restructure.statemachines.FunctionBehaviorRestructurer;
 import edu.horb.dhbw.restructure.statemachines.OpaqueBehaviorRestructurer;
+import edu.horb.dhbw.restructure.statemachines.RegionRestructurer;
+import edu.horb.dhbw.restructure.statemachines.StateMachineRestructurer;
+import edu.horb.dhbw.restructure.statemachines.StateRestructurer;
+import edu.horb.dhbw.restructure.statemachines.TransitionRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
@@ -129,7 +137,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 39;
+    private static final int DEFAULT_SIZE = 51;
 
     /**
      * The mappings to use.
@@ -236,7 +244,12 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
         classToRestructurer
                 .put(PrimitiveType.class, new PrimitiveRestructurer(this));
         classToRestructurer.put(DataType.class, new DatatypeRestructurer(this));
-
+        classToRestructurer.put(State.class, new StateRestructurer(this));
+        classToRestructurer
+                .put(Transition.class, new TransitionRestructurer(this));
+        classToRestructurer
+                .put(StateMachine.class, new StateMachineRestructurer(this));
+        classToRestructurer.put(Region.class, new RegionRestructurer(this));
     }
 
     /**
