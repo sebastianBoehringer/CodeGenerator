@@ -68,6 +68,7 @@ public final class ConnectorEndRestructurer
         }
         ConnectorEnd end = new ConnectorEnd();
         end.setId(id);
+        ALREADY_PROCESSED.put(id, end);
 
         log.info("Processing ordered for connectorend [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
@@ -99,7 +100,6 @@ public final class ConnectorEndRestructurer
         ModelElement role = element.getRefAttribute("role");
         end.setRole(delegateRestructuring(role, ConnectableElement.class));
 
-        ALREADY_PROCESSED.put(id, end);
         return end;
     }
 
@@ -107,5 +107,10 @@ public final class ConnectorEndRestructurer
     public Optional<ConnectorEnd> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

@@ -72,6 +72,8 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
             return ALREADY_PROCESSED.get(id);
         }
         Connector connector = new Connector();
+        connector.setId(id);
+        ALREADY_PROCESSED.put(id, connector);
 
         log.info("Processing type for connector [{}]", id);
         ModelElement type = element.getRefAttribute("type");
@@ -82,7 +84,11 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
                 (Collection<ModelElement>) element.getSetAttribute("ends");
         connector.setEnd(delegateMany(ends, ConnectorEnd.class));
 
-        ALREADY_PROCESSED.put(connector.getId(), connector);
         return connector;
+    }
+
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

@@ -66,8 +66,8 @@ public final class SubstitutionRestructurer
             return ALREADY_PROCESSED.get(id);
         }
         Substitution substitution = new Substitution();
-
         substitution.setId(id);
+        ALREADY_PROCESSED.put(id, substitution);
 
         log.info("Processing mapping for substitution [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
@@ -96,7 +96,6 @@ public final class SubstitutionRestructurer
                               + " supplier instead of 1", id, supplier.size());
         }
 
-        ALREADY_PROCESSED.put(substitution.getId(), substitution);
         return substitution;
     }
 
@@ -104,5 +103,9 @@ public final class SubstitutionRestructurer
     public Optional<Substitution> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

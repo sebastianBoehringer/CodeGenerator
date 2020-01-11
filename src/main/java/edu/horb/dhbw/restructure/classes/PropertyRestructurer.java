@@ -93,8 +93,8 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         }
 
         Property property = new Property();
-
         property.setId(id);
+        ALREADY_PROCESSED.put(id, property);
 
         //TODO context
         log.info("Processing name for property [{}]", id);
@@ -182,7 +182,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         String isStatic = element.getPlainAttribute("static");
         property.setIsStatic(Boolean.valueOf(isStatic));
 
-        ALREADY_PROCESSED.put(property.getId(), property);
         return property;
     }
 
@@ -190,5 +189,11 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
     public Optional<Property> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    @Override
+    public void cleanCache() {
+
+        ALREADY_PROCESSED.clear();
     }
 }

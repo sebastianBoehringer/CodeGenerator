@@ -96,8 +96,8 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
             return ALREADY_PROCESSED.get(id);
         }
         UMLClass clazz = new UMLClass();
-
         clazz.setId(id);
+        ALREADY_PROCESSED.put(id, clazz);
 
         log.info("Processing name for class [{}]", id);
         clazz.setName(element.getName());
@@ -172,7 +172,6 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
                 .getSetAttribute("ownedbehaviors");
         clazz.setOwnedBehavior(delegateMany(behaviors, Behavior.class));
 
-        ALREADY_PROCESSED.put(clazz.getId(), clazz);
         return clazz;
     }
 
@@ -180,5 +179,9 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
     public Optional<UMLClass> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

@@ -67,8 +67,8 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
             return ALREADY_PROCESSED.get(id);
         }
         Interface anInterface = new Interface();
-
         anInterface.setId(id);
+        ALREADY_PROCESSED.put(id, anInterface);
 
         log.info("Processing name for interface [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -101,7 +101,6 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
         anInterface.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
-        ALREADY_PROCESSED.put(anInterface.getId(), anInterface);
         return anInterface;
     }
 
@@ -109,5 +108,11 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
     public Optional<Interface> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    @Override
+    public void cleanCache() {
+
+        ALREADY_PROCESSED.clear();
     }
 }

@@ -62,6 +62,7 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
         }
         Comment comment = new Comment();
         comment.setId(id);
+        ALREADY_PROCESSED.put(id, comment);
 
         log.info("Processing body for comment [{}]", id);
         String body = element.getPlainAttribute("body");
@@ -72,7 +73,6 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
                 (Collection<ModelElement>) element.getSetAttribute("annotated");
         comment.setAnnotatedElement(delegateMany(annotated, Element.class));
 
-        ALREADY_PROCESSED.put(id, comment);
         return comment;
     }
 
@@ -80,5 +80,9 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
     public Optional<Comment> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

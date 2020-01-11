@@ -71,11 +71,16 @@ public final class EnumerationRestructurer
             return ALREADY_PROCESSED.get(id);
         }
         Enumeration enumeration = new Enumeration();
+        ALREADY_PROCESSED.put(id, enumeration);
         enumeration.setId(id);
+
+        log.info("Processing name for enumeration [{}]", id);
+        String name = element.getPlainAttribute("name");
+        enumeration.setName(name);
 
         log.info("Processing ownedliterals for enumeration [{}]", id);
         Collection<ModelElement> literals = (Collection<ModelElement>) element
-                .getRefAttribute("ownedliterals");
+                .getSetAttribute("ownedliterals");
         enumeration.setOwnedLiteral(new LinkedHashSet<>(
                 delegateMany(literals, EnumerationLiteral.class)));
 
@@ -121,7 +126,6 @@ public final class EnumerationRestructurer
                 delegateMany(substitutions, Substitution.class));
 
         //TODO collaborationuses ?
-        ALREADY_PROCESSED.put(enumeration.getId(), enumeration);
 
         return enumeration;
     }
@@ -130,5 +134,11 @@ public final class EnumerationRestructurer
     public Optional<Enumeration> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    @Override
+    public void cleanCache() {
+
+        ALREADY_PROCESSED.clear();
     }
 }

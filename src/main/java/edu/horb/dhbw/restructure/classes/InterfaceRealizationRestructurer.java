@@ -75,8 +75,8 @@ public final class InterfaceRealizationRestructurer
         }
 
         InterfaceRealization realization = new InterfaceRealization();
-
         realization.setId(id);
+        ALREADY_PROCESSED.put(id, realization);
 
         log.info("Processing name for interfacerealization [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -94,7 +94,10 @@ public final class InterfaceRealizationRestructurer
                 delegateRestructuring(implementation, UMLClass.class);
         realization.setImplementingClassifier(implementer);
 
-        ALREADY_PROCESSED.put(realization.getId(), realization);
         return realization;
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

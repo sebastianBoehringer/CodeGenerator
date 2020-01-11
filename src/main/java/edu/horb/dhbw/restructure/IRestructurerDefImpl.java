@@ -85,4 +85,12 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
 
         return Optional.empty();
     }
+
+    /**
+     * No op as this restructurer does not cache.
+     */
+    @Override
+    public void cleanCache() {
+
+    }
 }

@@ -75,8 +75,8 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
             return ALREADY_PROCESSED.get(id);
         }
         Operation operation = new Operation();
-
         operation.setId(id);
+        ALREADY_PROCESSED.put(id, operation);
 
         log.info("Processing name for operation [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -124,7 +124,10 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
                 .getSetAttribute("exceptions");
         operation.setRaisedException(delegateMany(exceptions, Type.class));
 
-        ALREADY_PROCESSED.put(operation.getId(), operation);
         return operation;
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

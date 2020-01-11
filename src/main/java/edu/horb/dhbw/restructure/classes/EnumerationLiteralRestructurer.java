@@ -31,6 +31,7 @@ import java.util.Optional;
 public final class EnumerationLiteralRestructurer
         extends RestructurerBase<EnumerationLiteral> {
     //TODO no need for cashing right?
+
     /**
      * Constructor delegating to
      * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
@@ -74,5 +75,12 @@ public final class EnumerationLiteralRestructurer
     public Optional<EnumerationLiteral> getProcessed(@NonNull final String id) {
 
         return Optional.empty();
+    }
+
+    /**
+     * No op as this restructurer does not cache.
+     */
+    @Override
+    public void cleanCache() {
     }
 }

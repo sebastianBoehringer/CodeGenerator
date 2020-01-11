@@ -64,6 +64,7 @@ public final class GeneralizationRestructurer
         }
         Generalization generalization = new Generalization();
         generalization.setId(id);
+        ALREADY_PROCESSED.put(id, generalization);
 
         log.info("Processing general for enumeration [{}]", id);
         ModelElement general = element.getRefAttribute("general");
@@ -79,7 +80,6 @@ public final class GeneralizationRestructurer
                 StringUtils.isEmpty(substitutable) ? Boolean.TRUE : Boolean
                         .valueOf(substitutable));
 
-        ALREADY_PROCESSED.put(generalization.getId(), generalization);
         return generalization;
     }
 
@@ -87,5 +87,9 @@ public final class GeneralizationRestructurer
     public Optional<Generalization> getProcessed(final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

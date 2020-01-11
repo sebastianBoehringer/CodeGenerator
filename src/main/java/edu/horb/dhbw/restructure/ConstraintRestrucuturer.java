@@ -85,8 +85,8 @@ public final class ConstraintRestrucuturer
             return ALREADY_PROCESSED.get(id);
         }
         Constraint constraint = new Constraint();
-
         constraint.setId(id);
+        ALREADY_PROCESSED.put(id, constraint);
 
         log.info("Processing specification for constraint [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
@@ -104,7 +104,6 @@ public final class ConstraintRestrucuturer
         constraint.setConstrainedElement(
                 delegateMany(constrained, Element.class));
 
-        ALREADY_PROCESSED.put(id, constraint);
         return constraint;
     }
 
@@ -114,4 +113,8 @@ public final class ConstraintRestrucuturer
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
+    }
 }

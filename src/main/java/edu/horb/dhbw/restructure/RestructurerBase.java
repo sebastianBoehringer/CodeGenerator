@@ -121,6 +121,11 @@ public abstract class RestructurerBase<T extends CommonElements>
     }
 
     /**
+     * Cleans the cache if the extenden restructurer uses one.
+     */
+    public abstract void cleanCache();
+
+    /**
      * Returns an element identified by the given id if the IRestructurer
      * already processed it.
      *
@@ -174,13 +179,6 @@ public abstract class RestructurerBase<T extends CommonElements>
         }
         IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);
         System.out.println(String.format("Element is %s", element.getName()));
-        String xmiId = element.getXMIID();
-        if (restructurer.wasProcessed(xmiId)) {
-            return restructurer.getProcessed(xmiId).get();
-        } else {
-            return restructurer.restructure(element);
-        }
-
-
+        return restructurer.restructure(element);
     }
 }

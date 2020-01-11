@@ -69,8 +69,8 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
             return ALREADY_PROCESSED.get(id);
         }
         Parameter parameter = new Parameter();
-
         parameter.setId(id);
+        ALREADY_PROCESSED.put(id, parameter);
 
         log.info("Processing name for parameter [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -150,7 +150,6 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
         String defaultString = element.getPlainAttribute("defaultstring");
         parameter.setDefaults(defaultString);
 
-        ALREADY_PROCESSED.put(parameter.getId(), parameter);
         return parameter;
     }
 
@@ -158,5 +157,9 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
     public Optional<Parameter> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

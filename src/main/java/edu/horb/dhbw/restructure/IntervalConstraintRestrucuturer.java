@@ -65,8 +65,8 @@ public final class IntervalConstraintRestrucuturer
             return ALREADY_PROCESSED.get(id);
         }
         IntervalConstraint constraint = new IntervalConstraint();
-
         constraint.setId(id);
+        ALREADY_PROCESSED.put(id, constraint);
 
         log.info("Processing intervalspecification for intervalconstraint [{}]",
                  id);
@@ -87,7 +87,6 @@ public final class IntervalConstraintRestrucuturer
         constraint.setConstrainedElement(
                 delegateMany(constrained, Element.class));
 
-        ALREADY_PROCESSED.put(id, constraint);
         return constraint;
     }
 
@@ -95,5 +94,9 @@ public final class IntervalConstraintRestrucuturer
     public Optional<IntervalConstraint> getProcessed(@NonNull final String id) {
 
         return Optional.empty();
+    }
+    @Override
+    public void cleanCache() {
+        ALREADY_PROCESSED.clear();
     }
 }

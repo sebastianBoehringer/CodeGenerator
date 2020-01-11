@@ -65,6 +65,8 @@ public final class SlotRestructurer extends RestructurerBase<Slot> {
         }
 
         Slot slot = new Slot();
+        slot.setId(id);
+        ALREADY_PROCESSED.put(id, slot);
 
         log.info("Processing defining for slot [{}]", id);
         ModelElement defining = element.getRefAttribute("defining");
@@ -76,7 +78,7 @@ public final class SlotRestructurer extends RestructurerBase<Slot> {
                 (Collection<ModelElement>) element.getSetAttribute("value");
         slot.setValue(delegateMany(values, ValueSpecification.class));
 
-        ALREADY_PROCESSED.put(id, slot);
+
         return slot;
     }
 
@@ -84,5 +86,11 @@ public final class SlotRestructurer extends RestructurerBase<Slot> {
     public Optional<Slot> getProcessed(@NonNull final String id) {
 
         return Optional.ofNullable(ALREADY_PROCESSED.get(id));
+    }
+
+    @Override
+    public void cleanCache() {
+
+        ALREADY_PROCESSED.clear();
     }
 }

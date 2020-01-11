@@ -71,4 +71,12 @@ public final class IntervalRestructurer extends RestructurerBase<Interval> {
 
         return Optional.empty();
     }
+
+    /**
+     * No op as this restructurer does not cache.
+     */
+    @Override
+    public void cleanCache() {
+
+    }
 }
