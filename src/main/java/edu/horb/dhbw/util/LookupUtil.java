@@ -52,7 +52,6 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
 import edu.horb.dhbw.datacore.uml.packages.Extension;
 import edu.horb.dhbw.datacore.uml.packages.ExtensionEnd;
 import edu.horb.dhbw.datacore.uml.packages.Model;
-import edu.horb.dhbw.datacore.uml.packages.PackageMerge;
 import edu.horb.dhbw.datacore.uml.packages.Profile;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.Stereotype;
@@ -760,8 +759,6 @@ public final class LookupUtil {
         switch (umlType) {
             case "profileapplication":
                 return ProfileApplication.class;
-            case "packagemerge":
-                return PackageMerge.class;
             case "elementimport":
                 return ElementImport.class;
             case "generalization":

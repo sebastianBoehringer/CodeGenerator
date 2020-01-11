@@ -23,9 +23,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Defines how a metaclass may be extended. This is also the basis for
  * defining profiles so that one may use domain specific terminology.
@@ -35,13 +32,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Stereotype extends UMLClass {
-    /**
-     * Redefines the graphical appearance of the extended metaclass. Since
-     * this does not hold any significance for codegeneration the field is
-     * not expected to be used. Thus no add-shortcut is provided.
-     */
-    private List<Image> icon = new ArrayList<>();
+public final class Stereotype extends UMLClass {
     /**
      * The profile that contains this stereotype. This attribute can be derived.
      */

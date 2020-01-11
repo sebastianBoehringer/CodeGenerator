@@ -66,10 +66,6 @@ public class UMLPackage extends PackageableElement {
      */
     private List<Type> ownedType = new ArrayList<>();
     /**
-     * The packageMerges owned by this package.
-     */
-    private List<PackageMerge> packageMerge = new ArrayList<>();
-    /**
      * The elements owned by this package.
      */
     private List<PackageableElement> packagedElement = new ArrayList<>();
@@ -106,16 +102,6 @@ public class UMLPackage extends PackageableElement {
     public void addOwnedType(final Type type) {
 
         ownedType.add(type);
-    }
-
-    /**
-     * Adds a new packageMerge to {@link #packageMerge}.
-     *
-     * @param merge The packageMerge to add
-     */
-    public void addPackageMerge(final PackageMerge merge) {
-
-        packageMerge.add(merge);
     }
 
     /**

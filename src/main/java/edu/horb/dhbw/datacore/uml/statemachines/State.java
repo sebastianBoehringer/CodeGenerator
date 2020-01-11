@@ -67,10 +67,6 @@ public class State extends Vertex {
      */
     private Boolean isSubmachineState;
     /**
-     * ConnectionPointReferences for the submachine of this state.
-     */
-    private List<ConnectionPointReference> connection = new ArrayList<>();
-    /**
      * Entry and Exit points for this state.
      * The state must be a composite one and the pseudostates in the list
      * must have a kind of
