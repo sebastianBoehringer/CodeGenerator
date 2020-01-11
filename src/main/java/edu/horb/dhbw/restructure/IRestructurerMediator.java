@@ -21,25 +21,43 @@ package edu.horb.dhbw.restructure;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
+import edu.horb.dhbw.datacore.uml.classification.Feature;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
+import edu.horb.dhbw.datacore.uml.classification.StructuralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
+import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
+import edu.horb.dhbw.datacore.uml.statemachines.Vertex;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.EncapsulatedClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.values.Interval;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
+import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
+import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.classes.ConnectorEndRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationLiteralRestructurer;
@@ -53,14 +71,32 @@ import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import edu.horb.dhbw.restructure.delegating.BehaviorRestructurer;
+import edu.horb.dhbw.restructure.delegating.BehavioralFeatureRestructurer;
+import edu.horb.dhbw.restructure.delegating.BehavioredClassifierRestructurer;
+import edu.horb.dhbw.restructure.delegating.ClassifierRestructurer;
+import edu.horb.dhbw.restructure.delegating.ConnectableRestructurer;
+import edu.horb.dhbw.restructure.delegating.DirectedRelationshipRestructurer;
+import edu.horb.dhbw.restructure.delegating.ElementRestructurer;
+import edu.horb.dhbw.restructure.delegating.EncapsulatedClassifierRestructurer;
+import edu.horb.dhbw.restructure.delegating.FeatureRestructurer;
+import edu.horb.dhbw.restructure.delegating.LiteralSpecRestructurer;
+import edu.horb.dhbw.restructure.delegating.MultElementRestructurer;
+import edu.horb.dhbw.restructure.delegating.NamedElementRestructurer;
+import edu.horb.dhbw.restructure.delegating.NamespaceRestructurer;
+import edu.horb.dhbw.restructure.delegating.PackageableRestructurer;
+import edu.horb.dhbw.restructure.delegating.RelationshipRestructurer;
+import edu.horb.dhbw.restructure.delegating.StructuralFeatureRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
+import edu.horb.dhbw.restructure.delegating.TypedElementRestructurer;
+import edu.horb.dhbw.restructure.delegating.ValueSpecRestrucuturer;
+import edu.horb.dhbw.restructure.delegating.VertexRestrucuturer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +109,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 17;
+    private static final int DEFAULT_SIZE = 37;
 
     /**
      * The mappings to use.
@@ -127,6 +163,41 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
         classToRestructurer.put(Comment.class, new CommentRestructurer(this));
         classToRestructurer.put(Interval.class, new IntervalRestructurer(this));
         classToRestructurer.put(Type.class, new TypeRestructurer(this));
+        classToRestructurer.put(BehavioralFeature.class,
+                                new BehavioralFeatureRestructurer(this));
+        classToRestructurer
+                .put(Classifier.class, new ClassifierRestructurer(this));
+        classToRestructurer.put(Feature.class, new FeatureRestructurer(this));
+        classToRestructurer.put(StructuralFeature.class,
+                                new StructuralFeatureRestructurer(this));
+        classToRestructurer.put(Behavior.class, new BehaviorRestructurer(this));
+        classToRestructurer.put(DirectedRelationship.class,
+                                new DirectedRelationshipRestructurer(this));
+        classToRestructurer.put(Element.class, new ElementRestructurer(this));
+        classToRestructurer.put(MultiplicityElement.class,
+                                new MultElementRestructurer(this));
+        classToRestructurer
+                .put(NamedElement.class, new NamedElementRestructurer(this));
+        classToRestructurer
+                .put(Namespace.class, new NamespaceRestructurer(this));
+        classToRestructurer.put(PackageableElement.class,
+                                new PackageableRestructurer(this));
+        classToRestructurer
+                .put(Relationship.class, new RelationshipRestructurer(this));
+        classToRestructurer
+                .put(TypedElement.class, new TypedElementRestructurer(this));
+        classToRestructurer.put(BehavioredClassifier.class,
+                                new BehavioredClassifierRestructurer(this));
+        classToRestructurer.put(Vertex.class, new VertexRestrucuturer(this));
+        classToRestructurer.put(EncapsulatedClassifier.class,
+                                new EncapsulatedClassifierRestructurer(this));
+        classToRestructurer.put(ConnectableElement.class,
+                                new ConnectableRestructurer(this));
+        classToRestructurer.put(ValueSpecification.class,
+                                new ValueSpecRestrucuturer(this));
+        classToRestructurer.put(LiteralSpecification.class,
+                                new LiteralSpecRestructurer(this));
+        System.out.println(classToRestructurer.size());
     }
 
     /**
@@ -157,7 +228,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     }
 
     @Override
-    public @NonNull Collection<CommonElements> restructure(
+    public @NonNull List<CommonElements> restructure(
             @NonNull final Model model) {
 
         List<CommonElements> elements = new ArrayList<>();
@@ -193,7 +264,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     }
 
     /**
-     * Will always return an empty optional
+     * Will always return an empty optional.
      *
      * @param id The id of an element
      * @return {@link Optional#EMPTY}
