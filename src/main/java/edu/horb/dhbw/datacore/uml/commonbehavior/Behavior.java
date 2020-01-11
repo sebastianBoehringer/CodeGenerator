@@ -19,7 +19,6 @@ package edu.horb.dhbw.datacore.uml.commonbehavior;
 
 import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
-import edu.horb.dhbw.datacore.uml.classification.ParameterSet;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
@@ -57,10 +56,6 @@ public abstract class Behavior extends UMLClass {
     /**
      * The parameterSets this behavior owns.
      */
-    private List<ParameterSet> ownedParameterSet = new ArrayList<>();
-    /**
-     * Conditions that must hold when the execution of the behavior finishes.
-     */
     private List<Constraint> postcondition = new ArrayList<>();
     /**
      * Conditions that must be fulfilled before the behavior can be executed.
@@ -71,15 +66,6 @@ public abstract class Behavior extends UMLClass {
      */
     private BehavioralFeature specification;
 
-    /**
-     * Adds a new parameterSet to {@link #ownedParameterSet}.
-     *
-     * @param set The parameterSet to add
-     */
-    public void addOwnedParamterSet(final ParameterSet set) {
-
-        ownedParameterSet.add(set);
-    }
 
     /**
      * Adds a new parameter to {@link #ownedParameter}.

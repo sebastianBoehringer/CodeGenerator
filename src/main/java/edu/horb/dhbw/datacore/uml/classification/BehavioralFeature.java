@@ -65,23 +65,9 @@ public abstract class BehavioralFeature extends Feature {
      */
     private List<Parameter> ownedParameter = new ArrayList<>();
     /**
-     * The parameterSets owned by the feature.
-     */
-    private List<ParameterSet> ownedParameterSet = new ArrayList<>();
-    /**
      * The exceptions this feature can raise when it is invoked.
      */
     private List<Type> raisedException = new ArrayList<>();
-
-    /**
-     * Adds a new parameterSet to {@link #ownedParameterSet}.
-     *
-     * @param parameterSet The parameterSet to add
-     */
-    public void addParameterSet(final ParameterSet parameterSet) {
-
-        ownedParameterSet.add(parameterSet);
-    }
 
     /**
      * Adds a new type of exception to {@link #raisedException}.

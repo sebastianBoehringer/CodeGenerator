@@ -61,20 +61,6 @@ public final class Parameter extends ConnectableElement {
      * The operation that is using this parameter.
      */
     private Operation operation;
-    /**
-     * The parameterSets this parameter is a part of.
-     */
-    private List<ParameterSet> parameterSet = new ArrayList<>();
-
-    /**
-     * Adds a new parameterSet to {@link #parameterSet}.
-     *
-     * @param set The parameterSet to add
-     */
-    public void addParameterSet(final ParameterSet set) {
-
-        parameterSet.add(set);
-    }
 
     /**
      * Defines if the values of the attribute should be ordered. This only
