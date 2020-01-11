@@ -25,6 +25,9 @@ import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Feature;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
+import edu.horb.dhbw.datacore.uml.classification.GeneralizationSet;
+import edu.horb.dhbw.datacore.uml.classification.InstanceSpecification;
+import edu.horb.dhbw.datacore.uml.classification.InstanceValue;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
@@ -32,8 +35,12 @@ import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.classification.StructuralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
@@ -43,12 +50,15 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
+import edu.horb.dhbw.datacore.uml.packages.Stereotype;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
-import edu.horb.dhbw.datacore.uml.statemachines.Vertex;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
@@ -58,19 +68,28 @@ import edu.horb.dhbw.datacore.uml.values.Interval;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
 import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.restructure.classes.AbstractionRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorEndRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorRestructurer;
+import edu.horb.dhbw.restructure.classes.DatatypeRestructurer;
+import edu.horb.dhbw.restructure.classes.DependencyRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationLiteralRestructurer;
 import edu.horb.dhbw.restructure.classes.EnumerationRestructurer;
 import edu.horb.dhbw.restructure.classes.GeneralizationRestructurer;
+import edu.horb.dhbw.restructure.classes.GeneralizationSetRestructurer;
+import edu.horb.dhbw.restructure.classes.InstanceSpecRestructurer;
+import edu.horb.dhbw.restructure.classes.InstanceValueRestructurer;
 import edu.horb.dhbw.restructure.classes.InterfaceRealizationRestructurer;
 import edu.horb.dhbw.restructure.classes.InterfaceRestructurer;
 import edu.horb.dhbw.restructure.classes.OperationRestructurer;
 import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
+import edu.horb.dhbw.restructure.classes.PrimitiveRestructurer;
 import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.restructure.classes.SlotRestructurer;
+import edu.horb.dhbw.restructure.classes.StereotypeRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import edu.horb.dhbw.restructure.components.UsageRestructurer;
 import edu.horb.dhbw.restructure.delegating.BehaviorRestructurer;
 import edu.horb.dhbw.restructure.delegating.BehavioralFeatureRestructurer;
 import edu.horb.dhbw.restructure.delegating.BehavioredClassifierRestructurer;
@@ -90,7 +109,8 @@ import edu.horb.dhbw.restructure.delegating.StructuralFeatureRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypedElementRestructurer;
 import edu.horb.dhbw.restructure.delegating.ValueSpecRestrucuturer;
-import edu.horb.dhbw.restructure.delegating.VertexRestrucuturer;
+import edu.horb.dhbw.restructure.statemachines.FunctionBehaviorRestructurer;
+import edu.horb.dhbw.restructure.statemachines.OpaqueBehaviorRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
@@ -109,7 +129,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 37;
+    private static final int DEFAULT_SIZE = 39;
 
     /**
      * The mappings to use.
@@ -188,7 +208,6 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                 .put(TypedElement.class, new TypedElementRestructurer(this));
         classToRestructurer.put(BehavioredClassifier.class,
                                 new BehavioredClassifierRestructurer(this));
-        classToRestructurer.put(Vertex.class, new VertexRestrucuturer(this));
         classToRestructurer.put(EncapsulatedClassifier.class,
                                 new EncapsulatedClassifierRestructurer(this));
         classToRestructurer.put(ConnectableElement.class,
@@ -197,6 +216,27 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                                 new ValueSpecRestrucuturer(this));
         classToRestructurer.put(LiteralSpecification.class,
                                 new LiteralSpecRestructurer(this));
+        classToRestructurer.put(GeneralizationSet.class,
+                                new GeneralizationSetRestructurer(this));
+        classToRestructurer.put(InstanceSpecification.class,
+                                new InstanceSpecRestructurer(this));
+        classToRestructurer
+                .put(InstanceValue.class, new InstanceValueRestructurer(this));
+        classToRestructurer.put(OpaqueBehavior.class,
+                                new OpaqueBehaviorRestructurer(this));
+        classToRestructurer.put(FunctionBehavior.class,
+                                new FunctionBehaviorRestructurer(this));
+        classToRestructurer
+                .put(Abstraction.class, new AbstractionRestructurer(this));
+        classToRestructurer
+                .put(Dependency.class, new DependencyRestructurer(this));
+        classToRestructurer.put(Usage.class, new UsageRestructurer(this));
+        classToRestructurer
+                .put(Stereotype.class, new StereotypeRestructurer(this));
+        classToRestructurer
+                .put(PrimitiveType.class, new PrimitiveRestructurer(this));
+        classToRestructurer.put(DataType.class, new DatatypeRestructurer(this));
+
     }
 
     /**

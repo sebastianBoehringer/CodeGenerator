@@ -41,7 +41,7 @@ public final class StateMachine extends Behavior {
      * {@link edu.horb.dhbw.datacore.uml.enums.PseudostateKind#EXITPOINT} and
      * {@link edu.horb.dhbw.datacore.uml.enums.PseudostateKind#ENTRYPOINT}.
      */
-    private List<Pseudostate> connectionPoint = new ArrayList<>();
+    private List<State> connectionPoint = new ArrayList<>();
     /**
      * The regions contained inside the stateMachine.
      */

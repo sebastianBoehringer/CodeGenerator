@@ -19,11 +19,8 @@ package edu.horb.dhbw.datacore.uml.statemachines;
 
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
-import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
-import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,7 +42,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class State extends Vertex {
+public class State extends Namespace {
     /**
      * If this is {@code true} the state is a composite state.
      * I. e. it contains at least one region. This attribute can be derived.
@@ -73,7 +70,7 @@ public class State extends Vertex {
      * {@link edu.horb.dhbw.datacore.uml.enums.PseudostateKind#ENTRYPOINT} or
      * {@link edu.horb.dhbw.datacore.uml.enums.PseudostateKind#EXITPOINT}.
      */
-    private List<Pseudostate> connectionPoint = new ArrayList<>();
+    private List<State> connectionPoint = new ArrayList<>();
     /**
      * A behavior that is executed while this state is active.
      */
@@ -95,10 +92,12 @@ public class State extends Vertex {
      * A constraint that holds when this state is active.
      */
     private Constraint stateInvariant;
+
     /**
-     * The stateMachine with which this state could be replaced.
+     * The type of the Pseudostate. See {@link PseudostateKind} for all
+     * possible kinds of Pseudostates.
      */
-    private StateMachine submachine;
+    private PseudostateKind kind = PseudostateKind.INITIAL;
 
     /**
      * Adds a new region to {@link #region}.
@@ -111,102 +110,44 @@ public class State extends Vertex {
     }
 
     /**
-     * References to the owned ElementImports.
-     * Copied from {@link Namespace}.
+     * The region containing the vertex.
+     * This is from the uml metaclass vertex.
      */
-    private List<ElementImport> elementImport = new ArrayList<>();
+    private Region container;
     /**
-     * The elements imported into this namespace. This attribute can be derived.
-     * Copied from {@link Namespace}.
+     * All transitions that enter the vertex.
+     * I. e. all transitions where {@link Transition#target} equals this
+     * vertex. Thus this attribute can be derived.
+     * This is from the uml metaclass vertex.
      */
-    private List<PackageableElement> importedMember = new ArrayList<>();
+    private List<Transition> incoming = new ArrayList<>();
     /**
-     * All {@link NamedElement}s available to this namespace. This includes
-     * the imported as well as the owned ones. This attribute can be derived.
-     * Copied from {@link Namespace}.
+     * All transitions that leave the vertex.
+     * I. e. all transitions where {@link Transition#source} equals this
+     * vertex. Thus the attribute can be derived.
+     * This is from the uml metaclass vertex.
      */
-    private List<NamedElement> member = new ArrayList<>();
-    /**
-     * The {@link NamedElement}s this namespace owns. This attribute can be
-     * derived.
-     * Copied from {@link Namespace}.
-     */
-    private List<NamedElement> ownedMember = new ArrayList<>();
-    /**
-     * The {@link Constraint}s owned by this namespace.
-     * Copied from {@link Namespace}.
-     */
-    private List<Constraint> ownedRule = new ArrayList<>();
-    /**
-     * The {@link PackageImport}s this namespace owns.
-     */
-    private List<PackageImport> packageImport = new ArrayList<>();
+    private List<Transition> outgoing = new ArrayList<>();
 
     /**
-     * Adds a new elementImport to {@link #elementImport}.
-     * Copied from {@link Namespace}.
+     * Adds a new transition to {@link #incoming}.
+     * This is from the uml metaclass vertex.
      *
-     * @param newElementImport The {@link ElementImport} to add
+     * @param transition The transition to add
      */
-    public void addElementImport(final ElementImport newElementImport) {
+    public final void addIncoming(final Transition transition) {
 
-        elementImport.add(newElementImport);
+        incoming.add(transition);
     }
 
     /**
-     * Adds a new constraint to {@link #ownedRule}.
-     * Copied from {@link Namespace}.
+     * Adds a new transition to {@link #outgoing}.
+     * This is from the uml metaclass vertex.
      *
-     * @param rule The constraint to add
+     * @param transition The transition to add
      */
-    public void addRule(final Constraint rule) {
+    public final void addOutgoing(final Transition transition) {
 
-        ownedRule.add(rule);
+        outgoing.add(transition);
     }
-
-    /**
-     * Adds a new element to {@link #member}.
-     * Copied from {@link Namespace}.
-     *
-     * @param element The element to add
-     */
-    public void addMember(final NamedElement element) {
-
-        member.add(element);
-    }
-
-    /**
-     * Adds a new element to {@link #ownedMember}. The namespace is the owner of
-     * this element.
-     * Copied from {@link Namespace}.
-     *
-     * @param element The element to add
-     */
-    public void addOwnedMember(final NamedElement element) {
-
-        ownedMember.add(element);
-    }
-
-    /**
-     * Adds a new imported element to {@link #importedMember}.
-     * Copied from {@link Namespace}.
-     *
-     * @param element The element to add
-     */
-    public void addImportedMember(final PackageableElement element) {
-
-        importedMember.add(element);
-    }
-
-    /**
-     * Adds a new packageImport to {@link #packageImport}.
-     * Copied from {@link Namespace}.
-     *
-     * @param newPackageImport The packageImport to add
-     */
-    public void addPackageImport(final PackageImport newPackageImport) {
-
-        packageImport.add(newPackageImport);
-    }
-
 }

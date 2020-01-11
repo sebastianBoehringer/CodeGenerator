@@ -49,7 +49,7 @@ public final class Region extends Namespace {
     /**
      * Vertices inside the region.
      */
-    private List<Vertex> subvertex = new ArrayList<>();
+    private List<State> subvertex = new ArrayList<>();
     /**
      * Transitions inside the region.
      */
@@ -58,11 +58,11 @@ public final class Region extends Namespace {
     /**
      * Adds a new vertex to {@link #subvertex}.
      *
-     * @param vertex The vertex to add
+     * @param newState The vertex to add
      */
-    public void addSubvertex(final Vertex vertex) {
+    public void addSubvertex(final State newState) {
 
-        subvertex.add(vertex);
+        subvertex.add(newState);
     }
 
     /**

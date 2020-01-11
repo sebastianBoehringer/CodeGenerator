@@ -55,9 +55,9 @@ public final class Transition extends Namespace {
     /**
      * The vertex the transition is coming from.
      */
-    private Vertex source;
+    private State source;
     /**
      * The vertex the transition is going to.
      */
-    private Vertex target;
+    private State target;
 }

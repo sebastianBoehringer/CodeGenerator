@@ -63,13 +63,10 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
-import edu.horb.dhbw.datacore.uml.statemachines.FinalState;
-import edu.horb.dhbw.datacore.uml.statemachines.Pseudostate;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
-import edu.horb.dhbw.datacore.uml.statemachines.Vertex;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.AssociationClass;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Collaboration;
@@ -535,41 +532,6 @@ public final class LookupUtil {
         }
     }
 
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Vertex}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Vertex> vertexFromUMLType(
-            @NonNull final String umlType) {
-
-        return "pseudostate".equals(umlType) ? Pseudostate.class
-                                             : stateFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link State}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends State> stateFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "state":
-                return State.class;
-            case "finalstate":
-                return FinalState.class;
-            default:
-                return null;
-        }
-    }
 
     /**
      * Maps the type of an uml class to the corresponding java class.
@@ -587,6 +549,10 @@ public final class LookupUtil {
                 return Region.class;
             case "transition":
                 return Transition.class;
+            case "state":
+            case "finalstate":
+            case "pseudostate":
+                return State.class;
             default:
                 return null;
         }
@@ -718,10 +684,7 @@ public final class LookupUtil {
         if (aClass != null) {
             return aClass;
         }
-        aClass = vertexFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
+
         return packageableFromUMLType(umlType);
     }
 
