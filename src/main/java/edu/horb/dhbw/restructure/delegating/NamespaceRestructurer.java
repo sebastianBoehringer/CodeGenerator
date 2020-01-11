@@ -25,7 +25,8 @@ import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-public class NamespaceRestructurer extends DelegatingRestructurer<Namespace> {
+public final class NamespaceRestructurer
+        extends DelegatingRestructurer<Namespace> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
