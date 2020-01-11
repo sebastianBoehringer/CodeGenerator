@@ -14,20 +14,12 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonbehavior;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * An event that is received by the reception of a message, i. e. by calling
- * an operation or receiving a signal.
- * See subclauses 13.3 and 13.4.7 of the UML specification for more details.
+ * Contains classes that transform {@link com.sdmetrics.model.ModelElement}s
+ * into {@link edu.horb.dhbw.datacore.uml.statemachines.StateMachine}s
+ * and their related concepts.
+ *
+ * @author sebastianBoehringer
+ * @since 0.2
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public class MessageEvent extends Event {
-}
+package edu.horb.dhbw.restructure.statemachines;

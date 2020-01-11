@@ -20,8 +20,9 @@ package edu.horb.dhbw.restructure.statemachines;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
-import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.statemachines.Region;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
@@ -29,13 +30,21 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-public final class FunctionBehaviorRestructurer
-        extends RestructurerBase<FunctionBehavior> {
+public class StateMachineRestructurer extends RestructurerBase<StateMachine> {
+    /**
+     * A map holding all the {@link StateMachine}s that have already been
+     * processed. This maps from their xmi id to the actual instance.
+     * The map is not synchronized, thus the class is most likely not
+     * threadsafe.
+     */
+    private static final Map<String, StateMachine> ALREADY_PROCESSED =
+            new HashMap<>();
 
     /**
      * Constructor delegating to
@@ -44,73 +53,72 @@ public final class FunctionBehaviorRestructurer
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
-    public FunctionBehaviorRestructurer(final IRestructurerMediator iRestructurerMediator) {
+    public StateMachineRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
-        super(iRestructurerMediator, "functionbehavior");
+        super(iRestructurerMediator, "statemachine");
     }
 
     @Override
-    public FunctionBehavior restructure(@NonNull final ModelElement element) {
+    public StateMachine restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        FunctionBehavior behavior = new FunctionBehavior();
-        behavior.setId(id);
+        if (ALREADY_PROCESSED.containsKey(id)) {
+            log.info("Found id [{}] in cache, loading StateMachine from cache",
+                     id);
+            return ALREADY_PROCESSED.get(id);
+        }
+        StateMachine machine = new StateMachine();
+        ALREADY_PROCESSED.put(id, machine);
+        machine.setId(id);
 
-        log.info("Processing body for functionbehaviro [{}]", id);
-        Collection<String> body =
-                (Collection<String>) element.getSetAttribute("body");
-        behavior.setBody(new ArrayList<>(body));
+        log.info("Processing name for StateMachine [{}]", id);
+        String name = element.getPlainAttribute("name");
+        machine.setName(name);
 
-        log.info("Processing language of functionbehavior [{}]", id);
-        Collection<String> languages =
-                (Collection<String>) element.getSetAttribute("language");
-        behavior.setLanguage(new ArrayList<>(languages));
+        log.info("Processing regions for StateMachine [{}]", id);
+        Collection<ModelElement> regions =
+                (Collection<ModelElement>) element.getSetAttribute("regions");
+        machine.setRegion(delegateMany(regions, Region.class));
 
         log.info("Processing reentrant for StateMachine [{}]", id);
         String reentrant = element.getPlainAttribute("reentrant");
         Boolean isReentrant = StringUtils.isEmpty(reentrant) ? Boolean.TRUE
                                                              : Boolean
                                       .valueOf(reentrant);
-        behavior.setIsReentrant(isReentrant);
+        machine.setIsReentrant(isReentrant);
 
         log.info("Processing parameters for StateMachine [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("parameters");
-        behavior.setOwnedParameter(delegateMany(parameters, Parameter.class));
+        machine.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
         log.info("Processing post for StateMachine [{}]", id);
         Collection<ModelElement> post =
                 (Collection<ModelElement>) element.getSetAttribute("post");
-        behavior.setPostcondition(delegateMany(post, Constraint.class));
+        machine.setPostcondition(delegateMany(post, Constraint.class));
 
         log.info("Processing pre for StateMachine [{}]", id);
         Collection<ModelElement> pre =
                 (Collection<ModelElement>) element.getSetAttribute("pre");
-        behavior.setPrecondition(delegateMany(pre, Constraint.class));
+        machine.setPrecondition(delegateMany(pre, Constraint.class));
 
         log.info("Processing specification for StateMachine [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
-        behavior.setSpecification(
+        machine.setSpecification(
                 delegateRestructuring(specification, Operation.class));
 
-        return behavior;
+        return machine;
     }
 
-    /**
-     * No op as this restructurer does not cache.
-     */
     @Override
     public void cleanCache() {
 
+        ALREADY_PROCESSED.clear();
     }
 
-    /**
-     * @param id The id of an element
-     * @return {@link Optional#EMPTY} as this restructurer does not cache
-     */
     @Override
-    public Optional<FunctionBehavior> getProcessed(@NonNull final String id) {
+    public Optional<StateMachine> getProcessed(@NonNull final String id) {
 
-        return Optional.empty();
+        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

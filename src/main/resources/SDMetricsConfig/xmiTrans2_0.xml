@@ -485,24 +485,8 @@ other part of SDMetrics.
         <trigger name="effect" type="xmi2assoc" attr="effect"/>
 
         <trigger name="isprotocol" type="constant" attr="false"/>
+        <trigger name="container" type="xmi2assoc" attr="container"/>
     </xmitransformation>
-
-    <xmitransformation modelelement="transition"
-                       xmipattern="uml:ProtocolTransition" recurse="true">
-        <trigger name="kind" type="attrval" attr="kind"/>
-        <trigger name="kind" type="ctext" src="kind"/>
-        <trigger name="transsource" type="xmi2assoc" attr="source"/>
-        <trigger name="transtarget" type="xmi2assoc" attr="target"/>
-        <trigger name="triggers" type="xmi2assoc" attr="trigger"
-                 src="uml:Trigger"/>
-        <trigger name="guard" type="xmi2assoc" attr="guard"
-                 src="uml:Constraint"/>
-
-        <trigger name="effect" type="xmi2assoc" attr="effect"/>
-
-        <trigger name="isprotocol" type="constant" attr="true"/>
-    </xmitransformation>
-
 
     <xmitransformation modelelement="trigger" xmipattern="uml:Trigger"
                        recurse="true">
@@ -570,7 +554,15 @@ other part of SDMetrics.
     <!-- concrete behaviors -->
 
     <xmitransformation modelelement="opaquebehavior"
-                       xmipattern="uml:OpaqueBehavior"/>
+                       xmipattern="uml:OpaqueBehavior">
+        <trigger name="reentrant" type="attrval" attr="isReentrant"/>
+        <trigger name="reentrant" type="ctext" src="isReentrant"/>
+        <trigger name="parameters" type="xmi2assoc" attr="ownedParameter"/>
+        <trigger name="parameters" type="xmi2assoc" attr="ownedMember"/>
+        <trigger name="pre" type="xmi2assoc" attr="precondition"/>
+        <trigger name="post" type="xmi2assoc" attr="postcondition"/>
+        <trigger name="specification" type="xmi2assoc" attr="specification"/>
+    </xmitransformation>
     <xmitransformation modelelement="functionbehavior"
                        xmipattern="uml:FunctionBehavior"/>
 

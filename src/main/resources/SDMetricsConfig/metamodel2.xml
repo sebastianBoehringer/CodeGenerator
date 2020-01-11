@@ -275,11 +275,11 @@ other part of SDMetrics.
         <attribute name="parameters" type="ref" multiplicity="many">The
             parameters of the behavior.
         </attribute>
-        <attribute name="post" type="ref">The postcondition of the
-            behavior.
+        <attribute name="post" type="ref" multiplicity="many">The postcondition
+            of the behavior.
         </attribute>
-        <attribute name="pre" type="ref">The precondition of the
-            behavior.
+        <attribute name="pre" type="ref" multiplicity="many">The precondition of
+            the behavior.
         </attribute>
         <attribute name="specification" type="ref">The operation the
             behavior implements.
@@ -478,13 +478,13 @@ other part of SDMetrics.
         <attribute name="regions" type="ref" multiplicity="many">The regions of
             the composite or concurrent state.
         </attribute>
-        <attribute name="entry" type="ref" multiplicity="many">The entry
-            activities of the state.
+        <attribute name="entry" type="ref">The entry
+            behavior of the state.
         </attribute>
-        <attribute name="exit" type="ref" multiplicity="many">The exit
-            activities of the state.
+        <attribute name="exit" type="ref">The exit
+            behavior of the state.
         </attribute>
-        <attribute name="doactivity" type="ref" multiplicity="many">The
+        <attribute name="doactivity" type="ref">The
             do-activities of the state.
         </attribute>
         <attribute name="connectionpoints" type="ref" multiplicity="many">The
@@ -512,6 +512,9 @@ other part of SDMetrics.
         </attribute>
         <attribute name="effect" type="ref">The activity to be performed when
             the transition fires.
+        </attribute>
+        <attribute name="container" type="ref">The region
+            containing the transition.
         </attribute>
     </modelelement>
 
@@ -596,7 +599,23 @@ other part of SDMetrics.
 
     <!-- concrete behaviors -->
 
-    <modelelement name="opaquebehavior" parent="opaqueexpression"/>
+    <modelelement name="opaquebehavior" parent="opaqueexpression">
+        <attribute name="reentrant">Boolean indicating if the
+            behavior can be executed multiple times at the same time.
+        </attribute>
+        <attribute name="parameters" type="ref" multiplicity="many">The
+            parameters of the behavior.
+        </attribute>
+        <attribute name="post" type="ref" multiplicity="many">The postcondition
+            of the behavior.
+        </attribute>
+        <attribute name="pre" type="ref" multiplicity="many">The precondition of
+            the behavior.
+        </attribute>
+        <attribute name="specification" type="ref">The operation the
+            behavior implements.
+        </attribute>
+    </modelelement>
 
     <modelelement name="functionbehavior" parent="opaquebehavior"/>
 

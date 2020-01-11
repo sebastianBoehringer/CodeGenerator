@@ -18,11 +18,16 @@
 package edu.horb.dhbw.restructure.statemachines;
 
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.classification.Operation;
+import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +36,13 @@ import java.util.Optional;
 @Slf4j
 public final class OpaqueBehaviorRestructurer
         extends RestructurerBase<OpaqueBehavior> {
-
+    /**
+     * Constructor delegating to
+     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
+     *
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
+     */
     public OpaqueBehaviorRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
         super(iRestructurerMediator, "opaquebehavior");
@@ -53,6 +64,34 @@ public final class OpaqueBehaviorRestructurer
         Collection<String> languages =
                 (Collection<String>) element.getSetAttribute("language");
         behavior.setLanguage(new ArrayList<>(languages));
+
+        log.info("Processing reentrant for OpaqueBehavior [{}]", id);
+        String reentrant = element.getPlainAttribute("reentrant");
+        Boolean isReentrant = StringUtils.isEmpty(reentrant) ? Boolean.TRUE
+                                                             : Boolean
+                                      .valueOf(reentrant);
+        behavior.setIsReentrant(isReentrant);
+
+        log.info("Processing parameters for OpaqueBehavior [{}]", id);
+        Collection<ModelElement> parameters = (Collection<ModelElement>) element
+                .getSetAttribute("parameters");
+        behavior.setOwnedParameter(delegateMany(parameters, Parameter.class));
+
+        log.info("Processing post for OpaqueBehavior [{}]", id);
+        Collection<ModelElement> post =
+                (Collection<ModelElement>) element.getSetAttribute("post");
+        behavior.setPostcondition(delegateMany(post, Constraint.class));
+
+        log.info("Processing pre for OpaqueBehavior [{}]", id);
+        Collection<ModelElement> pre =
+                (Collection<ModelElement>) element.getSetAttribute("pre");
+        behavior.setPrecondition(delegateMany(pre, Constraint.class));
+
+        log.info("Processing specification for OpaqueBehavior [{}]", id);
+        ModelElement specification = element.getRefAttribute("specification");
+        behavior.setSpecification(
+                delegateRestructuring(specification, Operation.class));
+
         return behavior;
     }
 

@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import lombok.NonNull;
+
 /**
  * Differentiates kinds of transitions.
  * See subclauses 14.2 and 14.5.12 of the UML specification for more details.
@@ -40,5 +42,16 @@ public enum TransitionKind {
     /**
      * This kind of transition exits its source state.
      */
-    EXTERNAL
+    EXTERNAL;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static TransitionKind from(@NonNull final String string) {
+
+        return TransitionKind.valueOf(string.toUpperCase());
+    }
 }
