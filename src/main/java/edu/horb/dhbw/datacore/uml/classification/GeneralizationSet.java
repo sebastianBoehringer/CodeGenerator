@@ -21,6 +21,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public final class GeneralizationSet extends PackageableElement {
     /**
      * If this is {@code true} all possible specializations have been defined.
@@ -48,7 +50,7 @@ public final class GeneralizationSet extends PackageableElement {
      * a dog's gender again. This is also a disjoint generalizationSet as a
      * dog cannot be male and female at the same time.
      */
-    private boolean isDisjoint = Boolean.FALSE;
+    private Boolean isDisjoint = Boolean.FALSE;
     /**
      * The generalizations that are part of this generalizationSet.
      */
