@@ -21,9 +21,11 @@ import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.util.CollectionUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.thymeleaf.util.ListUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,13 +87,15 @@ public abstract class RestructurerBase<T extends CommonElements>
      * @return A collection with the restructured uml classes.
      */
     @Override
-    public @NonNull Collection<T> restructure(final Model model) {
+    public @NonNull List<T> restructure(final Model model) {
 
         final MetaModel metaModel = model.getMetaModel();
-        Collection<ModelElement> classes =
+        List<ModelElement> classes =
                 model.getElements(metaModel.getType(umlType));
-        List<T> processed = classes.size() > 0 ? new ArrayList<>()
-                                               : Collections.emptyList();
+        if (ListUtils.isEmpty(classes)) {
+            return Collections.emptyList();
+        }
+        List<T> processed = new ArrayList<>(classes.size());
         for (ModelElement element : classes) {
             processed.add(restructure(element));
         }
@@ -167,14 +171,9 @@ public abstract class RestructurerBase<T extends CommonElements>
      *                {@link CommonElements} so that a restructurer can exist.
      * @return The restructured element
      */
-    protected final <V extends CommonElements> V delegateRestructuring(final ModelElement element,
-                                                                       @NonNull
-                                                                       final Class<V> vClass) {
+    protected final <V extends CommonElements> V delegateRestructuring(final ModelElement element, final Class<V> vClass) {
 
-        if (element == null) {
-            System.out.println(
-                    String.format("Element was null, should become a %s",
-                                  vClass.getSimpleName()));
+        if (element == null || vClass == null) {
             return null;
         }
         IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);

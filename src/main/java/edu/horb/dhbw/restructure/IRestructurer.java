@@ -22,7 +22,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
 import lombok.NonNull;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,9 +41,9 @@ public interface IRestructurer<T extends CommonElements> {
      * The return value of this method will never be null.
      *
      * @param model The model to restructure
-     * @return A collection with the restructured uml classes.
+     * @return A list with the restructured uml classes.
      */
-    @NonNull Collection<T> restructure(@NonNull Model model);
+    @NonNull List<T> restructure(@NonNull Model model);
 
     /**
      * Restructures a single element instead of the entire model.

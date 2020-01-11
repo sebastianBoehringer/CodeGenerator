@@ -22,8 +22,8 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import lombok.NonNull;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,7 +50,7 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
      * @return An empty list in every case
      */
     @Override
-    public @NonNull Collection<Element> restructure(
+    public @NonNull List<Element> restructure(
             @NonNull final Model model) {
 
         return Collections.emptyList();
