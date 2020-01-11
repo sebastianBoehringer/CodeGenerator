@@ -53,6 +53,7 @@ import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
