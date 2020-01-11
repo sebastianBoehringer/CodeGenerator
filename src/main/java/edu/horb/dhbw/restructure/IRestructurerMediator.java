@@ -18,6 +18,8 @@
 package edu.horb.dhbw.restructure;
 
 
+import com.sdmetrics.model.Model;
+import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
@@ -28,6 +30,7 @@ import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
@@ -50,14 +53,20 @@ import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import edu.horb.dhbw.util.LookupUtil;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
-public class IRestructurerMediator {
+public class IRestructurerMediator implements IRestructurer<CommonElements> {
 
     /**
      * The number of {@link IRestructurer}s registered when using the default
@@ -68,7 +77,9 @@ public class IRestructurerMediator {
     /**
      * The mappings to use.
      */
-    private final Map<Class<?>, IRestructurer<?>> classToRestructurer;
+    private final Map<Class<? extends CommonElements>, IRestructurer<?
+            extends CommonElements>>
+            classToRestructurer;
 
     /**
      * The default {@link IRestructurer} to use if no specialized one is
@@ -114,6 +125,7 @@ public class IRestructurerMediator {
                                 new IntervalConstraintRestrucuturer(this));
         classToRestructurer.put(Comment.class, new CommentRestructurer(this));
         classToRestructurer.put(Interval.class, new IntervalRestructurer(this));
+        classToRestructurer.put(Type.class, new TypeRestructurer(this));
     }
 
     /**
@@ -141,5 +153,53 @@ public class IRestructurerMediator {
 
         return (RestructurerBase<T>) classToRestructurer
                 .getOrDefault(clazz, defaultImplementation);
+    }
+
+    @Override
+    public @NonNull Collection<CommonElements> restructure(
+            @NonNull final Model model) {
+
+        List<CommonElements> elements = new ArrayList<>();
+        for (Map.Entry<Class<? extends CommonElements>, IRestructurer<?
+                extends CommonElements>> entry : classToRestructurer
+                .entrySet()) {
+            elements.addAll(entry.getValue().restructure(model));
+        }
+        return elements;
+    }
+
+    @Override
+    public CommonElements restructure(@NonNull final ModelElement element) {
+
+        Class<? extends CommonElements> clazz =
+                LookupUtil.elementFromUMLType(XMIUtil.getUMLType(element));
+        return classToRestructurer.getOrDefault(clazz, defaultImplementation)
+                .restructure(element);
+    }
+
+    /**
+     * Always returns false.
+     * The reason for that is that the mediator does not cache intermediate
+     * results.
+     *
+     * @param id The id of an element
+     * @return {@code false}
+     */
+    @Override
+    public boolean wasProcessed(final String id) {
+
+        return false;
+    }
+
+    /**
+     * Will always return an empty optional
+     *
+     * @param id The id of an element
+     * @return {@link Optional#EMPTY}
+     */
+    @Override
+    public Optional<CommonElements> getProcessed(final String id) {
+
+        return Optional.empty();
     }
 }
