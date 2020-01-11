@@ -18,6 +18,7 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
@@ -32,6 +33,7 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -92,7 +94,11 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
         anInterface
                 .setOwnedOperation(delegateMany(operations, Operation.class));
 
-        //TODO nestedclassifiers
+        log.info("Processing nestedclassifiers for interface [{}]", id);
+        Collection<ModelElement> nested = (Collection<ModelElement>) element
+                .getSetAttribute("nestedclassifiers");
+        List<Classifier> classifiers = delegateMany(nested, Classifier.class);
+        anInterface.setNestedClassifier(classifiers);
 
         log.info("Processing generalizations for interface [{}]", id);
         Collection<ModelElement> generalizations =

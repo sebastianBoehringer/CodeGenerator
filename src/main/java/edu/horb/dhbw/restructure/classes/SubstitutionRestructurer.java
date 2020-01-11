@@ -74,7 +74,6 @@ public final class SubstitutionRestructurer
         substitution.setMapping(
                 delegateRestructuring(mapping, OpaqueExpression.class));
 
-        //TODO client
         log.info("Processing client for substitution [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");

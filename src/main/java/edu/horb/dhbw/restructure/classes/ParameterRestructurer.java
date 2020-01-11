@@ -76,8 +76,6 @@ public final class ParameterRestructurer extends RestructurerBase<Parameter> {
         String name = element.getPlainAttribute("name");
         parameter.setName(name);
 
-        //TODO contexts
-
         log.info("Processing ordered for parameter [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         parameter.setIsOrdered(Boolean.valueOf(ordered));

@@ -96,7 +96,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         property.setId(id);
         ALREADY_PROCESSED.put(id, property);
 
-        //TODO context
         log.info("Processing name for property [{}]", id);
         property.setName(element.getName());
 
@@ -155,7 +154,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         String readOnly = element.getPlainAttribute("isreadonly");
         property.setIsReadOnly(Boolean.valueOf(readOnly));
 
-        //TODO Association has subclasses
         log.info("Processing association for property [{}]", id);
         ModelElement association = element.getRefAttribute("association");
         property.setAssociation(

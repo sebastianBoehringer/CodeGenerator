@@ -30,7 +30,6 @@ import java.util.Optional;
 @Slf4j
 public final class EnumerationLiteralRestructurer
         extends RestructurerBase<EnumerationLiteral> {
-    //TODO no need for cashing right?
 
     /**
      * Constructor delegating to

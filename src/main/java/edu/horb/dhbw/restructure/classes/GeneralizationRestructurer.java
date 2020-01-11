@@ -18,6 +18,7 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
@@ -66,15 +67,17 @@ public final class GeneralizationRestructurer
         generalization.setId(id);
         ALREADY_PROCESSED.put(id, generalization);
 
-        log.info("Processing general for enumeration [{}]", id);
+        log.info("Processing general for generalization [{}]", id);
         ModelElement general = element.getRefAttribute("general");
-        //TODO general
+        generalization
+                .setGeneral(delegateRestructuring(general, Classifier.class));
 
-        log.info("Processing specific for enumeration [{}]", id);
+        log.info("Processing specific for generalization [{}]", id);
         ModelElement specific = element.getRefAttribute("specific");
-        //TODO specific
+        generalization
+                .setSpecific(delegateRestructuring(specific, Classifier.class));
 
-        log.info("Processing substitutable for enumeration [{}]", id);
+        log.info("Processing substitutable for generalization [{}]", id);
         String substitutable = element.getPlainAttribute("substitutable");
         generalization.setIsSubstitutable(
                 StringUtils.isEmpty(substitutable) ? Boolean.TRUE : Boolean

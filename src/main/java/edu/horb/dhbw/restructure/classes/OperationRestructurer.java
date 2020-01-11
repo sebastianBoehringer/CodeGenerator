@@ -82,8 +82,6 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
         String name = element.getPlainAttribute("name");
         operation.setName(name);
 
-        //TODO context
-
         log.info("Processing static for operation [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         operation.setIsStatic(Boolean.valueOf(isStatic));
