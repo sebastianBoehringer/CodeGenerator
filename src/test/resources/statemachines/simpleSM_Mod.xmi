@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><uml:Model xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmi:version="2.1" xmi:id="_E7sUUDXiEeqlpNtZdDuG0g" name="SM">
+  <eAnnotations xmi:id="_E7sUUTXiEeqlpNtZdDuG0g" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_E7sUUjXiEeqlpNtZdDuG0g" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_E7sUUzXiEeqlpNtZdDuG0g" value="3.0.0"/>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_E7sUVDXiEeqlpNtZdDuG0g" name="sm">
+    <region xmi:id="_E7sUVTXiEeqlpNtZdDuG0g">
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_E7sUVjXiEeqlpNtZdDuG0g" name="Initial State"/>
+      <subvertex xmi:type="uml:State" xmi:id="_E7sUVzXiEeqlpNtZdDuG0g" name="Intermediate"/>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_E7sUWDXiEeqlpNtZdDuG0g" name="Final State"/>
+      <transition xmi:type="uml:Transition" xmi:id="_E7sUWTXiEeqlpNtZdDuG0g" source="_E7sUVjXiEeqlpNtZdDuG0g" target="_E7sUVzXiEeqlpNtZdDuG0g"/>
+      <transition xmi:type="uml:Transition" xmi:id="_E7sUWjXiEeqlpNtZdDuG0g" source="_E7sUVzXiEeqlpNtZdDuG0g" target="_E7sUWDXiEeqlpNtZdDuG0g"/>
+    </region>
+  </packagedElement>
+</uml:Model>

@@ -15,11 +15,10 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.restructure.classes;
+package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.Model;
 import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
-import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 
@@ -48,5 +47,13 @@ public abstract class BaseRestructurerTest {
             return null;
         }
         return model;
+    }
+
+    @DataProvider(name = "simplestatemachines")
+    public Object[][] provideSimpleStateMachines() {
+
+        return new Object[][]{
+                {"src/test/resources/statemachines/simpleSM_Mod.xmi"},
+                {"src/test/resources/statemachines/simpleSM_Pap.xmi"}};
     }
 }
