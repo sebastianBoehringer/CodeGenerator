@@ -46,10 +46,6 @@ public final class StateMachine extends Behavior {
      * The regions contained inside the stateMachine.
      */
     private List<Region> region = new ArrayList<>();
-    /**
-     * The states that are referring to the stateMachine as a submachine.
-     */
-    private List<State> submachineState = new ArrayList<>();
 
     /**
      * Adds a new region to {@link #region}.
