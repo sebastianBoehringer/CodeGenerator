@@ -102,7 +102,6 @@ public final class UMLClassRestructurer extends RestructurerBase<UMLClass> {
         log.info("Processing name for class [{}]", id);
         clazz.setName(element.getName());
 
-        //TODO context
         log.info("Processing abstract for class [{}]", id);
         clazz.setIsAbstract(
                 Boolean.valueOf(element.getPlainAttribute("abstract")));
