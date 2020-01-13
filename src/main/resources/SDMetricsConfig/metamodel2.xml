@@ -406,6 +406,12 @@ other part of SDMetrics.
 
     <modelelement name="usage" parent="dependency"/>
 
+    <modelelement name="componentrealization" parent="realization">
+        <attribute name="component" type="ref">
+            The component being realized.
+        </attribute>
+    </modelelement>
+
 
     <!-- instance specifications, connectors. -->
 

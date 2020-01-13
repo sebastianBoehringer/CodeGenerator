@@ -349,9 +349,7 @@ other part of SDMetrics.
     </xmitransformation>
 
     <xmitransformation modelelement="realization" xmipattern="uml:Realization">
-        <trigger name="supplier" type="xmi2assoc" attr="realizingClassifier"/>
         <trigger name="supplier" type="xmi2assoc" attr="supplier"/>
-        <trigger name="client" type="xmi2assoc" attr="abstraction"/>
         <trigger name="client" type="xmi2assoc" attr="client"/>
     </xmitransformation>
 
@@ -399,11 +397,11 @@ other part of SDMetrics.
         <trigger name="members" type="xmi2assoc" attr="ownedMember"/>
     </xmitransformation>
 
-    <xmitransformation modelelement="realization"
+    <xmitransformation modelelement="componentrealization"
                        xmipattern="uml:ComponentRealization"><!-- new in UML 2.1 -->
-        <trigger name="supplier" type="xmi2assoc" attr="realizingClassifier"/>
-        <trigger name="supplier" type="xmi2assoc" attr="supplier"/>
-        <trigger name="client" type="xmi2assoc" attr="abstraction"/>
+        <trigger name="client" type="xmi2assoc" attr="realizingClassifier"/>
+        <trigger name="component" type="xmi2assoc" attr="supplier"/>
+        <trigger name="component" type="xmi2assoc" attr="abstraction"/>
         <trigger name="client" type="xmi2assoc" attr="client"/>
     </xmitransformation>
 
