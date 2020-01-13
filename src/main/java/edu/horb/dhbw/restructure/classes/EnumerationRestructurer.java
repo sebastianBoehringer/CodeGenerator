@@ -125,8 +125,6 @@ public final class EnumerationRestructurer
         enumeration.setSubstitution(
                 delegateMany(substitutions, Substitution.class));
 
-        //TODO collaborationuses ?
-
         return enumeration;
     }
 
