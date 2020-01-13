@@ -48,6 +48,5 @@ public final class PackageImport extends DirectedRelationship {
      * The namespace that is importing the package.
      */
     private Namespace importingNamespace;
-
 }
 

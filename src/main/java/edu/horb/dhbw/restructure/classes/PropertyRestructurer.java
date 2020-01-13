@@ -146,8 +146,7 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
 
         log.info("Processing propertytype for property [{}]", id);
         ModelElement type = element.getRefAttribute("propertytype");
-        property.setType(
-                delegateRestructuring(type, Type.class));
+        property.setType(delegateRestructuring(type, Type.class));
 
         log.info("Processing isreadonly for property [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
