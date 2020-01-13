@@ -14,20 +14,12 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonbehavior;
-
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * Something that can trigger effects by occurring.
- * See subclauses 13.3 and 13.4.5 of the UML specification for more details.
+ * Contains classes that transform {@link com.sdmetrics.model.ModelElement}s
+ * into {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.Component}s
+ * and their related concepts.
+ *
+ * @author sebastianBoehringer
+ * @since 0.2
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public abstract class Event extends PackageableElement {
-}
+package edu.horb.dhbw.restructure.components;

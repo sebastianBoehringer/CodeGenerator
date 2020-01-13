@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -14,21 +14,8 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.uml.commonbehavior;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * An event that is triggered by receiving any kind fo message.
- * The event is not triggered if any other {@link Trigger} is relying on a
- * more specific message.
- * See subclauses 13.3 and 13.4.1 of the UML specification for more details.
+ * Classes in this package restructure a
+ * {@link com.sdmetrics.model.ModelElement} to some sort of container.
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public final class AnyReceiveEvent extends MessageEvent {
-}
+package edu.horb.dhbw.restructure.packaging;
