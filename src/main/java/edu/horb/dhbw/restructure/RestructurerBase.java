@@ -124,7 +124,7 @@ public abstract class RestructurerBase<T extends CommonElements>
     }
 
     /**
-     * Cleans the cache if the extenden restructurer uses one.
+     * Cleans the cache if the extended restructurer uses one.
      */
     public abstract void cleanCache();
 
