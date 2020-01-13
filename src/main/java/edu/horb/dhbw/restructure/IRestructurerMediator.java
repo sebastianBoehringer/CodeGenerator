@@ -43,15 +43,20 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
+import edu.horb.dhbw.datacore.uml.packages.Profile;
+import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.Stereotype;
+import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
@@ -63,6 +68,7 @@ import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ComponentRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
@@ -105,6 +111,7 @@ import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.StereotypeRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.restructure.classes.UMLClassRestructurer;
+import edu.horb.dhbw.restructure.components.ComponentRealizationRestructurer;
 import edu.horb.dhbw.restructure.components.UsageRestructurer;
 import edu.horb.dhbw.restructure.delegating.BehaviorRestructurer;
 import edu.horb.dhbw.restructure.delegating.BehavioralFeatureRestructurer;
@@ -125,6 +132,12 @@ import edu.horb.dhbw.restructure.delegating.StructuralFeatureRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypedElementRestructurer;
 import edu.horb.dhbw.restructure.delegating.ValueSpecRestrucuturer;
+import edu.horb.dhbw.restructure.packaging.ElementImportRestructurer;
+import edu.horb.dhbw.restructure.packaging.ModelRestructurer;
+import edu.horb.dhbw.restructure.packaging.PackageImportRestructurer;
+import edu.horb.dhbw.restructure.packaging.PackageRestructurer;
+import edu.horb.dhbw.restructure.packaging.ProfileApplicationRestructurer;
+import edu.horb.dhbw.restructure.packaging.ProfileRestructurer;
 import edu.horb.dhbw.restructure.statemachines.FunctionBehaviorRestructurer;
 import edu.horb.dhbw.restructure.statemachines.OpaqueBehaviorRestructurer;
 import edu.horb.dhbw.restructure.statemachines.RegionRestructurer;
@@ -274,6 +287,19 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                 .put(LiteralInteger.class, new LiteralIntRestructurer(this));
         classToRestructurer
                 .put(LiteralBoolean.class, new LiteralBoolRestructurer(this));
+        classToRestructurer
+                .put(ElementImport.class, new ElementImportRestructurer(this));
+        classToRestructurer
+                .put(PackageImport.class, new PackageImportRestructurer(this));
+        classToRestructurer
+                .put(UMLPackage.class, new PackageRestructurer(this));
+        classToRestructurer.put(ProfileApplication.class,
+                                new ProfileApplicationRestructurer(this));
+        classToRestructurer.put(Profile.class, new ProfileRestructurer(this));
+        classToRestructurer.put(edu.horb.dhbw.datacore.uml.packages.Model.class,
+                                new ModelRestructurer(this));
+        classToRestructurer.put(ComponentRealization.class,
+                                new ComponentRealizationRestructurer(this));
     }
 
     /**
@@ -299,7 +325,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     public <T extends CommonElements> IRestructurer<T> getIRestructurer(
             @NonNull final Class<T> clazz) {
 
-        return (RestructurerBase<T>) classToRestructurer
+        return (IRestructurer<T>) classToRestructurer
                 .getOrDefault(clazz, defaultImplementation);
     }
 
