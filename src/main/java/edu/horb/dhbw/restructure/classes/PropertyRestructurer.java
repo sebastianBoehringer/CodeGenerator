@@ -134,12 +134,12 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
             property.setUpper(new UnlimitedNatural(upper));
         }
 
-        log.info("Processing lowerValue for parameter [{}]", id);
+        log.info("Processing lowerValue for property [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");
         property.setLowerValue(
                 delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        log.info("Processing upperValue for parameter [{}]", id);
+        log.info("Processing upperValue for property [{}]", id);
         ModelElement upperValue = element.getRefAttribute("upperValue");
         property.setUpperValue(
                 delegateRestructuring(upperValue, ValueSpecification.class));
@@ -147,7 +147,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         log.info("Processing propertytype for property [{}]", id);
         ModelElement type = element.getRefAttribute("propertytype");
         property.setType(
-
                 delegateRestructuring(type, Type.class));
 
         log.info("Processing isreadonly for property [{}]", id);
