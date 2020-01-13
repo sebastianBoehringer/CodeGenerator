@@ -21,6 +21,7 @@ import com.sdmetrics.model.Model;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -57,8 +58,6 @@ public class PropertyRestructurerTest extends BaseRestructurerTest {
                          "The name of the property should be member");
             assertEquals(property.getVisibility(), VisibilityKind.PUBLIC,
                          "Visibility should be public");
-            //TODO test type
-            //TODO test multiplicity bounds
             assertEquals(property.getIsUnique(), Boolean.TRUE,
                          "Property should be unique, i. e. this is true");
             assertEquals(property.getIsOrdered(), Boolean.FALSE,

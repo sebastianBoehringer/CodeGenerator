@@ -19,8 +19,14 @@ package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.Model;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
+import edu.horb.dhbw.restructure.BaseRestructurerTest;
+import edu.horb.dhbw.restructure.delegating.LiteralSpecRestructurer;
+import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -43,7 +49,7 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
 
         Model model = parseXMI(pathToFile);
 
-        Collection<Parameter> parameters =
+        List<Parameter> parameters =
                 mediator.getIRestructurer(Parameter.class).restructure(model);
         assertEquals(parameters.size(), 2, "Expecting two parameters");
 
@@ -57,8 +63,6 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
                         .equals(ParameterDirectionKind.RETURN))
                 .collect(Collectors.toList());
         assertEquals(returns.size(), 1, "Only one return parameter expected");
-
-        //TODO test types
 
         for (Parameter aReturn : returns) {
 
@@ -75,7 +79,7 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
                              "Papyrus serializes READ");
             } else {
                 assertEquals(input.getEffect(), ParameterEffectKind.UNDEFINED,
-                             "Modelio seemingly does not serializes "
+                             "Modelio seemingly does not serialize "
                                      + "effectkinds at all");
             }
             testDefaultValues(input);
