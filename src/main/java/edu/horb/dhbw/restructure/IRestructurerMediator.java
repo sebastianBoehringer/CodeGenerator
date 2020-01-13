@@ -70,7 +70,13 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.EncapsulatedClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.values.Interval;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
+import edu.horb.dhbw.datacore.uml.values.LiteralBoolean;
+import edu.horb.dhbw.datacore.uml.values.LiteralInteger;
+import edu.horb.dhbw.datacore.uml.values.LiteralNull;
+import edu.horb.dhbw.datacore.uml.values.LiteralReal;
 import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
+import edu.horb.dhbw.datacore.uml.values.LiteralString;
+import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.classes.AbstractionRestructurer;
 import edu.horb.dhbw.restructure.classes.ConnectorEndRestructurer;
@@ -85,6 +91,12 @@ import edu.horb.dhbw.restructure.classes.InstanceSpecRestructurer;
 import edu.horb.dhbw.restructure.classes.InstanceValueRestructurer;
 import edu.horb.dhbw.restructure.classes.InterfaceRealizationRestructurer;
 import edu.horb.dhbw.restructure.classes.InterfaceRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralBoolRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralIntRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralNullRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralRealRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralStringRestructurer;
+import edu.horb.dhbw.restructure.classes.LiteralUnlimitedNaturalRestructurer;
 import edu.horb.dhbw.restructure.classes.OperationRestructurer;
 import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
 import edu.horb.dhbw.restructure.classes.PrimitiveRestructurer;
@@ -250,6 +262,18 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
         classToRestructurer
                 .put(StateMachine.class, new StateMachineRestructurer(this));
         classToRestructurer.put(Region.class, new RegionRestructurer(this));
+        classToRestructurer.put(LiteralUnlimitedNatural.class,
+                                new LiteralUnlimitedNaturalRestructurer(this));
+        classToRestructurer
+                .put(LiteralString.class, new LiteralStringRestructurer(this));
+        classToRestructurer
+                .put(LiteralReal.class, new LiteralRealRestructurer(this));
+        classToRestructurer
+                .put(LiteralNull.class, new LiteralNullRestructurer(this));
+        classToRestructurer
+                .put(LiteralInteger.class, new LiteralIntRestructurer(this));
+        classToRestructurer
+                .put(LiteralBoolean.class, new LiteralBoolRestructurer(this));
     }
 
     /**
@@ -325,5 +349,19 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     public Optional<CommonElements> getProcessed(final String id) {
 
         return Optional.empty();
+    }
+
+    /**
+     * Cleans up the caches of every registered {@link RestructurerBase}.
+     */
+    public void cleanCaches() {
+
+        for (IRestructurer<? extends CommonElements> value : classToRestructurer
+                .values()) {
+            if (value instanceof RestructurerBase<?>) {
+                ((RestructurerBase<? extends CommonElements>) value)
+                        .cleanCache();
+            }
+        }
     }
 }
