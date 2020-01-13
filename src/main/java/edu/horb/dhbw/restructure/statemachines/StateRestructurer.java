@@ -75,7 +75,7 @@ public final class StateRestructurer extends RestructurerBase<State> {
         log.info("Processing kind for State [{}]", id);
         String kind = element.getPlainAttribute("kind");
         PseudostateKind stateKind =
-                StringUtils.isEmpty(kind) ? PseudostateKind.STATE
+                StringUtils.isEmpty(kind) ? PseudostateKind.INITIAL
                                           : PseudostateKind.from(kind);
         state.setKind(stateKind);
 

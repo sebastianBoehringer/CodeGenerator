@@ -449,7 +449,7 @@ other part of SDMetrics.
 
     <xmitransformation modelelement="state" xmipattern="uml:State"
                        recurse="true">
-        <trigger name="kind" type="constant" attr=""/>
+        <trigger name="kind" type="constant" attr="state"/>
 
         <trigger name="entry" type="xmi2assoc" attr="entry"/>
         <trigger name="exit" type="xmi2assoc" attr="exit"/>
