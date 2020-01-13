@@ -21,8 +21,11 @@ import lombok.NonNull;
 
 /**
  * Used to differentiate between
- * {@link edu.horb.dhbw.datacore.uml.statemachines.Pseudostate}s.
+ * {@link edu.horb.dhbw.datacore.uml.statemachines.State}s.
  * See subclauses 14.2 and 14.5.7 of the UML specification for more details.
+ * Another literal - namely {@link #STATE} has been added to render
+ * certain classes of the uml specification, i. e. Pseudostate and Vertex
+ * redundant.
  */
 public enum PseudostateKind {
     /**
@@ -34,7 +37,7 @@ public enum PseudostateKind {
     /**
      * A pseudostate saving the most recent state configuration, i. e. which
      * states have been active (in execution). Entering a
-     * {@link edu.horb.dhbw.datacore.uml.statemachines.Pseudostate} of this
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.State} of this
      * kind will reset the region to that state configuration. Deprecated as
      * the Codegenerator does not support the feature.
      */

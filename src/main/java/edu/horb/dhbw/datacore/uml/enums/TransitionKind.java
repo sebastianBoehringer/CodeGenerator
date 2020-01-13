@@ -27,9 +27,9 @@ public enum TransitionKind {
     /**
      * A transition where the source and target are the same state.
      * Neither the exit nor the entry behavior of the state will be executed
-     * when this kind of transition is taken. The source state must be a
-     * {@link edu.horb.dhbw.datacore.uml.statemachines.State} not a
-     * {@link edu.horb.dhbw.datacore.uml.statemachines.Pseudostate}.
+     * when this kind of transition is taken. The source state must have a
+     * {@link PseudostateKind} of type {@link PseudostateKind#STATE}, i. e.
+     * the state has to be a normal state.
      */
     INTERNAL,
     /**
