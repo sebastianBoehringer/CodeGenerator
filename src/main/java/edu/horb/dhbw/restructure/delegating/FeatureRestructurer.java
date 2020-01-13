@@ -21,11 +21,12 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Feature;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.restructure.NonCachingRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-public final class FeatureRestructurer extends DelegatingRestructurer<Feature> {
+public final class FeatureRestructurer extends NonCachingRestructurer<Feature> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

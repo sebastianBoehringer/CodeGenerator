@@ -21,15 +21,14 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.restructure.NonCachingRestructurer;
 import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 public final class EnumerationLiteralRestructurer
-        extends RestructurerBase<EnumerationLiteral> {
+        extends NonCachingRestructurer<EnumerationLiteral> {
 
     /**
      * Constructor delegating to
@@ -54,33 +53,5 @@ public final class EnumerationLiteralRestructurer
         literal.setName(element.getName());
 
         return literal;
-    }
-
-    /**
-     * @param id The id of an element
-     * @return Always {@code false}
-     */
-    @Override
-    public boolean wasProcessed(final String id) {
-
-        return false;
-    }
-
-    /**
-     * @param id The id of an element
-     * @return An empty {@link Optional}
-     */
-    @Override
-    public Optional<EnumerationLiteral> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
     }
 }

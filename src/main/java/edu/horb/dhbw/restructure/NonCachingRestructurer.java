@@ -15,17 +15,24 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.restructure.delegating;
+package edu.horb.dhbw.restructure;
 
 import edu.horb.dhbw.datacore.uml.CommonElements;
-import edu.horb.dhbw.restructure.IRestructurer;
-import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 
 import java.util.Optional;
 
-public abstract class DelegatingRestructurer<T extends CommonElements>
+/**
+ * A restructurer that does not hold onto its results.
+ * This can be used for simple classes like
+ * {@link edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral} or
+ * any of the delegating restructurers, i. e. those that handle an abstract
+ * class.
+ *
+ * @param <T> The type the restructurer produces from the
+ *            {@link com.sdmetrics.model.ModelElement}.
+ */
+public abstract class NonCachingRestructurer<T extends CommonElements>
         extends RestructurerBase<T> {
     /**
      * Constructor delegating to
@@ -36,7 +43,7 @@ public abstract class DelegatingRestructurer<T extends CommonElements>
      * @param type                  The name of the metamodel element this
      *                              restructurer handels.
      */
-    public DelegatingRestructurer(final IRestructurerMediator iRestructurerMediator,
+    public NonCachingRestructurer(final IRestructurerMediator iRestructurerMediator,
                                   @NonNull final String type) {
 
         super(iRestructurerMediator, type);
@@ -58,5 +65,20 @@ public abstract class DelegatingRestructurer<T extends CommonElements>
     public Optional<T> getProcessed(@NonNull final String id) {
 
         return Optional.empty();
+    }
+
+    /**
+     * Checks to see if the element with the given id was processed by the
+     * restructurer.
+     * Since this restructurer does not cache, it does not know which
+     * elements is processed and will always return {@code false}.
+     *
+     * @param id The id of an element
+     * @return {@code false}
+     */
+    @Override
+    public boolean wasProcessed(final String id) {
+
+        return false;
     }
 }

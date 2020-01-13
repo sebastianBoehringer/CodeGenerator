@@ -21,12 +21,13 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.restructure.NonCachingRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
 public final class LiteralSpecRestructurer
-        extends DelegatingRestructurer<LiteralSpecification<?>> {
+        extends NonCachingRestructurer<LiteralSpecification> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
