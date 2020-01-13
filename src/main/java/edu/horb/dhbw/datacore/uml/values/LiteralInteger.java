@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.thymeleaf.util.StringUtils;
 
 /**
  * Specifies an integer value.
@@ -35,4 +36,22 @@ public final class LiteralInteger extends LiteralSpecification<Integer> {
      * The specified value.
      */
     private Integer value = 0;
+
+    /**
+     * Creates a new LiteralInteger from the given String representation.
+     * If the string is empty, i. e. {@code null} or {@code ""}, the default
+     * value is {@code 0}.
+     *
+     * @param representation The string representation of an integer
+     * @return A literalInteger with its value defined by the given
+     * representation
+     */
+    public static LiteralInteger valueOf(final String representation) {
+
+        LiteralInteger integer = new LiteralInteger();
+        if (!StringUtils.isEmpty(representation)) {
+            integer.value = Integer.valueOf(representation);
+        }
+        return integer;
+    }
 }
