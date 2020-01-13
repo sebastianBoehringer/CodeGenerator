@@ -29,7 +29,7 @@ import org.thymeleaf.util.StringUtils;
  * {@link Long#MIN_VALUE} but that would make comparisons feel awkward.
  */
 @Data
-public class UnlimitedNatural {
+public final class UnlimitedNatural {
     /**
      * Represents the special value unlimited as {@link Long#MAX_VALUE}.
      * Since UnlimitedNatural is most often used in conjunction with
