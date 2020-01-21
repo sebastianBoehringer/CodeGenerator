@@ -336,6 +336,14 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                 .getOrDefault(clazz, defaultImplementation);
     }
 
+    /**
+     * Restructures the given {@link Model}.
+     * This calls {@link IRestructurer#restructure(Model)} on every
+     * {@link IRestructurer} contained in {@link #classToRestructurer}.
+     *
+     * @param model The model to restructure
+     * @return A list of the restructured uml classes
+     */
     @Override
     public @NonNull List<CommonElements> restructure(
             @NonNull final Model model) {
@@ -349,6 +357,15 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
         return elements;
     }
 
+    /**
+     * Restructureres the given {@link ModelElement}.
+     * This works by looking up the correct class for the
+     * {@link ModelElement} via {@link LookupUtil#elementFromUMLType(String)}
+     * and calling the appropriate {@link IRestructurer} implementation.
+     *
+     * @param element The modelElement to restructure
+     * @return The restructured element
+     */
     @Override
     public CommonElements restructure(@NonNull final ModelElement element) {
 
