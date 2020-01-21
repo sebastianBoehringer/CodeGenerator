@@ -21,33 +21,20 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class ConnectorRestructurer extends RestructurerBase<Connector> {
+public final class ConnectorRestructurer
+        extends CachingRestructurer<Connector> {
+
 
     /**
-     * A map holding all the
-     * {@link Connector}s that have already been processed. This
-     * maps from their xmi id to the actual instance. The map is not
-     * synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Connector> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -57,23 +44,17 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
     }
 
     @Override
-    public Optional<Connector> getProcessed(final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
     public Connector restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading connector from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Connector connector = new Connector();
         connector.setId(id);
-        ALREADY_PROCESSED.put(id, connector);
+        processed.put(id, connector);
 
         log.info("Processing type for connector [{}]", id);
         ModelElement type = element.getRefAttribute("type");
@@ -85,11 +66,5 @@ public final class ConnectorRestructurer extends RestructurerBase<Connector> {
         connector.setEnd(delegateMany(ends, ConnectorEnd.class));
 
         return connector;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

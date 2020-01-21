@@ -20,32 +20,20 @@ package edu.horb.dhbw.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class DependencyRestructurer extends RestructurerBase<Dependency> {
-    /**
-     * A map holding all the {@link Dependency}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Dependency> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class DependencyRestructurer
+        extends CachingRestructurer<Dependency> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -58,14 +46,14 @@ public final class DependencyRestructurer extends RestructurerBase<Dependency> {
     public Dependency restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading dependency from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Dependency dependency = new Dependency();
         dependency.setId(id);
-        ALREADY_PROCESSED.put(id, dependency);
+        processed.put(id, dependency);
 
         log.info("Processing client for dependency [{}]", id);
         Collection<ModelElement> clients =
@@ -80,17 +68,5 @@ public final class DependencyRestructurer extends RestructurerBase<Dependency> {
                 delegateMany(suppliers, NamedElement.class);
         dependency.setSupplier(supplier);
         return dependency;
-    }
-
-    @Override
-    public Optional<Dependency> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

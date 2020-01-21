@@ -21,34 +21,18 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
 public final class ConnectorEndRestructurer
-        extends RestructurerBase<ConnectorEnd> {
+        extends CachingRestructurer<ConnectorEnd> {
 
     /**
-     * A map holding all the {@link ConnectorEnd}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, ConnectorEnd> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -61,14 +45,14 @@ public final class ConnectorEndRestructurer
     public ConnectorEnd restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading connectorend from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         ConnectorEnd end = new ConnectorEnd();
         end.setId(id);
-        ALREADY_PROCESSED.put(id, end);
+        processed.put(id, end);
 
         log.info("Processing ordered for connectorend [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
@@ -103,15 +87,4 @@ public final class ConnectorEndRestructurer
         return end;
     }
 
-    @Override
-    public Optional<ConnectorEnd> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
 }

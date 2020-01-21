@@ -21,35 +21,22 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class PackageRestructurer extends RestructurerBase<UMLPackage> {
-    /**
-     * A map holding all the {@link UMLPackage}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, UMLPackage> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
 
     private static final String PROCESSED_METAMODEL_ELEMENT = "package";
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -75,12 +62,12 @@ public final class PackageRestructurer extends RestructurerBase<UMLPackage> {
             }
         }
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] for package in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         UMLPackage umlPackage = new UMLPackage();
-        ALREADY_PROCESSED.put(id, umlPackage);
+        processed.put(id, umlPackage);
         umlPackage.setId(id);
 
         log.info("Processing name for package [{}]", id);
@@ -100,17 +87,5 @@ public final class PackageRestructurer extends RestructurerBase<UMLPackage> {
                 delegateMany(applications, ProfileApplication.class));
 
         return umlPackage;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<UMLPackage> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

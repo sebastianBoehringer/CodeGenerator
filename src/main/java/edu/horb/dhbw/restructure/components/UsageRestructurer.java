@@ -20,31 +20,19 @@ package edu.horb.dhbw.restructure.components;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class UsageRestructurer extends RestructurerBase<Usage> {
-    /**
-     * A map holding all the {@link Usage}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Usage> ALREADY_PROCESSED = new HashMap<>();
+public final class UsageRestructurer extends CachingRestructurer<Usage> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -57,13 +45,13 @@ public final class UsageRestructurer extends RestructurerBase<Usage> {
     public Usage restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading usage from cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Usage usage = new Usage();
         usage.setId(id);
-        ALREADY_PROCESSED.put(id, usage);
+        processed.put(id, usage);
 
         log.info("Processing client for usage [{}]", id);
         Collection<ModelElement> clients =
@@ -78,17 +66,5 @@ public final class UsageRestructurer extends RestructurerBase<Usage> {
                 delegateMany(suppliers, NamedElement.class);
         usage.setSupplier(supplier);
         return usage;
-    }
-
-    @Override
-    public Optional<Usage> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

@@ -28,31 +28,17 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public final class ConstraintRestrucuturer
-        extends RestructurerBase<Constraint> {
+        extends CachingRestructurer<Constraint> {
     /**
      * The name of the metamodel element this restructurer processes.
      */
     private static final String PROCESSED_METAMODEL_ELEMENT = "constraint";
 
-    /**
-     * A map holding all the {@link Constraint}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Constraint> ALREADY_PROCESSED =
-            new HashMap<>();
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -79,14 +65,14 @@ public final class ConstraintRestrucuturer
         }
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading constraint from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Constraint constraint = new Constraint();
         constraint.setId(id);
-        ALREADY_PROCESSED.put(id, constraint);
+        processed.put(id, constraint);
 
         log.info("Processing specification for constraint [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
@@ -105,17 +91,5 @@ public final class ConstraintRestrucuturer
                 delegateMany(constrained, Element.class));
 
         return constraint;
-    }
-
-    @Override
-    public Optional<Constraint> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

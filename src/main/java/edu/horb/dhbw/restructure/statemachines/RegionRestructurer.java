@@ -22,32 +22,18 @@ import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class RegionRestructurer extends RestructurerBase<Region> {
-    /**
-     * A map holding all the {@link Region}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Region> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class RegionRestructurer extends CachingRestructurer<Region> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,12 +46,12 @@ public final class RegionRestructurer extends RestructurerBase<Region> {
     public Region restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found Region id [{}] in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Region region = new Region();
-        ALREADY_PROCESSED.put(id, region);
+        processed.put(id, region);
         region.setId(id);
 
         log.info("Processing name for Region [{}]", id);
@@ -93,17 +79,5 @@ public final class RegionRestructurer extends RestructurerBase<Region> {
         region.setState(delegateRestructuring(state, State.class));
 
         return region;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<Region> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

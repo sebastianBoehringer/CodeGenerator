@@ -22,32 +22,18 @@ import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
 public final class ElementImportRestructurer
-        extends RestructurerBase<ElementImport> {
-    /**
-     * A map holding all the {@link ElementImport}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, ElementImport> ALREADY_PROCESSED =
-            new HashMap<>();
+        extends CachingRestructurer<ElementImport> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,12 +46,12 @@ public final class ElementImportRestructurer
     public ElementImport restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] for elementimport in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         ElementImport elementImport = new ElementImport();
-        ALREADY_PROCESSED.put(id, elementImport);
+        processed.put(id, elementImport);
         elementImport.setId(id);
 
         log.info("Processing visiblity for elementimport [{}]", id);
@@ -87,17 +73,5 @@ public final class ElementImportRestructurer
                 delegateRestructuring(imported, PackageableElement.class));
 
         return elementImport;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<ElementImport> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

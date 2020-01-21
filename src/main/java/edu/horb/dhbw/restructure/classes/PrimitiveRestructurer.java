@@ -22,35 +22,20 @@ import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public class PrimitiveRestructurer extends RestructurerBase<PrimitiveType> {
+public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
 
     /**
-     * A map holding all the {@link PrimitiveType}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, PrimitiveType> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -63,12 +48,12 @@ public class PrimitiveRestructurer extends RestructurerBase<PrimitiveType> {
     public PrimitiveType restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found datatype [{}] in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         PrimitiveType type = new PrimitiveType();
-        ALREADY_PROCESSED.put(id, type);
+        processed.put(id, type);
 
         log.info("Processing name for PrimitiveType [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -101,17 +86,5 @@ public class PrimitiveRestructurer extends RestructurerBase<PrimitiveType> {
                 delegateMany(generalizations, Generalization.class));
 
         return type;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<PrimitiveType> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

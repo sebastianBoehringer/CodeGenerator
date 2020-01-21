@@ -26,15 +26,10 @@ import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 public final class InstanceValueRestructurer
         extends RestructurerBase<InstanceValue> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -54,23 +49,5 @@ public final class InstanceValueRestructurer
 
         value.setId(id);
         return value;
-    }
-
-    /**
-     * No op as this restructurer does not cache intermediate results.
-     */
-    @Override
-    public void cleanCache() {
-
-    }
-
-    /**
-     * @param id The id of an element
-     * @return Always {@link Optional#EMPTY}
-     */
-    @Override
-    public Optional<InstanceValue> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
     }
 }

@@ -24,32 +24,18 @@ import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
-public class TransitionRestructurer extends RestructurerBase<Transition> {
-    /**
-     * A map holding all the {@link Transition}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Transition> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class TransitionRestructurer
+        extends CachingRestructurer<Transition> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -62,12 +48,12 @@ public class TransitionRestructurer extends RestructurerBase<Transition> {
     public Transition restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Transition transition = new Transition();
-        ALREADY_PROCESSED.put(id, transition);
+        processed.put(id, transition);
         transition.setId(id);
 
         log.info("Processing name for Transition [{}]", id);
@@ -102,17 +88,5 @@ public class TransitionRestructurer extends RestructurerBase<Transition> {
         transition.setContainer(delegateRestructuring(container, Region.class));
 
         return transition;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<Transition> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

@@ -24,33 +24,19 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public class DatatypeRestructurer extends RestructurerBase<DataType> {
-    /**
-     * A map holding all the {@link DataType}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, DataType> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class DatatypeRestructurer extends CachingRestructurer<DataType> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -63,13 +49,13 @@ public class DatatypeRestructurer extends RestructurerBase<DataType> {
     public DataType restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading datatype from cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         DataType dataType = new DataType();
         dataType.setId(id);
-        ALREADY_PROCESSED.put(id, dataType);
+        processed.put(id, dataType);
 
         log.info("Processing name for DataType [{}]", id);
         dataType.setName(element.getName());
@@ -114,17 +100,5 @@ public class DatatypeRestructurer extends RestructurerBase<DataType> {
         dataType.setOwnedOperation(delegateMany(operations, Operation.class));
 
         return dataType;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<DataType> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

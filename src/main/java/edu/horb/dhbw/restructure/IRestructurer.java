@@ -23,7 +23,6 @@ import edu.horb.dhbw.datacore.uml.CommonElements;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * An interface that provides the restructuring functionality.
@@ -52,23 +51,4 @@ public interface IRestructurer<T extends CommonElements> {
      * @return A restrucutured uml class
      */
     T restructure(@NonNull ModelElement element);
-
-    /**
-     * Checks to see if the restructurer already processed a certain element.
-     *
-     * @param id The id of an element
-     * @return {@code true} if the IRestructurer already processed the
-     * instance, {@code false} otherwise
-     */
-    boolean wasProcessed(String id);
-
-    /**
-     * Returns an element identified by the given id if the IRestructurer
-     * already processed it.
-     *
-     * @param id The id of an element
-     * @return An optional wrapping the element if it was already processed,
-     * an empty Optional otherwise
-     */
-    Optional<T> getProcessed(String id);
 }

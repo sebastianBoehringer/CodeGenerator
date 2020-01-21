@@ -21,33 +21,20 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public final class RealizationRestructurer
-        extends RestructurerBase<Realization> {
-    /**
-     * A map holding all the {@link Realization}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Realization> ALREADY_PROCESSED =
-            new HashMap<>();
+        extends CachingRestructurer<Realization> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,14 +47,14 @@ public final class RealizationRestructurer
     public Realization restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading realization from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Realization realization = new Realization();
         realization.setId(id);
-        ALREADY_PROCESSED.put(id, realization);
+        processed.put(id, realization);
 
         log.info("Processing mapping for realization [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
@@ -88,17 +75,5 @@ public final class RealizationRestructurer
         realization.setSupplier(supplier);
 
         return realization;
-    }
-
-    @Override
-    public Optional<Realization> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

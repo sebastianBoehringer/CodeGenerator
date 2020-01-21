@@ -24,7 +24,6 @@ import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * The default implementation for an {@link RestructurerBase}.
@@ -34,9 +33,6 @@ import java.util.Optional;
  */
 public final class IRestructurerDefImpl extends RestructurerBase<Element> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -63,33 +59,5 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
     public Element restructure(@NonNull final ModelElement element) {
 
         return null;
-    }
-
-    /**
-     * @param id The id of an element
-     * @return {@code false} in every case
-     */
-    @Override
-    public boolean wasProcessed(final String id) {
-
-        return false;
-    }
-
-    /**
-     * @param id The id of an element
-     * @return An empty {@link Optional} in every case
-     */
-    @Override
-    public Optional<Element> getProcessed(final String id) {
-
-        return Optional.empty();
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
     }
 }

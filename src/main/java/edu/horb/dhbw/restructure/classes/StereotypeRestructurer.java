@@ -25,14 +25,9 @@ import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 public final class StereotypeRestructurer extends RestructurerBase<Stereotype> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -53,23 +48,5 @@ public final class StereotypeRestructurer extends RestructurerBase<Stereotype> {
         stereotype.setName(name);
 
         return stereotype;
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
-    }
-
-    /**
-     * @param id The id of an element
-     * @return Always {@link Optional#EMPTY}
-     */
-    @Override
-    public Optional<Stereotype> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
     }
 }

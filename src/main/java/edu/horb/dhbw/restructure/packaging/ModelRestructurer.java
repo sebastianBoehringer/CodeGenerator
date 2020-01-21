@@ -21,30 +21,18 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.packages.Model;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class ModelRestructurer extends RestructurerBase<Model> {
-    /**
-     * A map holding all the {@link Model}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Model> ALREADY_PROCESSED = new HashMap<>();
+public final class ModelRestructurer extends CachingRestructurer<Model> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -57,12 +45,12 @@ public final class ModelRestructurer extends RestructurerBase<Model> {
     public Model restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] for model in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Model model = new Model();
-        ALREADY_PROCESSED.put(id, model);
+        processed.put(id, model);
         model.setId(id);
 
         log.info("Processing name for model [{}]", id);
@@ -82,17 +70,5 @@ public final class ModelRestructurer extends RestructurerBase<Model> {
                 delegateMany(applications, ProfileApplication.class));
 
         return model;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<Model> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

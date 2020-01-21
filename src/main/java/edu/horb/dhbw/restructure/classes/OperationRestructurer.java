@@ -23,34 +23,21 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class OperationRestructurer extends RestructurerBase<Operation> {
+public final class OperationRestructurer
+        extends CachingRestructurer<Operation> {
+
 
     /**
-     * A map holding all the {@link Operation}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Operation> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,23 +47,17 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
     }
 
     @Override
-    public Optional<Operation> getProcessed(final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
     public Operation restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading operation from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Operation operation = new Operation();
         operation.setId(id);
-        ALREADY_PROCESSED.put(id, operation);
+        processed.put(id, operation);
 
         log.info("Processing name for operation [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -123,11 +104,5 @@ public final class OperationRestructurer extends RestructurerBase<Operation> {
         operation.setRaisedException(delegateMany(exceptions, Type.class));
 
         return operation;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

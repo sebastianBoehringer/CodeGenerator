@@ -49,6 +49,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
 import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
@@ -73,6 +74,7 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.EncapsulatedClassifier;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.StructuredClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.values.Interval;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
@@ -107,6 +109,7 @@ import edu.horb.dhbw.restructure.classes.OperationRestructurer;
 import edu.horb.dhbw.restructure.classes.ParameterRestructurer;
 import edu.horb.dhbw.restructure.classes.PrimitiveRestructurer;
 import edu.horb.dhbw.restructure.classes.PropertyRestructurer;
+import edu.horb.dhbw.restructure.classes.RealizationRestructurer;
 import edu.horb.dhbw.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.restructure.classes.StereotypeRestructurer;
 import edu.horb.dhbw.restructure.classes.SubstitutionRestructurer;
@@ -129,6 +132,7 @@ import edu.horb.dhbw.restructure.delegating.NamespaceRestructurer;
 import edu.horb.dhbw.restructure.delegating.PackageableRestructurer;
 import edu.horb.dhbw.restructure.delegating.RelationshipRestructurer;
 import edu.horb.dhbw.restructure.delegating.StructuralFeatureRestructurer;
+import edu.horb.dhbw.restructure.delegating.StructuredClassifierRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypedElementRestructurer;
 import edu.horb.dhbw.restructure.delegating.ValueSpecRestrucuturer;
@@ -153,7 +157,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class IRestructurerMediator implements IRestructurer<CommonElements> {
@@ -162,7 +165,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 51;
+    private static final int DEFAULT_SIZE = 64;
 
     /**
      * The mappings to use.
@@ -300,6 +303,10 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
                                 new ModelRestructurer(this));
         classToRestructurer.put(ComponentRealization.class,
                                 new ComponentRealizationRestructurer(this));
+        classToRestructurer
+                .put(Realization.class, new RealizationRestructurer(this));
+        classToRestructurer.put(StructuredClassifier.class,
+                                new StructuredClassifierRestructurer(this));
     }
 
     /**
@@ -352,40 +359,14 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     }
 
     /**
-     * Always returns false.
-     * The reason for that is that the mediator does not cache intermediate
-     * results.
-     *
-     * @param id The id of an element
-     * @return {@code false}
-     */
-    @Override
-    public boolean wasProcessed(final String id) {
-
-        return false;
-    }
-
-    /**
-     * Will always return an empty optional.
-     *
-     * @param id The id of an element
-     * @return {@link Optional#EMPTY}
-     */
-    @Override
-    public Optional<CommonElements> getProcessed(final String id) {
-
-        return Optional.empty();
-    }
-
-    /**
-     * Cleans up the caches of every registered {@link RestructurerBase}.
+     * Cleans up the caches of every registered {@link CachingRestructurer}.
      */
     public void cleanCaches() {
 
         for (IRestructurer<? extends CommonElements> value : classToRestructurer
                 .values()) {
-            if (value instanceof RestructurerBase<?>) {
-                ((RestructurerBase<? extends CommonElements>) value)
+            if (value instanceof CachingRestructurer<?>) {
+                ((CachingRestructurer<? extends CommonElements>) value)
                         .cleanCache();
             }
         }

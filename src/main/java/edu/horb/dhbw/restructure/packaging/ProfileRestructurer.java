@@ -23,31 +23,17 @@ import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.packages.Profile;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class ProfileRestructurer extends RestructurerBase<Profile> {
+public final class ProfileRestructurer extends CachingRestructurer<Profile> {
     /**
-     * A map holding all the {@link Profile}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Profile> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,12 +46,12 @@ public final class ProfileRestructurer extends RestructurerBase<Profile> {
     public Profile restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] for profile in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Profile profile = new Profile();
-        ALREADY_PROCESSED.put(id, profile);
+        processed.put(id, profile);
         profile.setId(id);
 
         log.info("Processing name for profile [{}]", id);
@@ -99,17 +85,5 @@ public final class ProfileRestructurer extends RestructurerBase<Profile> {
                 delegateMany(metaPackages, PackageImport.class));
 
         return profile;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<Profile> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

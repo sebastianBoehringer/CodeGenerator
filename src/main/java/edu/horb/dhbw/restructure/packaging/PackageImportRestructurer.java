@@ -22,32 +22,18 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
 public final class PackageImportRestructurer
-        extends RestructurerBase<PackageImport> {
-    /**
-     * A map holding all the {@link PackageImport}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, PackageImport> ALREADY_PROCESSED =
-            new HashMap<>();
+        extends CachingRestructurer<PackageImport> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -60,12 +46,12 @@ public final class PackageImportRestructurer
     public PackageImport restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] for packageimport in cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         PackageImport packageImport = new PackageImport();
-        ALREADY_PROCESSED.put(id, packageImport);
+        processed.put(id, packageImport);
         packageImport.setId(id);
 
         log.info("Processing visiblity for packageimport [{}]", id);
@@ -87,17 +73,5 @@ public final class PackageImportRestructurer
                 delegateRestructuring(imported, UMLPackage.class));
 
         return packageImport;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<PackageImport> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

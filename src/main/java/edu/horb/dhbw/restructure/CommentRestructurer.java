@@ -24,25 +24,11 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class CommentRestructurer extends RestructurerBase<Comment> {
-    /**
-     * A map holding all the {@link Comment}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Comment> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class CommentRestructurer extends CachingRestructurer<Comment> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -55,14 +41,14 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
     public Comment restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading constraint from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Comment comment = new Comment();
         comment.setId(id);
-        ALREADY_PROCESSED.put(id, comment);
+        processed.put(id, comment);
 
         log.info("Processing body for comment [{}]", id);
         String body = element.getPlainAttribute("body");
@@ -74,17 +60,5 @@ public final class CommentRestructurer extends RestructurerBase<Comment> {
         comment.setAnnotatedElement(delegateMany(annotated, Element.class));
 
         return comment;
-    }
-
-    @Override
-    public Optional<Comment> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

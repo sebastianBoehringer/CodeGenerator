@@ -22,30 +22,18 @@ import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.InstanceSpecification;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import edu.horb.dhbw.util.LookupUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public final class InstanceSpecRestructurer
-        extends RestructurerBase<InstanceSpecification> {
-    /**
-     * A map holding all the {@link InstanceSpecification}s that have already
-     * been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, InstanceSpecification> ALREADY_PROCESSED =
-            new HashMap<>();
-
+        extends CachingRestructurer<InstanceSpecification> {
     /**
      * The name of the metamodel element this restructurer can process.
      */
@@ -53,9 +41,6 @@ public final class InstanceSpecRestructurer
             "instancespecification";
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -82,13 +67,13 @@ public final class InstanceSpecRestructurer
             }
         }
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading instancespecification "
                              + "from cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         InstanceSpecification specification = new InstanceSpecification();
-        ALREADY_PROCESSED.put(id, specification);
+        processed.put(id, specification);
         specification.setId(id);
 
         log.info("Processing name for instancespecification [{}]", id);
@@ -113,18 +98,5 @@ public final class InstanceSpecRestructurer
                 delegateRestructuring(spec, ValueSpecification.class));
 
         return specification;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<InstanceSpecification> getProcessed(
-            @NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

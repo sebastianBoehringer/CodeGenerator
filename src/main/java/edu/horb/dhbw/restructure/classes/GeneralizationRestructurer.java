@@ -20,32 +20,17 @@ package edu.horb.dhbw.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 @Slf4j
 public final class GeneralizationRestructurer
-        extends RestructurerBase<Generalization> {
+        extends CachingRestructurer<Generalization> {
     /**
-     * A map holding all the {@link Generalization}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Generalization> ALREADY_PROCESSED =
-            new HashMap<>();
-
-    /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -58,14 +43,14 @@ public final class GeneralizationRestructurer
     public Generalization restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading generalization from "
                              + "cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Generalization generalization = new Generalization();
         generalization.setId(id);
-        ALREADY_PROCESSED.put(id, generalization);
+        processed.put(id, generalization);
 
         log.info("Processing general for generalization [{}]", id);
         ModelElement general = element.getRefAttribute("general");
@@ -84,17 +69,5 @@ public final class GeneralizationRestructurer
                         .valueOf(substitutable));
 
         return generalization;
-    }
-
-    @Override
-    public Optional<Generalization> getProcessed(final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

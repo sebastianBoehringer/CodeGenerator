@@ -25,9 +25,9 @@ import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
@@ -35,21 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class PropertyRestructurer extends RestructurerBase<Property> {
-
-    /**
-     * A map holding all the {@link Property}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, Property> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class PropertyRestructurer extends CachingRestructurer<Property> {
 
     /**
      * The name of the metamodel element this restructurer can process.
@@ -57,9 +45,6 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
     private static final String PROCESSED_METAMODEL_ELEMENT = "property";
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -87,14 +72,14 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         }
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading property from cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
 
         Property property = new Property();
         property.setId(id);
-        ALREADY_PROCESSED.put(id, property);
+        processed.put(id, property);
 
         log.info("Processing name for property [{}]", id);
         property.setName(element.getName());
@@ -179,17 +164,5 @@ public final class PropertyRestructurer extends RestructurerBase<Property> {
         property.setIsStatic(Boolean.valueOf(isStatic));
 
         return property;
-    }
-
-    @Override
-    public Optional<Property> getProcessed(final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

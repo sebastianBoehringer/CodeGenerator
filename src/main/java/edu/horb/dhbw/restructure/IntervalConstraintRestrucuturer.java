@@ -29,15 +29,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public final class IntervalConstraintRestrucuturer
         extends RestructurerBase<IntervalConstraint> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -88,17 +84,5 @@ public final class IntervalConstraintRestrucuturer
                 delegateMany(constrained, Element.class));
 
         return constraint;
-    }
-
-    @Override
-    public Optional<IntervalConstraint> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

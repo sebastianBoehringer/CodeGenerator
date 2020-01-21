@@ -24,33 +24,21 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
-public final class InterfaceRestructurer extends RestructurerBase<Interface> {
-    /**
-     * A map holding all the {@link Interface}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, Interface> ALREADY_PROCESSED =
-            new HashMap<>();
+public final class InterfaceRestructurer
+        extends CachingRestructurer<Interface> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -63,14 +51,14 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
     public Interface restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading interface from cache",
                      id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         Interface anInterface = new Interface();
         anInterface.setId(id);
-        ALREADY_PROCESSED.put(id, anInterface);
+        processed.put(id, anInterface);
 
         log.info("Processing name for interface [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -108,17 +96,5 @@ public final class InterfaceRestructurer extends RestructurerBase<Interface> {
                 delegateMany(generalizations, Generalization.class));
 
         return anInterface;
-    }
-
-    @Override
-    public Optional<Interface> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
     }
 }

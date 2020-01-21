@@ -23,14 +23,9 @@ import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 public final class IntervalRestructurer extends RestructurerBase<Interval> {
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -64,19 +59,5 @@ public final class IntervalRestructurer extends RestructurerBase<Interval> {
                      id);
         }
         return interval;
-    }
-
-    @Override
-    public Optional<Interval> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
     }
 }

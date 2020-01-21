@@ -21,13 +21,13 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.values.LiteralReal;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.NonCachingRestructurer;
+import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class LiteralRealRestructurer
-        extends NonCachingRestructurer<LiteralReal> {
+        extends RestructurerBase<LiteralReal> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

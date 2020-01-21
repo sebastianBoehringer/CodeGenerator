@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -109,34 +108,6 @@ public abstract class RestructurerBase<T extends CommonElements>
      * @return A restrucutured uml class
      */
     public abstract T restructure(@NonNull ModelElement element);
-
-    /**
-     * Checks to see if the restructurer already processed a certain element.
-     *
-     * @param id The id of an element
-     * @return {@code true} if the {@link IRestructurer} already processed the
-     * instance, {@code false} if the id is null or was not processed
-     * by the {@link IRestructurer}.
-     */
-    public boolean wasProcessed(final String id) {
-
-        return id != null && getProcessed(id).isPresent();
-    }
-
-    /**
-     * Cleans the cache if the extended restructurer uses one.
-     */
-    public abstract void cleanCache();
-
-    /**
-     * Returns an element identified by the given id if the IRestructurer
-     * already processed it.
-     *
-     * @param id The id of an element
-     * @return An optional wrapping the element if it was already processed,
-     * an empty Optional otherwise
-     */
-    public abstract Optional<T> getProcessed(@NonNull String id);
 
     /**
      * Delegates the restructuring task of multiple {@link ModelElement}s to

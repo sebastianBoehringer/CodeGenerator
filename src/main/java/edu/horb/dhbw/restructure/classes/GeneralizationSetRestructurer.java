@@ -21,32 +21,19 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.GeneralizationSet;
+import edu.horb.dhbw.restructure.CachingRestructurer;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
-import edu.horb.dhbw.restructure.RestructurerBase;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 public final class GeneralizationSetRestructurer
-        extends RestructurerBase<GeneralizationSet> {
-    /**
-     * A map holding all the {@link GeneralizationSet}s that have already been
-     * processed. This maps from their xmi id to the actual instance. The map
-     * is not synchronized, thus the class is most likely not threadsafe.
-     */
-    private static final Map<String, GeneralizationSet> ALREADY_PROCESSED =
-            new HashMap<>();
+        extends CachingRestructurer<GeneralizationSet> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -59,14 +46,14 @@ public final class GeneralizationSetRestructurer
     public GeneralizationSet restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading generalizationset from "
                              + "cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         GeneralizationSet generalizationSet = new GeneralizationSet();
         generalizationSet.setId(id);
-        ALREADY_PROCESSED.put(id, generalizationSet);
+        processed.put(id, generalizationSet);
 
         log.info("Processing name for generalizationset [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -93,17 +80,5 @@ public final class GeneralizationSetRestructurer
                 delegateRestructuring(powertype, Classifier.class));
 
         return generalizationSet;
-    }
-
-    @Override
-    public void cleanCache() {
-
-        ALREADY_PROCESSED.clear();
-    }
-
-    @Override
-    public Optional<GeneralizationSet> getProcessed(@NonNull final String id) {
-
-        return Optional.ofNullable(ALREADY_PROCESSED.get(id));
     }
 }

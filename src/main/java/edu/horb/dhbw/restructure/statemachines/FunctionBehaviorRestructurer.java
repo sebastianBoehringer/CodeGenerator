@@ -31,16 +31,12 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 @Slf4j
 public final class FunctionBehaviorRestructurer
         extends RestructurerBase<FunctionBehavior> {
 
     /**
-     * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
-     *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
@@ -94,23 +90,5 @@ public final class FunctionBehaviorRestructurer
                 delegateRestructuring(specification, Operation.class));
 
         return behavior;
-    }
-
-    /**
-     * No op as this restructurer does not cache.
-     */
-    @Override
-    public void cleanCache() {
-
-    }
-
-    /**
-     * @param id The id of an element
-     * @return {@link Optional#EMPTY} as this restructurer does not cache
-     */
-    @Override
-    public Optional<FunctionBehavior> getProcessed(@NonNull final String id) {
-
-        return Optional.empty();
     }
 }
