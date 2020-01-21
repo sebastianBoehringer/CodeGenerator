@@ -18,6 +18,7 @@
 package edu.horb.dhbw.restructure.classes;
 
 import com.sdmetrics.model.Model;
+import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
@@ -25,6 +26,9 @@ import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
 import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
 import edu.horb.dhbw.restructure.BaseRestructurerTest;
+import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.delegating.LiteralSpecRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
 import org.testng.annotations.BeforeClass;
@@ -35,6 +39,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class ParameterRestrucuturerTest extends BaseRestructurerTest {
 
@@ -95,6 +100,17 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
         assertEquals(parameter.getIsOrdered(), Boolean.FALSE,
                      "Default is false");
         assertEquals(parameter.getIsUnique(), Boolean.TRUE, "Default is true");
+    }
 
+
+    @Test
+    public void isRegisteredAtMediator() {
+
+        IRestructurerMediator restructurerMediator =
+                new IRestructurerMediator();
+        IRestructurer<?> restructurer =
+                restructurerMediator.getIRestructurer(Parameter.class);
+        assertFalse(restructurer instanceof IRestructurerDefImpl,
+                    "No restructurer registered for Parameter.class");
     }
 }

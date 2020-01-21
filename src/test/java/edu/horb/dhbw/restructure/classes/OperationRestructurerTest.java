@@ -22,12 +22,15 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class OperationRestructurerTest extends BaseRestructurerTest {
 
@@ -63,5 +66,16 @@ public class OperationRestructurerTest extends BaseRestructurerTest {
             assertEquals(operation.getIsStatic(), Boolean.FALSE,
                          "Default is false");
         }
+    }
+
+    @Test
+    public void isRegisteredAtMediator() {
+
+        IRestructurerMediator restructurerMediator =
+                new IRestructurerMediator();
+        IRestructurer<?> restructurer =
+                restructurerMediator.getIRestructurer(Operation.class);
+        assertFalse(restructurer instanceof IRestructurerDefImpl,
+                    "No restructurer registered for Operation.class");
     }
 }

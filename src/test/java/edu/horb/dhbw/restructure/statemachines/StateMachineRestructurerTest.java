@@ -24,12 +24,16 @@ import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
 import edu.horb.dhbw.restructure.BaseRestructurerTest;
+import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
@@ -134,5 +138,16 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
 
         assertEquals(toTest.getName(), name,
                      String.format("name of the state should be %s", name));
+    }
+
+    @Test
+    public void isRegisteredAtMediator() {
+
+        IRestructurerMediator restructurerMediator =
+                new IRestructurerMediator();
+        IRestructurer<?> restructurer =
+                restructurerMediator.getIRestructurer(StateMachine.class);
+        assertFalse(restructurer instanceof IRestructurerDefImpl,
+                    "No restructurer registered for StateMachine.class");
     }
 }

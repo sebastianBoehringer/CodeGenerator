@@ -23,6 +23,8 @@ import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -30,6 +32,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class PropertyRestructurerTest extends BaseRestructurerTest {
 
@@ -76,5 +79,16 @@ public class PropertyRestructurerTest extends BaseRestructurerTest {
             assertEquals(property.getIsStatic(), Boolean.FALSE,
                          "Default is false");
         }
+    }
+
+    @Test
+    public void isRegisteredAtMediator() {
+
+        IRestructurerMediator restructurerMediator =
+                new IRestructurerMediator();
+        IRestructurer<?> restructurer =
+                restructurerMediator.getIRestructurer(Property.class);
+        assertFalse(restructurer instanceof IRestructurerDefImpl,
+                    "No restructurer registered for Property.class");
     }
 }

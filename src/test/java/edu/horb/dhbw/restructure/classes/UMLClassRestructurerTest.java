@@ -30,6 +30,7 @@ import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
+import edu.horb.dhbw.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -38,6 +39,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class UMLClassRestructurerTest extends BaseRestructurerTest {
@@ -129,5 +131,16 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
             assertEquals(((LiteralUnlimitedNatural) upperSpecOp).getValue(),
                          new UnlimitedNatural(1L));
         }
+    }
+
+    @Test
+    public void isRegisteredAtMediator() {
+
+        IRestructurerMediator restructurerMediator =
+                new IRestructurerMediator();
+        IRestructurer<?> restructurer =
+                restructurerMediator.getIRestructurer(UMLClass.class);
+        assertFalse(restructurer instanceof IRestructurerDefImpl,
+                    "No restructurer registered for UMLClass.class");
     }
 }
