@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -14,13 +14,11 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.config;
+package edu.horb.dhbw.util;
 
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
 import lombok.NonNull;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -35,7 +33,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
-public class SDMetricsConfigTest {
+public class SDMetricsUtilTest {
 
     private MetaModel metaModel;
 
@@ -43,7 +41,7 @@ public class SDMetricsConfigTest {
     public void init()
             throws Exception {
 
-        metaModel = SDMetricsConfig.createMetaModel();
+        metaModel = SDMetricsUtil.createMetaModel();
     }
 
     @Test(dataProvider = "classes")
@@ -52,7 +50,7 @@ public class SDMetricsConfigTest {
         System.out.println(String.format("Testing file [%s] now", pathToFile));
         Model model;
         try {
-            model = SDMetricsConfig.parseXMI(metaModel, pathToFile);
+            model = SDMetricsUtil.parseXMI(metaModel, pathToFile);
         } catch (Exception e) {
             Assert.fail("Encountered an exception while processing xmi", e);
             return;

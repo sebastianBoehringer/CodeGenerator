@@ -18,7 +18,7 @@
 package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
+import edu.horb.dhbw.util.SDMetricsUtil;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 
@@ -41,7 +41,7 @@ public abstract class BaseRestructurerTest {
         System.out.println(String.format("Testing file %s", pathToFile));
         Model model;
         try {
-            model = SDMetricsConfig.parseXMI(pathToFile);
+            model = SDMetricsUtil.parseXMI(pathToFile);
         } catch (Exception e) {
             Assert.fail("Encountered an exception while processing xmi", e);
             return null;

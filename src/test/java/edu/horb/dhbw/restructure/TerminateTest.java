@@ -18,7 +18,7 @@
 package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
+import edu.horb.dhbw.util.SDMetricsUtil;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -38,7 +38,7 @@ public class TerminateTest {
             throws Exception {
 
         System.out.println(pathToFile);
-        final Model model = SDMetricsConfig.parseXMI(pathToFile);
+        final Model model = SDMetricsUtil.parseXMI(pathToFile);
         final IRestructurerMediator mediator = new IRestructurerMediator();
         mediator.getIRestructurer(UMLClass.class).restructure(model);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -15,7 +15,7 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.config.SDMetrics;
+package edu.horb.dhbw.util;
 
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
@@ -28,7 +28,7 @@ import lombok.NonNull;
  * Utility class that eases the deserialization fo XMI files with
  * {@link XMIReader}.
  */
-public final class SDMetricsConfig {
+public final class SDMetricsUtil {
     /**
      * The path to the metamodel as a string. Its the metamodel definition
      * the {@link XMIReader} will use
@@ -45,7 +45,7 @@ public final class SDMetricsConfig {
     /**
      * Private constructor to prevent instances of the class from being created.
      */
-    private SDMetricsConfig() {
+    private SDMetricsUtil() {
 
     }
 
