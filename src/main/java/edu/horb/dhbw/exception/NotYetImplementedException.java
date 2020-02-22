@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -15,7 +15,7 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.util;
+package edu.horb.dhbw.exception;
 
 
 import lombok.NonNull;
@@ -54,10 +54,10 @@ public class NotYetImplementedException extends RuntimeException {
      */
     @Deprecated
     public NotYetImplementedException(
-            @NonNull final Class clazz, @NonNull final String methodName) {
+            @NonNull final Class<?> clazz, @NonNull final String methodName) {
 
         super(String.format(
-                "The method %s in class %s has yet to be " + "implemented",
+                "The method %s in class %s has yet to be implemented",
                 methodName, clazz.getSimpleName()));
     }
 }
