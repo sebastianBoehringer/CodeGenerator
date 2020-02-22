@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import static org.testng.Assert.assertEquals;
@@ -42,6 +43,7 @@ public class SDMetricsUtilTest {
             throws Exception {
 
         metaModel = SDMetricsUtil.createMetaModel();
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     @Test(dataProvider = "classes")

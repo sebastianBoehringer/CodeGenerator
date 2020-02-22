@@ -31,11 +31,13 @@ import edu.horb.dhbw.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
 import edu.horb.dhbw.restructure.delegating.LiteralSpecRestructurer;
 import edu.horb.dhbw.restructure.delegating.TypeRestructurer;
+import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
@@ -47,6 +49,7 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
     public void init() {
 
         mediator.register(Parameter.class, new ParameterRestructurer(mediator));
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     @Test(dataProvider = "classdiagramfiles")

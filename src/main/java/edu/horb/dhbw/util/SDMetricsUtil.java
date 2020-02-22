@@ -29,18 +29,6 @@ import lombok.NonNull;
  * {@link XMIReader}.
  */
 public final class SDMetricsUtil {
-    /**
-     * The path to the metamodel as a string. Its the metamodel definition
-     * the {@link XMIReader} will use
-     */
-    private static final String METAMODELURL =
-            "src/main/resources/SDMetricsConfig/metamodel2.xml";
-    /**
-     * The path to the XMI transformations the {@link XMIReader} will use.
-     * This will allow it to extract the relevant properties
-     */
-    private static final String XMITRANSURL =
-            "src/main/resources/SDMetricsConfig/xmiTrans2_0.xml";
 
     /**
      * Private constructor to prevent instances of the class from being created.
@@ -103,7 +91,8 @@ public final class SDMetricsUtil {
             throws Exception {
 
         XMITransformations trans = new XMITransformations(metaModel);
-        parser.parse(XMITRANSURL, trans.getSAXParserHandler());
+        parser.parse(Config.CONFIG.getTransformationsPath(),
+                     trans.getSAXParserHandler());
         return trans;
     }
 
@@ -119,7 +108,8 @@ public final class SDMetricsUtil {
 
         XMLParser parser = new XMLParser();
         MetaModel metaModel = new MetaModel();
-        parser.parse(METAMODELURL, metaModel.getSAXParserHandler());
+        parser.parse(Config.CONFIG.getMetaModelPath(),
+                     metaModel.getSAXParserHandler());
         return metaModel;
     }
 

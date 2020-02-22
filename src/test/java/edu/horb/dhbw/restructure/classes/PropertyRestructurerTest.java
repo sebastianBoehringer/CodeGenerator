@@ -25,10 +25,12 @@ import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
@@ -40,6 +42,7 @@ public class PropertyRestructurerTest extends BaseRestructurerTest {
     public void init() {
 
         mediator.register(Property.class, new PropertyRestructurer(mediator));
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     @Test(dataProvider = "classdiagramfiles")

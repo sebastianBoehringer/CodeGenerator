@@ -27,10 +27,12 @@ import edu.horb.dhbw.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.restructure.IRestructurer;
 import edu.horb.dhbw.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -49,6 +51,7 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
         mediator.register(Region.class, new RegionRestructurer(mediator));
         mediator.register(Transition.class,
                           new TransitionRestructurer(mediator));
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     @Test(dataProvider = "simplestatemachines")

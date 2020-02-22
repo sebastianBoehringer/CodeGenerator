@@ -18,12 +18,23 @@
 package edu.horb.dhbw.restructure;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.util.SDMetricsUtil;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.util.Config;
+import edu.horb.dhbw.util.SDMetricsUtil;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Properties;
+
 public class TerminateTest {
+
+
+    @BeforeClass
+    private void init() {
+
+        Config.CONFIG.readInProperties(new Properties());
+    }
 
     @DataProvider(name = "classesReturningThemselves")
     public Object[][] provideClasses() {
