@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.enums;
 
+import edu.horb.dhbw.util.Config;
 import lombok.NonNull;
 
 /**
@@ -59,20 +60,19 @@ public enum VisibilityKind {
      */
     @Override
     public String toString() {
-        //TODO make the method rely on read in configuration.
         String ret = "";
         switch (this) {
             case PUBLIC:
-                ret = "public";
+                ret = Config.CONFIG.getLanguage().getPublicVisibility();
                 break;
             case PRIVATE:
-                ret = "private";
+                ret = Config.CONFIG.getLanguage().getPrivateVisibility();
                 break;
             case PROTECTED:
-                ret = "protected";
+                ret = Config.CONFIG.getLanguage().getProtectedVisibility();
                 break;
             case PACKAGE:
-                ret = "";
+                ret = Config.CONFIG.getLanguage().getPackageVisibility();
                 break;
             default:
         }
