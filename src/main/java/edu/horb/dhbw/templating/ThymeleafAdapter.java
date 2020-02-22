@@ -18,6 +18,7 @@
 package edu.horb.dhbw.templating;
 
 import edu.horb.dhbw.datacore.model.Language;
+import edu.horb.dhbw.exception.CodeGenerationException;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.TemplateEngine;
@@ -31,11 +32,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 @NoArgsConstructor
 @Slf4j
-public class ThymeleafAdapter implements ITemplateEngineAdapter {
+public final class ThymeleafAdapter implements ITemplateEngineAdapter {
     /**
      * The context used by the template engine.
      */
@@ -59,11 +61,14 @@ public class ThymeleafAdapter implements ITemplateEngineAdapter {
         log.info("Configuring fileresolver");
         FileTemplateResolver fileResolver = new FileTemplateResolver();
         fileResolver.setTemplateMode(TemplateMode.TEXT);
+        String separator = FileSystems.getDefault().getSeparator();
         String prefix =
-                language.getTemplateLocation().toAbsolutePath().toString();
+                language.getTemplateLocation().toAbsolutePath().toString()
+                        + separator;
         fileResolver.setPrefix(prefix);
         log.info("Set fileresolver to search with prefix [{}]", prefix);
         fileResolver.setSuffix(language.getExtension());
+        log.info("Set suffix to [{}]", language.getExtension());
         fileResolver.setCheckExistence(true);
         fileResolver.setCharacterEncoding("UTF8");
         fileResolver.setOrder(1);
@@ -73,8 +78,8 @@ public class ThymeleafAdapter implements ITemplateEngineAdapter {
         ClassLoaderTemplateResolver classLoaderResolver =
                 new ClassLoaderTemplateResolver();
         classLoaderResolver.setTemplateMode(TemplateMode.TEXT);
-        classLoaderResolver
-                .setPrefix("/templates/" + language.getName().toLowerCase());
+        classLoaderResolver.setPrefix(
+                "/templates/" + language.getName().toLowerCase() + separator);
         classLoaderResolver.setCharacterEncoding("UTF8");
         classLoaderResolver.setSuffix(language.getExtension());
         classLoaderResolver.setCheckExistence(true);
@@ -94,19 +99,20 @@ public class ThymeleafAdapter implements ITemplateEngineAdapter {
     }
 
     @Override
-    public void process(final String templateName, final Path outputDirectory) {
+    public void process(final String templateName, final Path outputDirectory)
+            throws CodeGenerationException {
 
-        String fileName =
-                outputDirectory.toAbsolutePath().toString() + FileSystems
-                        .getDefault().getSeparator() + lang.getScheme()
-                        .provideFileName() + lang.getExtension();
+        String fileName = outputDirectory.toString() + FileSystems.getDefault()
+                .getSeparator() + lang.getScheme().provideFileName() + lang
+                .getExtension();
+
         try {
+            Files.createDirectories(outputDirectory);
             Writer writer = new BufferedWriter(new FileWriter(fileName));
             engine.process(templateName, context, writer);
+            context.clearVariables();
         } catch (IOException e) {
-            e.printStackTrace();
-            log.info("Failed process template [{}], could not create writer "
-                             + "targeting file [{}]", templateName, fileName);
+            throw new CodeGenerationException(e);
         }
     }
 }

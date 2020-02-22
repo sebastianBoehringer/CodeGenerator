@@ -18,6 +18,7 @@
 package edu.horb.dhbw.templating;
 
 import edu.horb.dhbw.datacore.model.Language;
+import edu.horb.dhbw.exception.CodeGenerationException;
 
 import java.nio.file.Path;
 
@@ -52,6 +53,9 @@ public interface ITemplateEngineAdapter {
      * @param templateName    The name of the template to process
      * @param outputDirectory The path to the directory where the generated
      *                        file should be stored
+     * @throws CodeGenerationException If the processing of the template
+     *                                 could not complete
      */
-    void process(String templateName, Path outputDirectory);
+    void process(String templateName, Path outputDirectory)
+            throws CodeGenerationException;
 }
