@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -14,9 +14,27 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package edu.horb.dhbw.datacore.model;
+
 /**
- * Tests for the config package.
- *
- * @author sebastianBoehringer
+ * A strategy that provides details of how naming for a {@link Language} works.
  */
-package edu.horb.dhbw.config;
+public interface INamingScheme {
+
+    /**
+     * Provides the file name for a given oo class.
+     * This does NOT include the extension. That can be returned by
+     * {@link Language#getExtension()}.
+     *
+     * @return The name of the file.
+     */
+    String provideFileName();
+
+    /**
+     * Provides the name for a variable of a given type.
+     *
+     * @return The name of the variable.
+     */
+    String provideVariableName();
+}

@@ -1,6 +1,5 @@
-
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -15,12 +14,22 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * This package holds utility classes for the configuration of the SDMetrics
- * Open Core library.
- *
- * @author sebastianBoehringer
- * @version 0.1
- * @since 0.1
- */
-package edu.horb.dhbw.config.SDMetrics;
+
+package edu.horb.dhbw.datacore.model;
+
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public final class DefaultScheme implements INamingScheme {
+    @Override
+    public String provideFileName() {
+
+        return "Monkey";
+    }
+
+    @Override
+    public String provideVariableName() {
+
+        return "monkey";
+    }
+}
