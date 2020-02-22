@@ -60,8 +60,8 @@ public class UMLClass extends BehavioredClassifier {
      */
     private Boolean isActive = Boolean.FALSE;
     /**
-     * If the class is used as a metaclass this specifies the extensions, e.
-     * g. {@link edu.horb.dhbw.datacore.uml.packages.Stereotype}s, applicable
+     * If the class is used as a metaclass this specifies the extensions, i
+     * e. {@link edu.horb.dhbw.datacore.uml.packages.Stereotype}s, applicable
      * to it.
      */
     private List<Extension> extension = new ArrayList<>();
