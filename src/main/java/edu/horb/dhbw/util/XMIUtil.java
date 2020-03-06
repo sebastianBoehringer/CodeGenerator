@@ -27,19 +27,6 @@ public final class XMIUtil {
     }
 
     /**
-     * Removes the namespace {@code "uml:"} from a string.
-     * E. g. an invocation on {@code "uml:example"} will return {@code
-     * "example}. This usually should be the value of the attribute xmi:type.
-     *
-     * @param string The string where the namespace should be removed
-     * @return The string with the namespace removed
-     */
-    public static String trimNamespace(@NonNull final String string) {
-
-        return string.replaceFirst("uml:", "");
-    }
-
-    /**
      * Determines the type of uml class that this element represents.
      *
      * @param element The element whose type should be determined
@@ -50,5 +37,18 @@ public final class XMIUtil {
 
         String umlType = element.getPlainAttribute("umltype");
         return trimNamespace(umlType).toLowerCase();
+    }
+
+    /**
+     * Removes the namespace {@code "uml:"} from a string.
+     * E. g. an invocation on {@code "uml:example"} will return {@code
+     * "example}. This usually should be the value of the attribute xmi:type.
+     *
+     * @param string The string where the namespace should be removed
+     * @return The string with the namespace removed
+     */
+    public static String trimNamespace(@NonNull final String string) {
+
+        return string.replaceFirst("uml:", "");
     }
 }

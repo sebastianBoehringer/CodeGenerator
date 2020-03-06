@@ -73,6 +73,37 @@ public class UMLPackage extends PackageableElement {
      * The profiles applied to this package.
      */
     private List<ProfileApplication> profileApplication = new ArrayList<>();
+    /**
+     * References to the owned ElementImports.
+     * Copied from {@link Namespace}.
+     */
+    private List<ElementImport> elementImport = new ArrayList<>();
+    /**
+     * The elements imported into this namespace. This attribute can be derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<PackageableElement> importedMember = new ArrayList<>();
+    /**
+     * All {@link NamedElement}s available to this namespace. This includes
+     * the imported as well as the owned ones. This attribute can be derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<NamedElement> member = new ArrayList<>();
+    /**
+     * The {@link NamedElement}s this namespace owns. This attribute can be
+     * derived.
+     * Copied from {@link Namespace}.
+     */
+    private List<NamedElement> ownedMember = new ArrayList<>();
+    /**
+     * The {@link Constraint}s owned by this namespace.
+     * Copied from {@link Namespace}.
+     */
+    private List<Constraint> ownedRule = new ArrayList<>();
+    /**
+     * The {@link PackageImport}s this namespace owns.
+     */
+    private List<PackageImport> packageImport = new ArrayList<>();
 
     /**
      * Adds a new package to {@link #nestedPackage}.
@@ -123,38 +154,6 @@ public class UMLPackage extends PackageableElement {
 
         packagedElement.add(element);
     }
-
-    /**
-     * References to the owned ElementImports.
-     * Copied from {@link Namespace}.
-     */
-    private List<ElementImport> elementImport = new ArrayList<>();
-    /**
-     * The elements imported into this namespace. This attribute can be derived.
-     * Copied from {@link Namespace}.
-     */
-    private List<PackageableElement> importedMember = new ArrayList<>();
-    /**
-     * All {@link NamedElement}s available to this namespace. This includes
-     * the imported as well as the owned ones. This attribute can be derived.
-     * Copied from {@link Namespace}.
-     */
-    private List<NamedElement> member = new ArrayList<>();
-    /**
-     * The {@link NamedElement}s this namespace owns. This attribute can be
-     * derived.
-     * Copied from {@link Namespace}.
-     */
-    private List<NamedElement> ownedMember = new ArrayList<>();
-    /**
-     * The {@link Constraint}s owned by this namespace.
-     * Copied from {@link Namespace}.
-     */
-    private List<Constraint> ownedRule = new ArrayList<>();
-    /**
-     * The {@link PackageImport}s this namespace owns.
-     */
-    private List<PackageImport> packageImport = new ArrayList<>();
 
     /**
      * Adds a new elementImport to {@link #elementImport}.

@@ -2,10 +2,17 @@
  * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
- *  CodeGenerator is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- * CodeGenerator is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
+ *  CodeGenerator is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ *  option) any later version.
+ * CodeGenerator is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+ * License for more details.
  *
- *  You should have received a copy of the GNU Affero General Public License along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package edu.horb.dhbw.inputprocessing.restructure;
@@ -79,9 +86,11 @@ import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
 import edu.horb.dhbw.datacore.uml.values.LiteralString;
 import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
+import edu.horb.dhbw.inputprocessing.restructure.classes.AbstractionRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.ConnectorEndRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.ConnectorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.DatatypeRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.DependencyRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.EnumerationLiteralRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.EnumerationRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.GeneralizationRestructurer;
@@ -90,27 +99,21 @@ import edu.horb.dhbw.inputprocessing.restructure.classes.InstanceSpecRestructure
 import edu.horb.dhbw.inputprocessing.restructure.classes.InstanceValueRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.InterfaceRealizationRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.InterfaceRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.OperationRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.ParameterRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.PrimitiveRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.SlotRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.SubstitutionRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.UMLClassRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.statemachines.OpaqueBehaviorRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateMachineRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.statemachines.TransitionRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.AbstractionRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.DependencyRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralBoolRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralIntRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralNullRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralRealRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralStringRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.LiteralUnlimitedNaturalRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.OperationRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.ParameterRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.PrimitiveRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.RealizationRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.StereotypeRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.SubstitutionRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.classes.UMLClassRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.components.ComponentRealizationRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.components.UsageRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.delegating.BehaviorRestructurer;
@@ -140,7 +143,11 @@ import edu.horb.dhbw.inputprocessing.restructure.packaging.PackageRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.ProfileApplicationRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.ProfileRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.FunctionBehaviorRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.OpaqueBehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.RegionRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateMachineRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.TransitionRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;

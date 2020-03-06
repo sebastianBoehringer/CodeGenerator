@@ -97,17 +97,6 @@ public class State extends Namespace {
      * possible kinds of Pseudostates.
      */
     private PseudostateKind kind = PseudostateKind.INITIAL;
-
-    /**
-     * Adds a new region to {@link #region}.
-     *
-     * @param newRegion The region to add
-     */
-    public void addRegion(final Region newRegion) {
-
-        region.add(newRegion);
-    }
-
     /**
      * The region containing the vertex.
      * This is from the uml metaclass vertex.
@@ -127,6 +116,16 @@ public class State extends Namespace {
      * This is from the uml metaclass vertex.
      */
     private List<Transition> outgoing = new ArrayList<>();
+
+    /**
+     * Adds a new region to {@link #region}.
+     *
+     * @param newRegion The region to add
+     */
+    public void addRegion(final Region newRegion) {
+
+        region.add(newRegion);
+    }
 
     /**
      * Adds a new transition to {@link #incoming}.

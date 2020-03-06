@@ -68,37 +68,6 @@ public abstract class BehavioralFeature extends Feature {
      * The exceptions this feature can raise when it is invoked.
      */
     private List<Type> raisedException = new ArrayList<>();
-
-    /**
-     * Adds a new type of exception to {@link #raisedException}.
-     *
-     * @param exception The type of exception to add
-     */
-    public void addException(final Type exception) {
-
-        raisedException.add(exception);
-    }
-
-    /**
-     * Adds a new parameter to {@link #ownedParameter}.
-     *
-     * @param parameter The parameter to add
-     */
-    public void addParameter(final Parameter parameter) {
-
-        ownedParameter.add(parameter);
-    }
-
-    /**
-     * Adds a new behavior to {@link #method}.
-     *
-     * @param behavior The behavior to add
-     */
-    public void addMethod(final Behavior behavior) {
-
-        method.add(behavior);
-    }
-
     /**
      * References to the owned ElementImports.
      * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
@@ -131,6 +100,36 @@ public abstract class BehavioralFeature extends Feature {
      * Copied from {@link edu.horb.dhbw.datacore.uml.commonstructure.Namespace}.
      */
     private List<PackageImport> packageImport = new ArrayList<>();
+
+    /**
+     * Adds a new type of exception to {@link #raisedException}.
+     *
+     * @param exception The type of exception to add
+     */
+    public void addException(final Type exception) {
+
+        raisedException.add(exception);
+    }
+
+    /**
+     * Adds a new parameter to {@link #ownedParameter}.
+     *
+     * @param parameter The parameter to add
+     */
+    public void addParameter(final Parameter parameter) {
+
+        ownedParameter.add(parameter);
+    }
+
+    /**
+     * Adds a new behavior to {@link #method}.
+     *
+     * @param behavior The behavior to add
+     */
+    public void addMethod(final Behavior behavior) {
+
+        method.add(behavior);
+    }
 
     /**
      * Adds a new elementImport to {@link #elementImport}.

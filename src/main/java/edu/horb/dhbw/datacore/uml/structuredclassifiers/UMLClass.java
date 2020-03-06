@@ -78,6 +78,33 @@ public class UMLClass extends BehavioredClassifier {
      * The generalizations of this class. The attribute can be derived.
      */
     private List<UMLClass> superClass = new ArrayList<>();
+    /**
+     * The attributes owned by the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> ownedAttribute = new ArrayList<>();
+    /**
+     * The connectors connected to this classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Connector> ownedConnector = new ArrayList<>();
+    /**
+     * Instances owned by the classifier via composition, i. e.  properties
+     * where {@link Property#isComposite} is {@code true}.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<Property> part = new ArrayList<>();
+    /**
+     * Roles that instances can play in the classifier.
+     * Copied from {@link StructuredClassifier}.
+     */
+    private List<ConnectableElement> role = new ArrayList<>();
+    /**
+     * The ports owned by the classifier.
+     * This attribute can be derived.
+     * Copied from {@link EncapsulatedClassifier}.
+     */
+    private List<Port> ownedPort = new ArrayList<>();
 
     /**
      * Adds a new classifier to {@link #nestedClassifier}.
@@ -118,28 +145,6 @@ public class UMLClass extends BehavioredClassifier {
 
         extension.add(newExtension);
     }
-
-    /**
-     * The attributes owned by the classifier.
-     * Copied from {@link StructuredClassifier}.
-     */
-    private List<Property> ownedAttribute = new ArrayList<>();
-    /**
-     * The connectors connected to this classifier.
-     * Copied from {@link StructuredClassifier}.
-     */
-    private List<Connector> ownedConnector = new ArrayList<>();
-    /**
-     * Instances owned by the classifier via composition, i. e.  properties
-     * where {@link Property#isComposite} is {@code true}.
-     * Copied from {@link StructuredClassifier}.
-     */
-    private List<Property> part = new ArrayList<>();
-    /**
-     * Roles that instances can play in the classifier.
-     * Copied from {@link StructuredClassifier}.
-     */
-    private List<ConnectableElement> role = new ArrayList<>();
 
     /**
      * Adds a new connectableElement to {@link #role}.
@@ -184,13 +189,6 @@ public class UMLClass extends BehavioredClassifier {
 
         ownedAttribute.add(property);
     }
-
-    /**
-     * The ports owned by the classifier.
-     * This attribute can be derived.
-     * Copied from {@link EncapsulatedClassifier}.
-     */
-    private List<Port> ownedPort = new ArrayList<>();
 
     /**
      * Adds a new port to {@link #ownedPort}.

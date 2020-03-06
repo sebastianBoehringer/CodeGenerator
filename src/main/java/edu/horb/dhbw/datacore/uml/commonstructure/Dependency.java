@@ -48,6 +48,23 @@ public class Dependency extends PackageableElement {
      * The elements depending on the {@link #client}s.
      */
     private List<NamedElement> supplier;
+    /**
+     * The elements this relationship exists between. This can be derived.
+     * Copied from {@link Relationship}.
+     */
+    private List<Element> relatedElement = new ArrayList<>();
+    /**
+     * The sources of this directed relationship.
+     * This attribute can be derived.
+     * Copied from {@link DirectedRelationship}.
+     */
+    private List<Element> source = new ArrayList<>();
+    /**
+     * The targets of this directed relationship.
+     * This attribute can be derived.
+     * Copied from {@link DirectedRelationship}.
+     */
+    private List<Element> target = new ArrayList<>();
 
     /**
      * Adds a named element to {@link #client}.
@@ -70,12 +87,6 @@ public class Dependency extends PackageableElement {
     }
 
     /**
-     * The elements this relationship exists between. This can be derived.
-     * Copied from {@link Relationship}.
-     */
-    private List<Element> relatedElement = new ArrayList<>();
-
-    /**
      * Adds a new element to {@link #relatedElement}.
      * Copied from {@link Relationship}.
      *
@@ -85,19 +96,6 @@ public class Dependency extends PackageableElement {
 
         relatedElement.add(element);
     }
-
-    /**
-     * The sources of this directed relationship.
-     * This attribute can be derived.
-     * Copied from {@link DirectedRelationship}.
-     */
-    private List<Element> source = new ArrayList<>();
-    /**
-     * The targets of this directed relationship.
-     * This attribute can be derived.
-     * Copied from {@link DirectedRelationship}.
-     */
-    private List<Element> target = new ArrayList<>();
 
     /**
      * Adds a new element to {@link #source}.

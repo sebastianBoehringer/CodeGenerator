@@ -60,24 +60,20 @@ public final class SDMetricsUtil {
     }
 
     /**
-     * @param metaModel The metaModel defining the types to collect
-     * @param pathToXMI The path to the xmi file
-     * @return A model containing the elements that were collected during
-     * parsing
+     * Creates an instance of the default metamodel for UML 2.x.
      *
-     * @throws Exception If anything goes wrong during the parsing
+     * @return The metaModel
+     *
+     * @throws Exception If anything goes wrong during xml parsing.
      */
-    public static Model parseXMI(
-            @NonNull final MetaModel metaModel, @NonNull final String pathToXMI)
+    public static MetaModel createMetaModel()
             throws Exception {
 
         XMLParser parser = new XMLParser();
-        Model model = new Model(metaModel);
-        XMIReader xmiReader =
-                new XMIReader(createTransformations(parser, metaModel), model);
-        parser.parse(pathToXMI, xmiReader);
-        return model;
-
+        MetaModel metaModel = new MetaModel();
+        parser.parse(Config.CONFIG.getMetaModelPath(),
+                     metaModel.getSAXParserHandler());
+        return metaModel;
     }
 
     /**
@@ -97,20 +93,24 @@ public final class SDMetricsUtil {
     }
 
     /**
-     * Creates an instance of the default metamodel for UML 2.x.
+     * @param metaModel The metaModel defining the types to collect
+     * @param pathToXMI The path to the xmi file
+     * @return A model containing the elements that were collected during
+     * parsing
      *
-     * @return The metaModel
-     *
-     * @throws Exception If anything goes wrong during xml parsing.
+     * @throws Exception If anything goes wrong during the parsing
      */
-    public static MetaModel createMetaModel()
+    public static Model parseXMI(
+            @NonNull final MetaModel metaModel, @NonNull final String pathToXMI)
             throws Exception {
 
         XMLParser parser = new XMLParser();
-        MetaModel metaModel = new MetaModel();
-        parser.parse(Config.CONFIG.getMetaModelPath(),
-                     metaModel.getSAXParserHandler());
-        return metaModel;
+        Model model = new Model(metaModel);
+        XMIReader xmiReader =
+                new XMIReader(createTransformations(parser, metaModel), model);
+        parser.parse(pathToXMI, xmiReader);
+        return model;
+
     }
 
 }

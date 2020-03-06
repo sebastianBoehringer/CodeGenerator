@@ -51,6 +51,17 @@ public enum VisibilityKind {
     PACKAGE;
 
     /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param string The string identifying an enum constant
+     * @return The enum constant identified by the string
+     */
+    public static VisibilityKind from(@NonNull final String string) {
+
+        return VisibilityKind.valueOf(string.toUpperCase());
+    }
+
+    /**
      * Returns the name of this enum constant, as contained in the
      * declaration.  This method may be overridden, though it typically
      * isn't necessary or desirable.  An enum type should override this
@@ -60,6 +71,7 @@ public enum VisibilityKind {
      */
     @Override
     public String toString() {
+
         String ret = "";
         switch (this) {
             case PUBLIC:
@@ -77,16 +89,5 @@ public enum VisibilityKind {
             default:
         }
         return ret;
-    }
-
-    /**
-     * Case insensitive wrapper around {@link #valueOf(String)}.
-     *
-     * @param string The string identifying an enum constant
-     * @return The enum constant identified by the string
-     */
-    public static VisibilityKind from(@NonNull final String string) {
-
-        return VisibilityKind.valueOf(string.toUpperCase());
     }
 }

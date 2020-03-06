@@ -115,24 +115,117 @@ public final class LookupUtil {
 
     /**
      * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Realization}.
+     * This method specializes on classes extending {@link Element}.
      * This method does NOT trim the namespace.
      *
      * @param umlType The value of the attribute xmi:type
      * @return The class corresponding to this particular type
      */
-    public static Class<? extends Realization> realizationFromUMLType(
+    public static Class<? extends Element> elementFromUMLType(
             @NonNull final String umlType) {
 
         switch (umlType) {
-            case "realization":
-                return Realization.class;
-            case "substitution":
-                return Substitution.class;
-            case "interfacerealization":
-                return InterfaceRealization.class;
-            case "componentrealization":
-                return ComponentRealization.class;
+            case "slot":
+                return Slot.class;
+            case "comment":
+            default:
+                break;
+        }
+        Class<? extends Element> aClass = relationshipFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        aClass = multiplicityFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        return namedFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Relationship}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Relationship> relationshipFromUMLType(
+            @NonNull final String umlType) {
+
+        Class<? extends Relationship> aClass =
+                directedRelationshipFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        return associationFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link MultiplicityElement}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends MultiplicityElement> multiplicityFromUMLType(
+            @NonNull final String umlType) {
+
+        return "connectorend".equals(umlType) ? ConnectorEnd.class : null;
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link NamedElement}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends NamedElement> namedFromUMLType(
+            @NonNull final String umlType) {
+
+        if ("collaborationuse".equals(umlType)) {
+            return CollaborationUse.class;
+        }
+        Class<? extends NamedElement> aClass = featureFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        aClass = typedFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        aClass = namespaceFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+
+        return packageableFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending
+     * {@link DirectedRelationship}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends DirectedRelationship> directedRelationshipFromUMLType(
+            @NonNull final String umlType) {
+
+        switch (umlType) {
+            case "profileapplication":
+                return ProfileApplication.class;
+            case "elementimport":
+                return ElementImport.class;
+            case "generalization":
+                return Generalization.class;
+            case "packageimport":
+                return PackageImport.class;
             default:
                 return null;
         }
@@ -140,37 +233,82 @@ public final class LookupUtil {
 
     /**
      * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Abstraction}.
+     * This method specializes on classes extending {@link Association}.
      * This method does NOT trim the namespace.
      *
      * @param umlType The value of the attribute xmi:type
      * @return The class corresponding to this particular type
      */
-    public static Class<? extends Abstraction> abstractionFromUMLType(
+    public static Class<? extends Association> associationFromUMLType(
             @NonNull final String umlType) {
 
-        return "abstraction".equals(umlType) ? Abstraction.class
-                                             : realizationFromUMLType(umlType);
+        switch (umlType) {
+            case "extension":
+                return Extension.class;
+            case "associationclass":
+                return AssociationClass.class;
+            default:
+                return null;
+        }
     }
 
     /**
      * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Dependency}.
+     * This method specializes on classes extending {@link Feature}.
      * This method does NOT trim the namespace.
      *
      * @param umlType The value of the attribute xmi:type
      * @return The class corresponding to this particular type
      */
-    public static Class<? extends Dependency> dependencyFromUMLType(
+    public static Class<? extends Feature> featureFromUMLType(
+            @NonNull final String umlType) {
+
+        if ("connector".equals(umlType)) {
+            return Connector.class;
+        }
+        Class<? extends Feature> aClass = structuralFeatureFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        return behavioralFeatureFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link TypedElement}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends TypedElement> typedFromUMLType(
+            @NonNull final String umlType) {
+
+        return connectableFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Namespace}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Namespace> namespaceFromUMLType(
             @NonNull final String umlType) {
 
         switch (umlType) {
-            case "usage":
-                return Usage.class;
-            case "dependency":
-                return Dependency.class;
+            case "region":
+                return Region.class;
+            case "transition":
+                return Transition.class;
+            case "state":
+            case "finalstate":
+            case "pseudostate":
+                return State.class;
             default:
-                return abstractionFromUMLType(umlType);
+                return null;
         }
     }
 
@@ -209,6 +347,69 @@ public final class LookupUtil {
             return aClass;
         }
         return valueSpecFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link StructuralFeature}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends StructuralFeature> structuralFeatureFromUMLType(
+            @NonNull final String umlType) {
+
+        return propertyFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Realization}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends BehavioralFeature> behavioralFeatureFromUMLType(
+            @NonNull final String umlType) {
+
+        return "operation".equals(umlType) ? Operation.class : null;
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link ConnectableElement}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends ConnectableElement> connectableFromUMLType(
+            @NonNull final String umlType) {
+
+        return "parameter".equals(umlType) ? Parameter.class : null;
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Dependency}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Dependency> dependencyFromUMLType(
+            @NonNull final String umlType) {
+
+        switch (umlType) {
+            case "usage":
+                return Usage.class;
+            case "dependency":
+                return Dependency.class;
+            default:
+                return abstractionFromUMLType(umlType);
+        }
     }
 
     /**
@@ -279,6 +480,21 @@ public final class LookupUtil {
 
     /**
      * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending
+     * {@link edu.horb.dhbw.datacore.uml.commonstructure.Type}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Type> typeFromUMLType(
+            @NonNull final String umlType) {
+
+        return classifierFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
      * This method specializes on classes extending {@link Realization}.
      * This method does NOT trim the namespace.
      *
@@ -305,6 +521,71 @@ public final class LookupUtil {
         }
 
         return literalSpecFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Property}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Property> propertyFromUMLType(
+            @NonNull final String umlType) {
+
+        switch (umlType) {
+            case "property":
+                return Property.class;
+            case "port":
+                return Port.class;
+            case "extensionend":
+                return ExtensionEnd.class;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Abstraction}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Abstraction> abstractionFromUMLType(
+            @NonNull final String umlType) {
+
+        return "abstraction".equals(umlType) ? Abstraction.class
+                                             : realizationFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending
+     * {@link edu.horb.dhbw.datacore.uml.classification.Classifier}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Classifier> classifierFromUMLType(
+            @NonNull final String umlType) {
+
+        if ("interface".equals(umlType)) {
+            return Interface.class;
+        }
+        Class<? extends Classifier> aClass = dataTypeFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+
+        aClass = behavioredClassifierFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        return structuredClassifierFromUMLType(umlType);
     }
 
     /**
@@ -360,74 +641,50 @@ public final class LookupUtil {
 
     /**
      * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.Type}.
+     * This method specializes on classes extending {@link Realization}.
      * This method does NOT trim the namespace.
      *
      * @param umlType The value of the attribute xmi:type
      * @return The class corresponding to this particular type
      */
-    public static Class<? extends Type> typeFromUMLType(
+    public static Class<? extends Realization> realizationFromUMLType(
             @NonNull final String umlType) {
 
-        return classifierFromUMLType(umlType);
+        switch (umlType) {
+            case "realization":
+                return Realization.class;
+            case "substitution":
+                return Substitution.class;
+            case "interfacerealization":
+                return InterfaceRealization.class;
+            case "componentrealization":
+                return ComponentRealization.class;
+            default:
+                return null;
+        }
     }
 
     /**
      * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending
-     * {@link edu.horb.dhbw.datacore.uml.classification.Classifier}.
+     * This method specializes on classes extending {@link DataType}.
      * This method does NOT trim the namespace.
      *
      * @param umlType The value of the attribute xmi:type
      * @return The class corresponding to this particular type
      */
-    public static Class<? extends Classifier> classifierFromUMLType(
+    public static Class<? extends DataType> dataTypeFromUMLType(
             @NonNull final String umlType) {
 
-        if ("interface".equals(umlType)) {
-            return Interface.class;
+        switch (umlType) {
+            case "datatype":
+                return DataType.class;
+            case "primitivetype":
+                return PrimitiveType.class;
+            case "enumeration":
+                return Enumeration.class;
+            default:
+                return null;
         }
-        Class<? extends Classifier> aClass = dataTypeFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-
-        aClass = behavioredClassifierFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        return structuredClassifierFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending
-     * {@link StructuredClassifier}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends StructuredClassifier> structuredClassifierFromUMLType(
-            @NonNull final String umlType) {
-
-        return encapsulatedClassifierFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending
-     * {@link EncapsulatedClassifier}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends EncapsulatedClassifier> encapsulatedClassifierFromUMLType(
-            @NonNull final String umlType) {
-
-        return null;
     }
 
     /**
@@ -446,6 +703,21 @@ public final class LookupUtil {
             return Collaboration.class;
         }
         return classFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending
+     * {@link StructuredClassifier}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends StructuredClassifier> structuredClassifierFromUMLType(
+            @NonNull final String umlType) {
+
+        return encapsulatedClassifierFromUMLType(umlType);
     }
 
     /**
@@ -469,6 +741,21 @@ public final class LookupUtil {
             default:
                 return behaviorFromUMLType(umlType);
         }
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending
+     * {@link EncapsulatedClassifier}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends EncapsulatedClassifier> encapsulatedClassifierFromUMLType(
+            @NonNull final String umlType) {
+
+        return null;
     }
 
     /**
@@ -507,293 +794,5 @@ public final class LookupUtil {
             default:
                 return null;
         }
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link DataType}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends DataType> dataTypeFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "datatype":
-                return DataType.class;
-            case "primitivetype":
-                return PrimitiveType.class;
-            case "enumeration":
-                return Enumeration.class;
-            default:
-                return null;
-        }
-    }
-
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Namespace}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Namespace> namespaceFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "region":
-                return Region.class;
-            case "transition":
-                return Transition.class;
-            case "state":
-            case "finalstate":
-            case "pseudostate":
-                return State.class;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link TypedElement}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends TypedElement> typedFromUMLType(
-            @NonNull final String umlType) {
-
-        return connectableFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link ConnectableElement}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends ConnectableElement> connectableFromUMLType(
-            @NonNull final String umlType) {
-
-        return "parameter".equals(umlType) ? Parameter.class : null;
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Feature}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Feature> featureFromUMLType(
-            @NonNull final String umlType) {
-
-        if ("connector".equals(umlType)) {
-            return Connector.class;
-        }
-        Class<? extends Feature> aClass = structuralFeatureFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        return behavioralFeatureFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link StructuralFeature}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends StructuralFeature> structuralFeatureFromUMLType(
-            @NonNull final String umlType) {
-
-        return propertyFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Property}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Property> propertyFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "property":
-                return Property.class;
-            case "port":
-                return Port.class;
-            case "extensionend":
-                return ExtensionEnd.class;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Realization}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends BehavioralFeature> behavioralFeatureFromUMLType(
-            @NonNull final String umlType) {
-
-        return "operation".equals(umlType) ? Operation.class : null;
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link NamedElement}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends NamedElement> namedFromUMLType(
-            @NonNull final String umlType) {
-
-        if ("collaborationuse".equals(umlType)) {
-            return CollaborationUse.class;
-        }
-        Class<? extends NamedElement> aClass = featureFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        aClass = typedFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        aClass = namespaceFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-
-        return packageableFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Relationship}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Relationship> relationshipFromUMLType(
-            @NonNull final String umlType) {
-
-        Class<? extends Relationship> aClass =
-                directedRelationshipFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        return associationFromUMLType(umlType);
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending
-     * {@link DirectedRelationship}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends DirectedRelationship> directedRelationshipFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "profileapplication":
-                return ProfileApplication.class;
-            case "elementimport":
-                return ElementImport.class;
-            case "generalization":
-                return Generalization.class;
-            case "packageimport":
-                return PackageImport.class;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Association}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Association> associationFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "extension":
-                return Extension.class;
-            case "associationclass":
-                return AssociationClass.class;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link MultiplicityElement}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends MultiplicityElement> multiplicityFromUMLType(
-            @NonNull final String umlType) {
-
-        return "connectorend".equals(umlType) ? ConnectorEnd.class : null;
-    }
-
-    /**
-     * Maps the type of an uml class to the corresponding java class.
-     * This method specializes on classes extending {@link Element}.
-     * This method does NOT trim the namespace.
-     *
-     * @param umlType The value of the attribute xmi:type
-     * @return The class corresponding to this particular type
-     */
-    public static Class<? extends Element> elementFromUMLType(
-            @NonNull final String umlType) {
-
-        switch (umlType) {
-            case "slot":
-                return Slot.class;
-            case "comment":
-            default:
-                break;
-        }
-        Class<? extends Element> aClass = relationshipFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        aClass = multiplicityFromUMLType(umlType);
-        if (aClass != null) {
-            return aClass;
-        }
-        return namedFromUMLType(umlType);
     }
 }

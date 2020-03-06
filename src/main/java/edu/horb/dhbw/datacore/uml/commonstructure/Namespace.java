@@ -33,6 +33,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//TODO verinterfacen
 public abstract class Namespace extends NamedElement {
     /**
      * References to the owned ElementImports.

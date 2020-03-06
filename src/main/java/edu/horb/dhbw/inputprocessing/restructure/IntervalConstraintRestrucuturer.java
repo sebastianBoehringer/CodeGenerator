@@ -2,10 +2,17 @@
  * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
- *  CodeGenerator is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- * CodeGenerator is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
+ *  CodeGenerator is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ *  option) any later version.
+ * CodeGenerator is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+ * License for more details.
  *
- *  You should have received a copy of the GNU Affero General Public License along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
+ *  You should have received a copy of the GNU Affero General Public License
+ * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package edu.horb.dhbw.inputprocessing.restructure;
@@ -27,15 +34,6 @@ import java.util.Map;
 public final class IntervalConstraintRestrucuturer
         extends RestructurerBase<IntervalConstraint> {
     /**
-     * @param iRestructurerMediator The mediator responsible for providing
-     *                              the other {@link IRestructurer}s
-     */
-    public IntervalConstraintRestrucuturer(final IRestructurerMediator iRestructurerMediator) {
-
-        super(iRestructurerMediator, "intervalconstraint");
-    }
-
-    /**
      * A map holding all the {@link Constraint}s that have already been
      * processed. This maps from their xmi id to the actual instance.
      * The map is not synchronized, thus the class is most likely not
@@ -43,6 +41,15 @@ public final class IntervalConstraintRestrucuturer
      */
     private static final Map<String, IntervalConstraint> ALREADY_PROCESSED =
             new HashMap<>();
+
+    /**
+     * @param iRestructurerMediator The mediator responsible for providing
+     *                              the other {@link IRestructurer}s
+     */
+    public IntervalConstraintRestrucuturer(final IRestructurerMediator iRestructurerMediator) {
+
+        super(iRestructurerMediator, "intervalconstraint");
+    }
 
     @Override
     public IntervalConstraint restructure(@NonNull final ModelElement element) {
