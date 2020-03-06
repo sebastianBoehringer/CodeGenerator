@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.uml.CommonElements;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.InvalidConfigurationException;
-import edu.horb.dhbw.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.templating.ITemplateEngineAdapter;
 import edu.horb.dhbw.util.Config;
 import edu.horb.dhbw.util.SDMetricsUtil;

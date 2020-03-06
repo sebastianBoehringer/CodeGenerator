@@ -131,14 +131,6 @@ public class SDMetricsUtilTest {
 
     }
 
-    @DataProvider(name = "classes")
-    public Object[][] provideClasses() {
-
-        return new Object[][]{
-                {"src/test/resources/classdiagrams/Classes_Mod.xmi"},
-                {"src/test/resources/classdiagrams/Classes_Pap.xmi"}};
-    }
-
     private void assertIsPrimitiveType(@NonNull final ModelElement e) {
 
         assertEquals(e.getType().getName(), "primitivetype",
@@ -150,5 +142,13 @@ public class SDMetricsUtilTest {
         assertEquals(e.getPlainAttribute("href").replaceFirst(".*#", "")
                              .toLowerCase(), "string",
                      "The primitive type should be string");
+    }
+
+    @DataProvider(name = "classes")
+    public Object[][] provideClasses() {
+
+        return new Object[][]{
+                {"src/test/resources/classdiagrams/Classes_Mod.xmi"},
+                {"src/test/resources/classdiagrams/Classes_Pap.xmi"}};
     }
 }
