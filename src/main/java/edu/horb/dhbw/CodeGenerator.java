@@ -17,15 +17,14 @@
 
 package edu.horb.dhbw;
 
-import com.sdmetrics.model.Model;
 import edu.horb.dhbw.datacore.model.Language;
-import edu.horb.dhbw.datacore.uml.CommonElements;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.InvalidConfigurationException;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.exception.ModelParseException;
+import edu.horb.dhbw.inputprocessing.IModelProcessor;
+import edu.horb.dhbw.inputprocessing.XMIModelProcessor;
 import edu.horb.dhbw.templating.ITemplateEngineAdapter;
 import edu.horb.dhbw.util.Config;
-import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
@@ -35,7 +34,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -133,17 +131,17 @@ public final class CodeGenerator {
     public void generateCode(final Path xmiFile, final Language language)
             throws CodeGenerationException {
 
-        Model model;
+        IModelProcessor processor = new XMIModelProcessor();
         try {
-            model = SDMetricsUtil.parseXMI(xmiFile.toString());
-        } catch (Exception e) {
+            processor.parseModel(xmiFile);
+        } catch (ModelParseException e) {
             throw new CodeGenerationException(
-                    "Could not read XMI, nested exception is " + e.getClass()
+                    "Could not parse model, nested exception is " + e.getClass()
                             .getSimpleName() + ", message: " + e.getMessage());
         }
-        IRestructurerMediator mediator = new IRestructurerMediator();
-        List<CommonElements> elementsList = mediator.restructure(model);
-        adapter.addToContext("elements", elementsList);
+        adapter.addToContext("classes", processor.getParsedClasses());
+        adapter.addToContext("interfaces", processor.getParsedInterfaces());
+        adapter.addToContext("packages", processor.getParsedPackages());
         adapter.process("Class", Config.CONFIG.getOutputDirectory());
     }
 }

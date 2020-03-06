@@ -14,8 +14,23 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * Classes in this package restructure a
- * {@link com.sdmetrics.model.ModelElement} to some sort of container.
- */
-package edu.horb.dhbw.restructure.packaging;
+
+package edu.horb.dhbw.exception;
+
+public class ModelParseException extends Exception {
+    public ModelParseException() {
+
+        super();
+    }
+
+    public ModelParseException(final String msg) {
+
+        super(msg);
+    }
+
+    public ModelParseException(final Throwable cause) {
+
+        super("Model parsing failed, nested exception is " + cause.getClass()
+                .getSimpleName() + ", message: " + cause.getMessage());
+    }
+}
