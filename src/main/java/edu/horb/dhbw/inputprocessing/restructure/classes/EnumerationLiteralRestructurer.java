@@ -21,17 +21,17 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class EnumerationLiteralRestructurer
-        extends RestructurerBase<EnumerationLiteral> {
+        extends BaseRestructurer<EnumerationLiteral> {
 
     /**
      * Constructor delegating to
-     * {@link RestructurerBase#RestructurerBase(IRestructurerMediator, String)}.
+     * {@link BaseRestructurer#BaseRestructurer(IRestructurerMediator, String)}.
      *
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

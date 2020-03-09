@@ -32,7 +32,7 @@ import java.util.Map;
 
 @Slf4j
 public final class IntervalConstraintRestrucuturer
-        extends RestructurerBase<IntervalConstraint> {
+        extends BaseRestructurer<IntervalConstraint> {
     /**
      * A map holding all the {@link Constraint}s that have already been
      * processed. This maps from their xmi id to the actual instance.

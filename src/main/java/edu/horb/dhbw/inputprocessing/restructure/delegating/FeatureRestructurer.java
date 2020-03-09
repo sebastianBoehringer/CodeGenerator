@@ -21,12 +21,12 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Feature;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-public final class FeatureRestructurer extends RestructurerBase<Feature> {
+public final class FeatureRestructurer extends BaseRestructurer<Feature> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

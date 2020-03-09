@@ -24,18 +24,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CachingRestructurer<T extends CommonElements>
-        extends RestructurerBase<T> {
-
-    /**
-     * A mapping from the xmi:id of the element to the restructured object.
-     */
-    protected final Map<String, T> processed = new HashMap<>();
+        extends BaseRestructurer<T> {
 
     public CachingRestructurer(final IRestructurerMediator iRestructurerMediator,
                                @NonNull final String type) {
 
         super(iRestructurerMediator, type);
     }
+
+    /**
+     * A mapping from the xmi:id of the element to the restructured object.
+     */
+    protected final Map<String, T> processed = new HashMap<>();
 
     /**
      * Cleans the cache of this restructurer.

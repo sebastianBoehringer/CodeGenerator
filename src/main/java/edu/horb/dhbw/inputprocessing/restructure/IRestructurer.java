@@ -51,4 +51,23 @@ public interface IRestructurer<T extends CommonElements> {
      * @return A restrucutured uml class
      */
     T restructure(@NonNull ModelElement element);
+
+    /**
+     * Adds the elements specific to {@link T} to one of its subtypes {@link S}.
+     *
+     * @param base    The object to add the general attributes to.
+     * @param element The modelelement holding the information
+     * @param <S>     The subtype of {@link T} using some of its attributes.
+     */
+    <S extends T> S restructure(@NonNull S base, @NonNull ModelElement element);
+
+    /**
+     * Checks to see, if the {@link IRestructurer} can handle the given
+     * {@link ModelElement}.
+     *
+     * @param element The element to check
+     * @return {@code True} if the {@link IRestructurer} can restructure this
+     * element, {@code false} otherwise.
+     */
+    boolean canRestructure(@NonNull ModelElement element);
 }

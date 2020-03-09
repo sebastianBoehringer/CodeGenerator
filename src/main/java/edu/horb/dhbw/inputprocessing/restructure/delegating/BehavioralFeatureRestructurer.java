@@ -21,13 +21,13 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
 public final class BehavioralFeatureRestructurer
-        extends RestructurerBase<BehavioralFeature> {
+        extends BaseRestructurer<BehavioralFeature> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

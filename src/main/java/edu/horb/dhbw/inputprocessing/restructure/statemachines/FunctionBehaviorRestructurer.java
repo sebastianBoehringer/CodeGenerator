@@ -24,7 +24,7 @@ import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -34,7 +34,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class FunctionBehaviorRestructurer
-        extends RestructurerBase<FunctionBehavior> {
+        extends BaseRestructurer<FunctionBehavior> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

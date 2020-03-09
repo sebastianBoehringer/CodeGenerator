@@ -24,7 +24,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public final class IntervalRestructurer extends RestructurerBase<Interval> {
+public final class IntervalRestructurer extends BaseRestructurer<Interval> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

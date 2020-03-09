@@ -21,13 +21,13 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.values.LiteralInteger;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class LiteralIntRestructurer
-        extends RestructurerBase<LiteralInteger> {
+        extends BaseRestructurer<LiteralInteger> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

@@ -149,7 +149,6 @@ import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateMachineRestr
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.TransitionRestructurer;
 import edu.horb.dhbw.util.LookupUtil;
-import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -159,7 +158,8 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class IRestructurerMediator implements IRestructurer<CommonElements> {
+public final class IRestructurerMediator
+        implements IRestructurer<CommonElements> {
 
     /**
      * The number of {@link IRestructurer}s registered when using the default
@@ -178,8 +178,8 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      * The default {@link IRestructurer} to use if no specialized one is
      * registered in {@link #classToRestructurer}.
      */
-    private final IRestructurer<? extends Element> defaultImplementation =
-            new IRestructurerDefImpl(this);
+    private final IRestructurer<? extends CommonElements>
+            defaultImplementation = new IRestructurerDefImpl(this);
 
     /**
      * Default Constructor.
@@ -358,7 +358,7 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     }
 
     /**
-     * Restructureres the given {@link ModelElement}.
+     * Restructures the given {@link ModelElement}.
      * This works by looking up the correct class for the
      * {@link ModelElement} via {@link LookupUtil#elementFromUMLType(String)}
      * and calling the appropriate {@link IRestructurer} implementation.
@@ -369,10 +369,11 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
     @Override
     public CommonElements restructure(@NonNull final ModelElement element) {
 
-        Class<? extends CommonElements> clazz =
-                LookupUtil.elementFromUMLType(XMIUtil.getUMLType(element));
-        return classToRestructurer.getOrDefault(clazz, defaultImplementation)
-                .restructure(element);
+        IRestructurer<? extends CommonElements> restructurer =
+                classToRestructurer.values().stream().
+                        filter(it -> it.canRestructure(element)).findFirst()
+                        .orElse(defaultImplementation);
+        return restructurer.restructure(element);
     }
 
     /**
@@ -380,12 +381,38 @@ public class IRestructurerMediator implements IRestructurer<CommonElements> {
      */
     public void cleanCaches() {
 
-        for (IRestructurer<? extends CommonElements> value : classToRestructurer
-                .values()) {
+        for (IRestructurer<?> value : classToRestructurer.values()) {
             if (value instanceof CachingRestructurer<?>) {
-                ((CachingRestructurer<? extends CommonElements>) value)
-                        .cleanCache();
+                ((CachingRestructurer<?>) value).cleanCache();
             }
         }
     }
+
+    /**
+     * @param base    The object to add the general attributes to.
+     * @param element The modelelement holding the information
+     * @param <S>     A subclass of {@link CommonElements}.
+     * @return Will always return base unchanged.
+     */
+    @Override
+    public <S extends CommonElements> S restructure(final @NonNull S base,
+                                                    final @NonNull ModelElement element) {
+
+        return base;
+    }
+
+    /**
+     * @param element The element to check
+     * @return {@code True} if any of the registered {@link IRestructurer}s
+     * in {@link #classToRestructurer} can process the given element, {@code
+     * false} otherwise
+     */
+    @Override
+    public boolean canRestructure(final @NonNull ModelElement element) {
+
+        return classToRestructurer.values().stream()
+                .anyMatch(it -> it.canRestructure(element));
+    }
+
+
 }

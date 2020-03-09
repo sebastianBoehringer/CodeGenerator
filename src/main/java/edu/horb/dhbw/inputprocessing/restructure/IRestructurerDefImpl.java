@@ -19,19 +19,20 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.CommonElements;
 import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * The default implementation for an {@link RestructurerBase}.
+ * The default implementation for an {@link BaseRestructurer}.
  * None of the methods actually process the data in any sort or way. This
  * will allow {@link IRestructurerMediator} to always provide an
- * {@link RestructurerBase} that can handle the given type.
+ * {@link BaseRestructurer} that can handle the given type.
  */
-public final class IRestructurerDefImpl extends RestructurerBase<Element> {
+public final class IRestructurerDefImpl
+        extends BaseRestructurer<CommonElements> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
@@ -46,7 +47,8 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
      * @return An empty list in every case
      */
     @Override
-    public @NonNull List<Element> restructure(@NonNull final Model model) {
+    public @NonNull List<CommonElements> restructure(
+            @NonNull final Model model) {
 
         return Collections.emptyList();
     }
@@ -56,8 +58,21 @@ public final class IRestructurerDefImpl extends RestructurerBase<Element> {
      * @return Always {@code null}
      */
     @Override
-    public Element restructure(@NonNull final ModelElement element) {
+    public CommonElements restructure(@NonNull final ModelElement element) {
 
         return null;
+    }
+
+    /**
+     * @param base    The object to add the general attributes to.
+     * @param element The modelelement holding the information
+     * @param <S>     A subclass of {@link CommonElements}.
+     * @return Will always return base unchanged.
+     */
+    @Override
+    public <S extends CommonElements> S restructure(final @NonNull S base,
+                                                    final @NonNull ModelElement element) {
+
+        return base;
     }
 }

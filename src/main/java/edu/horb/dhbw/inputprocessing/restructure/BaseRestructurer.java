@@ -21,6 +21,7 @@ import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.exception.NotYetImplementedException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> Same as the type parameter of {@link IRestructurer}
  */
-public abstract class RestructurerBase<T extends CommonElements>
+public abstract class BaseRestructurer<T extends CommonElements>
         implements IRestructurer<T> {
 
     /**
@@ -66,7 +67,7 @@ public abstract class RestructurerBase<T extends CommonElements>
      * @param type                  The name of the metamodelelement this class
      *                              processes
      */
-    public RestructurerBase(final IRestructurerMediator iRestructurerMediator,
+    public BaseRestructurer(final IRestructurerMediator iRestructurerMediator,
                             @NonNull final String type) {
 
         mediator = iRestructurerMediator;
@@ -101,20 +102,12 @@ public abstract class RestructurerBase<T extends CommonElements>
     }
 
     /**
-     * Restructures a single element instead of the entire model.
-     *
-     * @param element The modelElement to restructure
-     * @return A restrucutured uml class
-     */
-    public abstract T restructure(@NonNull ModelElement element);
-
-    /**
      * Delegates the restructuring task of multiple {@link ModelElement}s to
      * specialized restructorers. This wraps
      * {@link #delegateRestructuring(ModelElement, Class)} with a size check.
      *
      * @param modelElements The {@link ModelElement}s to restructurer.
-     * @param tClass        The class that should be restructured to
+     * @param vClass        The class that should be restructured to
      * @param <V>           The class to be restructured to. Upper type is
      *                      {@link CommonElements} so that a restructurer may
      *                      exist.
@@ -122,13 +115,13 @@ public abstract class RestructurerBase<T extends CommonElements>
      */
     protected final <V extends CommonElements> @NonNull List<V> delegateMany(
             @NonNull final Collection<ModelElement> modelElements,
-            @NonNull final Class<V> tClass) {
+            @NonNull final Class<V> vClass) {
 
         if (modelElements.isEmpty()) {
             return Collections.emptyList();
         } else {
             return modelElements.stream()
-                    .map(e -> delegateRestructuring(e, tClass))
+                    .map(e -> delegateRestructuring(e, vClass))
                     .collect(Collectors.toList());
         }
     }
@@ -148,5 +141,20 @@ public abstract class RestructurerBase<T extends CommonElements>
         IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);
         System.out.println(String.format("Element is %s", element.getName()));
         return restructurer.restructure(element);
+    }
+
+    @Override
+    public boolean canRestructure(final @NonNull ModelElement element) {
+
+        String type = element.getPlainAttribute("umltype");
+        return umlType.equals(type);
+    }
+
+    @Override
+    public <S extends T> S restructure(@NonNull S base,
+                                       @NonNull ModelElement element) {
+
+        throw new NotYetImplementedException(this.getClass(),
+                                             "restructure" + "(base, element)");
     }
 }
