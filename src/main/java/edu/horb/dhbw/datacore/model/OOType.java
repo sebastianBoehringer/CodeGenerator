@@ -18,18 +18,79 @@
 package edu.horb.dhbw.datacore.model;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public abstract class OOType extends OOBase {
+public class OOType extends OOBase {
 
+    /**
+     * The package containing this type.
+     */
     private OOPackage container;
+    /**
+     * The visibility of the type inside that package.
+     */
     private VisibilityKind visibility;
+    /**
+     * The methods defined in that type.
+     */
     private List<OOMethod> methods = Collections.emptyList();
+    /**
+     * The literal values that are constants of this enum.
+     * This will be an empty list if {@link #type} is anything other than
+     * {@link Type#ENUMERATION}.
+     */
+    private List<String> literals = new ArrayList<>();
+    /**
+     * The kind of type this type represents. Accordingly some attributes may
+     * be unused.
+     */
+    @Setter(AccessLevel.NONE)
+    private final Type type;
+
+    /**
+     * The types this type specializes.
+     */
+    private List<OOType> superTypes = Collections.emptyList();
+
+    /**
+     * Interfaces the class implements.
+     * All types in this list must have a {@link #type} of
+     * {@link Type#INTERFACE}.
+     */
+    private List<OOType> implementedInterfaces = Collections.emptyList();
+
+    private boolean isAbstract;
+
+    private boolean isFinal;
+
+    private List<OOField> fields;
+
+    public enum Type {
+        /**
+         * Designates this {@link OOType} as an Interface.
+         */
+        INTERFACE,
+        /**
+         * Designates this {@link OOType} as a Class.
+         */
+        CLASS,
+        /**
+         * Designates this {@link OOType} as an Enumeration.
+         */
+        ENUMERATION,
+        /**
+         * Designates this {@link OOType} as a primitive Type.
+         */
+        PRIMITIVE;
+    }
 
 }

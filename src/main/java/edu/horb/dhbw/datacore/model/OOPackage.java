@@ -25,10 +25,10 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OOPackage extends OOBase{
+public class OOPackage extends OOBase {
 
-    private List<OOClass> classes = Collections.emptyList();
-
-    private List<OOInterface> interfaces = Collections.emptyList();
-
+    /**
+     * The elements contained in the package.
+     */
+    private List<OOType> containedElements = Collections.emptyList();
 }

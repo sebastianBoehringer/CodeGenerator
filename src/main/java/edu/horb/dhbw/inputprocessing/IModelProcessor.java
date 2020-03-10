@@ -17,9 +17,8 @@
 
 package edu.horb.dhbw.inputprocessing;
 
-import edu.horb.dhbw.datacore.model.OOClass;
-import edu.horb.dhbw.datacore.model.OOInterface;
 import edu.horb.dhbw.datacore.model.OOPackage;
+import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.exception.ModelParseException;
 import lombok.NonNull;
 
@@ -39,7 +38,7 @@ public interface IModelProcessor {
     /**
      * @return The classes the IModelProcessor parsed out of the given model.
      */
-    @NonNull List<OOClass> getParsedClasses();
+    @NonNull List<OOType> getParsedClasses();
 
     /**
      * @return The packages the IModelProcessor parsed out of the given model.
@@ -50,6 +49,6 @@ public interface IModelProcessor {
      * @return The interfaces the IModelProcessor parsed out of the given
      * model.
      */
-    @NonNull List<OOInterface> getParsedInterfaces();
+    @NonNull List<OOType> getParsedInterfaces();
 
 }
