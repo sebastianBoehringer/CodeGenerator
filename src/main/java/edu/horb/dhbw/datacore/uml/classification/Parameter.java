@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
  * Represents an argument for the invocation of a behavior.
  * See subclauses 9.4 (especially 9.4.3.4) and 9.9.13 of the UML specification
  * for more details.
- * This should specializes both {@link ConnectableElement} and
+ * This should specialize both {@link ConnectableElement} and
  * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}. It
  * currently only inherits from {@link ConnectableElement}, the fields and
  * methods special to

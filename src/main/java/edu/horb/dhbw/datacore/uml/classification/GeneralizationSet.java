@@ -62,15 +62,4 @@ public final class GeneralizationSet extends PackageableElement {
      */
     private Classifier powertype;
 
-    /**
-     * Adds a new generalization to {@link #generalization}.
-     *
-     * @param newGeneralization The generalization to add
-     */
-    public void addGeneralization(final Generalization newGeneralization) {
-
-        generalization.add(newGeneralization);
-    }
-
-
 }

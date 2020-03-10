@@ -51,34 +51,4 @@ public final class Interface extends Classifier {
      * Operations that belong to this interface.
      */
     private List<Operation> ownedOperation = new ArrayList<>();
-
-    /**
-     * Adds a new property to {@link #ownedAttribute}.
-     *
-     * @param property The property to add
-     */
-    public void addOwnedAttribute(final Property property) {
-
-        ownedAttribute.add(property);
-    }
-
-    /**
-     * Adds a new classifier to {@link #nestedClassifier}.
-     *
-     * @param classifier The classifier to add
-     */
-    public void addNestedClassifier(final Classifier classifier) {
-
-        nestedClassifier.add(classifier);
-    }
-
-    /**
-     * Adds a new operation to {@link #ownedOperation}.
-     *
-     * @param operation The operation to add
-     */
-    public void addOperation(final Operation operation) {
-
-        ownedOperation.add(operation);
-    }
 }

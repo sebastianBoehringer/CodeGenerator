@@ -41,13 +41,4 @@ public abstract class ConnectableElement extends TypedElement {
      */
     private List<ConnectorEnd> end = new ArrayList<>();
 
-    /**
-     * Adds a new connectorEnd to {@link #end}.
-     *
-     * @param connectorEnd The connectorEnd to add
-     */
-    public void addEnd(final ConnectorEnd connectorEnd) {
-
-        end.add(connectorEnd);
-    }
 }

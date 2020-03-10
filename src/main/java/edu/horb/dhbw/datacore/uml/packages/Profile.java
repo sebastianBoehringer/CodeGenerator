@@ -45,24 +45,4 @@ public final class Profile extends UMLPackage {
      * References to packages containing metaclasses this profile may extend.
      */
     private List<PackageImport> metamodelReference = new ArrayList<>();
-
-    /**
-     * Adds a new elementImport to {@link #metaclassReference}.
-     *
-     * @param elementImport The elementImport to add
-     */
-    public void addMetaclassreference(final ElementImport elementImport) {
-
-        metaclassReference.add(elementImport);
-    }
-
-    /**
-     * Adds a new packageImport to {@link #metamodelReference}.
-     *
-     * @param packageImport The packageImport to add
-     */
-    public void addMetamodelReference(final PackageImport packageImport) {
-
-        metamodelReference.add(packageImport);
-    }
 }

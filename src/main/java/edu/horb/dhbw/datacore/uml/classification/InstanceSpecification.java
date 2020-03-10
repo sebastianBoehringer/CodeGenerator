@@ -51,24 +51,4 @@ public class InstanceSpecification extends PackageableElement {
      */
     private ValueSpecification specification;
 
-    /**
-     * Adds a new classifier to {@link #classifier}.
-     *
-     * @param newClassifier The classifier to add
-     */
-    public void addClassifier(final Classifier newClassifier) {
-
-        classifier.add(newClassifier);
-    }
-
-    /**
-     * Adds a new slot to {@link #slot}.
-     *
-     * @param newSlot The slot to add
-     */
-    public void addSlot(final Slot newSlot) {
-
-        slot.add(newSlot);
-    }
-
 }

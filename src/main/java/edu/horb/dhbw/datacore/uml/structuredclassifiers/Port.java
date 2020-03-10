@@ -69,24 +69,5 @@ public final class Port extends Property {
      * attribute can be derived.
      */
     private List<Interface> required = new ArrayList<>();
-
-    /**
-     * Adds a new interface to {@link #provided}.
-     *
-     * @param anInterface The interface to add
-     */
-    public void addProvided(final Interface anInterface) {
-
-        provided.add(anInterface);
-    }
-
-    /**
-     * Adds a new interface to {@link #required}.
-     *
-     * @param anInterface The interface to add
-     */
-    public void addRequired(final Interface anInterface) {
-
-        required.add(anInterface);
-    }
+    //TODO write restructurer
 }

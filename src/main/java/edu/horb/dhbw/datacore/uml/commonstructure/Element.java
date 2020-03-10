@@ -49,23 +49,4 @@ public abstract class Element extends CommonElements {
      */
     private Element owner;
 
-    /**
-     * Adds a new comment to the {@link #ownedComment}s.
-     *
-     * @param comment The comment to add
-     */
-    public void addComment(final Comment comment) {
-
-        ownedComment.add(comment);
-    }
-
-    /**
-     * Adds an element to {@link #ownedElement}.
-     *
-     * @param element The element to add
-     */
-    public void addOwnedElement(final Element element) {
-
-        ownedElement.add(element);
-    }
 }

@@ -43,14 +43,5 @@ public final class StringExpression extends Expression {
      * The subexpressions of this expression.
      */
     private List<StringExpression> subExpression = new ArrayList<>();
-
-    /**
-     * Adds a new expression to {@link #subExpression}.
-     *
-     * @param expression The expression to add
-     */
-    public void addSubExpression(final StringExpression expression) {
-
-        subExpression.add(expression);
-    }
+    //TODO candidate for removal
 }

@@ -50,24 +50,4 @@ public abstract class BehavioredClassifier extends Classifier {
      * Behaviors this classifier owns.
      */
     private List<Behavior> ownedBehavior = new ArrayList<>();
-
-    /**
-     * Adds a new behavior to {@link #ownedBehavior}.
-     *
-     * @param behavior The behavior to add
-     */
-    public void addOwnedBehavior(final Behavior behavior) {
-
-        ownedBehavior.add(behavior);
-    }
-
-    /**
-     * Adds a new interfaceRealization to {@link #interfaceRealization}.
-     *
-     * @param realization The interfaceRealization to add
-     */
-    public void addInterfaceRealization(final InterfaceRealization realization) {
-
-        interfaceRealization.add(realization);
-    }
 }

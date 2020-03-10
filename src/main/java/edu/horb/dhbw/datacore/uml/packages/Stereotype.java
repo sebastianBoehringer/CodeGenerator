@@ -37,4 +37,6 @@ public final class Stereotype extends UMLClass {
      * The profile that contains this stereotype. This attribute can be derived.
      */
     private Profile profile;
+    //TODO write restructurer
+    //TODO wo und wie wird ein angewendetes Stereotype serialisiert
 }

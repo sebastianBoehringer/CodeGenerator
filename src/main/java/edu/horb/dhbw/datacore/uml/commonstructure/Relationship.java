@@ -40,13 +40,4 @@ public abstract class Relationship extends Element {
      */
     private List<Element> relatedElement = new ArrayList<>();
 
-    /**
-     * Adds a new element to {@link #relatedElement}.
-     *
-     * @param element The element to add
-     */
-    public void addRelatedElement(final Element element) {
-
-        relatedElement.add(element);
-    }
 }

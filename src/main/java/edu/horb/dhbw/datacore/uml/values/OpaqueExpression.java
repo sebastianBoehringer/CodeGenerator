@@ -55,25 +55,5 @@ public final class OpaqueExpression extends ValueSpecification {
      * derived.
      */
     private Parameter result;
-
-
-    /**
-     * Adds a new string to {@link #body}.
-     *
-     * @param text The string to add.
-     */
-    public void addBody(final String text) {
-
-        body.add(text);
-    }
-
-    /**
-     * Adds another language.
-     *
-     * @param lang The language to add
-     */
-    public void addLanguage(final String lang) {
-
-        language.add(lang);
-    }
+    //TODO candidate for removal
 }

@@ -39,14 +39,4 @@ public abstract class EncapsulatedClassifier extends StructuredClassifier {
      * This attribute can be derived
      */
     private List<Port> ownedPort = new ArrayList<>();
-
-    /**
-     * Adds a new port to {@link #ownedPort}.
-     *
-     * @param port The port to add
-     */
-    public void addOwnedPort(final Port port) {
-
-        ownedPort.add(port);
-    }
 }

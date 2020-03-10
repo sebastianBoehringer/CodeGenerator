@@ -39,13 +39,4 @@ public final class Enumeration extends DataType {
     private LinkedHashSet<EnumerationLiteral> ownedLiteral =
             new LinkedHashSet<>();
 
-    /**
-     * Adds a new enumerationLiteral  to {@link #ownedLiteral}.
-     *
-     * @param literal The enumerationLiteral to add
-     */
-    public void addEnumerationLiteral(final EnumerationLiteral literal) {
-
-        ownedLiteral.add(literal);
-    }
 }

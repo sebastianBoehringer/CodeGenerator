@@ -130,35 +130,4 @@ public class Property extends StructuralFeature {
      */
     private List<ConnectorEnd> end = new ArrayList<>();
 
-    /**
-     * Adds a new connectorEnd to {@link #end}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement}.
-     *
-     * @param connectorEnd The connectorEnd to add
-     */
-    public void addEnd(final ConnectorEnd connectorEnd) {
-
-        end.add(connectorEnd);
-    }
-
-    /**
-     * Adds a new property to {@link #qualifier}.
-     *
-     * @param property The property to add
-     */
-    public void addQualifier(final Property property) {
-
-        qualifier.add(property);
-    }
-
-    /**
-     * Adds a new property to {@link #subsettedProperty}.
-     *
-     * @param property The property to add
-     */
-    public void addSubsettedProperty(final Property property) {
-
-        subsettedProperty.add(property);
-    }
 }

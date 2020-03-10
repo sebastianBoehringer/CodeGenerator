@@ -62,45 +62,5 @@ public final class Component extends UMLClass {
      */
     private List<Interface> required = new ArrayList<>();
 
-    /**
-     * Adds a new packageableElement to {@link #packagedElement}.
-     *
-     * @param element The packageableElement to add
-     */
-    public void addPackagedElement(final PackageableElement element) {
-
-        packagedElement.add(element);
-    }
-
-    /**
-     * Adds a new componentRealization to {@link #realization}.
-     *
-     * @param componentRealization The componentRealization to add
-     */
-    public void addRealization(final ComponentRealization componentRealization) {
-
-        realization.add(componentRealization);
-    }
-
-    /**
-     * Adds a new interface to {@link #provided}.
-     *
-     * @param anInterface The interface to add
-     */
-    public void addProvided(final Interface anInterface) {
-
-        provided.add(anInterface);
-    }
-
-    /**
-     * Adds a new interface to {@link #required}.
-     *
-     * @param anInterface The interface to add
-     */
-    public void addRequired(final Interface anInterface) {
-
-        required.add(anInterface);
-    }
-
-
+    //TODO write restructurer
 }

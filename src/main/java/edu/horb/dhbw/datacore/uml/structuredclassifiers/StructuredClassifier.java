@@ -53,44 +53,4 @@ public abstract class StructuredClassifier extends Classifier {
      * Roles that instances can play in the classifier.
      */
     private List<ConnectableElement> role = new ArrayList<>();
-
-    /**
-     * Adds a new connectableElement to {@link #role}.
-     *
-     * @param element The element to add
-     */
-    public void addRole(final ConnectableElement element) {
-
-        role.add(element);
-    }
-
-    /**
-     * Adds a new property to {@link #part}.
-     *
-     * @param property The property to add
-     */
-    public void addPart(final Property property) {
-
-        part.add(property);
-    }
-
-    /**
-     * Adds a new connector to {@link #ownedConnector}.
-     *
-     * @param connector The connector to add
-     */
-    public void addOwnedConnector(final Connector connector) {
-
-        ownedConnector.add(connector);
-    }
-
-    /**
-     * Adds a new property to {@link #ownedAttribute}.
-     *
-     * @param property The property to add
-     */
-    public void addOwnedAttribute(final Property property) {
-
-        ownedAttribute.add(property);
-    }
 }

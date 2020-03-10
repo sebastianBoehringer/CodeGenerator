@@ -46,23 +46,4 @@ public abstract class DirectedRelationship extends Relationship {
      */
     private List<Element> target = new ArrayList<>();
 
-    /**
-     * Adds a new element to {@link #source}.
-     *
-     * @param element The element to add.
-     */
-    public void addSource(final Element element) {
-
-        source.add(element);
-    }
-
-    /**
-     * Adds a new element to {@link #target}.
-     *
-     * @param element The element to add.
-     */
-    public void addTarget(final Element element) {
-
-        target.add(element);
-    }
 }

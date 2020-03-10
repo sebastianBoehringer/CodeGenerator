@@ -66,59 +66,5 @@ public final class Collaboration extends BehavioredClassifier {
      * Copied from {@link StructuredClassifier}.
      */
     private List<ConnectableElement> role = new ArrayList<>();
-
-    /**
-     * Adds a new connectableElement to {@link #collaborationRole}.
-     *
-     * @param element The connectableElement to add
-     */
-    public void addCollaborationRole(final ConnectableElement element) {
-
-        collaborationRole.add(element);
-    }
-
-    /**
-     * Adds a new connectableElement to {@link #role}.
-     * Copied from {@link StructuredClassifier}.
-     *
-     * @param element The element to add
-     */
-    public void addRole(final ConnectableElement element) {
-
-        role.add(element);
-    }
-
-    /**
-     * Adds a new property to {@link #part}.
-     * Copied from {@link StructuredClassifier}.
-     *
-     * @param property The property to add
-     */
-    public void addPart(final Property property) {
-
-        part.add(property);
-    }
-
-    /**
-     * Adds a new connector to {@link #ownedConnector}.
-     * Copied from {@link StructuredClassifier}.
-     *
-     * @param connector The connector to add
-     */
-    public void addOwnedConnector(final Connector connector) {
-
-        ownedConnector.add(connector);
-    }
-
-    /**
-     * Adds a new property to {@link #ownedAttribute}.
-     * Copied from {@link StructuredClassifier}.
-     *
-     * @param property The property to add
-     */
-    public void addOwnedAttribute(final Property property) {
-
-        ownedAttribute.add(property);
-    }
     //TODO write restructurer
 }

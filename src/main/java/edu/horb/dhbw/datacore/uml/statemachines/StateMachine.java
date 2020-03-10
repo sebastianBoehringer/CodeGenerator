@@ -46,14 +46,4 @@ public final class StateMachine extends Behavior {
      * The regions contained inside the stateMachine.
      */
     private List<Region> region = new ArrayList<>();
-
-    /**
-     * Adds a new region to {@link #region}.
-     *
-     * @param newRegion The region to add
-     */
-    public void addRegion(final Region newRegion) {
-
-        region.add(newRegion);
-    }
 }

@@ -59,24 +59,4 @@ public final class Connector extends Feature {
      * the connector.
      */
     private Association type;
-
-    /**
-     * Adds a new behavior to {@link #contract}.
-     *
-     * @param behavior The behavior to add
-     */
-    public void addContract(final Behavior behavior) {
-
-        contract.add(behavior);
-    }
-
-    /**
-     * Adds a new connectorEnd to {@link #end}.
-     *
-     * @param connectorEnd The connectorEnd to add
-     */
-    public void addEnd(final ConnectorEnd connectorEnd) {
-
-        end.add(connectorEnd);
-    }
 }

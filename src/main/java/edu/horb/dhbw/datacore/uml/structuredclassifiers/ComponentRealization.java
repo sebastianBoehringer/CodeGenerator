@@ -45,14 +45,4 @@ public final class ComponentRealization extends Realization {
      * The classifiers that are realizing {@link #abstraction}.
      */
     private List<Classifier> realizingClassifier = new ArrayList<>();
-
-    /**
-     * Adds a new classifier to {@link #realizingClassifier}.
-     *
-     * @param classifier The classifier to add
-     */
-    public void addRealizingClassifier(final Classifier classifier) {
-
-        realizingClassifier.add(classifier);
-    }
 }

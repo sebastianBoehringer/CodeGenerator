@@ -43,14 +43,4 @@ public final class Comment extends Element {
      * The {@link Element}s this comment applies to.
      */
     private List<Element> annotatedElement = new ArrayList<>();
-
-    /**
-     * Adds a new element to the annotatedElement.
-     *
-     * @param element The {@link Element} to add to {@link #annotatedElement}
-     */
-    public void addAnnotatedElement(final Element element) {
-
-        annotatedElement.add(element);
-    }
 }

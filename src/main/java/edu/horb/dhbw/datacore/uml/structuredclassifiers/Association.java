@@ -64,34 +64,5 @@ public class Association extends Relationship {
      * Ends owned by the association.
      */
     private List<Property> ownedEnd = new ArrayList<>();
-
-    /**
-     * Adds a new property to {@link #navigableOwnedEnd}.
-     *
-     * @param property The property to add
-     */
-    public void addNavigableOwnedEnd(final Property property) {
-
-        navigableOwnedEnd.add(property);
-    }
-
-    /**
-     * Adds a new property to {@link #ownedEnd}.
-     *
-     * @param property The property to add
-     */
-    public void addOwnedEnd(final Property property) {
-
-        ownedEnd.add(property);
-    }
-
-    /**
-     * Adds a new property to {@link #memberEnd}.
-     *
-     * @param property The property to add
-     */
-    public void addMemberEnd(final Property property) {
-
-        memberEnd.add(property);
-    }
+    //TODO write restructurer
 }

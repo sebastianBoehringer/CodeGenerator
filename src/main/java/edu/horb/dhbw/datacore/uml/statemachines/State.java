@@ -116,36 +116,4 @@ public class State extends Namespace {
      * This is from the uml metaclass vertex.
      */
     private List<Transition> outgoing = new ArrayList<>();
-
-    /**
-     * Adds a new region to {@link #region}.
-     *
-     * @param newRegion The region to add
-     */
-    public void addRegion(final Region newRegion) {
-
-        region.add(newRegion);
-    }
-
-    /**
-     * Adds a new transition to {@link #incoming}.
-     * This is from the uml metaclass vertex.
-     *
-     * @param transition The transition to add
-     */
-    public final void addIncoming(final Transition transition) {
-
-        incoming.add(transition);
-    }
-
-    /**
-     * Adds a new transition to {@link #outgoing}.
-     * This is from the uml metaclass vertex.
-     *
-     * @param transition The transition to add
-     */
-    public final void addOutgoing(final Transition transition) {
-
-        outgoing.add(transition);
-    }
 }

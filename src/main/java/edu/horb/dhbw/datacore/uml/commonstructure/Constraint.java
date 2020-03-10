@@ -49,14 +49,4 @@ public class Constraint extends PackageableElement {
      */
     private ValueSpecification specification;
 
-    /**
-     * Adds a new element to {@link #constrainedElement}.
-     *
-     * @param element The element to add
-     */
-    public void addConstrainedElement(final Element element) {
-
-        constrainedElement.add(element);
-    }
-
 }

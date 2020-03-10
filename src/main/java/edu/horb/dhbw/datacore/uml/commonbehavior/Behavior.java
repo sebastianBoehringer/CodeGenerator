@@ -66,34 +66,4 @@ public abstract class Behavior extends UMLClass {
      */
     private BehavioralFeature specification;
 
-
-    /**
-     * Adds a new parameter to {@link #ownedParameter}.
-     *
-     * @param parameter The parameter to add.
-     */
-    public void addOwnedParameter(final Parameter parameter) {
-
-        ownedParameter.add(parameter);
-    }
-
-    /**
-     * Adds a new constraint to {@link #postcondition}.
-     *
-     * @param constraint The constraint to add.
-     */
-    public void addPostcondition(final Constraint constraint) {
-
-        postcondition.add(constraint);
-    }
-
-    /**
-     * Adds a new constraint to {@link #precondition}.
-     *
-     * @param constraint The constraint to add
-     */
-    public void addPrecondition(final Constraint constraint) {
-
-        precondition.add(constraint);
-    }
 }

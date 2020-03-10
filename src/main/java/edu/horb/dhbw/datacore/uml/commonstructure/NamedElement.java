@@ -68,13 +68,4 @@ public abstract class NamedElement extends Element {
      */
     private Namespace namespace;
 
-    /**
-     * Adds a new dependency to {@link #clientDependency}.
-     *
-     * @param dependency The dependency to add
-     */
-    public void addClientDependency(final Dependency dependency) {
-
-        clientDependency.add(dependency);
-    }
 }

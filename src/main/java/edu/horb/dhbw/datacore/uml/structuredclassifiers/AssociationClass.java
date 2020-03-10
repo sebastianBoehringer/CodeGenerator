@@ -33,4 +33,5 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public final class AssociationClass extends Association {
     //TODO resolve inheritance
+    //TODO write restructurer
 }

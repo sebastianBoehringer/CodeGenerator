@@ -36,4 +36,5 @@ public final class ExtensionEnd extends Property {
      * The stereotype the extension is tied to.
      */
     private Stereotype stereotype;
+    //TODO write restructurer
 }

@@ -54,16 +54,4 @@ public final class Generalization extends DirectedRelationship {
      * The specific classifier in the relationship.
      */
     private Classifier specific;
-
-    /**
-     * Adds a new generalizationSet to {@link #generalizationSet}.
-     *
-     * @param set The generalizationSet to add
-     */
-    public void addGeneralizationSet(final GeneralizationSet set) {
-
-        generalizationSet.add(set);
-    }
-
-
 }

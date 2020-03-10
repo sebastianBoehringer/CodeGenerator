@@ -45,14 +45,5 @@ public final class CollaborationUse extends NamedElement {
      * The collaboration this collaborationUse shows an application of.
      */
     private Collaboration type;
-
-    /**
-     * Adds a new dependency to {@link #roleBinding}.
-     *
-     * @param dependency The dependency to add
-     */
-    public void addRoleBinding(final Dependency dependency) {
-
-        roleBinding.add(dependency);
-    }
+    //TODO write restructurer
 }

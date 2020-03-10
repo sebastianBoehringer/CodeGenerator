@@ -45,24 +45,4 @@ public class DataType extends Classifier {
      * Operations owned by the datatype.
      */
     private List<Operation> ownedOperation = new ArrayList<>();
-
-    /**
-     * Adds a new operation to {@link #ownedOperation}.
-     *
-     * @param operation The operation to add
-     */
-    public void addOwnedOperation(final Operation operation) {
-
-        ownedOperation.add(operation);
-    }
-
-    /**
-     * Adds a new property to {@link #ownedAttribute}.
-     *
-     * @param property The property to add
-     */
-    public void addOwnedAttribute(final Property property) {
-
-        ownedAttribute.add(property);
-    }
 }

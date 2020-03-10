@@ -43,14 +43,5 @@ public class Expression extends ValueSpecification {
      * The operands this expression uses to generate a value.
      */
     private List<ValueSpecification> operand = new ArrayList<>();
-
-    /**
-     * Adds a new operand to {@link #operand}.
-     *
-     * @param newOperand The operand to add.
-     */
-    public void addOperand(final ValueSpecification newOperand) {
-
-        operand.add(newOperand);
-    }
+    //TODO write restructurer
 }

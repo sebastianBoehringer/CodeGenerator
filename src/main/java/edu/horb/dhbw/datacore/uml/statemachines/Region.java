@@ -54,24 +54,4 @@ public final class Region extends Namespace {
      * Transitions inside the region.
      */
     private List<Transition> transition = new ArrayList<>();
-
-    /**
-     * Adds a new vertex to {@link #subvertex}.
-     *
-     * @param newState The vertex to add
-     */
-    public void addSubvertex(final State newState) {
-
-        subvertex.add(newState);
-    }
-
-    /**
-     * Adds a new transition to {@link #transition}.
-     *
-     * @param newTransition The transition to add
-     */
-    public void addTransition(final Transition newTransition) {
-
-        transition.add(newTransition);
-    }
 }

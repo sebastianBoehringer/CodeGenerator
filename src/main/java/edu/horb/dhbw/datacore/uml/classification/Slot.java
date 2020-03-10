@@ -50,13 +50,4 @@ public final class Slot extends Element {
      */
     private List<ValueSpecification> value = new ArrayList<>();
 
-    /**
-     * Adds a new valueSpecification to {@link #value}.
-     *
-     * @param valueSpecification The valueSpecification to add
-     */
-    public void addValue(final ValueSpecification valueSpecification) {
-
-        value.add(valueSpecification);
-    }
 }

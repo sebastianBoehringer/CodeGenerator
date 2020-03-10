@@ -53,16 +53,5 @@ public final class Extension extends Association {
      */
     private Boolean isRequired = Boolean.FALSE;
 
-    /**
-     * Returns {@link #ownedExtensionEnd} as the redefinition in the
-     * specification states.
-     *
-     * @return A singletonList containing the end connected to a
-     * {@link Stereotype}
-     */
-    @Override
-    public List<Property> getOwnedEnd() {
-
-        return Collections.singletonList(ownedExtensionEnd);
-    }
+    //TODO write restructurer
 }

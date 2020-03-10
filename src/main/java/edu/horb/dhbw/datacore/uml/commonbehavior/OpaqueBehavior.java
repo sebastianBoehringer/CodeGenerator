@@ -42,24 +42,4 @@ public class OpaqueBehavior extends Behavior {
      * The language a body string is defined in. language[i] applies to body[i].
      */
     private List<String> language = new ArrayList<>();
-
-    /**
-     * Adds a new line of text to {@link #body}.
-     *
-     * @param statements The line of text to add
-     */
-    public void addBody(final String statements) {
-
-        body.add(statements);
-    }
-
-    /**
-     * Adds the language for a newly inserted body string to {@link #language}.
-     *
-     * @param lang The language of the newly added line of text
-     */
-    public void addLanguage(final String lang) {
-
-        language.add(lang);
-    }
 }
