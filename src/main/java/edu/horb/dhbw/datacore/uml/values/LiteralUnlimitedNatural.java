@@ -30,9 +30,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 public final class LiteralUnlimitedNatural
-        extends LiteralSpecification<UnlimitedNatural> {
+        extends LiteralSpecificationImpl<UnlimitedNatural> {
     /**
      * The specified value.
      */
-    private UnlimitedNatural value = new UnlimitedNatural(0L);
+    private final UnlimitedNatural value;
 }

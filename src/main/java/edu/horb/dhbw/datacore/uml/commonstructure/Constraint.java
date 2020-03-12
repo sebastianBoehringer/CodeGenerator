@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,35 +18,19 @@
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents an assertion about an {@link Element}.
- * See subclauses 7.6 and 7.8.3 of the UML specification for more details
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Constraint extends PackageableElement {
-    /**
-     * The {@link Element}s this constraint applies to.
-     */
-    private List<Element> constrainedElement = new ArrayList<>();
-    /**
-     * The {@link Namespace} that owns this constraint.
-     */
-    private Namespace context;
-    /**
-     * A condition evaluating to a boolean value.
-     * This must return {@code true} for the constraint to hold.
-     */
-    private ValueSpecification specification;
+public interface Constraint extends PackageableElement {
+    List<Element> getConstrainedElement();
 
+    void setConstrainedElement(List<Element> constrainedElement);
+
+    Namespace getContext();
+
+    void setContext(Namespace context);
+
+    ValueSpecification getSpecification();
+
+    void setSpecification(ValueSpecification specification);
 }

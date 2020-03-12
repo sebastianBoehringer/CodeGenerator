@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
+import edu.horb.dhbw.datacore.uml.commonstructure.RealizationImpl;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
@@ -52,7 +53,7 @@ public final class RealizationRestructurer
                      id);
             return processed.get(id);
         }
-        Realization realization = new Realization();
+        Realization realization = new RealizationImpl();
         realization.setId(id);
         processed.put(id, realization);
 

@@ -17,10 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import org.thymeleaf.util.StringUtils;
 
 /**
@@ -29,13 +27,20 @@ import org.thymeleaf.util.StringUtils;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class LiteralInteger extends LiteralSpecification<Integer> {
+public final class LiteralInteger extends LiteralSpecificationImpl<Integer> {
     /**
      * The specified value.
      */
-    private Integer value = 0;
+    private final Integer value;
+
+    /**
+     * Default constructor.
+     * This sets {@link #value} to {@code 0}.
+     */
+    public LiteralInteger() {
+
+        value = 0;
+    }
 
     /**
      * Creates a new LiteralInteger from the given String representation.
@@ -48,10 +53,15 @@ public final class LiteralInteger extends LiteralSpecification<Integer> {
      */
     public static LiteralInteger valueOf(final String representation) {
 
-        LiteralInteger integer = new LiteralInteger();
-        if (!StringUtils.isEmpty(representation)) {
-            integer.value = Integer.valueOf(representation);
+        if (StringUtils.isEmpty(representation)) {
+            return new LiteralInteger();
         }
-        return integer;
+        int temp;
+        try {
+            temp = Integer.parseInt(representation);
+        } catch (NumberFormatException e) {
+            temp = 0;
+        }
+        return new LiteralInteger(temp);
     }
 }

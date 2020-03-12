@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.statemachines;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamespaceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Region extends Namespace {
+public final class Region extends NamespaceImpl {
     /**
      * The state owning the region.
      * Only this or {@link #stateMachine} may be set.

@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.ConstraintImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
@@ -70,7 +71,7 @@ public final class ConstraintRestrucuturer
                      id);
             return processed.get(id);
         }
-        Constraint constraint = new Constraint();
+        Constraint constraint = new ConstraintImpl();
         constraint.setId(id);
         processed.put(id, constraint);
 

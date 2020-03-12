@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,49 +17,30 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Namespaces collect {@link Element}s that can be identified via their name.
- * See subclauses 7.4 and 7.8.10 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-//TODO verinterfacen
-public abstract class Namespace extends NamedElement {
-    /**
-     * References to the owned ElementImports.
-     */
-    private List<ElementImport> elementImport = new ArrayList<>();
-    /**
-     * The elements imported into this namespace. This attribute can be derived.
-     */
-    private List<PackageableElement> importedMember = new ArrayList<>();
-    /**
-     * All {@link NamedElement}s available to this namespace. This includes
-     * the imported as well as the owned ones. This attribute can be derived.
-     */
-    private List<NamedElement> member = new ArrayList<>();
-    /**
-     * The {@link NamedElement}s this namespace owns. This attribute can be
-     * derived.
-     */
-    private List<NamedElement> ownedMember = new ArrayList<>();
-    /**
-     * The {@link Constraint}s owned by this namespace.
-     */
-    private List<Constraint> ownedRule = new ArrayList<>();
-    /**
-     * The {@link PackageImport}s this namespace owns.
-     */
-    private List<PackageImport> packageImport = new ArrayList<>();
+public interface Namespace extends NamedElement {
+    List<ElementImport> getElementImport();
 
+    void setElementImport(List<ElementImport> elementImport);
+
+    List<PackageableElement> getImportedMember();
+
+    void setImportedMember(List<PackageableElement> importedMember);
+
+    List<NamedElement> getMember();
+
+    void setMember(List<NamedElement> member);
+
+    List<NamedElement> getOwnedMember();
+
+    void setOwnedMember(List<NamedElement> ownedMember);
+
+    List<Constraint> getOwnedRule();
+
+    void setOwnedRule(List<Constraint> ownedRule);
+
+    List<PackageImport> getPackageImport();
+
+    void setPackageImport(List<PackageImport> packageImport);
 }

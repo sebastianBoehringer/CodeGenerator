@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,22 +18,9 @@
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-/**
- * Constrains the value of a {@link TypedElement}.
- * See subclauses 7.5 and 7.8.21 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class Type extends PackageableElement {
-    /**
-     * The  {@link UMLPackage} owning this type.
-     */
-    private UMLPackage aPackage;
+public interface Type extends PackageableElement {
+    UMLPackage getAPackage();
+
+    void setAPackage(UMLPackage aPackage);
 }

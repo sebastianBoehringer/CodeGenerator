@@ -1,9 +1,12 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Identifies a certain instance.
@@ -12,9 +15,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public final class InstanceValue extends ValueSpecification {
+@NoArgsConstructor
+public final class InstanceValue extends PackageableElementImpl
+        implements ValueSpecification {
     /**
      * Represents the specified value.
      */
     private InstanceSpecification instance;
+
+    private Type type;
 }

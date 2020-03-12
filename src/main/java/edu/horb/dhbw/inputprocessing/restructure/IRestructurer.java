@@ -19,7 +19,8 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.XMIElement;
+import edu.horb.dhbw.datacore.uml.XMIElementImpl;
 import lombok.NonNull;
 
 import java.util.List;
@@ -30,7 +31,7 @@ import java.util.List;
  * @param <T> The type of element this restructurer produces from a
  *            {@link ModelElement}
  */
-public interface IRestructurer<T extends CommonElements> {
+public interface IRestructurer<T extends XMIElement> {
 
     /**
      * Transforms (parts of) a model into a collection corresponding uml class
@@ -58,6 +59,7 @@ public interface IRestructurer<T extends CommonElements> {
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
      * @param <S>     The subtype of {@link T} using some of its attributes.
+     * @return base but the attributes of T were added to it
      */
     <S extends T> S restructure(@NonNull S base, @NonNull ModelElement element);
 

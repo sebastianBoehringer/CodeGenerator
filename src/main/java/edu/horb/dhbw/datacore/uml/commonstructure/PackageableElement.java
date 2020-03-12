@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,25 +17,5 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-/**
- * An {@link Element} that can be owned by an
- * {@link edu.horb.dhbw.datacore.uml.packages.UMLPackage}.
- * See subclauses 7.4 and 7.8.12 of the UML specification for more details.
- * The only differences besides the added semantic meaning is that
- * {@link #visibility} defaults to {@link VisibilityKind#PUBLIC}.
- * {@link NamedElement} does not set a default value.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public abstract class PackageableElement extends NamedElement {
-
-    {
-        setVisibility(VisibilityKind.PUBLIC);
-    }
+public interface PackageableElement extends NamedElement {
 }

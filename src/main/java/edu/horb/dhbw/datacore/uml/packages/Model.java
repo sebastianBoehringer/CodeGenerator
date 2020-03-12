@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Model extends UMLPackage {
+public final class Model extends UMLPackageImpl {
     /**
      * The viewpoint expressed by the model.
      */

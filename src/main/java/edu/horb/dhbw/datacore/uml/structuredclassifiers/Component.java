@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Component extends UMLClass {
+public final class Component extends UMLClassImpl {
     /**
      * If this is {@code true} then this component is realized by just having
      * instances of its parts around, i. e. one does not need to initialize

@@ -21,6 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.datacore.uml.packages.UMLPackageImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -66,7 +67,7 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
             log.info("Found id [{}] for package in cache", id);
             return processed.get(id);
         }
-        UMLPackage umlPackage = new UMLPackage();
+        UMLPackage umlPackage = new UMLPackageImpl();
         processed.put(id, umlPackage);
         umlPackage.setId(id);
 

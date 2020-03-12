@@ -18,7 +18,7 @@
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Property;
-import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifierImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,16 +31,13 @@ import java.util.List;
  * Describes the collaboration of elements each performing a specialized
  * function.
  * See subclauses 11.7 and 11.8.4 of the UML specification for more details.
- * This should specialize both {@link BehavioredClassifier} and
- * {@link StructuredClassifier}. It currently only inherits from
- * {@link BehavioredClassifier}, the methods and fields from
- * {@link StructuredClassifier} have been copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Collaboration extends BehavioredClassifier {
+public final class Collaboration extends BehavioredClassifierImpl
+        implements StructuredClassifier {
     /**
      * The participants of this collaboration.
      */

@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
-import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.classification.PropertyImpl;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Port extends Property {
+public final class Port extends PropertyImpl {
     /**
      * If this is {@code true} requests arriving at this port are sent to the
      * classifier behavior of the {@link EncapsulatedClassifier}.

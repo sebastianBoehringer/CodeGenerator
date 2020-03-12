@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.packages;
 
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.AssociationImpl;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Extension extends Association {
+public final class Extension extends AssociationImpl {
     /**
      * The {@link UMLClass} that is extended by this extension. This attribute
      * can be derived.
@@ -45,7 +46,7 @@ public final class Extension extends Association {
     /**
      * The end of the extension that connects to a {@link Stereotype}.
      */
-    private ExtensionEnd ownedExtensionEnd;
+    private ExtensionEnd ownedEnd;
     /**
      * If this is {@code true} an instance of this extension is created
      * whenever an instance of {@link #metaclass} is created. This attribute

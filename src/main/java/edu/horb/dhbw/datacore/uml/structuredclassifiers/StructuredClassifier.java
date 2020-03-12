@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -19,38 +19,24 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Property;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A classifier that can have an internal structure.
- * See subclauses 11.2 and 11.8.15 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class StructuredClassifier extends Classifier {
-    /**
-     * The attributes owned by the classifier.
-     */
-    private List<Property> ownedAttribute = new ArrayList<>();
-    /**
-     * The connectors connected to this classifier.
-     */
-    private List<Connector> ownedConnector = new ArrayList<>();
-    /**
-     * Instances owned by the classifier via composition, i. e.  properties
-     * where {@link Property#isComposite} is {@code true}.
-     */
-    private List<Property> part = new ArrayList<>();
-    /**
-     * Roles that instances can play in the classifier.
-     */
-    private List<ConnectableElement> role = new ArrayList<>();
+public interface StructuredClassifier extends Classifier {
+    List<Property> getOwnedAttribute();
+
+    void setOwnedAttribute(List<Property> ownedAttribute);
+
+    List<Connector> getOwnedConnector();
+
+    void setOwnedConnector(List<Connector> ownedConnector);
+
+    List<Property> getPart();
+
+    void setPart(List<Property> part);
+
+    List<ConnectableElement> getRole();
+
+    void setRole(List<ConnectableElement> role);
+
 }

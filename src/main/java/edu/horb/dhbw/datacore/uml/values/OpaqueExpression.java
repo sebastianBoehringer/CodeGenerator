@@ -19,6 +19,8 @@ package edu.horb.dhbw.datacore.uml.values;
 
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +38,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class OpaqueExpression extends ValueSpecification {
+public final class OpaqueExpression extends PackageableElementImpl
+        implements ValueSpecification {
     /**
      * The textual definition of this expression.
      */
@@ -55,5 +58,7 @@ public final class OpaqueExpression extends ValueSpecification {
      * derived.
      */
     private Parameter result;
+
+    private Type type;
     //TODO candidate for removal
 }

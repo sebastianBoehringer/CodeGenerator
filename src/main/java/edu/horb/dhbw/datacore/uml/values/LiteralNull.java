@@ -11,7 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @AllArgsConstructor
-public final class LiteralNull extends LiteralSpecification<Void> {
+public final class LiteralNull extends LiteralSpecificationImpl<Void> {
 
     @Override
     public Void getValue() {

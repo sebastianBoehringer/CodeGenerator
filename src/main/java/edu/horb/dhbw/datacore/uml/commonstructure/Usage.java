@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,18 +17,5 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-/**
- * Signifies that the client requires the supplier to function.
- * See subclauses 7.7 (especially 7.7.3.2) and 7.8.23 of the UML specification
- * for more details. The only difference to {@link Dependency} is the added
- * semantic meaning.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public final class Usage extends Dependency {
+public interface Usage extends Dependency {
 }

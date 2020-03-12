@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.classification;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,7 +35,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class GeneralizationSet extends PackageableElement {
+public final class GeneralizationSet extends PackageableElementImpl {
     /**
      * If this is {@code true} all possible specializations have been defined.
      * Thus an instance of the general classifier has to also be an instance

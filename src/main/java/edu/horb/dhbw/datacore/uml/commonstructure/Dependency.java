@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,52 +17,15 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Signifies that a model element requires others for its implementation.
- * See subclauses 7.7 and 7.8.4 of the UML specification for more details.
- * This class is supposed to be a specialization of
- * {@link DirectedRelationship} and {@link PackageableElement}. It currently
- * only inherits {@link PackageableElement}, the fields and methods from
- * {@link DirectedRelationship} and also {@link Relationship} have been
- * copied over.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Dependency extends PackageableElement {
-    /**
-     * The elements dependent on the {@link #supplier}s.
-     */
-    private List<NamedElement> client;
+public interface Dependency extends PackageableElement, DirectedRelationship {
+    List<NamedElement> getClient();
 
-    /**
-     * The elements depending on the {@link #client}s.
-     */
-    private List<NamedElement> supplier;
-    /**
-     * The elements this relationship exists between. This can be derived.
-     * Copied from {@link Relationship}.
-     */
-    private List<Element> relatedElement = new ArrayList<>();
-    /**
-     * The sources of this directed relationship.
-     * This attribute can be derived.
-     * Copied from {@link DirectedRelationship}.
-     */
-    private List<Element> source = new ArrayList<>();
-    /**
-     * The targets of this directed relationship.
-     * This attribute can be derived.
-     * Copied from {@link DirectedRelationship}.
-     */
-    private List<Element> target = new ArrayList<>();
+    void setClient(List<NamedElement> client);
+
+    List<NamedElement> getSupplier();
+
+    void setSupplier(List<NamedElement> supplier);
+
 }

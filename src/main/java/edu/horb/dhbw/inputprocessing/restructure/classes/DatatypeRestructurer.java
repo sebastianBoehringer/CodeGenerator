@@ -24,6 +24,7 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataTypeImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -53,7 +54,7 @@ public final class DatatypeRestructurer extends CachingRestructurer<DataType> {
             log.info("Found id [{}] in cache, loading datatype from cache", id);
             return processed.get(id);
         }
-        DataType dataType = new DataType();
+        DataType dataType = new DataTypeImpl();
         dataType.setId(id);
         processed.put(id, dataType);
 

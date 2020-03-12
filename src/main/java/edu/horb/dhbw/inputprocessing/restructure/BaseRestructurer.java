@@ -20,7 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 import com.sdmetrics.model.MetaModel;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.exception.NotYetImplementedException;
 import lombok.Getter;
 import lombok.NonNull;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> Same as the type parameter of {@link IRestructurer}
  */
-public abstract class BaseRestructurer<T extends CommonElements>
+public abstract class BaseRestructurer<T extends XMIElement>
         implements IRestructurer<T> {
 
     /**
@@ -109,11 +109,11 @@ public abstract class BaseRestructurer<T extends CommonElements>
      * @param modelElements The {@link ModelElement}s to restructurer.
      * @param vClass        The class that should be restructured to
      * @param <V>           The class to be restructured to. Upper type is
-     *                      {@link CommonElements} so that a restructurer may
+     *                      {@link XMIElement} so that a restructurer may
      *                      exist.
      * @return A collection of the restructured elements
      */
-    protected final <V extends CommonElements> @NonNull List<V> delegateMany(
+    protected final <V extends XMIElement> @NonNull List<V> delegateMany(
             @NonNull final Collection<ModelElement> modelElements,
             @NonNull final Class<V> vClass) {
 
@@ -130,10 +130,10 @@ public abstract class BaseRestructurer<T extends CommonElements>
      * @param element The element to restructure.
      * @param vClass  The class to restructure to
      * @param <V>     The type of the class to restructure to. Upper bound is
-     *                {@link CommonElements} so that a restructurer can exist.
+     *                {@link XMIElement} so that a restructurer can exist.
      * @return The restructured element
      */
-    protected final <V extends CommonElements> V delegateRestructuring(final ModelElement element, final Class<V> vClass) {
+    protected final <V extends XMIElement> V delegateRestructuring(final ModelElement element, final Class<V> vClass) {
 
         if (element == null || vClass == null) {
             return null;
@@ -155,6 +155,6 @@ public abstract class BaseRestructurer<T extends CommonElements>
                                        @NonNull ModelElement element) {
 
         throw new NotYetImplementedException(this.getClass(),
-                                             "restructure" + "(base, element)");
+                                             "restructure(base, element)");
     }
 }

@@ -1,9 +1,10 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
+import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElementImpl;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,18 +15,13 @@ import lombok.NoArgsConstructor;
  * Represents an argument for the invocation of a behavior.
  * See subclauses 9.4 (especially 9.4.3.4) and 9.9.13 of the UML specification
  * for more details.
- * This should specialize both {@link ConnectableElement} and
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}. It
- * currently only inherits from {@link ConnectableElement}, the fields and
- * methods special to
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}
- * have been copied over.
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Parameter extends ConnectableElement {
+public final class Parameter extends ConnectableElementImpl
+        implements MultiplicityElement {
     /**
      * Represents a default value that should be used if no value is passed
      * for this parameter.

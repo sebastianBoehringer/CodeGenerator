@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,31 +18,13 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-/**
- * Defines a behavioral or structural characteristic of a {@link Classifier}.
- * See subclauses 9.4 and 9.9.6 of the UML specification for more details.
- * Usually this would specialize an UML metaclass called RedefinableElement.
- * Since the Codegenerator does not support redefinition it instead
- * specializes {@link NamedElement} which is the only generalization of
- * RedefinableElement.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class Feature extends NamedElement {
-    /**
-     * If {@code true} this feature describes the classifier itself,
-     * otherwise it describes individual instances of the classifier.
-     */
-    private Boolean isStatic = Boolean.FALSE;
-    /**
-     * The classifier that has this feature. This attribute can be derived.
-     */
-    private Classifier featuringClassifier;
+public interface Feature extends NamedElement {
+    Boolean getIsStatic();
+
+    void setIsStatic(Boolean isStatic);
+
+    Classifier getFeaturingClassifier();
+
+    void setFeaturingClassifier(Classifier featuringClassifier);
 }

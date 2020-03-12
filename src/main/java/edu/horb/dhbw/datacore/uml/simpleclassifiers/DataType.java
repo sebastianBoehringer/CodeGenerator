@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -20,29 +20,15 @@ package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A special set of classifiers that can be identified by their value.
- * See subclauses 10.2 and 10.5.2 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class DataType extends Classifier {
-    /**
-     * Attributes owned by the datatype.
-     */
-    private List<Property> ownedAttribute = new ArrayList<>();
-    /**
-     * Operations owned by the datatype.
-     */
-    private List<Operation> ownedOperation = new ArrayList<>();
+public interface DataType extends Classifier {
+    List<Property> getOwnedAttribute();
+
+    void setOwnedAttribute(List<Property> ownedAttribute);
+
+    List<Operation> getOwnedOperation();
+
+    void setOwnedOperation(List<Operation> ownedOperation);
 }

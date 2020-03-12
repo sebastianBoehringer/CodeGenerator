@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.classification;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImpl;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Slot extends Element {
+public final class Slot extends ElementImpl {
     /**
      * The feature constraining the values that this slot can hold.
      */

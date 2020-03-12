@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
+import edu.horb.dhbw.datacore.uml.commonstructure.CommentImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public final class CommentRestructurer extends CachingRestructurer<Comment> {
                      id);
             return processed.get(id);
         }
-        Comment comment = new Comment();
+        Comment comment = new CommentImpl();
         comment.setId(id);
         processed.put(id, comment);
 
@@ -59,6 +60,11 @@ public final class CommentRestructurer extends CachingRestructurer<Comment> {
                 (Collection<ModelElement>) element.getSetAttribute("annotated");
         comment.setAnnotatedElement(delegateMany(annotated, Element.class));
 
+        for (Element e : comment.getAnnotatedElement()) {
+            if (e != null) {
+                e.getOwnedComment().add(comment);
+            }
+        }
         return comment;
     }
 }

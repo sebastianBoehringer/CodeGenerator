@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -19,53 +19,31 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.values.StringExpression;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * An {@link Element} which may hold a name.
- * See subclauses 7.4 (especially 7.4.3.2) and 7.8.9 of the UML specification
- * for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class NamedElement extends Element {
-    /**
-     * The unqualified name of this named element. This must be unique in its
-     * {@link #namespace}.
-     */
-    private String name;
-    /**
-     * The fully qualified name of this named element. This must be unique in
-     * the entire model. The attribute can be derived by chaining the name of
-     * the namespace(s) this element is in and finally the name of this
-     * element.
-     */
-    private String qualifiedName;
-    /**
-     * Determines the visibility of this element outside of its
-     * {@link #namespace}.
-     */
-    private VisibilityKind visibility;
-    /**
-     * The dependencies where the element plays the client role.
-     */
-    private List<Dependency> clientDependency = new ArrayList<>();
-    /**
-     * The expression that determines this elements name.
-     */
-    private StringExpression nameExpression;
-    /**
-     * The namespace this element belongs to. This can be derived via
-     * {@link #owner}.
-     */
-    private Namespace namespace;
+public interface NamedElement extends Element {
+    String getName();
 
+    void setName(String name);
+
+    String getQualifiedName();
+
+    void setQualifiedName(String qualifiedName);
+
+    VisibilityKind getVisibility();
+
+    void setVisibility(VisibilityKind visibility);
+
+    List<Dependency> getClientDependency();
+
+    void setClientDependency(List<Dependency> clientDependency);
+
+    StringExpression getNameExpression();
+
+    void setNameExpression(StringExpression nameExpression);
+
+    Namespace getNamespace();
+
+    void setNamespace(Namespace namespace);
 }

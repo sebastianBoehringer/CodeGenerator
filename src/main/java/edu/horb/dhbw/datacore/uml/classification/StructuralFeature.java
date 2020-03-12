@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,86 +17,13 @@
 
 package edu.horb.dhbw.datacore.uml.classification;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.Type;
-import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
-import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
 
-/**
- * Describes part of the structure of a classifier.
- * See subclauses 9.4 and 9.9.21 of the UML specification for more details.
- * This should specialize
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement},
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement} and
- * {@link Feature}. It only inherits from {@link Feature}.
- * The fields of the other two classes have been copied over which is
- * definitely not the prettiest solution out there.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class StructuralFeature extends Feature {
-    /**
-     * If this is {@code true} the feature cannot be written to after
-     * initialization.
-     */
-    private Boolean isReadOnly = Boolean.FALSE;
+public interface StructuralFeature
+        extends Feature, MultiplicityElement, TypedElement {
 
-    /**
-     * Defines if the values of the attribute should be ordered. This only
-     * applies if the attribute can be multivalued, i. e. {@link #upper} is
-     * greater than {@code 0}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private Boolean isOrdered = Boolean.FALSE;
-    /**
-     * Defines if the value of the attributes should be unique. This only
-     * applies if the attribute can be multivalued, i. e. {@link #upper} is
-     * greater than {@code 0}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private Boolean isUnique = Boolean.TRUE;
-    /**
-     * The lower bound of the cardinality. If this equals to {@code 0} the
-     * attribute is optional. The value is derived by evaluating
-     * {@link #lowerValue}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private Integer lower = 0;
-    /**
-     * The upper bound of the cardinality. If this is not less than {@code 2}
-     * the attribute is multivalued. The value is derived by evaluation
-     * {@link #upperValue}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private UnlimitedNatural upper = UnlimitedNatural.UNLIMITED;
-    /**
-     * A specification for the lower bound of the cardinality, i. e.
-     * {@link #lower}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private ValueSpecification lowerValue;
-    /**
-     * A specification for the upper bound of the cardinality, i. e.
-     * {@link #upper}.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
-     */
-    private ValueSpecification upperValue;
+    Boolean getIsReadOnly();
 
-    /**
-     * The type of this element.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}.
-     */
-    private Type type;
+    void setIsReadOnly(Boolean isReadOnly);
 }

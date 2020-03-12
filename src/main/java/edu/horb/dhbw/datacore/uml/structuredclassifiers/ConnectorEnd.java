@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElementImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class ConnectorEnd extends MultiplicityElement {
+public final class ConnectorEnd extends MultiplicityElementImpl {
     /**
      * This attribute can be derived. It references the end that defines the
      * association with which the owning {@link Connector} is typed.

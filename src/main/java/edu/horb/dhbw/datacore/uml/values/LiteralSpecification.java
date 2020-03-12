@@ -17,10 +17,6 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
  * Denotes that the value of the ValueSpecification does not need to be
  * computed, i. e. the value is constant.
@@ -28,15 +24,8 @@ import lombok.EqualsAndHashCode;
  *
  * @param <T> The type of the constant value that this specification returns.
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-public abstract class LiteralSpecification<T> extends ValueSpecification {
+public interface LiteralSpecification<T> extends ValueSpecification {
 
-    /**
-     * The value specified.
-     *
-     * @return The value that is specified by this specification
-     */
-    public abstract T getValue();
+    T getValue();
+
 }

@@ -20,7 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Feature;
@@ -158,8 +158,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public final class IRestructurerMediator
-        implements IRestructurer<CommonElements> {
+public final class IRestructurerMediator implements IRestructurer<XMIElement> {
 
     /**
      * The number of {@link IRestructurer}s registered when using the default
@@ -170,16 +169,16 @@ public final class IRestructurerMediator
     /**
      * The mappings to use.
      */
-    private final Map<Class<? extends CommonElements>, IRestructurer<?
-            extends CommonElements>>
+    private final Map<Class<? extends XMIElement>, IRestructurer<?
+            extends XMIElement>>
             classToRestructurer;
 
     /**
      * The default {@link IRestructurer} to use if no specialized one is
      * registered in {@link #classToRestructurer}.
      */
-    private final IRestructurer<? extends CommonElements>
-            defaultImplementation = new IRestructurerDefImpl(this);
+    private final IRestructurer<? extends XMIElement> defaultImplementation =
+            new IRestructurerDefImpl(this);
 
     /**
      * Default Constructor.
@@ -314,7 +313,7 @@ public final class IRestructurerMediator
      * @param restructurer The restructurer to add
      * @param <T>          Ensuring that the class and the restructurer match
      */
-    public <T extends CommonElements> void register(
+    public <T extends XMIElement> void register(
             @NonNull final Class<T> clazz,
             @NonNull final IRestructurer<T> restructurer) {
 
@@ -324,12 +323,12 @@ public final class IRestructurerMediator
     /**
      * @param clazz The class to restructure to
      * @param <T>   The class that the IRestructurer restructures to. Upper
-     *              bound is {@link CommonElements}.
+     *              bound is {@link XMIElement}.
      * @return An IRestructurer transforming a
      * {@link com.sdmetrics.model.Model} to a T
      */
     @NonNull
-    public <T extends CommonElements> IRestructurer<T> getIRestructurer(
+    public <T extends XMIElement> IRestructurer<T> getIRestructurer(
             @NonNull final Class<T> clazz) {
 
         return (IRestructurer<T>) classToRestructurer
@@ -345,12 +344,11 @@ public final class IRestructurerMediator
      * @return A list of the restructured uml classes
      */
     @Override
-    public @NonNull List<CommonElements> restructure(
-            @NonNull final Model model) {
+    public @NonNull List<XMIElement> restructure(@NonNull final Model model) {
 
-        List<CommonElements> elements = new ArrayList<>();
-        for (Map.Entry<Class<? extends CommonElements>, IRestructurer<?
-                extends CommonElements>> entry : classToRestructurer
+        List<XMIElement> elements = new ArrayList<>();
+        for (Map.Entry<Class<? extends XMIElement>, IRestructurer<?
+                extends XMIElement>> entry : classToRestructurer
                 .entrySet()) {
             elements.addAll(entry.getValue().restructure(model));
         }
@@ -367,9 +365,9 @@ public final class IRestructurerMediator
      * @return The restructured element
      */
     @Override
-    public CommonElements restructure(@NonNull final ModelElement element) {
+    public XMIElement restructure(@NonNull final ModelElement element) {
 
-        IRestructurer<? extends CommonElements> restructurer =
+        IRestructurer<? extends XMIElement> restructurer =
                 classToRestructurer.values().stream().
                         filter(it -> it.canRestructure(element)).findFirst()
                         .orElse(defaultImplementation);
@@ -391,12 +389,12 @@ public final class IRestructurerMediator
     /**
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
-     * @param <S>     A subclass of {@link CommonElements}.
+     * @param <S>     A subclass of {@link XMIElement}.
      * @return Will always return base unchanged.
      */
     @Override
-    public <S extends CommonElements> S restructure(final @NonNull S base,
-                                                    final @NonNull ModelElement element) {
+    public <S extends XMIElement> S restructure(final @NonNull S base,
+                                                final @NonNull ModelElement element) {
 
         return base;
     }

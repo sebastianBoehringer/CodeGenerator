@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,27 +18,11 @@
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents a participant of the inner structure of a classifier.
- * See subclauses 11.2 and 11.8.8 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class ConnectableElement extends TypedElement {
-    /**
-     * {@link ConnectorEnd}s attached to this connectableElement. This
-     * attribute can be derived.
-     */
-    private List<ConnectorEnd> end = new ArrayList<>();
+public interface ConnectableElement extends TypedElement {
+    List<ConnectorEnd> getEnd();
 
+    void setEnd(List<ConnectorEnd> end);
 }

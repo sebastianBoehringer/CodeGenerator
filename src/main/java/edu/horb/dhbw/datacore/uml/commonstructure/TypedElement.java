@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,22 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+public interface TypedElement extends NamedElement {
+    Type getType();
 
-/**
- * An element that has a type specified for it.
- * See subclauses 7.5 and 7.8.22 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class TypedElement extends NamedElement {
-    /**
-     * The type of this element.
-     */
-    private Type type;
+    void setType(Type type);
 }

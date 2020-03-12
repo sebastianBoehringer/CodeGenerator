@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Stereotype extends UMLClass {
+public final class Stereotype extends UMLClassImpl {
     /**
      * The profile that contains this stereotype. This attribute can be derived.
      */

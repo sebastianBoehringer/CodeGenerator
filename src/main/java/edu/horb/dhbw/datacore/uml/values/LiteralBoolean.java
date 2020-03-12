@@ -17,10 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * Specifies a boolean value.
@@ -28,11 +26,18 @@ import lombok.NoArgsConstructor;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class LiteralBoolean extends LiteralSpecification<Boolean> {
+public final class LiteralBoolean extends LiteralSpecificationImpl<Boolean> {
     /**
      * The specified value.
      */
-    private Boolean value = Boolean.FALSE;
+    private final Boolean value;
+
+    /**
+     * Default constructor.
+     * This sets {@link #value} to {@code false}.
+     */
+    public LiteralBoolean() {
+
+        value = Boolean.FALSE;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -19,34 +19,17 @@ package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-/**
- * Represents a relation that imports all elements with a
- * {@link VisibilityKind} that is not {@link VisibilityKind#PRIVATE} into the
- * owning {@link Namespace}.
- * See subclauses 7.4 and 7.8.11 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class PackageImport extends DirectedRelationship {
-    /**
-     * The visibility of the imported elements in the
-     * {@link #importingNamespace}.
-     */
-    private VisibilityKind visibility = VisibilityKind.PUBLIC;
-    /**
-     * The package that is imported into the namespace.
-     */
-    private UMLPackage importedPackage;
-    /**
-     * The namespace that is importing the package.
-     */
-    private Namespace importingNamespace;
+public interface PackageImport extends DirectedRelationship {
+    VisibilityKind getVisibility();
+
+    void setVisibility(VisibilityKind visibility);
+
+    UMLPackage getImportedPackage();
+
+    void setImportedPackage(UMLPackage importedPackage);
+
+    Namespace getImportingNamespace();
+
+    void setImportingNamespace(Namespace importingNamespace);
 }
-

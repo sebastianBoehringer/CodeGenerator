@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
+import edu.horb.dhbw.datacore.uml.commonstructure.AbstractionImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
@@ -53,7 +54,7 @@ public final class AbstractionRestructurer
                      id);
             return processed.get(id);
         }
-        Abstraction abstraction = new Abstraction();
+        Abstraction abstraction = new AbstractionImpl();
         abstraction.setId(id);
         processed.put(id, abstraction);
 

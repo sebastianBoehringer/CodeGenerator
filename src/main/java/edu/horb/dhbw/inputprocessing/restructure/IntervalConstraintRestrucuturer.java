@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.values.Interval;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;

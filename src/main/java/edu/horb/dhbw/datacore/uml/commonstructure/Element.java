@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,36 +17,20 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import edu.horb.dhbw.datacore.uml.CommonElements;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import edu.horb.dhbw.datacore.uml.XMIElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents a part of a model.
- * This is the basic building block of UML.
- * See subclauses 7.2 and 7.8.6 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class Element extends CommonElements {
-    /**
-     * The comments owned by this element.
-     */
-    private List<Comment> ownedComment = new ArrayList<>();
-    /**
-     * The elements owned by this element.
-     */
-    private List<Element> ownedElement = new ArrayList<>();
-    /**
-     * The owner of this element.
-     */
-    private Element owner;
+public interface Element extends XMIElement {
+    List<Comment> getOwnedComment();
 
+    void setOwnedComment(List<Comment> ownedComment);
+
+    List<Element> getOwnedElement();
+
+    void setOwnedElement(List<Element> ownedElement);
+
+    Element getOwner();
+
+    void setOwner(Element owner);
 }

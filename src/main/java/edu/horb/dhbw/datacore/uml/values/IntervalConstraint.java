@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.values;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.ConstraintImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,7 +35,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class IntervalConstraint extends Constraint {
+public final class IntervalConstraint extends ConstraintImpl {
     /**
      * The interval specifying this constraint.
      */

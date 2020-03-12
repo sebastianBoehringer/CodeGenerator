@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,38 +18,21 @@
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-/**
- * Allows an {@link Element} of a different {@link Namespace} to be
- * referenced in this namespace without a fully qualified name.
- * See subclauses 7.4 and 7.8.7 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class ElementImport extends DirectedRelationship {
-    /**
-     * Defines the unqualified name of the imported element. This name should
-     * not clash with any names already included in the
-     * {@link #importingNamespace}.
-     */
-    private String alias;
-    /**
-     * Specifies the visibility of the {@link #importedElement} in the
-     * {@link #importingNamespace}.
-     */
-    private VisibilityKind visibility = VisibilityKind.PUBLIC;
-    /**
-     * The element that is being imported into this {@link Namespace}.
-     */
-    private PackageableElement importedElement;
-    /**
-     * The {@link Namespace} importing the element.
-     */
-    private Namespace importingNamespace;
+public interface ElementImport extends DirectedRelationship {
+    String getAlias();
+
+    void setAlias(String alias);
+
+    VisibilityKind getVisibility();
+
+    void setVisibility(VisibilityKind visibility);
+
+    PackageableElement getImportedElement();
+
+    void setImportedElement(PackageableElement importedElement);
+
+    Namespace getImportingNamespace();
+
+    void setImportingNamespace(Namespace importingNamespace);
 }

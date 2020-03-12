@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.packages;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
+import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationshipImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class ProfileApplication extends DirectedRelationship {
+public final class ProfileApplication extends DirectedRelationshipImpl {
     /**
      * If this is {@code true} the available metaclasses for the package must
      * be filtered. Thus only the metaclasses referenced by either

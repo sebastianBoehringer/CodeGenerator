@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,33 +17,14 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents a relationship between a source and a target.
- * It might apply to multiple sources and/or targets. See subclauses 7.2 and
- * 7.8.5 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public abstract class DirectedRelationship extends Relationship {
-    /**
-     * The sources of this directed relationship.
-     * This attribute can be derived.
-     */
-    private List<Element> source = new ArrayList<>();
-    /**
-     * The targets of this directed relationship.
-     * This attribute can be derived.
-     */
-    private List<Element> target = new ArrayList<>();
+public interface DirectedRelationship extends Relationship {
+    List<Element> getSource();
 
+    void setSource(List<Element> source);
+
+    List<Element> getTarget();
+
+    void setTarget(List<Element> target);
 }

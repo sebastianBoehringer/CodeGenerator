@@ -17,9 +17,15 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
+import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.commonstructure.Element;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A special case of an {@link Association} where the association itself owns
@@ -31,7 +37,42 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public final class AssociationClass extends Association {
-    //TODO resolve inheritance
+public final class AssociationClass extends UMLClassImpl
+        implements Association {
+    /**
+     * If this is  {@code true} the association can be derived with the help
+     * other elements in the model.
+     * Copied from {@link AssociationImpl}.
+     */
+    private Boolean isDerived = Boolean.FALSE;
+    /**
+     * The types of the elements participating in this association. This
+     * attribute can be derived.
+     * Copied from {@link AssociationImpl}.
+     */
+    private List<Type> endType = new ArrayList<>();
+    /**
+     * The elements participating in this association.
+     * Copied from {@link AssociationImpl}.
+     */
+    private List<Property> memberEnd = new ArrayList<>();
+    /**
+     * Navigable ends which are owned by the association.
+     * Copied from {@link AssociationImpl}.
+     */
+    private List<Property> navigableOwnedEnd = new ArrayList<>();
+    /**
+     * Ends owned by the association.
+     * Copied from {@link AssociationImpl}.
+     */
+    private List<Property> ownedEnd = new ArrayList<>();
+
+    /**
+     * The elements this relationship exists between. This can be derived.
+     * Copied from {@link AssociationImpl}.
+     * Copied from
+     * {@link edu.horb.dhbw.datacore.uml.commonstructure.RelationshipImpl}.
+     */
+    private List<Element> relatedElement = new ArrayList<>();
     //TODO write restructurer
 }

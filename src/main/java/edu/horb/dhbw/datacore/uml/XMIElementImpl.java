@@ -12,7 +12,7 @@ import java.net.URI;
  * Please be aware that this comment is aligned to XMI version 2.5.1.
  */
 @Data
-public abstract class CommonElements {
+public abstract class XMIElementImpl implements XMIElement {
 
     /**
      * Holds the name of the type of the object which is serialized. See

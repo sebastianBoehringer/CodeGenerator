@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InstanceSpecification extends PackageableElement {
+public class InstanceSpecification extends PackageableElementImpl {
     /**
      * The classifier(s) of the specified instance.
      */

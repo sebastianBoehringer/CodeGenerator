@@ -20,6 +20,7 @@ package edu.horb.dhbw.datacore.uml.statemachines;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamespaceImpl;
 import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,7 +42,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class State extends Namespace {
+public class State extends NamespaceImpl {
     /**
      * If this is {@code true} the state is a composite state.
      * I. e. it contains at least one region. This attribute can be derived.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,31 +17,14 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Specifies a value by applying the operation represented by the
- * {@link #symbol} to each of the {@link #operand}s.
- * See subclauses 8.3 and 8.6.5 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Expression extends ValueSpecification {
-    /**
-     * Represents the operation to apply to the {@link #operand}s.
-     */
-    private String symbol;
-    /**
-     * The operands this expression uses to generate a value.
-     */
-    private List<ValueSpecification> operand = new ArrayList<>();
-    //TODO write restructurer
+public interface Expression extends ValueSpecification {
+    String getSymbol();
+
+    void setSymbol(String symbol);
+
+    List<ValueSpecification> getOperand();
+
+    void setOperand(List<ValueSpecification> operand);
 }

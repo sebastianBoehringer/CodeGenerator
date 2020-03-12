@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -18,26 +18,11 @@
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-/**
- * An Abstraction is a Relationship that relates two Elements or sets of
- * Elements that represent the same concept at different levels of
- * abstraction or from different viewpoints.
- * See subclauses 7.7 and 7.8.1 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Abstraction extends Dependency {
+public interface Abstraction extends Dependency {
 
-    /**
-     * States the abstraction relationship between supplier and client.
-     */
-    private OpaqueExpression mapping;
+    OpaqueExpression getMapping();
+
+    void setMapping(OpaqueExpression mapping);
 
 }

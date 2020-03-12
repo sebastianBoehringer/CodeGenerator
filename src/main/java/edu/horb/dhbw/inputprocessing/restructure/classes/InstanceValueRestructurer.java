@@ -20,9 +20,9 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.InstanceSpecification;
 import edu.horb.dhbw.datacore.uml.classification.InstanceValue;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +44,8 @@ public final class InstanceValueRestructurer
         String id = element.getXMIID();
         log.info("Processing instance for instancevalue [{}]", id);
         ModelElement instance = element.getRefAttribute("instance");
-        InstanceValue value = new InstanceValue(
+        InstanceValue value = new InstanceValue();
+        value.setInstance(
                 delegateRestructuring(instance, InstanceSpecification.class));
 
         value.setId(id);

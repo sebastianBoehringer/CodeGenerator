@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure.components;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
+import edu.horb.dhbw.datacore.uml.commonstructure.UsageImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -49,7 +50,7 @@ public final class UsageRestructurer extends CachingRestructurer<Usage> {
             log.info("Found id [{}] in cache, loading usage from cache", id);
             return processed.get(id);
         }
-        Usage usage = new Usage();
+        Usage usage = new UsageImpl();
         usage.setId(id);
         processed.put(id, usage);
 

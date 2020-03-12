@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
+import edu.horb.dhbw.datacore.uml.commonstructure.DependencyImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
@@ -51,7 +52,7 @@ public final class DependencyRestructurer
                      id);
             return processed.get(id);
         }
-        Dependency dependency = new Dependency();
+        Dependency dependency = new DependencyImpl();
         dependency.setId(id);
         processed.put(id, dependency);
 

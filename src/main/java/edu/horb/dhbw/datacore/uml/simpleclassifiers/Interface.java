@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
+import edu.horb.dhbw.datacore.uml.classification.ClassifierImpl;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Interface extends Classifier {
+public final class Interface extends ClassifierImpl {
     /**
      * Classifiers defined inside of this Interface.
      */

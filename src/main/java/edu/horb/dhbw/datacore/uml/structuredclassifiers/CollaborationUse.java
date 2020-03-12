@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElementImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,7 +36,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class CollaborationUse extends NamedElement {
+public final class CollaborationUse extends NamedElementImpl {
     /**
      * A mapping between features of the collaboration and features of
      * {@link #owner} of this collaborationUse.

@@ -29,6 +29,7 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -78,7 +79,7 @@ public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
             log.info("Found id [{}] in cache, loading class from cache", id);
             return processed.get(id);
         }
-        UMLClass clazz = new UMLClass();
+        UMLClass clazz = new UMLClassImpl();
         clazz.setId(id);
         processed.put(id, clazz);
 

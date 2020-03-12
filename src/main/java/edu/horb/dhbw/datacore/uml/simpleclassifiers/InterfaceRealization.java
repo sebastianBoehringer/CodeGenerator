@@ -1,6 +1,6 @@
 package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
+import edu.horb.dhbw.datacore.uml.commonstructure.RealizationImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class InterfaceRealization extends Realization {
+public final class InterfaceRealization extends RealizationImpl {
     /**
      * The interface realized by {@link #implementingClassifier}.
      */

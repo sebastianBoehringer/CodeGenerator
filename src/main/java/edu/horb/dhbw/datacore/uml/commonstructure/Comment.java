@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,30 +17,14 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Represents information useful to the reader.
- * See subclauses 7.2 (especially 7.2.3.2) and 7.8.2 of the UML specification
- * for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public final class Comment extends Element {
-    /**
-     * The actual comment about the {@link #annotatedElement}s.
-     */
-    private String body;
-    /**
-     * The {@link Element}s this comment applies to.
-     */
-    private List<Element> annotatedElement = new ArrayList<>();
+public interface Comment extends Element {
+    String getBody();
+
+    void setBody(String body);
+
+    List<Element> getAnnotatedElement();
+
+    void setAnnotatedElement(List<Element> annotatedElement);
 }

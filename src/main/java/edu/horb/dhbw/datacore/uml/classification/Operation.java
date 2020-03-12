@@ -41,7 +41,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Operation extends BehavioralFeature {
+public final class Operation extends BehavioralFeatureImpl {
     /**
      * If this is {@code true} the return parameter of the operation is
      * ordered. This attribute can be derived.

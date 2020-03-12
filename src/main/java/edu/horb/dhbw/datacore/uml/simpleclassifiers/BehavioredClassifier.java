@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -19,35 +19,19 @@ package edu.horb.dhbw.datacore.uml.simpleclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A classifier that can own {@link Behavior}s.
- * See subclauses 10.4 and 10.5.1 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class BehavioredClassifier extends Classifier {
-    /**
-     * Describes the behavior of the classifier.
-     */
-    private Behavior classifierBehavior;
-    /**
-     * The {@link InterfaceRealization} relationships this classifier
-     * participates in. This can be seen as a list of interfaces this
-     * classifier implements
-     */
-    private List<InterfaceRealization> interfaceRealization = new ArrayList<>();
-    /**
-     * Behaviors this classifier owns.
-     */
-    private List<Behavior> ownedBehavior = new ArrayList<>();
+public interface BehavioredClassifier extends Classifier {
+    Behavior getClassifierBehavior();
+
+    void setClassifierBehavior(Behavior classifierBehavior);
+
+    List<InterfaceRealization> getInterfaceRealization();
+
+    void setInterfaceRealization(List<InterfaceRealization> interfaceRealization);
+
+    List<Behavior> getOwnedBehavior();
+
+    void setOwnedBehavior(List<Behavior> ownedBehavior);
 }

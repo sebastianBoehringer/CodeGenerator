@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
-import edu.horb.dhbw.datacore.uml.classification.Feature;
+import edu.horb.dhbw.datacore.uml.classification.FeatureImpl;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.enums.ConnectorKind;
 import lombok.AllArgsConstructor;
@@ -37,7 +37,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Connector extends Feature {
+public final class Connector extends FeatureImpl {
     /**
      * The type of the connector.
      * This attribute can be derived

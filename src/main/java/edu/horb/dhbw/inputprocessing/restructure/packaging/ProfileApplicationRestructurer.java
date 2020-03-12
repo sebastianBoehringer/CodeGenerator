@@ -23,13 +23,13 @@ import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.RestructurerBase;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class ProfileApplicationRestructurer
-        extends RestructurerBase<ProfileApplication> {
+        extends BaseRestructurer<ProfileApplication> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

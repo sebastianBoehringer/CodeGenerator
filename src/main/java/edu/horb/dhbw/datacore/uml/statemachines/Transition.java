@@ -20,6 +20,7 @@ package edu.horb.dhbw.datacore.uml.statemachines;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamespaceImpl;
 import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +35,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Transition extends Namespace {
+public final class Transition extends NamespaceImpl {
     /**
      * The type of the transition.
      */

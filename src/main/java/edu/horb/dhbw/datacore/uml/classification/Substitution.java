@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.classification;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
+import edu.horb.dhbw.datacore.uml.commonstructure.RealizationImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,7 +34,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Substitution extends Realization {
+public final class Substitution extends RealizationImpl {
     /**
      * The contract the {@link #substitutingClassifier} conforms to. It may
      * be used in its place.

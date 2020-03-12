@@ -19,7 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.XMIElement;
 import lombok.NonNull;
 
 import java.util.Collections;
@@ -31,8 +31,7 @@ import java.util.List;
  * will allow {@link IRestructurerMediator} to always provide an
  * {@link BaseRestructurer} that can handle the given type.
  */
-public final class IRestructurerDefImpl
-        extends BaseRestructurer<CommonElements> {
+public final class IRestructurerDefImpl extends BaseRestructurer<XMIElement> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
@@ -47,8 +46,7 @@ public final class IRestructurerDefImpl
      * @return An empty list in every case
      */
     @Override
-    public @NonNull List<CommonElements> restructure(
-            @NonNull final Model model) {
+    public @NonNull List<XMIElement> restructure(@NonNull final Model model) {
 
         return Collections.emptyList();
     }
@@ -58,7 +56,7 @@ public final class IRestructurerDefImpl
      * @return Always {@code null}
      */
     @Override
-    public CommonElements restructure(@NonNull final ModelElement element) {
+    public XMIElement restructure(@NonNull final ModelElement element) {
 
         return null;
     }
@@ -66,12 +64,12 @@ public final class IRestructurerDefImpl
     /**
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
-     * @param <S>     A subclass of {@link CommonElements}.
+     * @param <S>     A subclass of {@link XMIElement}.
      * @return Will always return base unchanged.
      */
     @Override
-    public <S extends CommonElements> S restructure(final @NonNull S base,
-                                                    final @NonNull ModelElement element) {
+    public <S extends XMIElement> S restructure(final @NonNull S base,
+                                                final @NonNull ModelElement element) {
 
         return base;
     }

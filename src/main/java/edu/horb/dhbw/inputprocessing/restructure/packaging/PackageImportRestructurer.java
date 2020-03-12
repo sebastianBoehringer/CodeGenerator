@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure.packaging;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImportImpl;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
@@ -50,7 +51,7 @@ public final class PackageImportRestructurer
             log.info("Found id [{}] for packageimport in cache", id);
             return processed.get(id);
         }
-        PackageImport packageImport = new PackageImport();
+        PackageImport packageImport = new PackageImportImpl();
         processed.put(id, packageImport);
         packageImport.setId(id);
 

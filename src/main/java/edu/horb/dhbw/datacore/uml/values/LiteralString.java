@@ -28,9 +28,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public final class LiteralString extends LiteralSpecification<String> {
+public final class LiteralString extends LiteralSpecificationImpl<String> {
     /**
      * The specified value.
      */
-    private String value;
+    private final String value;
 }

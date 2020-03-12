@@ -22,6 +22,7 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Behavior extends UMLClass {
+public abstract class Behavior extends UMLClassImpl {
     /**
      * If this is {@code true} the behavior can be invoked again while
      * its still executing from another invocation.

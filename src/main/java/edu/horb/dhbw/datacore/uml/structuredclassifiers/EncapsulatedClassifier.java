@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,26 +17,10 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A classifier that can own ports.
- * See subclauses 11.3 and 11.8.13 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class EncapsulatedClassifier extends StructuredClassifier {
-    /**
-     * The ports owned by the classifier.
-     * This attribute can be derived
-     */
-    private List<Port> ownedPort = new ArrayList<>();
+public interface EncapsulatedClassifier extends StructuredClassifier {
+    List<Port> getOwnedPort();
+
+    void setOwnedPort(List<Port> ownedPort);
 }

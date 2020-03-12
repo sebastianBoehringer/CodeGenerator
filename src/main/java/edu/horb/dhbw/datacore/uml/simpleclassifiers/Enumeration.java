@@ -32,7 +32,7 @@ import java.util.LinkedHashSet;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Enumeration extends DataType {
+public final class Enumeration extends DataTypeImpl {
     /**
      * The literals specifying the possible values of this enumeration.
      */

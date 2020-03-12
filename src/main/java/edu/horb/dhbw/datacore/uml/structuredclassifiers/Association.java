@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,52 +17,31 @@
 
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A way to classify links which are tuples referring to
- * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}s.
- * See subclauses 11.5 and 11.8.1 of the UML specification for more details.
- * This should be a specialization of both {@link Relationship} and
- * {@link edu.horb.dhbw.datacore.uml.classification.Classifier}. It currently
- * only inherits from {@link Relationship}.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Association extends Relationship {
-    //TODO resolve inheritance
-    /**
-     * If this is  {@code true} the association can be derived with the help
-     * other elements in the model.
-     */
-    private Boolean isDerived = Boolean.FALSE;
-    /**
-     * The types of the elements participating in this association. This
-     * attribute can be derived.
-     */
-    private List<Type> endType = new ArrayList<>();
-    /**
-     * The elements participating in this association.
-     */
-    private List<Property> memberEnd = new ArrayList<>();
-    /**
-     * Navigable ends which are owned by the association.
-     */
-    private List<Property> navigableOwnedEnd = new ArrayList<>();
-    /**
-     * Ends owned by the association.
-     */
-    private List<Property> ownedEnd = new ArrayList<>();
-    //TODO write restructurer
+public interface Association extends Classifier, Relationship {
+    Boolean getIsDerived();
+
+    void setIsDerived(Boolean isDerived);
+
+    List<Type> getEndType();
+
+    void setEndType(List<Type> endType);
+
+    List<Property> getMemberEnd();
+
+    void setMemberEnd(List<Property> memberEnd);
+
+    List<Property> getNavigableOwnedEnd();
+
+    void setNavigableOwnedEnd(List<Property> navigableOwnedEnd);
+
+    List<Property> getOwnedEnd();
+
+    void setOwnedEnd(List<Property> ownedEnd);
 }

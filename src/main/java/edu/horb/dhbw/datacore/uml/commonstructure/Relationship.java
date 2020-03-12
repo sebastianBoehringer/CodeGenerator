@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -17,27 +17,11 @@
 
 package edu.horb.dhbw.datacore.uml.commonstructure;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Specifies a kind of relationship between tow {@link Element}s.
- * See subclauses 7.2 (especially 7.2.3.3) and 7.8.15 of the UML specification
- * for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public abstract class Relationship extends Element {
-    /**
-     * The elements this relationship exists between. This can be derived.
-     */
-    private List<Element> relatedElement = new ArrayList<>();
+public interface Relationship extends Element {
+    List<Element> getRelatedElement();
+
+    void setRelatedElement(List<Element> relatedElement);
 
 }

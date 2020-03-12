@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.values;
 
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +32,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Interval extends ValueSpecification {
+public final class Interval extends PackageableElementImpl
+        implements ValueSpecification {
     /**
      * The maximum value of this interval.
      */
@@ -39,4 +42,6 @@ public final class Interval extends ValueSpecification {
      * The minimum value of this interval.
      */
     private ValueSpecification min;
+
+    private Type type;
 }

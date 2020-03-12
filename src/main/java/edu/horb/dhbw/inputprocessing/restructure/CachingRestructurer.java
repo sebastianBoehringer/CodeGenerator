@@ -17,13 +17,13 @@
 
 package edu.horb.dhbw.inputprocessing.restructure;
 
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.uml.XMIElement;
 import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class CachingRestructurer<T extends CommonElements>
+public abstract class CachingRestructurer<T extends XMIElement>
         extends BaseRestructurer<T> {
 
     public CachingRestructurer(final IRestructurerMediator iRestructurerMediator,

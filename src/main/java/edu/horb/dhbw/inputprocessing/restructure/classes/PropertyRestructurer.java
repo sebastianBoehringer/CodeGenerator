@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.classification.PropertyImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
@@ -77,7 +78,7 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
             return processed.get(id);
         }
 
-        Property property = new Property();
+        Property property = new PropertyImpl();
         property.setId(id);
         processed.put(id, property);
 

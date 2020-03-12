@@ -17,7 +17,7 @@
 
 package edu.horb.dhbw.datacore.uml.classification;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
+import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationshipImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Generalization extends DirectedRelationship {
+public final class Generalization extends DirectedRelationshipImpl {
     /**
      * If {@code true} the specific classifier can be used in place of the
      * more general.

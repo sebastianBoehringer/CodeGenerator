@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
+import edu.horb.dhbw.datacore.uml.commonstructure.RealizationImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +37,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class ComponentRealization extends Realization {
+public final class ComponentRealization extends RealizationImpl {
     /**
      * The component that is being realized by {@link #realizingClassifier}.
      */
