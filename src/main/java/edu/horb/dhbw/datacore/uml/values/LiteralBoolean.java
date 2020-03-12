@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.values;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Specifies a boolean value.
@@ -26,6 +27,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public final class LiteralBoolean extends LiteralSpecificationImpl<Boolean> {
     /**
      * The specified value.

@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.values;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import org.thymeleaf.util.StringUtils;
 
 /**
@@ -27,6 +28,7 @@ import org.thymeleaf.util.StringUtils;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@RequiredArgsConstructor
 public final class LiteralInteger extends LiteralSpecificationImpl<Integer> {
     /**
      * The specified value.

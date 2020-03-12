@@ -17,12 +17,16 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
+import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.AssociationImpl;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Indicates that a metaclass is extended via a {@link Stereotype}.
@@ -50,4 +54,9 @@ public final class Extension extends AssociationImpl {
     private Boolean isRequired = Boolean.FALSE;
 
     //TODO write restructurer
+    @Override
+    public List<Property> getOwnedEnd() {
+
+        return Collections.singletonList(this.ownedEnd);
+    }
 }
