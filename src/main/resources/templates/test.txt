@@ -1,2 +1,0 @@
-[# th:each="method : ${methods}"] [(${method.getName()})] [(${method.name})] [(${method.name})]
-[/]
