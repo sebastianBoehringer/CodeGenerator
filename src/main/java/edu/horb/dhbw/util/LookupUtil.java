@@ -34,6 +34,7 @@ import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
+import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
@@ -128,6 +129,7 @@ public final class LookupUtil {
             case "slot":
                 return Slot.class;
             case "comment":
+                return Comment.class;
             default:
                 break;
         }
@@ -172,7 +174,15 @@ public final class LookupUtil {
     public static Class<? extends MultiplicityElement> multiplicityFromUMLType(
             @NonNull final String umlType) {
 
-        return "connectorend".equals(umlType) ? ConnectorEnd.class : null;
+        switch (umlType) {
+            case "connectorend":
+                return ConnectorEnd.class;
+            case "parameter":
+                return Parameter.class;
+            default:
+                break;
+        }
+        return structuralFeatureFromUMLType(umlType);
     }
 
     /**
@@ -247,6 +257,8 @@ public final class LookupUtil {
                 return Extension.class;
             case "associationclass":
                 return AssociationClass.class;
+            case "association":
+                return Association.class;
             default:
                 return null;
         }
@@ -284,6 +296,15 @@ public final class LookupUtil {
     public static Class<? extends TypedElement> typedFromUMLType(
             @NonNull final String umlType) {
 
+        Class<? extends TypedElement> aClass =
+                structuralFeatureFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        aClass = valueSpecFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
         return connectableFromUMLType(umlType);
     }
 
@@ -308,8 +329,18 @@ public final class LookupUtil {
             case "pseudostate":
                 return State.class;
             default:
-                return null;
+                break;
         }
+        Class<? extends Namespace> aClass =
+                behavioralFeatureFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        aClass = packageFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
+        return classifierFromUMLType(umlType);
     }
 
     /**
@@ -388,7 +419,8 @@ public final class LookupUtil {
     public static Class<? extends ConnectableElement> connectableFromUMLType(
             @NonNull final String umlType) {
 
-        return "parameter".equals(umlType) ? Parameter.class : null;
+        return "parameter".equals(umlType) ? Parameter.class
+                                           : propertyFromUMLType(umlType);
     }
 
     /**
@@ -585,6 +617,10 @@ public final class LookupUtil {
         if (aClass != null) {
             return aClass;
         }
+        aClass = associationFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
         return structuredClassifierFromUMLType(umlType);
     }
 
@@ -717,7 +753,8 @@ public final class LookupUtil {
     public static Class<? extends StructuredClassifier> structuredClassifierFromUMLType(
             @NonNull final String umlType) {
 
-        return encapsulatedClassifierFromUMLType(umlType);
+        return "collaboration".equals(umlType) ? Collaboration.class :
+               encapsulatedClassifierFromUMLType(umlType);
     }
 
     /**
@@ -738,6 +775,8 @@ public final class LookupUtil {
                 return Stereotype.class;
             case "component":
                 return Component.class;
+            case "associationclass":
+                return AssociationClass.class;
             default:
                 return behaviorFromUMLType(umlType);
         }
@@ -755,7 +794,7 @@ public final class LookupUtil {
     public static Class<? extends EncapsulatedClassifier> encapsulatedClassifierFromUMLType(
             @NonNull final String umlType) {
 
-        return null;
+        return classFromUMLType(umlType);
     }
 
     /**
