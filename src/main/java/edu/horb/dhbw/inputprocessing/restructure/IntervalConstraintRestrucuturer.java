@@ -18,7 +18,6 @@
 package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.values.Interval;
@@ -34,7 +33,7 @@ import java.util.Map;
 public final class IntervalConstraintRestrucuturer
         extends BaseRestructurer<IntervalConstraint> {
     /**
-     * A map holding all the {@link Constraint}s that have already been
+     * A map holding all the {@link IntervalConstraint}s that have already been
      * processed. This maps from their xmi id to the actual instance.
      * The map is not synchronized, thus the class is most likely not
      * threadsafe.

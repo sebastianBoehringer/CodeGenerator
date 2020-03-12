@@ -17,24 +17,5 @@
 
 package edu.horb.dhbw.datacore.model;
 
-/**
- * A strategy that provides details of how naming for a {@link Language} works.
- */
-public interface INamingScheme {
-
-    /**
-     * Provides the file name for a given oo class.
-     * This does NOT include the extension. That can be returned by
-     * {@link Language#extension}.
-     *
-     * @return The name of the file.
-     */
-    String provideFileName();
-
-    /**
-     * Provides the name for a variable of a given type.
-     *
-     * @return The name of the variable.
-     */
-    String provideVariableName();
+public class OOStatemachine extends OOBase {
 }

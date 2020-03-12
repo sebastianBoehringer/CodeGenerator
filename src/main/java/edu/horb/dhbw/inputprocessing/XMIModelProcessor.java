@@ -18,16 +18,18 @@
 package edu.horb.dhbw.inputprocessing;
 
 import com.sdmetrics.model.Model;
-import edu.horb.dhbw.datacore.model.OOClass;
-import edu.horb.dhbw.datacore.model.OOInterface;
 import edu.horb.dhbw.datacore.model.OOPackage;
-import edu.horb.dhbw.datacore.uml.CommonElements;
+import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.uml.XMIElement;
+import edu.horb.dhbw.datacore.uml.XMIElementImpl;
+import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.transform.OOClassTransformer;
-import edu.horb.dhbw.inputprocessing.transform.OOInterfaceTransformer;
-import edu.horb.dhbw.inputprocessing.transform.OOPackageTransformer;
+import edu.horb.dhbw.inputprocessing.transform.ITransformer;
+import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -43,12 +45,12 @@ public final class XMIModelProcessor implements IModelProcessor {
      * A cache for the classes that have been processed. Invoking
      * {@link #parseModel(Path)} cleans up the cache automatically.
      */
-    private final List<OOClass> parsedClasses = new ArrayList<>();
+    private final List<OOType> parsedClasses = new ArrayList<>();
     /**
      * A cache for the interfaces that have been processed. Invoking
      * {@link #parseModel(Path)} cleans up the cache automatically.
      */
-    private final List<OOInterface> parsedInterfaces = new ArrayList<>();
+    private final List<OOType> parsedInterfaces = new ArrayList<>();
     /**
      * A cache for the packages that have been processed. Invoking
      * {@link #parseModel(Path)} cleans up the cache automatically.
@@ -60,12 +62,7 @@ public final class XMIModelProcessor implements IModelProcessor {
      */
     private final IRestructurerMediator mediator;
 
-    private final OOClassTransformer classTransformer =
-            new OOClassTransformer();
-    private final OOInterfaceTransformer interfaceTransformer =
-            new OOInterfaceTransformer();
-    private final OOPackageTransformer packageTransformer =
-            new OOPackageTransformer();
+    private final TransformerRegistry registry = new TransformerRegistry();
 
     /**
      * Constructs a XMIModelProcessor with an {@link IRestructurerMediator}
@@ -81,8 +78,8 @@ public final class XMIModelProcessor implements IModelProcessor {
      *                 {@link IRestructurerMediator} used by this processor.
      */
     public XMIModelProcessor(@NonNull
-                             final Map<Class<? extends CommonElements>,
-            IRestructurer<? extends CommonElements>> mappings) {
+                             final Map<Class<? extends XMIElement>,
+            IRestructurer<? extends XMIElement>> mappings) {
 
         mediator = new IRestructurerMediator(mappings);
 
@@ -108,8 +105,14 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedInterfaces.clear();
         parsedPackages.clear();
         mediator.cleanCaches();
-        List<CommonElements> commonElements = mediator.restructure(model);
+        List<XMIElement> commonElements = mediator.restructure(model);
         //TODO prevalidation here
+        ITransformer<UMLClass, OOType> classTransformer =
+                registry.getTransformer(UMLClass.class);
+        ITransformer<UMLPackage, OOPackage> packageTransformer =
+                registry.getTransformer(UMLPackage.class);
+        ITransformer<Interface, OOType> interfaceTransformer =
+                registry.getTransformer(Interface.class);
         parsedClasses.addAll(classTransformer.transform(commonElements));
         parsedPackages.addAll(packageTransformer.transform(commonElements));
         parsedInterfaces.addAll(interfaceTransformer.transform(commonElements));
@@ -126,7 +129,7 @@ public final class XMIModelProcessor implements IModelProcessor {
      * already returned lists.
      */
     @Override
-    public @NonNull List<OOClass> getParsedClasses() {
+    public @NonNull List<OOType> getParsedClasses() {
 
         return List.copyOf(parsedClasses);
     }
@@ -152,7 +155,7 @@ public final class XMIModelProcessor implements IModelProcessor {
      * already returned lists.
      */
     @Override
-    public @NonNull List<OOInterface> getParsedInterfaces() {
+    public @NonNull List<OOType> getParsedInterfaces() {
 
         return List.copyOf(parsedInterfaces);
     }

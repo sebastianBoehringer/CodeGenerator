@@ -1,15 +1,16 @@
 package edu.horb.dhbw;
 
-import edu.horb.dhbw.config.SDMetrics.SDMetricsConfig;
-import edu.horb.dhbw.config.thymeleaf.ThymeleafConfig;
+import com.sdmetrics.model.Model;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.templating.ITemplateEngineAdapter;
+import edu.horb.dhbw.templating.ThymeleafAdapter;
+import edu.horb.dhbw.util.Config;
+import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
-import java.io.FileWriter;
-import java.io.Writer;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,27 +24,20 @@ public final class Main {
     public static void main(final String[] args)
             throws Exception {
 
-        TemplateEngine engine = ThymeleafConfig.templateEngine("");
-        Context context = new Context();
-        List<Operation> operations = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Operation op = new Operation();
-            op.setName("operation" + i);
-            op.setBodyCondition(new Constraint());
-            operations.add(op);
-        }
-        context.setVariable("methods", operations);
+        CodeGenerator gen = new CodeGenerator(
+                Path.of("C:/Users/SBG/IdeaProjects/CodeGenerator/src"
+                                + "/main/resources/default.properties"));
+        ITemplateEngineAdapter adapter = new ThymeleafAdapter();
+        gen.generateCode(Path.of("src/main/resources/xmi/uml.xmi"),
+                         Config.CONFIG.getLanguage());
 
-        String xmiFile =
-                "src/main/resources/xmi/2SMs.xmi";       // XMI file with the
-        // UML model
-
-
-        Writer fileWriter = new FileWriter("./target/test.java");
-        fileWriter.write(System.currentTimeMillis() + "\n");
-        engine.process("test", context, fileWriter);
-        System.out.println(engine.process("test", context));
-
-        System.out.println(SDMetricsConfig.parseXMI(xmiFile));
+        // mediator.restructure(model);
+        //Writer fileWriter = new
+        // FileWriter("./target/test
+        // .java");
+        //fileWriter.write(System
+        // .currentTimeMillis() + "\n");
+        //engine.process("test", context, fileWriter);
+        //System.out.println(engine.process("test", context));
     }
 }

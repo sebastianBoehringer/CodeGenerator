@@ -14,27 +14,11 @@
  *  You should have received a copy of the GNU Affero General Public License
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package edu.horb.dhbw.datacore.model;
-
 /**
- * A strategy that provides details of how naming for a {@link Language} works.
+ * Classes that transform from a class that is specific to a certain modeling
+ * language (like
+ * {@link edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass} is to
+ * UML) to the more general concept of the OO* classes in the package
+ * {@link edu.horb.dhbw.datacore.model}.
  */
-public interface INamingScheme {
-
-    /**
-     * Provides the file name for a given oo class.
-     * This does NOT include the extension. That can be returned by
-     * {@link Language#extension}.
-     *
-     * @return The name of the file.
-     */
-    String provideFileName();
-
-    /**
-     * Provides the name for a variable of a given type.
-     *
-     * @return The name of the variable.
-     */
-    String provideVariableName();
-}
+package edu.horb.dhbw.inputprocessing.transform;

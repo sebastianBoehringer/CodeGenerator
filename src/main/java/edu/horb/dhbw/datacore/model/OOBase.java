@@ -19,6 +19,8 @@ package edu.horb.dhbw.datacore.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public abstract class OOBase {
     /**
@@ -30,4 +32,9 @@ public abstract class OOBase {
      * An id which helps identify the OO-feature across multiple input files.
      */
     private String id;
+
+    /**
+     * Comments that were attached to the corresponding model element.
+     */
+    private List<String> comments;
 }

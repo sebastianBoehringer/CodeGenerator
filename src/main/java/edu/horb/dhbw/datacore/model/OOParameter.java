@@ -23,5 +23,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OOParameter extends OOBase {
+    /**
+     * The type of this parameter.
+     */
     private final OOType type;
+    /**
+     * The default value of this parameter.
+     */
+    private String defaults;
+    private Cardinality cardinality;
 }

@@ -1,0 +1,13 @@
+CLASSES
+[# th:each="class : ${classes}"] [(${class.getVisibility().toString()})] [# th:if="${class.isAbstract()}"]abstract [/][(${class.getName()})]
+[# th:each="attribute : ${class.getFields()}"] *[(${attribute.getName()})]
+[/]
+[# th:each="method : ${class.getMethods()}"] °[(${method.getName()})]
+[/]_____________________________________________________________
+[/]
+PACKAGES
+[# th:each="package : ${packages}"][(${package.getName()})]
+[/]
+INTERFACES
+[# th:each="interface : ${interfaces}"][(${interface.getName()})]
+[/]

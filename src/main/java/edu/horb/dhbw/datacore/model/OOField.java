@@ -23,10 +23,31 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class OOField extends OOBase{
+public class OOField extends OOBase {
 
-    private OOClass type;
+    /**
+     * The type of this field.
+     */
+    private OOType type;
 
+    /**
+     * The visibility of the field.
+     */
     private VisibilityKind visibility;
+
+    /**
+     * Represents the cardinality of the field.
+     */
+    private Cardinality cardinality;
+
+    /**
+     * If this is {@code true} the field cannot be written to
+     */
+    private boolean readOnly;
+
+    /**
+     * If this is {@code true} the field is static.
+     */
+    private boolean isStatic;
 
 }

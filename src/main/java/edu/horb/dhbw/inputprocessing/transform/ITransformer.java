@@ -15,26 +15,35 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.datacore.model;
+package edu.horb.dhbw.inputprocessing.transform;
+
+import edu.horb.dhbw.datacore.model.OOBase;
+import edu.horb.dhbw.datacore.uml.XMIElement;
+import lombok.NonNull;
+
+import java.util.List;
 
 /**
- * A strategy that provides details of how naming for a {@link Language} works.
+ * Transforms an {@link F} to a {@link T}.
+ *
+ * @param <F> The type to transform from
+ * @param <T> The type to transform to
  */
-public interface INamingScheme {
+public interface ITransformer<F extends XMIElement, T extends OOBase> {
+    /**
+     * Transforms all the elements in the given list that are a {@link F}.
+     *
+     * @param elements The list containing the elements to transform.
+     * @return A list with all the transformed elements.
+     */
+
+    @NonNull List<T> transform(@NonNull List<?> elements);
 
     /**
-     * Provides the file name for a given oo class.
-     * This does NOT include the extension. That can be returned by
-     * {@link Language#extension}.
-     *
-     * @return The name of the file.
+     * @param element The single element to transform
+     * @return Transforms the given element to an {@link T}
      */
-    String provideFileName();
+    T transform(@NonNull F element);
 
-    /**
-     * Provides the name for a variable of a given type.
-     *
-     * @return The name of the variable.
-     */
-    String provideVariableName();
+
 }

@@ -32,6 +32,12 @@ import java.util.List;
 public class OOType extends OOBase {
 
     /**
+     * The kind of type this type represents. Accordingly some attributes may
+     * be unused.
+     */
+    @Setter(AccessLevel.NONE)
+    private final Type type;
+    /**
      * The package containing this type.
      */
     private OOPackage container;
@@ -49,13 +55,6 @@ public class OOType extends OOBase {
      * {@link Type#ENUMERATION}.
      */
     private List<String> literals = new ArrayList<>();
-    /**
-     * The kind of type this type represents. Accordingly some attributes may
-     * be unused.
-     */
-    @Setter(AccessLevel.NONE)
-    private final Type type;
-
     /**
      * The types this type specializes.
      */

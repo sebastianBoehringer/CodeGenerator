@@ -27,8 +27,38 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OOMethod extends OOBase {
-    private Object logic;
-    private List<OOParameter> parameters = Collections.emptyList();
-    private VisibilityKind visbility;
 
+    /**
+     * Defines the logic used when executing this method.
+     */
+    private OOStatemachine logic;
+    /**
+     * The parameters used for the invocation of the method.
+     */
+    private List<OOParameter> parameters = Collections.emptyList();
+
+    /**
+     * The return parameter of the method.
+     */
+    private OOParameter returnParam;
+    /**
+     * The visibility of the method.
+     */
+    private VisibilityKind visibility;
+
+    /**
+     * If this is {@code true} the method is abstract.
+     */
+    private boolean isAbstract;
+
+    /**
+     * If this is {@code true} the method is static.
+     */
+    private boolean isStatic;
+
+    /**
+     * Collects all the exceptions that the execution of the method can
+     * possibly cause.
+     */
+    private List<OOType> exceptions = Collections.emptyList();
 }
