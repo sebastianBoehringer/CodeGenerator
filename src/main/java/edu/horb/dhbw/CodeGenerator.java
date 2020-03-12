@@ -51,29 +51,31 @@ public final class CodeGenerator {
 
     /**
      * Generates a codeGenerator using the .properties the path points to.
+     * If the loading of the properties fails in any way, the default
+     * properties will be used. See the implementation of
+     * {@link Config#readInProperties(Properties)} for more details.
      *
      * @param propertyLocation The location of the properties file to use
      */
-    public CodeGenerator(final Path propertyLocation)
-            throws InvalidConfigurationException {
+    public CodeGenerator(final Path propertyLocation) {
 
         Properties properties = new Properties();
         log.info("Trying to load properties from location [{}]",
-                 propertyLocation.toString());
+                 propertyLocation.toAbsolutePath().toString());
         try (InputStream in = new BufferedInputStream(
                 Files.newInputStream(propertyLocation))) {
             properties.load(in);
             Config.CONFIG.readInProperties(properties);
             log.info("Successfully read in properties");
         } catch (FileNotFoundException ex) {
-            log.warn("Did not find properties at location [{}]",
+            log.error("Did not find properties at location [{}]",
                      propertyLocation.toString());
-            log.info("Using default properties");
+            log.warn("Using default properties");
             Config.CONFIG.readInProperties(new Properties());
         } catch (IOException ex) {
             log.error("Something went wrong, exception message [{}]",
                       ex.getMessage());
-            log.info("Using default properties");
+            log.warn("Using default properties");
             Config.CONFIG.readInProperties(new Properties());
         }
 
