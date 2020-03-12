@@ -17,6 +17,8 @@
 
 package edu.horb.dhbw.datacore.uml.primitivetypes;
 
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
+import edu.horb.dhbw.util.Config;
 import lombok.Data;
 import org.thymeleaf.util.StringUtils;
 
@@ -29,7 +31,7 @@ import org.thymeleaf.util.StringUtils;
  * {@link Long#MIN_VALUE} but that would make comparisons feel awkward.
  */
 @Data
-public final class UnlimitedNatural {
+public final class UnlimitedNatural extends PrimitiveTypeImpl {
     /**
      * Represents the special value unlimited as {@link Long#MAX_VALUE}.
      * Since UnlimitedNatural is most often used in conjunction with
@@ -97,5 +99,10 @@ public final class UnlimitedNatural {
                     String.format("Parsed value [%d] is less than 0 or null",
                                   nestedValue));
         }
+    }
+    @Override
+    public String getName() {
+
+        return "unlimitednatural";
     }
 }
