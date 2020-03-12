@@ -19,9 +19,9 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.values.LiteralBoolean;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 

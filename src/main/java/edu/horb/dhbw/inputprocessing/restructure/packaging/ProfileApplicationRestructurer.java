@@ -21,9 +21,9 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.packages.Profile;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 

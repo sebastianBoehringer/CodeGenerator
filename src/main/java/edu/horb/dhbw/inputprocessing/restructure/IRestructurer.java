@@ -20,7 +20,6 @@ package edu.horb.dhbw.inputprocessing.restructure;
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.XMIElement;
-import edu.horb.dhbw.datacore.uml.XMIElementImpl;
 import lombok.NonNull;
 
 import java.util.List;

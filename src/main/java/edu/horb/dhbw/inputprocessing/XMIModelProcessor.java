@@ -21,7 +21,6 @@ import com.sdmetrics.model.Model;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.XMIElement;
-import edu.horb.dhbw.datacore.uml.XMIElementImpl;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;

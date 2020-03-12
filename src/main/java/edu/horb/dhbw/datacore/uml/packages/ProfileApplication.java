@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.DirectedRelationshipImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

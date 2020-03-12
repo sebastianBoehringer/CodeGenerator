@@ -23,7 +23,6 @@ import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
-import edu.horb.dhbw.datacore.uml.commonstructure.CommentImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

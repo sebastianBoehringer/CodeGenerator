@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.uml.statemachines;
 
-import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamespaceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

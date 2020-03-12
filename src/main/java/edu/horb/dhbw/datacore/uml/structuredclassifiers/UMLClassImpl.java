@@ -51,9 +51,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UMLClassImpl extends BehavioredClassifierImpl implements UMLClass {
-    {
-        setIsAbstract(Boolean.FALSE);
-    }
     /**
      * If {@code true} this class is referred to as an active class. Active
      * classes execute their associated behavior immediately upon creation.
@@ -105,4 +102,8 @@ public class UMLClassImpl extends BehavioredClassifierImpl implements UMLClass {
      * Copied from {@link EncapsulatedClassifier}.
      */
     private List<Port> ownedPort = new ArrayList<>();
+
+    {
+        setIsAbstract(Boolean.FALSE);
+    }
 }

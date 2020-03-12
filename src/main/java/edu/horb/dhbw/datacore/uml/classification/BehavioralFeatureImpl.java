@@ -21,7 +21,6 @@ import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;

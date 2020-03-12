@@ -19,7 +19,6 @@ package edu.horb.dhbw.datacore.uml.statemachines;
 
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
-import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamespaceImpl;
 import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import lombok.AllArgsConstructor;

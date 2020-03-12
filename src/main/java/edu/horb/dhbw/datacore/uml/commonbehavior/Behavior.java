@@ -21,7 +21,6 @@ import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

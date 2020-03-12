@@ -1,18 +1,11 @@
 package edu.horb.dhbw;
 
-import com.sdmetrics.model.Model;
-import edu.horb.dhbw.datacore.uml.classification.Operation;
-import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.templating.ITemplateEngineAdapter;
 import edu.horb.dhbw.templating.ThymeleafAdapter;
 import edu.horb.dhbw.util.Config;
-import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public final class Main {

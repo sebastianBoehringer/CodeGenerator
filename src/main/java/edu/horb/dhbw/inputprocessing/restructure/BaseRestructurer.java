@@ -101,6 +101,21 @@ public abstract class BaseRestructurer<T extends XMIElement>
         return processed;
     }
 
+    @Override
+    public <S extends T> S restructure(@NonNull S base,
+                                       @NonNull ModelElement element) {
+
+        throw new NotYetImplementedException(this.getClass(),
+                                             "restructure(base, element)");
+    }
+
+    @Override
+    public boolean canRestructure(final @NonNull ModelElement element) {
+
+        String type = element.getPlainAttribute("umltype");
+        return umlType.equals(type);
+    }
+
     /**
      * Delegates the restructuring task of multiple {@link ModelElement}s to
      * specialized restructorers. This wraps
@@ -141,20 +156,5 @@ public abstract class BaseRestructurer<T extends XMIElement>
         IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);
         System.out.println(String.format("Element is %s", element.getName()));
         return restructurer.restructure(element);
-    }
-
-    @Override
-    public boolean canRestructure(final @NonNull ModelElement element) {
-
-        String type = element.getPlainAttribute("umltype");
-        return umlType.equals(type);
-    }
-
-    @Override
-    public <S extends T> S restructure(@NonNull S base,
-                                       @NonNull ModelElement element) {
-
-        throw new NotYetImplementedException(this.getClass(),
-                                             "restructure(base, element)");
     }
 }

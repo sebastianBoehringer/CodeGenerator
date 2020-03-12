@@ -17,17 +17,12 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
-import edu.horb.dhbw.datacore.uml.classification.Property;
-import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.AssociationImpl;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Indicates that a metaclass is extended via a {@link Stereotype}.

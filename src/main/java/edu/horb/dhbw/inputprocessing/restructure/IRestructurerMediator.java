@@ -375,18 +375,6 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
     }
 
     /**
-     * Cleans up the caches of every registered {@link CachingRestructurer}.
-     */
-    public void cleanCaches() {
-
-        for (IRestructurer<?> value : classToRestructurer.values()) {
-            if (value instanceof CachingRestructurer<?>) {
-                ((CachingRestructurer<?>) value).cleanCache();
-            }
-        }
-    }
-
-    /**
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
      * @param <S>     A subclass of {@link XMIElement}.
@@ -410,6 +398,18 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
 
         return classToRestructurer.values().stream()
                 .anyMatch(it -> it.canRestructure(element));
+    }
+
+    /**
+     * Cleans up the caches of every registered {@link CachingRestructurer}.
+     */
+    public void cleanCaches() {
+
+        for (IRestructurer<?> value : classToRestructurer.values()) {
+            if (value instanceof CachingRestructurer<?>) {
+                ((CachingRestructurer<?>) value).cleanCache();
+            }
+        }
     }
 
 

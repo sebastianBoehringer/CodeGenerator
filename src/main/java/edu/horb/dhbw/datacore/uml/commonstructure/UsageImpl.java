@@ -30,5 +30,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public final class UsageImpl extends DependencyImpl implements Usage{
+public final class UsageImpl extends DependencyImpl implements Usage {
 }

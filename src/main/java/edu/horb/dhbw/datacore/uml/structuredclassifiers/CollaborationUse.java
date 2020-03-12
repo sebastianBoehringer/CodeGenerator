@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
-import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElementImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

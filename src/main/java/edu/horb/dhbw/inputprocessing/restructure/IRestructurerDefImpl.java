@@ -52,16 +52,6 @@ public final class IRestructurerDefImpl extends BaseRestructurer<XMIElement> {
     }
 
     /**
-     * @param element The modelElement to restructure
-     * @return Always {@code null}
-     */
-    @Override
-    public XMIElement restructure(@NonNull final ModelElement element) {
-
-        return null;
-    }
-
-    /**
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
      * @param <S>     A subclass of {@link XMIElement}.
@@ -72,5 +62,15 @@ public final class IRestructurerDefImpl extends BaseRestructurer<XMIElement> {
                                                 final @NonNull ModelElement element) {
 
         return base;
+    }
+
+    /**
+     * @param element The modelElement to restructure
+     * @return Always {@code null}
+     */
+    @Override
+    public XMIElement restructure(@NonNull final ModelElement element) {
+
+        return null;
     }
 }

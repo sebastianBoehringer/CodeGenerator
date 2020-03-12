@@ -54,6 +54,12 @@ public class TransformerRegistry {
         registry.put(key, transformer);
     }
 
+    public <F extends XMIElement, T extends OOBase> ITransformer<F, T> getTransformer(final Class<F> clazz) {
+
+        return (ITransformer<F, T>) registry
+                .getOrDefault(clazz, defaultTransformer);
+    }
+
     private static class DefaultTransformer
             implements ITransformer<XMIElement, OOBase> {
         @Override
@@ -67,11 +73,5 @@ public class TransformerRegistry {
 
             return null;
         }
-    }
-
-    public <F extends XMIElement, T extends OOBase> ITransformer<F, T> getTransformer(final Class<F> clazz) {
-
-        return (ITransformer<F, T>) registry
-                .getOrDefault(clazz, defaultTransformer);
     }
 }

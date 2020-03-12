@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.uml.packages;
 
-import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.PropertyImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;

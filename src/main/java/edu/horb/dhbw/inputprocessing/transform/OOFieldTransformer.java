@@ -21,7 +21,6 @@ import edu.horb.dhbw.datacore.model.Cardinality;
 import edu.horb.dhbw.datacore.model.OOField;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
-import edu.horb.dhbw.datacore.uml.commonstructure.CommentImpl;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

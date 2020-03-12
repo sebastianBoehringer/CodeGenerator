@@ -32,7 +32,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class ElementImportImpl extends DirectedRelationshipImpl implements ElementImport {
+public final class ElementImportImpl extends DirectedRelationshipImpl
+        implements ElementImport {
     /**
      * Defines the unqualified name of the imported element. This name should
      * not clash with any names already included in the
