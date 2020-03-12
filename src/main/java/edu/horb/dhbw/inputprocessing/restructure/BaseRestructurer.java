@@ -154,7 +154,6 @@ public abstract class BaseRestructurer<T extends XMIElement>
             return null;
         }
         IRestructurer<V> restructurer = mediator.getIRestructurer(vClass);
-        System.out.println(String.format("Element is %s", element.getName()));
         return restructurer.restructure(element);
     }
 }
