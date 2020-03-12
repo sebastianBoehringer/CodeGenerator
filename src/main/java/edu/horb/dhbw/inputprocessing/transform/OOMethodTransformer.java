@@ -25,18 +25,20 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Slf4j
-public class OOMethodTransformer implements ITransformer<Operation, OOMethod> {
+public final class OOMethodTransformer
+        extends BaseTransformer<Operation, OOMethod> {
 
-    private final TransformerRegistry registry;
+    public OOMethodTransformer(final TransformerRegistry registry) {
+
+        super(registry);
+    }
 
     @Override
     public @NonNull List<OOMethod> transform(final @NonNull List<?> elements) {
@@ -69,7 +71,7 @@ public class OOMethodTransformer implements ITransformer<Operation, OOMethod> {
         ooMethod.setAbstract(element.getIsAbstract());
         log.debug("Set parameters for [{}]", id);
         ITransformer<Parameter, OOParameter> parameterITransformer =
-                registry.getTransformer(Parameter.class);
+                getTransformer(Parameter.class);
         ooMethod.setParameters(
                 parameterITransformer.transform(element.getOwnedParameter()));
         log.debug("Set returnParam for [{}]", id);
@@ -77,7 +79,7 @@ public class OOMethodTransformer implements ITransformer<Operation, OOMethod> {
         log.debug("Set exceptions for [{}]", id);
         //TODO there is no transformer responsible for Type.class (not the enum)
         ITransformer<Type, OOType> typeITransformer =
-                registry.getTransformer(Type.class);
+                getTransformer(Type.class);
         ooMethod.setExceptions(
                 typeITransformer.transform(element.getRaisedException()));
         log.debug("Set comments for [{}]", id);

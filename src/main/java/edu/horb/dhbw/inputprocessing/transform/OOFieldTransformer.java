@@ -22,7 +22,6 @@ import edu.horb.dhbw.datacore.model.OOField;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -30,18 +29,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RequiredArgsConstructor
 public final class OOFieldTransformer
-        implements ITransformer<Property, OOField> {
+        extends BaseTransformer<Property, OOField> {
 
-    private final TransformerRegistry registry;
+    public OOFieldTransformer(final TransformerRegistry registry) {
+
+        super(registry);
+    }
 
     @Override
     public @NonNull List<OOField> transform(final @NonNull List<?> elements) {
 
         List<Property> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e != null && Property.class.equals(e.getClass())) {
+            if (e instanceof Property) {
                 classes.add((Property) e);
             }
         }

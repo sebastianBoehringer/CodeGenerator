@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Sebastian Boehringer.
+ * Copyright (c) 2020 Sebastian Boehringer.
  *  This file is part of the CodeGenerator.
  *
  *  CodeGenerator is free software: you can redistribute it and/or modify it
@@ -15,29 +15,23 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.datacore.uml.structuredclassifiers;
+package edu.horb.dhbw.inputprocessing.transform;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import edu.horb.dhbw.datacore.model.OOBase;
+import edu.horb.dhbw.datacore.uml.XMIElement;
+import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * A classifier that can own ports.
- * See subclauses 11.3 and 11.8.13 of the UML specification for more details.
- */
-@EqualsAndHashCode(callSuper = true)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public abstract class EncapsulatedClassifierImpl
-        extends StructuredClassifierImpl implements EncapsulatedClassifier {
+@RequiredArgsConstructor
+public abstract class BaseTransformer<F extends XMIElement, T extends OOBase>
+        implements ITransformer<F, T> {
     /**
-     * The ports owned by the classifier.
-     * This attribute can be derived
+     * The {@link TransformerRegistry} used to access other
+     * {@link ITransformer}s.
      */
-    private List<Port> ownedPort = new ArrayList<>();
+    private final TransformerRegistry registry;
+
+    protected <A extends XMIElement, B extends OOBase> ITransformer<A, B> getTransformer(final Class<A> fClass) {
+
+        return registry.getTransformer(fClass);
+    }
 }

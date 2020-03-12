@@ -20,24 +20,27 @@ package edu.horb.dhbw.inputprocessing.transform;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@Slf4j
 public final class OOPackageTransformer
-        implements ITransformer<UMLPackage, OOPackage> {
+        extends BaseTransformer<UMLPackage, OOPackage> {
 
-    private final TransformerRegistry registry;
+    public OOPackageTransformer(final TransformerRegistry registry) {
+
+        super(registry);
+    }
 
     @Override
     public @NonNull List<OOPackage> transform(final @NonNull List<?> elements) {
 
         List<UMLPackage> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e != null && UMLPackage.class.equals(e.getClass())) {
+            if (e instanceof UMLPackage) {
                 classes.add((UMLPackage) e);
             }
         }

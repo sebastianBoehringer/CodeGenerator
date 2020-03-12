@@ -20,32 +20,38 @@ package edu.horb.dhbw.inputprocessing.transform;
 import edu.horb.dhbw.datacore.model.OOField;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RequiredArgsConstructor
 public final class OOClassTransformer
-        implements ITransformer<UMLClass, OOType> {
+        extends BaseTransformer<UMLClass, OOType> {
 
-    private final TransformerRegistry registry;
+    /**
+     * @param registry The registry to use.
+     */
+    public OOClassTransformer(final TransformerRegistry registry) {
+
+        super(registry);
+    }
 
     @Override
     public @NonNull List<OOType> transform(final @NonNull List<?> elements) {
 
         List<UMLClass> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e != null && UMLClass.class.equals(e.getClass())) {
+            if (e instanceof UMLClass) {
                 classes.add((UMLClass) e);
             }
         }
@@ -69,22 +75,29 @@ public final class OOClassTransformer
         ooClass.setFinal(element.getIsFinalSpecialization());
         log.debug("Set visibility for [{}]", id);
         ooClass.setVisibility(element.getVisibility());
-        //TODO use #generalizations
         log.debug("Set superTypes for [{}]", id);
-        ooClass.setSuperTypes(Collections.emptyList());
+        // TODO should work since a class should only extend classes
+        ooClass.setSuperTypes(transform(element.getGeneralization().stream()
+                                                .map(Generalization::getGeneral)
+                                                .collect(Collectors.toList())));
         log.debug("Set fields for [{}]", id);
         ITransformer<Property, OOField> fieldITransformer =
-                registry.getTransformer(Property.class);
+                getTransformer(Property.class);
         ooClass.setFields(
                 fieldITransformer.transform(element.getOwnedAttribute()));
         log.debug("Set methods for [{}]", id);
         ITransformer<Operation, OOMethod> methodITransformer =
-                registry.getTransformer(Operation.class);
+                getTransformer(Operation.class);
         ooClass.setMethods(
                 methodITransformer.transform(element.getOwnedOperation()));
-        //TODO use #interfacerealizations
         log.debug("Set implementedInterfaces for [{}]", id);
-        ooClass.setImplementedInterfaces(Collections.emptyList());
+        List<InterfaceRealization> realizations =
+                element.getInterfaceRealization();
+        ITransformer<Interface, OOType> interfaceTransformer =
+                getTransformer(Interface.class);
+        ooClass.setImplementedInterfaces(interfaceTransformer.transform(
+                realizations.stream().map(InterfaceRealization::getContract)
+                        .collect(Collectors.toList())));
         log.debug("Set comments for [{}]", id);
         ooClass.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)

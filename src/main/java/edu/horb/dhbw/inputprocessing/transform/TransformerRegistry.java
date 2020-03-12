@@ -19,7 +19,6 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
-import edu.horb.dhbw.datacore.uml.XMIElementImpl;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
@@ -32,28 +31,55 @@ import java.util.List;
 import java.util.Map;
 
 public class TransformerRegistry {
+    /**
+     * The map storing all the {@link ITransformer}s this registry knows.
+     */
     private final Map<Class<? extends XMIElement>, ITransformer<?
             extends XMIElement, ? extends OOBase>>
             registry = new HashMap<>();
 
+    /**
+     * A noop {@link ITransformer} that is used when a specialized one is not
+     * found.
+     */
     private final DefaultTransformer defaultTransformer =
             new DefaultTransformer();
 
+    /**
+     * Default constructor.
+     * Adds all transformers in the transfrom package to {@link #registry}.
+     */
     public TransformerRegistry() {
 
         registry.put(UMLClass.class, new OOClassTransformer(this));
-        registry.put(XMIElementImpl.class, new DefaultTransformer());
+        registry.put(XMIElement.class, new DefaultTransformer());
         registry.put(Property.class, new OOFieldTransformer(this));
         registry.put(UMLPackage.class, new OOPackageTransformer(this));
         registry.put(Operation.class, new OOMethodTransformer(this));
     }
 
-    public <T extends XMIElementImpl> void addTransformer(final Class<T> key,
-                                                          final ITransformer<T, ? extends OOBase> transformer) {
+    /**
+     * Registers a new {@link ITransformer} in this registry.
+     *
+     * @param key         The class the transformer transforms from.
+     * @param transformer The transformer to add.
+     * @param <T>         A class implementing {@link XMIElement}.
+     */
+    public <T extends XMIElement> void register(final Class<T> key,
+                                                final ITransformer<T, ?
+                                                        extends OOBase> transformer) {
 
         registry.put(key, transformer);
     }
 
+    /**
+     * @param clazz The class to transform from.
+     * @param <F>   The class to transform from. Must implement
+     *              {@link XMIElement}.
+     * @param <T>   The class to transform to. Must be a subclass of
+     *              {@link OOBase}.
+     * @return An {@link ITransformer} capable of transforming a F to a T.
+     */
     public <F extends XMIElement, T extends OOBase> ITransformer<F, T> getTransformer(final Class<F> clazz) {
 
         return (ITransformer<F, T>) registry

@@ -21,7 +21,6 @@ import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -30,11 +29,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RequiredArgsConstructor
 public final class OOInterfaceTransformer
-        implements ITransformer<Interface, OOType> {
+        extends BaseTransformer<Interface, OOType> {
 
-    private final TransformerRegistry registry;
+
+    public OOInterfaceTransformer(final TransformerRegistry registry) {
+
+        super(registry);
+    }
 
     @Override
     public @NonNull List<OOType> transform(final @NonNull List<?> elements) {
