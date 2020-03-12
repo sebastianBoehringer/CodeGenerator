@@ -143,6 +143,7 @@ public final class CodeGenerator {
                             .getSimpleName() + ", message: " + e.getMessage());
         }
         for (OOType parsedClass : processor.getParsedClasses()) {
+            log.info("Generating template for [{}]", parsedClass.getName());
             adapter.addToContext("class", parsedClass);
             adapter.process("Class", parsedClass.getName());
         }
