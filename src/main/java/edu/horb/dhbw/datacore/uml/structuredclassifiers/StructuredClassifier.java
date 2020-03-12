@@ -22,21 +22,51 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 
 import java.util.List;
 
+/**
+ * A classifier that can have an internal structure.
+ * See subclauses 11.2 and 11.8.15 of the UML specification for more details.
+ */
 public interface StructuredClassifier extends Classifier {
+    /**
+     * @return The attributes owned by the classifier.
+     */
     List<Property> getOwnedAttribute();
 
+    /**
+     * @param ownedAttribute Attributes owned by this classifier
+     */
     void setOwnedAttribute(List<Property> ownedAttribute);
 
+    /**
+     * @return The connectors connected to this classifier.
+     */
     List<Connector> getOwnedConnector();
 
+    /**
+     * @param ownedConnector Connectors connected to this classifier.
+     */
     void setOwnedConnector(List<Connector> ownedConnector);
 
+    /**
+     * @return Instances owned by the classifier via composition, i. e.
+     * properties where {@link Property#isComposite} is {@code true}.
+     */
     List<Property> getPart();
 
+    /**
+     * @param part Properties this classifier owns where
+     *             {@link Property#isComposite} is {@code true}.
+     */
     void setPart(List<Property> part);
 
+    /**
+     * @return Roles that instances can play in the classifier.
+     */
     List<ConnectableElement> getRole();
 
+    /**
+     * @param role The roles that instances can play in the classifier.
+     */
     void setRole(List<ConnectableElement> role);
 
 }

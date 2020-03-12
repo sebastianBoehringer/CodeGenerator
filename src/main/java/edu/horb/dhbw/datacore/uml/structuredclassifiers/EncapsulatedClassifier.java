@@ -18,9 +18,22 @@
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import java.util.List;
-
+/**
+ * A classifier that can own ports.
+ * See subclauses 11.3 and 11.8.13 of the UML specification for more details.
+ */
 public interface EncapsulatedClassifier extends StructuredClassifier {
+    /**
+     * Returns the ports owned by the classifier.
+     * Since this attribute can be derived an implementation does not need to
+     * store a field.
+     *
+     * @return The ports owned by the classifier.
+     */
     List<Port> getOwnedPort();
 
+    /**
+     * @param ownedPort The ports owned by the classifier.
+     */
     void setOwnedPort(List<Port> ownedPort);
 }
