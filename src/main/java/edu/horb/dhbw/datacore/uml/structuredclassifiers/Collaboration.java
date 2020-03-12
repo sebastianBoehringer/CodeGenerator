@@ -54,7 +54,7 @@ public final class Collaboration extends BehavioredClassifierImpl
     private List<Connector> ownedConnector = new ArrayList<>();
     /**
      * Instances owned by the classifier via composition, i. e.  properties
-     * where {@link Property#isComposite} is {@code true}.
+     * where {@link Property#getIsComposite()} returns {@code true}.
      * Copied from {@link StructuredClassifier}.
      */
     private List<Property> part = new ArrayList<>();

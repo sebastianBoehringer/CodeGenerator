@@ -20,8 +20,6 @@ package edu.horb.dhbw.templating;
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.exception.CodeGenerationException;
 
-import java.nio.file.Path;
-
 /**
  * Adapter class so that the CodeGenerator can use any templateEngine the
  * user wants.
@@ -33,7 +31,8 @@ public interface ITemplateEngineAdapter {
     /**
      * Initializes the adapted templateEngine.
      * The method is supposed to be called prior to calls to
-     * {@link #addToContext(String, Object)} and {@link #process(String, Path)}.
+     * {@link #addToContext(String, Object)} and
+     * {@link #process(String, String)}.
      *
      * @param language The language the templateEngine should generate.
      */

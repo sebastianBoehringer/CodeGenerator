@@ -49,13 +49,13 @@ public interface StructuredClassifier extends Classifier {
 
     /**
      * @return Instances owned by the classifier via composition, i. e.
-     * properties where {@link Property#isComposite} is {@code true}.
+     * properties where {@link Property#getIsComposite()} returns {@code true}.
      */
     List<Property> getPart();
 
     /**
      * @param part Properties this classifier owns where
-     *             {@link Property#isComposite} is {@code true}.
+     *             {@link Property#getIsComposite()} returns {@code true}.
      */
     void setPart(List<Property> part);
 
