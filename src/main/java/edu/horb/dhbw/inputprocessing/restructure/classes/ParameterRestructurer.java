@@ -27,6 +27,7 @@ import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.util.PrimitiveTypeUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -107,7 +108,13 @@ public final class ParameterRestructurer
 
         log.info("Processing parametertype for parameter [{}]", id);
         ModelElement type = element.getRefAttribute("parametertype");
-        parameter.setType(delegateRestructuring(type, Type.class));
+        if (type == null) {
+            String primitive = element.getPlainAttribute("href");
+            parameter
+                    .setType(PrimitiveTypeUtil.primitiveTypeFromURL(primitive));
+        } else {
+            parameter.setType(delegateRestructuring(type, Type.class));
+        }
 
         log.info("Processing effect for parameter [{}]", id);
         String effect = element.getPlainAttribute("effect");

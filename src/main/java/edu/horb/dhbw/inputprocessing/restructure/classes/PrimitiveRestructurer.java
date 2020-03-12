@@ -22,6 +22,7 @@ import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -52,7 +53,7 @@ public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
             log.info("Found datatype [{}] in cache", id);
             return processed.get(id);
         }
-        PrimitiveType type = new PrimitiveType();
+        PrimitiveType type = new PrimitiveTypeImpl();
         processed.put(id, type);
 
         log.info("Processing name for PrimitiveType [{}]", id);

@@ -19,31 +19,23 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
-import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
-import lombok.NonNull;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Transforms an {@link F} to a {@link T}.
- *
- * @param <F> The type to transform from
- * @param <T> The type to transform to
- */
-public interface ITransformer<F extends XMIElement, T extends OOBase> {
+public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
+        extends BaseTransformer<F, T> {
     /**
-     * Transforms all the elements in the given list that are a {@link F}.
-     *
-     * @param elements The list containing the elements to transform.
-     * @return A list with all the transformed elements.
+     * @param registry The registry to use.
      */
+    public CachingTransformer(final TransformerRegistry registry) {
 
-    @NonNull List<T> transform(@NonNull List<?> elements);
+        super(registry);
+    }
 
     /**
-     * @param element The single element to transform
-     * @return Transforms the given element to an {@link T}
+     * The cache saving all the already processed {@link T}s.
+     * This maps from the id
      */
-    T transform(@NonNull F element);
-
+    protected Map<String, T> cache = new HashMap<>();
 }

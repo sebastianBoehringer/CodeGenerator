@@ -19,8 +19,10 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.Cardinality;
 import edu.horb.dhbw.datacore.model.OOField;
+import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +33,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public final class OOFieldTransformer
         extends BaseTransformer<Property, OOField> {
-
+    /**
+     * @param registry The registry to use.
+     */
     public OOFieldTransformer(final TransformerRegistry registry) {
 
         super(registry);
@@ -63,15 +67,16 @@ public final class OOFieldTransformer
         log.info("Ended transformation of [{}]", id);
         log.debug("Set visibility for [{}]", id);
         field.setVisibility(element.getVisibility());
-        log.debug("Set cardinality for [{}]", field);
+        log.debug("Set cardinality for [{}]", id);
         //TODO latest place that should handle the case of just a ValueSpec
         // being present for lower/ upper limit
         field.setCardinality(Cardinality.getCorrectCardinality(
                 element.getIsUnique(), element.getIsOrdered(),
                 element.getLower(), element.getUpper()));
-        //TODO use #type
         log.debug("Set type for [{}]", id);
-        field.setType(null);
+        ITransformer<Type, OOType> typeITransformer =
+                getTransformer(Type.class);
+        field.setType(typeITransformer.transform(element.getType()));
         log.debug("Set readOnly for [{}]", id);
         field.setReadOnly(element.getIsReadOnly());
         log.debug("Set isStatic for [{}]", id);

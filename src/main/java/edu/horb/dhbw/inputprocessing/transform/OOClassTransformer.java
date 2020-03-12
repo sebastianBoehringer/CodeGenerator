@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOClassTransformer
-        extends BaseTransformer<UMLClass, OOType> {
+        extends CachingTransformer<UMLClass, OOType> {
 
     /**
      * @param registry The registry to use.
@@ -63,8 +63,12 @@ public final class OOClassTransformer
     public OOType transform(@NonNull final UMLClass element) {
 
         String id = element.getId();
+        if (cache.containsKey(id)) {
+            return cache.get(id);
+        }
         log.info("Beginning transformation of [{}]", id);
         OOType ooClass = new OOType(OOType.Type.CLASS);
+        cache.put(id, ooClass);
         log.debug("Set id for [{}]", id);
         ooClass.setId(id);
         log.debug("Set name for [{}]", id);

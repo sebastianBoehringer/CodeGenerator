@@ -30,9 +30,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOInterfaceTransformer
-        extends BaseTransformer<Interface, OOType> {
+        extends CachingTransformer<Interface, OOType> {
 
-
+    /**
+     * @param registry The registry to use.
+     */
     public OOInterfaceTransformer(final TransformerRegistry registry) {
 
         super(registry);
@@ -54,8 +56,12 @@ public final class OOInterfaceTransformer
     @Override
     public OOType transform(@NonNull final Interface element) {
 
-        OOType ooInterface = new OOType(OOType.Type.INTERFACE);
         String id = element.getId();
+        if (cache.containsKey(id)) {
+            return cache.get(id);
+        }
+        OOType ooInterface = new OOType(OOType.Type.INTERFACE);
+        cache.put(id, ooInterface);
         log.info("Beginning transformation of [{}]", id);
         log.debug("Set id for [{}]", id);
         ooInterface.setId(id);

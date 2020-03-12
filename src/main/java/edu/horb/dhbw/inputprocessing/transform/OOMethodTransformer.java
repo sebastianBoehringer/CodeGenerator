@@ -34,7 +34,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public final class OOMethodTransformer
         extends BaseTransformer<Operation, OOMethod> {
-
+    /**
+     * @param registry The registry to use.
+     */
     public OOMethodTransformer(final TransformerRegistry registry) {
 
         super(registry);

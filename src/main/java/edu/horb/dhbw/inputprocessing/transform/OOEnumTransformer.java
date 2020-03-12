@@ -17,8 +17,8 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
-import edu.horb.dhbw.datacore.model.OOPackage;
-import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,23 +27,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class OOPackageTransformer
-        extends CachingTransformer<UMLPackage, OOPackage> {
+public final class OOEnumTransformer
+        extends CachingTransformer<Enumeration, OOType> {
     /**
      * @param registry The registry to use.
      */
-    public OOPackageTransformer(final TransformerRegistry registry) {
+    public OOEnumTransformer(final TransformerRegistry registry) {
 
         super(registry);
     }
 
     @Override
-    public @NonNull List<OOPackage> transform(final @NonNull List<?> elements) {
+    public @NonNull List<OOType> transform(final @NonNull List<?> elements) {
 
-        List<UMLPackage> classes = new ArrayList<>();
+        List<Enumeration> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e instanceof UMLPackage) {
-                classes.add((UMLPackage) e);
+            if (e instanceof Enumeration) {
+                classes.add((Enumeration) e);
             }
         }
         return classes.stream().map(this::transform)
@@ -51,19 +51,19 @@ public final class OOPackageTransformer
     }
 
     @Override
-    public OOPackage transform(@NonNull final UMLPackage element) {
+    public OOType transform(final @NonNull Enumeration element) {
 
         String id = element.getId();
         if (cache.containsKey(id)) {
             return cache.get(id);
         }
         log.info("Beginning transformation of [{}]", id);
+        OOType ooEnum = new OOType(OOType.Type.ENUMERATION);
+        cache.put(id, ooEnum);
         log.debug("Set id for [{}]", id);
-        OOPackage ooPackage = new OOPackage();
-        cache.put(id, ooPackage);
-        ooPackage.setId(id);
+        ooEnum.setId(id);
         log.debug("Set name for [{}]", id);
-        ooPackage.setName(element.getName());
-        return ooPackage;
+        ooEnum.setName(element.getName());
+        return ooEnum;
     }
 }

@@ -30,6 +30,7 @@ import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
+import edu.horb.dhbw.util.PrimitiveTypeUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -132,8 +133,12 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
 
         log.info("Processing propertytype for property [{}]", id);
         ModelElement type = element.getRefAttribute("propertytype");
-        property.setType(delegateRestructuring(type, Type.class));
-
+        if (type == null) {
+            String primitive = element.getPlainAttribute("href");
+            property.setType(PrimitiveTypeUtil.primitiveTypeFromURL(primitive));
+        } else {
+            property.setType(delegateRestructuring(type, Type.class));
+        }
         log.info("Processing isreadonly for property [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
         property.setIsReadOnly(Boolean.valueOf(readOnly));

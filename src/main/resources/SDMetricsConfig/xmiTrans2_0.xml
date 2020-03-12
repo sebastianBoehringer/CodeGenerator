@@ -68,6 +68,9 @@ other part of SDMetrics.
         <trigger name="lower" type="ctext" src="lower"/>
         <trigger name="upper" type="attrval" attr="upper"/>
         <trigger name="upper" type="ctext" src="upper"/>
+        <trigger name="href" type="attrval" attr="href"/>
+        <trigger name="href" type="ctext" src="href"/>
+        <trigger name="href" type="cattrval" attr="href" src="type"/>
     </xmitransformation>
 
     <!-- abstract stuff from classification -->

@@ -70,6 +70,7 @@ other part of SDMetrics.
         <attribute name="upperValue" type="ref">The upper bound for the
             multiplicity.
         </attribute>
+        <attribute name="href" >A link to the primitive type</attribute>
     </modelelement>
 
     <!-- abstract stuff from classification -->
