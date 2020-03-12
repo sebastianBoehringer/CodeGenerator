@@ -19,7 +19,6 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
-import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import lombok.NonNull;
 
 import java.util.List;

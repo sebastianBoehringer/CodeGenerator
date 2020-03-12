@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import java.util.List;
+
 /**
  * A classifier that can own ports.
  * See subclauses 11.3 and 11.8.13 of the UML specification for more details.

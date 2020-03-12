@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.uml.primitivetypes;
 
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
-import edu.horb.dhbw.util.Config;
 import lombok.Data;
 import org.thymeleaf.util.StringUtils;
 
@@ -100,6 +99,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
                                   nestedValue));
         }
     }
+
     @Override
     public String getName() {
 

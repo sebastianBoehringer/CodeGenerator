@@ -26,16 +26,16 @@ import java.util.Map;
 public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
         extends BaseTransformer<F, T> {
     /**
+     * The cache saving all the already processed {@link T}s.
+     * This maps from the id
+     */
+    protected Map<String, T> cache = new HashMap<>();
+
+    /**
      * @param registry The registry to use.
      */
     public CachingTransformer(final TransformerRegistry registry) {
 
         super(registry);
     }
-
-    /**
-     * The cache saving all the already processed {@link T}s.
-     * This maps from the id
-     */
-    protected Map<String, T> cache = new HashMap<>();
 }

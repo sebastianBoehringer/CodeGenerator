@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.uml.primitivetypes;
 
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
-import edu.horb.dhbw.util.Config;
 
 public final class PrimitiveReal extends PrimitiveTypeImpl {
     @Override

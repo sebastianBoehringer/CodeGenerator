@@ -31,5 +31,6 @@ public class OOParameter extends OOBase {
      * The default value of this parameter.
      */
     private String defaults;
+
     private Cardinality cardinality;
 }

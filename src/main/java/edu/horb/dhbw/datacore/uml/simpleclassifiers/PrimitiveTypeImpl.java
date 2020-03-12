@@ -31,5 +31,5 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class PrimitiveTypeImpl extends DataTypeImpl implements PrimitiveType{
+public class PrimitiveTypeImpl extends DataTypeImpl implements PrimitiveType {
 }
