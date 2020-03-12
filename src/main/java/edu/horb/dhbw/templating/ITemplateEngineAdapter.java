@@ -50,12 +50,14 @@ public interface ITemplateEngineAdapter {
     /**
      * Generates code by using the template identified by the given name.
      *
-     * @param templateName    The name of the template to process
-     * @param outputDirectory The path to the directory where the generated
-     *                        file should be stored
+     * @param templateName The name of the template to process
+     * @param fileName     The name of the file the template should result in
+     *                     . This does not include the file extension. Using
+     *                     a file extension might result in files being named
+     *                     {@code "Example.java.java}.
      * @throws CodeGenerationException If the processing of the template
      *                                 could not complete
      */
-    void process(String templateName, Path outputDirectory)
+    void process(String templateName, String fileName)
             throws CodeGenerationException;
 }

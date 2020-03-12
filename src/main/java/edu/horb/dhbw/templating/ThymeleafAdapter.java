@@ -19,6 +19,7 @@ package edu.horb.dhbw.templating;
 
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.exception.CodeGenerationException;
+import edu.horb.dhbw.util.Config;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.TemplateEngine;
@@ -33,7 +34,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 @NoArgsConstructor
 @Slf4j
@@ -99,16 +99,17 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
     }
 
     @Override
-    public void process(final String templateName, final Path outputDirectory)
+    public void process(final String templateName, final String fileName)
             throws CodeGenerationException {
 
-        String fileName = outputDirectory.toString() + FileSystems.getDefault()
-                .getSeparator() + lang.getScheme().provideFileName() + lang
-                .getExtension();
+        String outputFileName =
+                Config.CONFIG.getOutputDirectory().toString() + FileSystems
+                        .getDefault().getSeparator() + fileName + lang
+                        .getExtension();
 
         try {
-            Files.createDirectories(outputDirectory);
-            Writer writer = new BufferedWriter(new FileWriter(fileName));
+            Files.createDirectories(Config.CONFIG.getOutputDirectory());
+            Writer writer = new BufferedWriter(new FileWriter(outputFileName));
             engine.process(templateName, context, writer);
             context.clearVariables();
         } catch (IOException e) {

@@ -18,6 +18,7 @@
 package edu.horb.dhbw;
 
 import edu.horb.dhbw.datacore.model.Language;
+import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.InvalidConfigurationException;
 import edu.horb.dhbw.exception.ModelParseException;
@@ -69,7 +70,7 @@ public final class CodeGenerator {
             log.info("Successfully read in properties");
         } catch (FileNotFoundException ex) {
             log.error("Did not find properties at location [{}]",
-                     propertyLocation.toString());
+                      propertyLocation.toString());
             log.warn("Using default properties");
             Config.CONFIG.readInProperties(new Properties());
         } catch (IOException ex) {
@@ -141,9 +142,9 @@ public final class CodeGenerator {
                     "Could not parse model, nested exception is " + e.getClass()
                             .getSimpleName() + ", message: " + e.getMessage());
         }
-        adapter.addToContext("classes", processor.getParsedClasses());
-        adapter.addToContext("interfaces", processor.getParsedInterfaces());
-        adapter.addToContext("packages", processor.getParsedPackages());
-        adapter.process("Class", Config.CONFIG.getOutputDirectory());
+        for (OOType parsedClass : processor.getParsedClasses()) {
+            adapter.addToContext("class", parsedClass);
+            adapter.process("Class", parsedClass.getName());
+        }
     }
 }
