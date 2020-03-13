@@ -147,5 +147,15 @@ public final class CodeGenerator {
             adapter.addToContext("class", parsedClass);
             adapter.process("Class", parsedClass.getName());
         }
+        for (OOType parsedEnum : processor.getParsedEnums()) {
+            log.info("Generating template for [{}]", parsedEnum.getName());
+            adapter.addToContext("enum", parsedEnum);
+            adapter.process("Enumeration", parsedEnum.getName());
+        }
+        for (OOType parsedInterface : processor.getParsedInterfaces()) {
+            log.info("Generating template for [{}]", parsedInterface.getName());
+            adapter.addToContext("interface", parsedInterface);
+            adapter.process("Interface", parsedInterface.getName());
+        }
     }
 }

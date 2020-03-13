@@ -1,0 +1,1 @@
+[(${attribute.getVisibility().toString()})] [(${attribute.getType().getName()})] [(${attribute.getName()})];
