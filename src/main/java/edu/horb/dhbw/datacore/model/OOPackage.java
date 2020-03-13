@@ -40,7 +40,7 @@ public class OOPackage extends OOBase {
 
     /**
      * Returns the fully qualified name of this type.
-     * {@link Config#getLanguage()} is used so that the delimiter can be
+     * {@link Config#language} is used so that the delimiter can be
      * customized.
      *
      * @return The fully qualified name of this type
