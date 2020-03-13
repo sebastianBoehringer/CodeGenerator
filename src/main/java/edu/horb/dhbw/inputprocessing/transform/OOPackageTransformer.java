@@ -51,12 +51,9 @@ public final class OOPackageTransformer
     }
 
     @Override
-    public OOPackage transform(@NonNull final UMLPackage element) {
+    public OOPackage doTransformation(@NonNull final UMLPackage element) {
 
         String id = element.getId();
-        if (cache.containsKey(id)) {
-            return cache.get(id);
-        }
         log.info("Beginning transformation of [{}]", id);
         log.debug("Set id for [{}]", id);
         OOPackage ooPackage = new OOPackage();
