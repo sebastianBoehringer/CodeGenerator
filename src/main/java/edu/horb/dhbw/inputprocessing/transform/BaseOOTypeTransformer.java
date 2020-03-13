@@ -17,10 +17,12 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
+import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
+import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.stream.Collectors;
@@ -60,6 +62,11 @@ public abstract class BaseOOTypeTransformer<F extends Classifier>
         ooType.setSuperTypes(transform(element.getGeneralization().stream()
                                                .map(Generalization::getGeneral)
                                                .collect(Collectors.toList())));
+        log.debug("Set container for [{}]", id);
+        ITransformer<UMLPackage, OOPackage> packageITransformer =
+                getTransformer(UMLPackage.class);
+        ooType.setContainer(
+                packageITransformer.transform(element.getAPackage()));
         log.debug("Set comments for [{}]", id);
         ooType.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)

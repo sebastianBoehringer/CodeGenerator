@@ -18,7 +18,8 @@
 package edu.horb.dhbw.inputprocessing.restructure.packaging;
 
 import com.sdmetrics.model.ModelElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackageImpl;
@@ -31,6 +32,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Slf4j
 public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
@@ -78,8 +80,24 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         log.info("Processing ownedmember for package [{}]", id);
         Collection<ModelElement> members = (Collection<ModelElement>) element
                 .getSetAttribute("ownedmembers");
-        umlPackage.setOwnedMember(delegateMany(members, NamedElement.class));
-
+        umlPackage.setPackagedElement(
+                delegateMany(members, PackageableElement.class));
+        log.info("Processing ownedType for package [{}]", id);
+        umlPackage.setOwnedType(umlPackage.getPackagedElement().stream()
+                                        .filter(p -> p instanceof Type)
+                                        .map(p -> (Type) p)
+                                        .collect(Collectors.toList()));
+        for (Type type : umlPackage.getOwnedType()) {
+            type.setAPackage(umlPackage);
+        }
+        log.info("Processing nestedPackage for package [{}]", id);
+        umlPackage.setNestedPackage(umlPackage.getPackagedElement().stream()
+                                            .filter(p -> p instanceof UMLPackage)
+                                            .map(p -> (UMLPackage) p)
+                                            .collect(Collectors.toList()));
+        for (UMLPackage aPackage : umlPackage.getNestedPackage()) {
+            aPackage.setNestingPackage(umlPackage);
+        }
         log.info("Processing profileapplications for package [{}]", id);
         Collection<ModelElement> applications =
                 (Collection<ModelElement>) element
