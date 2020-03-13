@@ -22,6 +22,7 @@ import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.exception.ModelParseException;
@@ -55,6 +56,11 @@ public final class XMIModelProcessor implements IModelProcessor {
      * {@link #parseModel(Path)} cleans up the cache automatically.
      */
     private final List<OOPackage> parsedPackages = new ArrayList<>();
+    /**
+     * A cache for the enumeration that have been processed. Invoking
+     * {@link #parseModel(Path)} cleans up the cache automatically.
+     */
+    private final List<OOType> parsedEnums = new ArrayList<>();
 
     /**
      * The mediator used to restructure the parsed {@link Model}.
@@ -112,9 +118,12 @@ public final class XMIModelProcessor implements IModelProcessor {
                 registry.getTransformer(UMLPackage.class);
         ITransformer<Interface, OOType> interfaceTransformer =
                 registry.getTransformer(Interface.class);
+        ITransformer<Enumeration, OOType> enumerationTransformer =
+                registry.getTransformer(Enumeration.class);
         parsedClasses.addAll(classTransformer.transform(commonElements));
         parsedPackages.addAll(packageTransformer.transform(commonElements));
         parsedInterfaces.addAll(interfaceTransformer.transform(commonElements));
+        parsedEnums.addAll(enumerationTransformer.transform(commonElements));
         log.info("Transformation of parsed classes successful.");
         //TODO post validation here
 
@@ -157,5 +166,18 @@ public final class XMIModelProcessor implements IModelProcessor {
     public @NonNull List<OOType> getParsedInterfaces() {
 
         return List.copyOf(parsedInterfaces);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return An unmodifiable view of {@link #parsedEnums}. Invoking
+     * {@link #parseModel(Path)} again will not change the contents of
+     * already returned lists.
+     */
+    @Override
+    public @NonNull List<OOType> getParsedEnums() {
+
+        return List.copyOf(parsedEnums);
     }
 }

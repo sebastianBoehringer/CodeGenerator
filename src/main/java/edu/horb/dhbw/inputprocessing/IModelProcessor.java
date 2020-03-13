@@ -50,5 +50,10 @@ public interface IModelProcessor {
      * model.
      */
     @NonNull List<OOType> getParsedInterfaces();
+    /**
+     * @return The enumerations the IModelProcessor parsed out of the given
+     * model.
+     */
+    @NonNull List<OOType> getParsedEnums();
 
 }
