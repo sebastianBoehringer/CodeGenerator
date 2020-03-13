@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
+import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,4 +39,24 @@ public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
 
         super(registry);
     }
+
+    /**
+     * {@inheritDoc}
+     * This checks the internal cache first. If the element is not found
+     * there, the method delegates to {@link #doTransformation(XMIElement)}.
+     *
+     * @param element The single element to transform
+     * @return The transformed element
+     */
+    @Override
+    public final T transform(final @NonNull F element) {
+
+        String id = element.getId();
+        if (cache.containsKey(id)) {
+            return cache.get(id);
+        }
+        return doTransformation(element);
+    }
+
+    protected abstract T doTransformation(@NonNull F element);
 }
