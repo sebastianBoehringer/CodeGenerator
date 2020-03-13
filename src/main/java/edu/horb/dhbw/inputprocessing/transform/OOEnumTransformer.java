@@ -17,7 +17,12 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
+import edu.horb.dhbw.datacore.model.OOField;
+import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.uml.classification.Operation;
+import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOEnumTransformer
-        extends CachingTransformer<Enumeration, OOType> {
+        extends BaseOOTypeTransformer<Enumeration> {
     /**
      * @param registry The registry to use.
      */
@@ -51,19 +56,32 @@ public final class OOEnumTransformer
     }
 
     @Override
-    public OOType transform(final @NonNull Enumeration element) {
+    protected OOType beginTransformation() {
+
+        return new OOType(OOType.Type.ENUMERATION);
+    }
+
+    @Override
+    public OOType doSpecificTransformation(final OOType type,
+                                           final @NonNull Enumeration element) {
+
 
         String id = element.getId();
-        if (cache.containsKey(id)) {
-            return cache.get(id);
-        }
-        log.info("Beginning transformation of [{}]", id);
-        OOType ooEnum = new OOType(OOType.Type.ENUMERATION);
-        cache.put(id, ooEnum);
-        log.debug("Set id for [{}]", id);
-        ooEnum.setId(id);
-        log.debug("Set name for [{}]", id);
-        ooEnum.setName(element.getName());
-        return ooEnum;
+        log.debug("Set literals for [{}]", id);
+        type.setLiterals(
+                element.getOwnedLiteral().stream().map(NamedElement::getName)
+                        .collect(Collectors.toList()));
+        log.debug("Set fields for [{}]", id);
+        ITransformer<Property, OOField> fieldITransformer =
+                getTransformer(Property.class);
+        type.setFields(
+                fieldITransformer.transform(element.getOwnedAttribute()));
+        log.debug("Set methods for [{}]", id);
+        ITransformer<Operation, OOMethod> methodITransformer =
+                getTransformer(Operation.class);
+        type.setMethods(
+                methodITransformer.transform(element.getOwnedOperation()));
+        log.info("Ended transformation of [{}]", id);
+        return type;
     }
 }
