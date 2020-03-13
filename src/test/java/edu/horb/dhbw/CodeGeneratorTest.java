@@ -31,7 +31,7 @@ public class CodeGeneratorTest {
     public void smokeTest() {
 
         CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/test/resources/test.properties"));
+                Paths.get("src/main/resources/default.properties"));
         try {
             generator.generateCode(Paths.get(
                     "src/test/resources/classdiagrams/Classes_Mod.xmi"),
