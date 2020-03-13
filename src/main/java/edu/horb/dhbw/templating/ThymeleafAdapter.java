@@ -33,7 +33,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 
 @NoArgsConstructor
 @Slf4j
@@ -102,13 +101,12 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
     public void process(final String templateName, final String fileName)
             throws CodeGenerationException {
 
+
         String outputFileName =
-                Config.CONFIG.getOutputDirectory().toString() + FileSystems
-                        .getDefault().getSeparator() + fileName + lang
-                        .getExtension();
+                Config.CONFIG.getOutputDirectory().toString() + "/" + fileName
+                        + lang.getExtension();
 
         try {
-            Files.createDirectories(Config.CONFIG.getOutputDirectory());
             Writer writer = new BufferedWriter(new FileWriter(outputFileName));
             engine.process(templateName, context, writer);
             context.clearVariables();
