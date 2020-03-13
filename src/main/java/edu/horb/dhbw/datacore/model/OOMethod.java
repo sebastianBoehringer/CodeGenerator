@@ -34,6 +34,8 @@ public class OOMethod extends OOBase {
     private OOStatemachine logic;
     /**
      * The parameters used for the invocation of the method.
+     * This does not include {@link #returnParam}. I. e. {@code parameters
+     * .contains(returnParam) == false}.
      */
     private List<OOParameter> parameters = Collections.emptyList();
 
