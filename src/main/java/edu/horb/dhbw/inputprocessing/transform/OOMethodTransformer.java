@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
+import edu.horb.dhbw.datacore.model.Cardinality;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
@@ -24,6 +25,7 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
+import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,14 +42,23 @@ public final class OOMethodTransformer
     public OOMethodTransformer(final TransformerRegistry registry) {
 
         super(registry);
+        voidReturn = new OOParameter();
+        voidReturn.setName("void");
+        voidReturn.setDirection(ParameterDirectionKind.RETURN);
+        voidReturn.setCardinality(Cardinality.SINGLE);
+        voidReturn.setType(new OOType((OOType.Type.CLASS)));
+        voidReturn.getType().setName("void");
+
     }
+
+    private final OOParameter voidReturn;
 
     @Override
     public @NonNull List<OOMethod> transform(final @NonNull List<?> elements) {
 
         List<Operation> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e != null && Operation.class.equals(e.getClass())) {
+            if (e instanceof Operation) {
                 classes.add((Operation) e);
             }
         }
@@ -74,12 +85,16 @@ public final class OOMethodTransformer
         log.debug("Set parameters for [{}]", id);
         ITransformer<Parameter, OOParameter> parameterITransformer =
                 getTransformer(Parameter.class);
-        ooMethod.setParameters(
-                parameterITransformer.transform(element.getOwnedParameter()));
+        List<OOParameter> params =
+                parameterITransformer.transform(element.getOwnedParameter());
+        OOParameter returnParam = params.stream().filter(p -> p.getDirection()
+                .equals(ParameterDirectionKind.RETURN)).findFirst()
+                .orElse(voidReturn);
+        params.remove(returnParam);
+        ooMethod.setParameters(params);
         log.debug("Set returnParam for [{}]", id);
-        //TODO set return param
+        ooMethod.setReturnParam(returnParam);
         log.debug("Set exceptions for [{}]", id);
-        //TODO there is no transformer responsible for Type.class (not the enum)
         ITransformer<Type, OOType> typeITransformer =
                 getTransformer(Type.class);
         ooMethod.setExceptions(
