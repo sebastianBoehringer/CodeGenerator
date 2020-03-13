@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.transform;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
+import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
@@ -64,6 +65,7 @@ public class TransformerRegistry {
         registry.put(Interface.class, new OOInterfaceTransformer(this));
         registry.put(PrimitiveType.class, new OOPrimitiveTransformer(this));
         registry.put(Enumeration.class, new OOEnumTransformer(this));
+        registry.put(Parameter.class, new OOParameterTransformer(this));
     }
 
     /**

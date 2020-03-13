@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.model;
 
+import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,11 +27,13 @@ public class OOParameter extends OOBase {
     /**
      * The type of this parameter.
      */
-    private final OOType type;
+    private OOType type;
     /**
      * The default value of this parameter.
      */
     private String defaults;
 
     private Cardinality cardinality;
+
+    private ParameterDirectionKind direction;
 }
