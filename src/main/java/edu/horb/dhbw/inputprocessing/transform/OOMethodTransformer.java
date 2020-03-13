@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.Cardinality;
 import edu.horb.dhbw.datacore.model.OOMethod;
+import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
@@ -48,6 +49,9 @@ public final class OOMethodTransformer
         voidReturn.setCardinality(Cardinality.SINGLE);
         voidReturn.setType(new OOType((OOType.Type.CLASS)));
         voidReturn.getType().setName("void");
+        OOPackage pkg = new OOPackage();
+        pkg.setName("");
+        voidReturn.getType().setContainer(pkg);
 
     }
 

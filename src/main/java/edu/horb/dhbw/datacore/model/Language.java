@@ -37,6 +37,12 @@ public class Language {
     private final String extension;
 
     /**
+     * The string used to delimit the package name from the class name.
+     * Java uses the {@code "."} for this purpose. C++ uses {@code "::"}.
+     */
+    private final String packageNameLimiter;
+
+    /**
      * The location where templates for this language are stored.
      */
     private final Path templateLocation;

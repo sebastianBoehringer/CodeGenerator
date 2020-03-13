@@ -101,11 +101,14 @@ public enum Config {
         String templateLocation =
                 props.getProperty("language.templates.location",
                                   "/src/resources/templates/");
+        String delimiter =
+                props.getProperty("language.formatting.delimiter", ".");
         String name = props.getProperty("language.name", "Java");
-        language = new Language(name, extension, Path.of(templateLocation),
-                                new DefaultScheme(), publicVis, protectedVis,
-                                packageVis, privateVis, primInt, primString,
-                                primBool, primReal, primUnlimited);
+        language = new Language(name, extension, delimiter,
+                                Path.of(templateLocation), new DefaultScheme(),
+                                publicVis, protectedVis, packageVis, privateVis,
+                                primInt, primString, primBool, primReal,
+                                primUnlimited);
         outputDirectory =
                 Path.of(props.getProperty("generator.output", "generated"));
     }

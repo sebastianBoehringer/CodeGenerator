@@ -63,10 +63,15 @@ public abstract class BaseOOTypeTransformer<F extends Classifier>
                                                .map(Generalization::getGeneral)
                                                .collect(Collectors.toList())));
         log.debug("Set container for [{}]", id);
-        ITransformer<UMLPackage, OOPackage> packageITransformer =
-                getTransformer(UMLPackage.class);
-        ooType.setContainer(
-                packageITransformer.transform(element.getAPackage()));
+        UMLPackage pkg = element.getAPackage();
+        if (pkg == null) {
+            ooType.setContainer(null);
+        } else {
+            ITransformer<UMLPackage, OOPackage> packageITransformer =
+                    getTransformer(UMLPackage.class);
+            ooType.setContainer(
+                    packageITransformer.transform(element.getAPackage()));
+        }
         log.debug("Set comments for [{}]", id);
         ooType.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)

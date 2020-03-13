@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.model;
 
+import edu.horb.dhbw.util.Config;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,4 +32,24 @@ public class OOPackage extends OOBase {
      * The elements contained in the package.
      */
     private List<OOType> containedElements = Collections.emptyList();
+
+    /**
+     * The package containing this package.
+     */
+    private OOPackage container = null;
+
+    /**
+     * Returns the fully qualified name of this type.
+     * {@link Config#getLanguage()} is used so that the delimiter can be
+     * customized.
+     *
+     * @return The fully qualified name of this type
+     */
+    public String getFQName() {
+
+        return container == null ? this.getName()
+                                 : container.getFQName() + Config.CONFIG
+                                         .getLanguage().getPackageNameLimiter()
+                       + this.getName();
+    }
 }

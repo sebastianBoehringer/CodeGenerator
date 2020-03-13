@@ -61,6 +61,13 @@ public final class OOPackageTransformer
         ooPackage.setId(id);
         log.debug("Set name for [{}]", id);
         ooPackage.setName(element.getName());
+        log.debug("Set container for [{}]", id);
+        UMLPackage umlPackage = element.getNestingPackage();
+        if (umlPackage == null) {
+            ooPackage.setContainer(null);
+        } else {
+            ooPackage.setContainer(transform(umlPackage));
+        }
         return ooPackage;
     }
 }
