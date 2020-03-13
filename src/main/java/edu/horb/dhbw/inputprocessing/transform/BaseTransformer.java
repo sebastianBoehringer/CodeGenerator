@@ -30,7 +30,8 @@ public abstract class BaseTransformer<F extends XMIElement, T extends OOBase>
      */
     private final TransformerRegistry registry;
 
-    protected <A extends XMIElement, B extends OOBase> ITransformer<A, B> getTransformer(final Class<A> fClass) {
+    protected final <A extends XMIElement, B extends OOBase> ITransformer<A,
+            B> getTransformer(final Class<A> fClass) {
 
         return registry.getTransformer(fClass);
     }
