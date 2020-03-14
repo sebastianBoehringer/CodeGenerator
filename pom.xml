@@ -62,7 +62,6 @@
             <artifactId>logback-classic</artifactId>
             <version>1.0.9</version>
         </dependency>
-
         <!-- logging dependencies-->
 
         <!-- Template Engines -->
