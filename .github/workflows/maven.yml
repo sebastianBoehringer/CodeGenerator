@@ -22,6 +22,7 @@ jobs:
         java-version: 13
     - name: GitHub Action for Maven
       uses: LucaFeger/action-maven-cli@1.1.0
-      args: install:install-file -Dfile="../../lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35"
+      with:
+        args: install:install-file -Dfile="../../lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
