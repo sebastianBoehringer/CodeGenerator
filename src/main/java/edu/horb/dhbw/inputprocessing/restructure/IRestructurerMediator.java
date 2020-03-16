@@ -54,9 +54,6 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
-import edu.horb.dhbw.datacore.uml.packages.Profile;
-import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
-import edu.horb.dhbw.datacore.uml.packages.Stereotype;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
@@ -111,7 +108,6 @@ import edu.horb.dhbw.inputprocessing.restructure.classes.PrimitiveRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.PropertyRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.RealizationRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.SlotRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.classes.StereotypeRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.UMLClassRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.components.ComponentRealizationRestructurer;
@@ -140,8 +136,6 @@ import edu.horb.dhbw.inputprocessing.restructure.packaging.ElementImportRestruct
 import edu.horb.dhbw.inputprocessing.restructure.packaging.ModelRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.PackageImportRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.PackageRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.packaging.ProfileApplicationRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.packaging.ProfileRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.FunctionBehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.OpaqueBehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.RegionRestructurer;
@@ -267,8 +261,6 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
                 .put(Dependency.class, new DependencyRestructurer(this));
         classToRestructurer.put(Usage.class, new UsageRestructurer(this));
         classToRestructurer
-                .put(Stereotype.class, new StereotypeRestructurer(this));
-        classToRestructurer
                 .put(PrimitiveType.class, new PrimitiveRestructurer(this));
         classToRestructurer.put(DataType.class, new DatatypeRestructurer(this));
         classToRestructurer.put(State.class, new StateRestructurer(this));
@@ -295,9 +287,6 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
                 .put(PackageImport.class, new PackageImportRestructurer(this));
         classToRestructurer
                 .put(UMLPackage.class, new PackageRestructurer(this));
-        classToRestructurer.put(ProfileApplication.class,
-                                new ProfileApplicationRestructurer(this));
-        classToRestructurer.put(Profile.class, new ProfileRestructurer(this));
         classToRestructurer.put(edu.horb.dhbw.datacore.uml.packages.Model.class,
                                 new ModelRestructurer(this));
         classToRestructurer.put(ComponentRealization.class,

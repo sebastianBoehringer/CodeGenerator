@@ -60,10 +60,6 @@ public class UMLPackageImpl extends PackageableElementImpl
      */
     private UMLPackage nestingPackage;
     /**
-     * Stereotypes owned by this package. This attribute can be derived.
-     */
-    private List<Stereotype> ownedStereotype = new ArrayList<>();
-    /**
      * The types owned by this package. This can be derived.
      */
     private List<Type> ownedType = new ArrayList<>();
@@ -71,10 +67,6 @@ public class UMLPackageImpl extends PackageableElementImpl
      * The elements owned by this package.
      */
     private List<PackageableElement> packagedElement = new ArrayList<>();
-    /**
-     * The profiles applied to this package.
-     */
-    private List<ProfileApplication> profileApplication = new ArrayList<>();
     /**
      * References to the owned ElementImports.
      * Copied from {@link Namespace}.

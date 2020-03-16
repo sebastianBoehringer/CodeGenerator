@@ -50,12 +50,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Relationship;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.commonstructure.TypedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Usage;
-import edu.horb.dhbw.datacore.uml.packages.Extension;
-import edu.horb.dhbw.datacore.uml.packages.ExtensionEnd;
 import edu.horb.dhbw.datacore.uml.packages.Model;
-import edu.horb.dhbw.datacore.uml.packages.Profile;
-import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
-import edu.horb.dhbw.datacore.uml.packages.Stereotype;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
@@ -228,8 +223,6 @@ public final class LookupUtil {
             @NonNull final String umlType) {
 
         switch (umlType) {
-            case "profileapplication":
-                return ProfileApplication.class;
             case "elementimport":
                 return ElementImport.class;
             case "generalization":
@@ -253,8 +246,6 @@ public final class LookupUtil {
             @NonNull final String umlType) {
 
         switch (umlType) {
-            case "extension":
-                return Extension.class;
             case "associationclass":
                 return AssociationClass.class;
             case "association":
@@ -458,8 +449,6 @@ public final class LookupUtil {
         switch (umlType) {
             case "package":
                 return UMLPackage.class;
-            case "profile":
-                return Profile.class;
             case "model":
                 return Model.class;
             default:
@@ -571,8 +560,6 @@ public final class LookupUtil {
                 return Property.class;
             case "port":
                 return Port.class;
-            case "extensionend":
-                return ExtensionEnd.class;
             default:
                 return null;
         }
@@ -753,8 +740,10 @@ public final class LookupUtil {
     public static Class<? extends StructuredClassifier> structuredClassifierFromUMLType(
             @NonNull final String umlType) {
 
-        return "collaboration".equals(umlType) ? Collaboration.class :
-               encapsulatedClassifierFromUMLType(umlType);
+        return "collaboration".equals(umlType) ? Collaboration.class
+                                               :
+               encapsulatedClassifierFromUMLType(
+                                                       umlType);
     }
 
     /**
@@ -771,8 +760,6 @@ public final class LookupUtil {
         switch (umlType) {
             case "class":
                 return UMLClass.class;
-            case "stereotype":
-                return Stereotype.class;
             case "component":
                 return Component.class;
             case "associationclass":

@@ -19,7 +19,6 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
-import edu.horb.dhbw.datacore.uml.packages.Extension;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 
 import java.util.List;
@@ -29,10 +28,6 @@ public interface UMLClass extends BehavioredClassifier, EncapsulatedClassifier {
     Boolean getIsActive();
 
     void setIsActive(Boolean isActive);
-
-    List<Extension> getExtension();
-
-    void setExtension(List<Extension> extension);
 
     List<Classifier> getNestedClassifier();
 

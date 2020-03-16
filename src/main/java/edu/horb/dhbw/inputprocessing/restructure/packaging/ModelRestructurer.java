@@ -20,7 +20,6 @@ package edu.horb.dhbw.inputprocessing.restructure.packaging;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.packages.Model;
-import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -61,13 +60,6 @@ public final class ModelRestructurer extends CachingRestructurer<Model> {
         Collection<ModelElement> members = (Collection<ModelElement>) element
                 .getSetAttribute("ownedmembers");
         model.setOwnedMember(delegateMany(members, NamedElement.class));
-
-        log.info("Processing profileapplications for model [{}]", id);
-        Collection<ModelElement> applications =
-                (Collection<ModelElement>) element
-                        .getSetAttribute("profileapplications");
-        model.setProfileApplication(
-                delegateMany(applications, ProfileApplication.class));
 
         return model;
     }

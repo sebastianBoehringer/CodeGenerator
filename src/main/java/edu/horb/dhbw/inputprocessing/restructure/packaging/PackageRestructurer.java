@@ -20,7 +20,6 @@ package edu.horb.dhbw.inputprocessing.restructure.packaging;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
-import edu.horb.dhbw.datacore.uml.packages.ProfileApplication;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackageImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
@@ -98,13 +97,6 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         for (UMLPackage aPackage : umlPackage.getNestedPackage()) {
             aPackage.setNestingPackage(umlPackage);
         }
-        log.info("Processing profileapplications for package [{}]", id);
-        Collection<ModelElement> applications =
-                (Collection<ModelElement>) element
-                        .getSetAttribute("profileapplications");
-        umlPackage.setProfileApplication(
-                delegateMany(applications, ProfileApplication.class));
-
         return umlPackage;
     }
 }

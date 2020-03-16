@@ -36,10 +36,6 @@ public interface UMLPackage extends PackageableElement, Namespace {
 
     void setNestingPackage(UMLPackage nestingPackage);
 
-    List<Stereotype> getOwnedStereotype();
-
-    void setOwnedStereotype(List<Stereotype> ownedStereotype);
-
     List<Type> getOwnedType();
 
     void setOwnedType(List<Type> ownedType);
@@ -48,7 +44,4 @@ public interface UMLPackage extends PackageableElement, Namespace {
 
     void setPackagedElement(List<PackageableElement> packagedElement);
 
-    List<ProfileApplication> getProfileApplication();
-
-    void setProfileApplication(List<ProfileApplication> profileApplication);
 }

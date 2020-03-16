@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.structuredclassifiers;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
-import edu.horb.dhbw.datacore.uml.packages.Extension;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifier;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.BehavioredClassifierImpl;
 import lombok.AllArgsConstructor;
@@ -56,12 +55,6 @@ public class UMLClassImpl extends BehavioredClassifierImpl implements UMLClass {
      * classes execute their associated behavior immediately upon creation.
      */
     private Boolean isActive = Boolean.FALSE;
-    /**
-     * If the class is used as a metaclass this specifies the extensions, i
-     * e. {@link edu.horb.dhbw.datacore.uml.packages.Stereotype}s, applicable
-     * to it.
-     */
-    private List<Extension> extension = new ArrayList<>();
     /**
      * Classifiers owned by this class which are not
      * {@link edu.horb.dhbw.datacore.uml.commonbehavior.Behavior}s.
