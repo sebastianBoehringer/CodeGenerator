@@ -460,6 +460,8 @@ other part of SDMetrics.
                  src="uml:Region"/>
         <trigger name="connectionpoints" type="xmi2assoc" attr="connectionPoint"
                  src="uml:Pseudostate"/>
+        <trigger name="submachine" type="xmi2assoc" attr="submachine"
+                 src="uml:StateMachine"/>
     </xmitransformation>
 
     <xmitransformation modelelement="state" xmipattern="uml:FinalState">

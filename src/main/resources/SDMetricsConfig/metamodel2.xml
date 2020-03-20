@@ -497,6 +497,8 @@ other part of SDMetrics.
         <attribute name="connectionpoints" type="ref" multiplicity="many">The
             connection points of the state.
         </attribute>
+        <attribute name="submachine" type="ref">The submachine this
+            state refers to.</attribute>
     </modelelement>
 
     <modelelement name="transition">

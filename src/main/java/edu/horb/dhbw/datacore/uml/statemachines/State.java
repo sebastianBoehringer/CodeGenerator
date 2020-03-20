@@ -117,4 +117,9 @@ public class State extends NamespaceImpl {
      * This is from the uml metaclass vertex.
      */
     private List<Transition> outgoing = new ArrayList<>();
+
+    /**
+     * The submachine that is nested in the state.
+     */
+    private StateMachine submachine;
 }

@@ -22,6 +22,7 @@ import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -94,6 +95,11 @@ public final class StateRestructurer extends CachingRestructurer<State> {
                             .getSetAttribute("connectionpoints");
             state.setConnectionPoint(
                     delegateMany(connectionPoints, State.class));
+
+            log.debug("Processing submachine for State [{}]", id);
+            ModelElement submachine = element.getRefAttribute("submachine");
+            state.setSubmachine(
+                    delegateRestructuring(submachine, StateMachine.class));
         }
         return state;
     }
