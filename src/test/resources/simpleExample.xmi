@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_-W3ZoGhbEeqd2s2CXI8EZA" name="simpleExample">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_-hYnkGhbEeqd2s2CXI8EZA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_-fKaAGhbEeqd2s2CXI8EZA" name="StateMachine" specification="_IKIqgGhcEeqd2s2CXI8EZA">
+    <region xmi:type="uml:Region" xmi:id="_-fvBwGhbEeqd2s2CXI8EZA" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_UuZcUGhcEeqd2s2CXI8EZA" source="_PIp70GhcEeqd2s2CXI8EZA" target="_Oss_oGhcEeqd2s2CXI8EZA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_VZNT4GhcEeqd2s2CXI8EZA" source="_Oss_oGhcEeqd2s2CXI8EZA" target="_SrODoGhcEeqd2s2CXI8EZA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_V0Q4MGhcEeqd2s2CXI8EZA" source="_SrODoGhcEeqd2s2CXI8EZA" target="_TVV-sGhcEeqd2s2CXI8EZA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_WRfmwGhcEeqd2s2CXI8EZA" source="_TVV-sGhcEeqd2s2CXI8EZA" target="_Pd5MAGhcEeqd2s2CXI8EZA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_VwcCoGnREeqYke2nVTtipA" source="_TVV-sGhcEeqd2s2CXI8EZA" target="_Oss_oGhcEeqd2s2CXI8EZA"/>
+      <subvertex xmi:type="uml:State" xmi:id="_Oss_oGhcEeqd2s2CXI8EZA" name="A"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_PIp70GhcEeqd2s2CXI8EZA" name="Alpha"/>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_Pd5MAGhcEeqd2s2CXI8EZA" name="Omega"/>
+      <subvertex xmi:type="uml:State" xmi:id="_SrODoGhcEeqd2s2CXI8EZA" name="B" submachine="_of6XUGnCEeqYke2nVTtipA"/>
+      <subvertex xmi:type="uml:State" xmi:id="_TVV-sGhcEeqd2s2CXI8EZA" name="X"/>
+    </region>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_GTpC8GhcEeqd2s2CXI8EZA" name="Example">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_IKIqgGhcEeqd2s2CXI8EZA" name="doSomething" method="_-fKaAGhbEeqd2s2CXI8EZA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_tWbaUGnCEeqYke2nVTtipA" name="smallHelper" visibility="private" method="_of6XUGnCEeqYke2nVTtipA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BPrnkGhhEeqd2s2CXI8EZA" value="5"/>
+  <packagedElement xmi:type="uml:LiteralInteger" xmi:id="_C9iQgGhhEeqd2s2CXI8EZA" value="2"/>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_of6XUGnCEeqYke2nVTtipA" name="OtherMethod" specification="_tWbaUGnCEeqYke2nVTtipA" submachineState="_SrODoGhcEeqd2s2CXI8EZA">
+    <region xmi:type="uml:Region" xmi:id="_pPmH0GnCEeqYke2nVTtipA" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_4Abe4GnCEeqYke2nVTtipA" source="_2aA6sGnCEeqYke2nVTtipA" target="_1adiMGnCEeqYke2nVTtipA">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_GS10kGnDEeqYke2nVTtipA">
+          <language>JAVA</language>
+          <body>String hi = &quot;Hello World!&quot;;</body>
+        </effect>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_5P14UGnCEeqYke2nVTtipA" source="_1adiMGnCEeqYke2nVTtipA" target="_3D8BcGnCEeqYke2nVTtipA"/>
+      <subvertex xmi:type="uml:State" xmi:id="_1adiMGnCEeqYke2nVTtipA" name="State1">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_LD-BQGnDEeqYke2nVTtipA">
+          <language>JAVA</language>
+          <body>System.out.println(hi);</body>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_2aA6sGnCEeqYke2nVTtipA" name="Initial2"/>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_3D8BcGnCEeqYke2nVTtipA" name="FinalState3"/>
+    </region>
+  </packagedElement>
+</uml:Model>

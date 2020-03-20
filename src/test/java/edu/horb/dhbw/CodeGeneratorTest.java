@@ -28,17 +28,31 @@ import static org.testng.Assert.fail;
 public class CodeGeneratorTest {
 
     @Test
-    public void smokeTest() {
+    public void smallSmokeTest() {
 
         CodeGenerator generator = new CodeGenerator(
                 Paths.get("src/main/resources/default.properties"));
         try {
             generator.generateCode(Paths.get(
-                    "src/test/resources/classdiagrams/Classes_Mod.xmi"),
+                    "src/test/resources/simpleExample.xmi"),
                                    Config.CONFIG.getLanguage());
         } catch (CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");
+        }
+    }
+
+    @Test
+    public void smokeTestWithUmlAsModel() {
+
+        CodeGenerator generator = new CodeGenerator(
+                Paths.get("src/main/resources/default.properties"));
+        try {
+            generator.generateCode(Paths.get("src/test/resources/uml.xmi"),
+                                   Config.CONFIG.getLanguage());
+        } catch (CodeGenerationException e) {
+            e.printStackTrace();
+            fail("Generation fo code failed");
         }
     }
 }
