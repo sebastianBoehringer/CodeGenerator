@@ -50,6 +50,17 @@ public enum Cardinality {
      */
     ORDERED_SET;
 
+    /**
+     * @param unique  If {@code true} entries of the property with this
+     *                cardinality must be unique.
+     * @param ordered If {@code true} entries of the property with this
+     *                cardinality must be ordered.
+     * @param lower   The lower bound of the cardinality.
+     * @param upper   The upper bound of the cardinality.
+     * @return The cardinality corresponding to the given input. The actual
+     * values of lower and upper cannot be determined via the returned
+     * cardinality
+     */
     public static Cardinality getCorrectCardinality(final @NonNull Boolean unique, final @NonNull Boolean ordered, final @NonNull Integer lower, final @NonNull UnlimitedNatural upper) {
 
         if (upper.getValue() <= 1L) {
