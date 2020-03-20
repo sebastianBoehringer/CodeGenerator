@@ -70,10 +70,12 @@ public final class TransitionRestructurer
         log.info("Processing transsource for Transition [{}]", id);
         ModelElement source = element.getRefAttribute("transsource");
         transition.setSource(delegateRestructuring(source, State.class));
+        transition.getSource().getOutgoing().add(transition);
 
         log.info("Processing transtarget for Transition [{}]", id);
         ModelElement target = element.getRefAttribute("transtarget");
         transition.setTarget(delegateRestructuring(target, State.class));
+        transition.getTarget().getIncoming().add(transition);
 
         log.info("Processing guard for Transition [{}]", id);
         ModelElement guard = element.getRefAttribute("guard");

@@ -87,6 +87,9 @@ public final class OpaqueBehaviorRestructurer
         ModelElement specification = element.getRefAttribute("specification");
         behavior.setSpecification(
                 delegateRestructuring(specification, Operation.class));
+        if (behavior.getSpecification() != null) {
+            behavior.getSpecification().getMethod().add(behavior);
+        }
 
         return behavior;
     }

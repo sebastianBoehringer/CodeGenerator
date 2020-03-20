@@ -19,7 +19,10 @@ package edu.horb.dhbw.inputprocessing.restructure.packaging;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.Model;
+import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -27,6 +30,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Slf4j
 public final class ModelRestructurer extends CachingRestructurer<Model> {
@@ -60,7 +64,24 @@ public final class ModelRestructurer extends CachingRestructurer<Model> {
         Collection<ModelElement> members = (Collection<ModelElement>) element
                 .getSetAttribute("ownedmembers");
         model.setOwnedMember(delegateMany(members, NamedElement.class));
-
+        model.setPackagedElement(
+                delegateMany(members, PackageableElement.class));
+        log.info("Processing ownedType for package [{}]", id);
+        model.setOwnedType(model.getPackagedElement().stream()
+                                   .filter(p -> p instanceof Type)
+                                   .map(p -> (Type) p)
+                                   .collect(Collectors.toList()));
+        for (Type type : model.getOwnedType()) {
+            type.setAPackage(model);
+        }
+        log.info("Processing nestedPackage for model [{}]", id);
+        model.setNestedPackage(model.getPackagedElement().stream()
+                                       .filter(p -> p instanceof UMLPackage)
+                                       .map(p -> (UMLPackage) p)
+                                       .collect(Collectors.toList()));
+        for (UMLPackage aPackage : model.getNestedPackage()) {
+            aPackage.setNestingPackage(model);
+        }
         return model;
     }
 }

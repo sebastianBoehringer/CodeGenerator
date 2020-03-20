@@ -66,6 +66,7 @@ public final class StateMachineRestructurer
         Collection<ModelElement> regions =
                 (Collection<ModelElement>) element.getSetAttribute("regions");
         machine.setRegion(delegateMany(regions, Region.class));
+        machine.getRegion().forEach(r -> r.setStateMachine(machine));
 
         log.info("Processing reentrant for StateMachine [{}]", id);
         String reentrant = element.getPlainAttribute("reentrant");
@@ -93,6 +94,9 @@ public final class StateMachineRestructurer
         ModelElement specification = element.getRefAttribute("specification");
         machine.setSpecification(
                 delegateRestructuring(specification, Operation.class));
+        if (machine.getSpecification() != null) {
+            machine.getSpecification().getMethod().add(machine);
+        }
 
         return machine;
     }
