@@ -28,11 +28,16 @@ import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
+import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
+import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
+import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
+import edu.horb.dhbw.util.Config;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -129,6 +134,7 @@ public final class OOLogicTransformer
 
         if (behavior instanceof OpaqueBehavior) {
             OpaqueBehavior effect = (OpaqueBehavior) behavior;
+            //TODO use language
             return Collections.singletonList(
                     new OpaqueStatement(effect.getBody().get(0)));
         }
@@ -323,14 +329,63 @@ public final class OOLogicTransformer
             currentState = complicated.first();
             statements.addAll(complicated.second());
         }
-        Transition t = currentState.getOutgoing().stream()
+        Transition ongoing = currentState.getOutgoing().stream()
                 .filter(trans -> !trans.getTarget().getId()
                         .equals(loopStart.getId())).findFirst().get();
         List<IStatement> statementList = new ArrayList<>();
-        statementList.add(new LoopStatement("TODO", statements));
-        statementList.addAll(extractTransitionBehavior(t));
-        //TODO extract constraint specification from loop transition
-        return new Pair<>(t.getTarget(), statementList);
+        Transition loopTransition = currentState.getOutgoing().stream()
+                .filter(t -> loopStart.getIncoming().contains(t)).findFirst()
+                .get();
+        statementList.add(new LoopStatement(
+                getConditionFromConstraint(loopTransition.getGuard()),
+                statements));
+        statementList.addAll(extractTransitionBehavior(ongoing));
+        return new Pair<>(ongoing.getTarget(), statementList);
+    }
+
+    private String getConditionFromConstraint(final Constraint constraint) {
+
+        if (constraint == null) {
+            //TODO make default constraint customizable. True seems like a
+            // decent choice as not having a guard is like the guard always
+            // being fullfilled, i. e. true.
+            return "true";
+        }
+        if (constraint.getSpecification() instanceof OpaqueExpression) {
+            OpaqueExpression specification =
+                    (OpaqueExpression) constraint.getSpecification();
+            int index = specification.getLanguage()
+                    .indexOf(Config.CONFIG.getLanguage().getName());
+            if (index >= 0) {
+                return specification.getBody().get(index);
+            } else {
+                return specification.getBody().get(0);
+            }
+        }
+        if (constraint instanceof IntervalConstraint) {
+            IntervalConstraint intervalConstraint =
+                    (IntervalConstraint) constraint;
+            final String condition = String.format("%s <= %s <= %s",
+                                                   intervalConstraint
+                                                           .getSpecification()
+                                                           .getMin().toString(),
+                                                   "%s", intervalConstraint
+                                                           .getSpecification()
+                                                           .getMax()
+                                                           .toString());
+            StringBuilder builder = new StringBuilder();
+            intervalConstraint.getConstrainedElement().stream()
+                    .filter(e -> e instanceof NamedElement).forEach(element -> {
+                builder.append(String.format(condition, ((NamedElement) element)
+                        .getName()));
+                builder.append("&&");
+            });
+            builder.delete(builder.length() - 2, builder.length());
+            return builder.toString();
+        }
+        //TODO since execution should never reach this point an exception
+        // throw would be better than an empty string
+        return "";
     }
 
     private boolean containsOneUnique(final List<State> states) {
@@ -352,7 +407,7 @@ public final class OOLogicTransformer
     }
 
     private Pair<State, List<IStatement>> handleBranching(final State branchPoint) {
-        //TODO extract guard
+
         List<IStatement> statementList =
                 new ArrayList<>(extractStateBehavior(branchPoint));
         List<State> activeStates = new ArrayList<>();
@@ -392,7 +447,8 @@ public final class OOLogicTransformer
         }
         List<Pair<String, List<IStatement>>> branches = new ArrayList<>();
         for (int i = 0; i < statements.length; i++) {
-            String condition = i + "TODO";
+            String condition = getConditionFromConstraint(
+                    branchPoint.getOutgoing().get(i).getGuard());
             branches.add(new Pair<>(condition, statements[i]));
         }
         statementList.add(new ChoiceStatement(branches));

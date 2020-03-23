@@ -4,29 +4,101 @@
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:StateMachine" xmi:id="_0rIBAGq0EeqHTeM9ldx_DA" name="StateMachine2">
+    <ownedParameter xmi:type="uml:Parameter" xmi:id="_McTfYGzzEeqdU_c0Lx0vIA" name="handy">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+    </ownedParameter>
     <region xmi:type="uml:Region" xmi:id="_1HArwGq0EeqHTeM9ldx_DA" name="Region1">
-      <transition xmi:type="uml:Transition" xmi:id="_6tLqEGq0EeqHTeM9ldx_DA" source="_1mjHcGq0EeqHTeM9ldx_DA" target="_2M-1UGq0EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_7LdhgGq0EeqHTeM9ldx_DA" source="_2M-1UGq0EeqHTeM9ldx_DA" target="_2taB0Gq0EeqHTeM9ldx_DA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_6tLqEGq0EeqHTeM9ldx_DA" source="_1mjHcGq0EeqHTeM9ldx_DA" target="_2M-1UGq0EeqHTeM9ldx_DA">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_hdhr4GzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>0</body>
+        </effect>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_7LdhgGq0EeqHTeM9ldx_DA" guard="_YOlQEGzyEeqdU_c0Lx0vIA" source="_2M-1UGq0EeqHTeM9ldx_DA" target="_2taB0Gq0EeqHTeM9ldx_DA">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_YOlQEGzyEeqdU_c0Lx0vIA">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_YOlQEWzyEeqdU_c0Lx0vIA">
+            <language>JAVA</language>
+            <body>4 >= a</body>
+          </specification>
+        </ownedRule>
+      </transition>
       <transition xmi:type="uml:Transition" xmi:id="_7j4BgGq0EeqHTeM9ldx_DA" source="_2taB0Gq0EeqHTeM9ldx_DA" target="_3FJzcGq0EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_8JHckGq0EeqHTeM9ldx_DA" source="_3FJzcGq0EeqHTeM9ldx_DA" target="_4BuJYGq0EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_8q4s4Gq0EeqHTeM9ldx_DA" source="_4BuJYGq0EeqHTeM9ldx_DA" target="_2taB0Gq0EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_AvLowGq1EeqHTeM9ldx_DA" source="_2M-1UGq0EeqHTeM9ldx_DA" target="__3QiQGq0EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_BOqaEGq1EeqHTeM9ldx_DA" source="__3QiQGq0EeqHTeM9ldx_DA" target="_AMbhAGq1EeqHTeM9ldx_DA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_8JHckGq0EeqHTeM9ldx_DA" source="_3FJzcGq0EeqHTeM9ldx_DA" target="_4BuJYGq0EeqHTeM9ldx_DA">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_7rkGEGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>1.4</body>
+        </effect>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_8q4s4Gq0EeqHTeM9ldx_DA" guard="_Dhb2IGzzEeqdU_c0Lx0vIA" source="_4BuJYGq0EeqHTeM9ldx_DA" target="_2taB0Gq0EeqHTeM9ldx_DA">
+        <ownedRule xmi:type="uml:IntervalConstraint" xmi:id="_Dhb2IGzzEeqdU_c0Lx0vIA" constrainedElement="_McTfYGzzEeqdU_c0Lx0vIA">
+          <specification xmi:type="uml:Interval" xmi:id="_VkWB8GzzEeqdU_c0Lx0vIA" name="dddsd" max="_Ssd14GzzEeqdU_c0Lx0vIA" min="_U9kV0GzzEeqdU_c0Lx0vIA">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+          </specification>
+        </ownedRule>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_AvLowGq1EeqHTeM9ldx_DA" guard="_O0JV8GzyEeqdU_c0Lx0vIA" source="_2M-1UGq0EeqHTeM9ldx_DA" target="__3QiQGq0EeqHTeM9ldx_DA">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_O0JV8GzyEeqdU_c0Lx0vIA">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_SUKgEGzyEeqdU_c0Lx0vIA">
+            <language>JAVA</language>
+            <body>4 &lt; a</body>
+          </specification>
+        </ownedRule>
+      </transition>
+      <transition xmi:type="uml:Transition" xmi:id="_BOqaEGq1EeqHTeM9ldx_DA" source="__3QiQGq0EeqHTeM9ldx_DA" target="_AMbhAGq1EeqHTeM9ldx_DA">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_r_0l8GzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>2.4</body>
+        </effect>
+      </transition>
       <transition xmi:type="uml:Transition" xmi:id="_D6GFkGq1EeqHTeM9ldx_DA" source="_4BuJYGq0EeqHTeM9ldx_DA" target="_C7z4YGq1EeqHTeM9ldx_DA"/>
-      <transition xmi:type="uml:Transition" xmi:id="_EUdGUGq1EeqHTeM9ldx_DA" source="_C7z4YGq1EeqHTeM9ldx_DA" target="_13uXAGq0EeqHTeM9ldx_DA"/>
+      <transition xmi:type="uml:Transition" xmi:id="_EUdGUGq1EeqHTeM9ldx_DA" source="_C7z4YGq1EeqHTeM9ldx_DA" target="_13uXAGq0EeqHTeM9ldx_DA">
+        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_u4pNMGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>5</body>
+        </effect>
+      </transition>
       <transition xmi:type="uml:Transition" xmi:id="_hbOBIGq1EeqHTeM9ldx_DA" source="_AMbhAGq1EeqHTeM9ldx_DA" target="_fvHrsGq1EeqHTeM9ldx_DA"/>
       <transition xmi:type="uml:Transition" xmi:id="_ivJHIGq1EeqHTeM9ldx_DA" source="_AMbhAGq1EeqHTeM9ldx_DA" target="__3QiQGq0EeqHTeM9ldx_DA"/>
       <transition xmi:type="uml:Transition" xmi:id="_kHv40Gq1EeqHTeM9ldx_DA" source="_fvHrsGq1EeqHTeM9ldx_DA" target="_C7z4YGq1EeqHTeM9ldx_DA"/>
       <subvertex xmi:type="uml:Pseudostate" xmi:id="_1mjHcGq0EeqHTeM9ldx_DA" name="Initial1"/>
       <subvertex xmi:type="uml:FinalState" xmi:id="_13uXAGq0EeqHTeM9ldx_DA" name="FinalState2"/>
-      <subvertex xmi:type="uml:State" xmi:id="_2M-1UGq0EeqHTeM9ldx_DA" name="State3"/>
+      <subvertex xmi:type="uml:State" xmi:id="_2M-1UGq0EeqHTeM9ldx_DA" name="State3">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_cbhKkGzyEeqdU_c0Lx0vIA" name="ddd">
+          <language>JAVA</language>
+          <body>1</body>
+        </doActivity>
+      </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_2taB0Gq0EeqHTeM9ldx_DA" name="State4"/>
-      <subvertex xmi:type="uml:State" xmi:id="_3FJzcGq0EeqHTeM9ldx_DA" name="State5"/>
+      <subvertex xmi:type="uml:State" xmi:id="_3FJzcGq0EeqHTeM9ldx_DA" name="State5">
+        <entry xmi:type="uml:OpaqueBehavior" xmi:id="_3HdBsGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>1.2</body>
+        </entry>
+        <exit xmi:type="uml:OpaqueBehavior" xmi:id="_5V1k0GzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>1.3</body>
+        </exit>
+      </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_4BuJYGq0EeqHTeM9ldx_DA" name="State6"/>
-      <subvertex xmi:type="uml:State" xmi:id="__3QiQGq0EeqHTeM9ldx_DA" name="State12"/>
+      <subvertex xmi:type="uml:State" xmi:id="__3QiQGq0EeqHTeM9ldx_DA" name="State12">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_l80hsGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>2.2</body>
+        </doActivity>
+        <entry xmi:type="uml:OpaqueBehavior" xmi:id="_kdT2wGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>2.1</body>
+        </entry>
+        <exit xmi:type="uml:OpaqueBehavior" xmi:id="_nU2EkGzyEeqdU_c0Lx0vIA">
+          <language>JAVA</language>
+          <body>2.3</body>
+        </exit>
+      </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_AMbhAGq1EeqHTeM9ldx_DA" name="State13"/>
       <subvertex xmi:type="uml:Pseudostate" xmi:id="_C7z4YGq1EeqHTeM9ldx_DA" name="Junction16" kind="junction"/>
       <subvertex xmi:type="uml:State" xmi:id="_fvHrsGq1EeqHTeM9ldx_DA" name="State19"/>
     </region>
   </packagedElement>
+  <packagedElement xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Ssd14GzzEeqdU_c0Lx0vIA" name="dddddd" value="*"/>
+  <packagedElement xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_U9kV0GzzEeqdU_c0Lx0vIA" name="asdasdasd"/>
 </uml:Model>
