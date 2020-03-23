@@ -82,6 +82,7 @@ import edu.horb.dhbw.datacore.uml.values.LiteralReal;
 import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
 import edu.horb.dhbw.datacore.uml.values.LiteralString;
 import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
+import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.inputprocessing.restructure.classes.AbstractionRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.ConnectorEndRestructurer;
@@ -295,6 +296,8 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
                 .put(Realization.class, new RealizationRestructurer(this));
         classToRestructurer.put(StructuredClassifier.class,
                                 new StructuredClassifierRestructurer(this));
+        classToRestructurer.put(OpaqueExpression.class,
+                                new OpaqueExpressionRestructurer(this));
     }
 
     /**
