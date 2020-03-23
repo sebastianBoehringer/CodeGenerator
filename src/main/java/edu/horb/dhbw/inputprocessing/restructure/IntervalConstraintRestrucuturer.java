@@ -26,20 +26,10 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 public final class IntervalConstraintRestrucuturer
-        extends BaseRestructurer<IntervalConstraint> {
-    /**
-     * A map holding all the {@link IntervalConstraint}s that have already been
-     * processed. This maps from their xmi id to the actual instance.
-     * The map is not synchronized, thus the class is most likely not
-     * threadsafe.
-     */
-    private static final Map<String, IntervalConstraint> ALREADY_PROCESSED =
-            new HashMap<>();
+        extends CachingRestructurer<IntervalConstraint> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing
@@ -54,14 +44,14 @@ public final class IntervalConstraintRestrucuturer
     public IntervalConstraint restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        if (ALREADY_PROCESSED.containsKey(id)) {
+        if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading intervalconstraint from "
                              + "cache", id);
-            return ALREADY_PROCESSED.get(id);
+            return processed.get(id);
         }
         IntervalConstraint constraint = new IntervalConstraint();
         constraint.setId(id);
-        ALREADY_PROCESSED.put(id, constraint);
+        processed.put(id, constraint);
 
         log.info("Processing intervalspecification for intervalconstraint [{}]",
                  id);
