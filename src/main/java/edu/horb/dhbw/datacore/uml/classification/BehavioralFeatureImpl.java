@@ -55,7 +55,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl
     /**
      * The Behavior that implements the feature.
      */
-    private List<Behavior> method;
+    private List<Behavior> method = new ArrayList<>();
     /**
      * The parameters for this feature.
      */
