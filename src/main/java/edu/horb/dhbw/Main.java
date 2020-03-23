@@ -17,7 +17,7 @@ public final class Main {
 
         CodeGenerator gen = new CodeGenerator(
                 Path.of("src/main/resources/default.properties"));
-        gen.generateCode(Path.of("src/main/resources/xmi/uml.xmi"),
+        gen.generateCode(Path.of("src/test/resources/uml.xmi"),
                          Config.CONFIG.getLanguage());
     }
 }
