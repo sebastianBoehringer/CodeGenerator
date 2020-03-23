@@ -24,7 +24,7 @@ import lombok.NonNull;
 import java.util.List;
 
 /**
- * Transforms an {@link F} to a {@link T}.
+ * Transforms a {@link F} to a {@link T}.
  *
  * @param <F> The type to transform from
  * @param <T> The type to transform to
@@ -41,7 +41,7 @@ public interface ITransformer<F extends XMIElement, T extends OOBase> {
 
     /**
      * @param element The single element to transform
-     * @return Transforms the given element to an {@link T}
+     * @return Transforms the given element to a {@link T}
      */
     T transform(@NonNull F element);
 
