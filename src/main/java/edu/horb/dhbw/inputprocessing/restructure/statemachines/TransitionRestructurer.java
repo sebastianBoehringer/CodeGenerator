@@ -27,6 +27,7 @@ import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -79,9 +80,10 @@ public final class TransitionRestructurer
 
         log.info("Processing guard for Transition [{}]", id);
         ModelElement guard = element.getRefAttribute("guard");
-        transition.setGuard(delegateRestructuring(guard, LookupUtil
-                .constraintFromUMLType(guard.getPlainAttribute("umltype"))));
-
+        if (guard != null) {
+            transition.setGuard(delegateRestructuring(guard, LookupUtil
+                    .constraintFromUMLType(XMIUtil.getUMLType(guard))));
+        }
         log.info("Processing effect for Transition [{}]", id);
         ModelElement effect = element.getRefAttribute("effect");
         transition.setEffect(delegateRestructuring(effect, Behavior.class));
