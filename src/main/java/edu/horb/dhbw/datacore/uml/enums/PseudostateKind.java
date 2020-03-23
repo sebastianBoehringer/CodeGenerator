@@ -115,4 +115,16 @@ public enum PseudostateKind {
 
         return PseudostateKind.valueOf(string.toUpperCase());
     }
+
+    /**
+     * @return {@code True} if reaching a
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.State} of this kind
+     * terminates the
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.StateMachine}
+     * containing the {@link edu.horb.dhbw.datacore.uml.statemachines.State}.
+     */
+    public boolean isTerminating() {
+
+        return this.equals(FINAL) || this.equals(TERMINATE);
+    }
 }

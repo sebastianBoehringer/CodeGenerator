@@ -31,7 +31,7 @@ public class OOMethod extends OOBase {
     /**
      * Defines the logic used when executing this method.
      */
-    private OOStatemachine logic;
+    private OOLogic logic;
     /**
      * The parameters used for the invocation of the method.
      * This does not include {@link #returnParam}. I. e. {@code parameters

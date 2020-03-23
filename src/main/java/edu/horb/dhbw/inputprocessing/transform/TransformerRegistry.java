@@ -22,11 +22,13 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import lombok.NonNull;
 
@@ -66,6 +68,8 @@ public class TransformerRegistry {
         registry.put(PrimitiveType.class, new OOPrimitiveTransformer(this));
         registry.put(Enumeration.class, new OOEnumTransformer(this));
         registry.put(Parameter.class, new OOParameterTransformer(this));
+        registry.put(StateMachine.class, new OOLogicTransformer(this));
+        registry.put(Behavior.class, new BehaviorTransformer(this));
     }
 
     /**
