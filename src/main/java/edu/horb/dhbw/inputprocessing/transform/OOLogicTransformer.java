@@ -134,11 +134,16 @@ public final class OOLogicTransformer
 
         if (behavior instanceof OpaqueBehavior) {
             OpaqueBehavior effect = (OpaqueBehavior) behavior;
-            //TODO use language
-            return Collections.singletonList(
-                    new OpaqueStatement(effect.getBody().get(0)));
-        }
-        if (behavior instanceof StateMachine) {
+            String statement;
+            int index = effect.getLanguage()
+                    .indexOf(Config.CONFIG.getLanguage().getName());
+            if (index >= 0) {
+                statement = effect.getBody().get(index);
+            } else {
+                statement = effect.getBody().get(0);
+            }
+            return Collections.singletonList(new OpaqueStatement(statement));
+        } if (behavior instanceof StateMachine) {
             OOLogic spec = super.transform(((StateMachine) behavior));
             return spec != null ? spec.getStatements()
                                 : Collections.emptyList();
