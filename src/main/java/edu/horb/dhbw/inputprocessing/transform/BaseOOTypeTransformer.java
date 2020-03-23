@@ -58,7 +58,6 @@ public abstract class BaseOOTypeTransformer<F extends Classifier>
         log.debug("Set visibility for [{}]", id);
         ooType.setVisibility(element.getVisibility());
         log.debug("Set superTypes for [{}]", id);
-        // TODO should work since a thing should only extend a same thing
         ooType.setSuperTypes(transform(element.getGeneralization().stream()
                                                .map(Generalization::getGeneral)
                                                .collect(Collectors.toList())));
