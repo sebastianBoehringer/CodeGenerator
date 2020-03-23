@@ -18,12 +18,13 @@
 package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.Cardinality;
+import edu.horb.dhbw.datacore.model.OOLogic;
 import edu.horb.dhbw.datacore.model.OOMethod;
-import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
@@ -31,12 +32,13 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOMethodTransformer
-        extends BaseTransformer<Operation, OOMethod> {
+        extends CachingTransformer<Operation, OOMethod> {
     /**
      * @param registry The registry to use.
      */
@@ -47,11 +49,8 @@ public final class OOMethodTransformer
         voidReturn.setName("void");
         voidReturn.setDirection(ParameterDirectionKind.RETURN);
         voidReturn.setCardinality(Cardinality.SINGLE);
-        voidReturn.setType(new OOType((OOType.Type.CLASS)));
+        voidReturn.setType(new OOType((OOType.Type.PRIMITIVE)));
         voidReturn.getType().setName("void");
-        OOPackage pkg = new OOPackage();
-        pkg.setName("");
-        voidReturn.getType().setContainer(pkg);
 
     }
 
@@ -71,7 +70,7 @@ public final class OOMethodTransformer
     }
 
     @Override
-    public OOMethod transform(final @NonNull Operation element) {
+    public OOMethod doTransformation(final @NonNull Operation element) {
 
         OOMethod ooMethod = new OOMethod();
         String id = element.getId();
@@ -104,6 +103,14 @@ public final class OOMethodTransformer
         ooMethod.setExceptions(
                 typeITransformer.transform(element.getRaisedException()));
         log.debug("Set comments for [{}]", id);
+        if (element.getMethod().size() > 0) {
+            ITransformer<Behavior, OOLogic> logicITransformer =
+                    getTransformer(Behavior.class);
+            ooMethod.setLogic(
+                    logicITransformer.transform(element.getMethod().get(0)));
+        } else {
+            ooMethod.setLogic(new OOLogic(Collections.emptyList()));
+        }
         ooMethod.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)
                         .collect(Collectors.toList()));
