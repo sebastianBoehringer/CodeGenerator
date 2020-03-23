@@ -28,9 +28,9 @@ public class ModelParseException extends Exception {
         super(msg);
     }
 
-    public ModelParseException(final Throwable cause) {
+    public ModelParseException(final Exception e) {
 
-        super("Model parsing failed, nested exception is " + cause.getClass()
-                .getSimpleName() + ", message: " + cause.getMessage());
+        super("Model parsing failed, nested exception is " + e.getClass()
+                .getSimpleName() + ", message: " + e.getMessage());
     }
 }

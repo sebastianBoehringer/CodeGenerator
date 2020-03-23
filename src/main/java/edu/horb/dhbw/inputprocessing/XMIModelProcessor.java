@@ -102,7 +102,7 @@ public final class XMIModelProcessor implements IModelProcessor {
         } catch (Exception e) {
             log.error("Could not parse model due to [{}] with cause [{}]",
                       e.getClass().getSimpleName(), e.getMessage());
-            throw new ModelParseException(e.getCause());
+            throw new ModelParseException(e);
         }
         log.info("Parsing successful, clearing caches of mediator and this "
                          + "class");
