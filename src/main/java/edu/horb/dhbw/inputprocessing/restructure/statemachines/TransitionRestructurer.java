@@ -19,7 +19,6 @@ package edu.horb.dhbw.inputprocessing.restructure.statemachines;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
-import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
@@ -27,6 +26,7 @@ import edu.horb.dhbw.datacore.uml.statemachines.Transition;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.util.LookupUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
@@ -79,7 +79,8 @@ public final class TransitionRestructurer
 
         log.info("Processing guard for Transition [{}]", id);
         ModelElement guard = element.getRefAttribute("guard");
-        transition.setGuard(delegateRestructuring(guard, Constraint.class));
+        transition.setGuard(delegateRestructuring(guard, LookupUtil
+                .constraintFromUMLType(guard.getPlainAttribute("umltype"))));
 
         log.info("Processing effect for Transition [{}]", id);
         ModelElement effect = element.getRefAttribute("effect");
