@@ -23,6 +23,7 @@ import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +47,7 @@ public final class OOClassTransformer extends BaseOOTypeTransformer<UMLClass> {
 
         List<UMLClass> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e instanceof UMLClass) {
+            if (e != null && UMLClassImpl.class.equals(e.getClass())) {
                 classes.add((UMLClass) e);
             }
         }
