@@ -19,6 +19,7 @@ package edu.horb.dhbw.datacore.uml.primitivetypes;
 
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.StringUtils;
 
 /**
@@ -29,6 +30,7 @@ import org.thymeleaf.util.StringUtils;
  * {@link Long#MAX_VALUE} instead. Another option would be to use
  * {@link Long#MIN_VALUE} but that would make comparisons feel awkward.
  */
+@EqualsAndHashCode(callSuper = false)
 @Data
 public final class UnlimitedNatural extends PrimitiveTypeImpl {
     /**
@@ -68,6 +70,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
                         String.format("Parsed value [%d] is less than 0",
                                       intermediate));
             }
+            value = intermediate;
         } catch (NumberFormatException e) {
             if ("*".equals(string)) {
                 value = Long.MAX_VALUE;
@@ -98,11 +101,22 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
                     String.format("Parsed value [%d] is less than 0 or null",
                                   nestedValue));
         }
+        value = nestedValue;
     }
 
     @Override
     public String getName() {
 
         return "unlimitednatural";
+    }
+
+    @Override
+    public String toString() {
+
+        if (value == Long.MAX_VALUE) {
+            return "*";
+        } else {
+            return Long.toString(value);
+        }
     }
 }

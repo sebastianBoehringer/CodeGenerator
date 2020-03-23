@@ -42,4 +42,10 @@ public final class LiteralBoolean extends LiteralSpecificationImpl<Boolean> {
 
         value = Boolean.FALSE;
     }
+
+    @Override
+    public String toString() {
+
+        return value.toString();
+    }
 }

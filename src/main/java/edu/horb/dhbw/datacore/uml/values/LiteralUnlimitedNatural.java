@@ -35,4 +35,10 @@ public final class LiteralUnlimitedNatural
      * The specified value.
      */
     private final UnlimitedNatural value;
+
+    @Override
+    public String toString() {
+
+        return value.toString();
+    }
 }

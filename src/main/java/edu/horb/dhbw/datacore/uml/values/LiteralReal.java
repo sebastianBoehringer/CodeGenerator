@@ -33,4 +33,10 @@ public final class LiteralReal extends LiteralSpecificationImpl<Double> {
      * The value specified.
      */
     private final Double value;
+
+    @Override
+    public String toString() {
+
+        return value.toString();
+    }
 }

@@ -66,4 +66,10 @@ public final class LiteralInteger extends LiteralSpecificationImpl<Integer> {
         }
         return new LiteralInteger(temp);
     }
+
+    @Override
+    public String toString() {
+
+        return value.toString();
+    }
 }
