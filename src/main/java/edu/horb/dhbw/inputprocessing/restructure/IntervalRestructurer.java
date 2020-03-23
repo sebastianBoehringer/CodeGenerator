@@ -40,24 +40,12 @@ public final class IntervalRestructurer extends BaseRestructurer<Interval> {
         String id = element.getXMIID();
         Interval interval = new Interval();
         interval.setId(id);
-        try {
-            log.info("Processing max for interval [{}] as modelelement", id);
-            ModelElement max = element.getRefAttribute("max");
-            interval.setMax(
-                    delegateRestructuring(max, ValueSpecification.class));
-        } catch (ClassCastException e) {
-            log.warn("Processing max for interval [{}] as modelelement failed",
-                     id);
-        }
-        try {
-            log.info("Processing min for interval [{}] as modelelement", id);
-            ModelElement min = element.getRefAttribute("min");
-            interval.setMin(
-                    delegateRestructuring(min, ValueSpecification.class));
-        } catch (ClassCastException e) {
-            log.warn("Processing min for interval [{}] as modelelement failed",
-                     id);
-        }
+        log.info("Processing max for interval [{}] as modelelement", id);
+        ModelElement max = element.getRefAttribute("max");
+        interval.setMax(delegateRestructuring(max, ValueSpecification.class));
+        log.info("Processing min for interval [{}] as modelelement", id);
+        ModelElement min = element.getRefAttribute("min");
+        interval.setMin(delegateRestructuring(min, ValueSpecification.class));
         return interval;
     }
 }

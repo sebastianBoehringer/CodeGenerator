@@ -482,8 +482,7 @@ other part of SDMetrics.
         <trigger name="transtarget" type="xmi2assoc" attr="target"/>
         <trigger name="triggers" type="xmi2assoc" attr="trigger"
                  src="uml:Trigger"/>
-        <trigger name="guard" type="xmi2assoc" attr="guard"
-                 src="uml:Constraint"/>
+        <trigger name="guard" type="xmi2assoc" attr="guard"/>
 
         <trigger name="effect" type="xmi2assoc" attr="effect"/>
 
@@ -507,12 +506,12 @@ other part of SDMetrics.
 
     <xmitransformation modelelement="interval"
                        xmipattern="uml:Interval" recurse="true">
-        <trigger name="max" type="xmi2assoc" attr="max"/>
-        <trigger name="max" type="attrval" attr="max"/>
         <trigger name="max" type="ctext" src="max"/>
-        <trigger name="min" type="xmi2assoc" attr="min"/>
+        <trigger name="max" type="attrval" attr="max"/>
+        <trigger name="max" type="xmi2assoc" attr="max"/>
         <trigger name="min" type="attrval" attr="min"/>
         <trigger name="min" type="ctext" src="min"/>
+        <trigger name="min" type="xmi2assoc" attr="min"/>
     </xmitransformation>
 
     <xmitransformation modelelement="intervalconstraint"

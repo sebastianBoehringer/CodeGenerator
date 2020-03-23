@@ -538,8 +538,8 @@ other part of SDMetrics.
     </modelelement>
 
     <modelelement name="interval">
-        <attribute name="max">Upper bound of the range.</attribute>
-        <attribute name="min">Lower bound of the range.</attribute>
+        <attribute name="max" type="ref">Upper bound of the range.</attribute>
+        <attribute name="min" type="ref">Lower bound of the range.</attribute>
     </modelelement>
 
     <modelelement name="intervalconstraint" parent="constraint">
