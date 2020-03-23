@@ -1,0 +1,1 @@
+[# th:switch="${state.getStatementType().toString()}"][# th:case="OPAQUE"][(${state.getStatement()})][/][# th:case="CHOICE"][# th:insert="Choice" th:with="choice=${state}"][/][/][# th:case="LOOP"][# th:insert="Loop" th:with="loop=${state}"][/][/][# th:case="*"]//[(${statement.getStatementType().toString()})][/][/]
