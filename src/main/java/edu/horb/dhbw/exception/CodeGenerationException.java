@@ -20,7 +20,7 @@ package edu.horb.dhbw.exception;
 /**
  * Signals that the generation of code failed.
  */
-public class CodeGenerationException extends Exception {
+public final class CodeGenerationException extends Exception {
     public CodeGenerationException() {
 
         super();

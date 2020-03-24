@@ -20,7 +20,7 @@ package edu.horb.dhbw.exception;
 /**
  * Specifies that a configuration via the property file was invalid.
  */
-public class InvalidConfigurationException extends RuntimeException {
+public final class InvalidConfigurationException extends RuntimeException {
     public InvalidConfigurationException() {
 
         super();
