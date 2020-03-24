@@ -17,6 +17,9 @@
 
 package edu.horb.dhbw.exception;
 
+/**
+ * An exception to signal that the parsing of the model failed.
+ */
 public class ModelParseException extends Exception {
     public ModelParseException() {
 
