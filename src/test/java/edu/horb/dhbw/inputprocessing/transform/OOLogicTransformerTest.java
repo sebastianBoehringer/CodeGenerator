@@ -24,6 +24,7 @@ import edu.horb.dhbw.datacore.model.LoopStatement;
 import edu.horb.dhbw.datacore.model.OOLogic;
 import edu.horb.dhbw.datacore.model.OpaqueStatement;
 import edu.horb.dhbw.datacore.model.Pair;
+import edu.horb.dhbw.datacore.model.ParallelStatement;
 import edu.horb.dhbw.datacore.model.StatementKind;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
@@ -32,11 +33,14 @@ import edu.horb.dhbw.util.SDMetricsUtil;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 public class OOLogicTransformerTest {
 
@@ -82,7 +86,33 @@ public class OOLogicTransformerTest {
                 getMachine("src/test/resources/statemachines/if.xmi");
         ITransformer<StateMachine, OOLogic> logicITransformer =
                 new OOLogicTransformer(null);
-        logicITransformer.transform(machine);
+        OOLogic logic = logicITransformer.transform(machine);
+        assertEquals(logic.getStatements().size(), 3,
+                     "opaque -> choice -> opaque");
+        assertEquals(logic.getStatements().get(0).getStatementType(),
+                     StatementKind.OPAQUE);
+        assertEquals(
+                ((OpaqueStatement) logic.getStatements().get(0)).getStatement(),
+                "before If");
+
+        assertEquals(logic.getStatements().get(1).getStatementType(),
+                     StatementKind.CHOICE);
+        ChoiceStatement choice = (ChoiceStatement) logic.getStatements().get(1);
+        assertEquals(choice.getBranches().size(), 5);
+        List<String> possibleConditions =
+                Arrays.asList("else", "b>d", "a>b", "b>a", "1 <= Bernie <= 23");
+        for (Pair<String, List<IStatement>> branch : choice.getBranches()) {
+            assertTrue(possibleConditions.contains(branch.first()),
+                       String.format("Unexpected condition: [%s]",
+                                     branch.first()));
+            assertEquals(branch.second().size(), 0);
+        }
+
+        assertEquals(logic.getStatements().get(2).getStatementType(),
+                     StatementKind.OPAQUE);
+        assertEquals(
+                ((OpaqueStatement) logic.getStatements().get(2)).getStatement(),
+                "after if");
     }
 
     @Test(timeOut = TIMEOUT)
@@ -96,7 +126,7 @@ public class OOLogicTransformerTest {
         logicITransformer.transform(machine);
     }
 
-    @Test()
+    @Test(timeOut = TIMEOUT)
     public void canTransformIfWithNestedLoop()
             throws Exception {
 
@@ -130,7 +160,15 @@ public class OOLogicTransformerTest {
         assertEquals(statement.getBranches().size(), 2);
         Pair<String, List<IStatement>> branchA = statement.getBranches().get(0);
         Pair<String, List<IStatement>> branchB = statement.getBranches().get(1);
-        assertEquals(branchA.first(), "4 >= a");
+        for (Pair<String, List<IStatement>> branch : statement.getBranches()) {
+            if (branch.first().equals("4 >= a")) {
+                branchA = branch;
+            } else if (branch.first().equals("4 < a")) {
+                branchB = branch;
+            } else {
+                fail(String.format("Unexpected condition: %s", branch.first()));
+            }
+        }
         assertEquals(branchA.second().size(), 1);
         assertEquals(branchA.second().get(0).getStatementType(),
                      StatementKind.LOOP);
@@ -153,11 +191,10 @@ public class OOLogicTransformerTest {
                 ((OpaqueStatement) loop.getStatements().get(2)).getStatement(),
                 "1.4");
 
-        assertEquals(branchB.first(), "4 < a");
         assertEquals(branchB.second().size(), 1);
         assertEquals(branchB.second().get(0).getStatementType(),
                      StatementKind.LOOP);
-         loop = (LoopStatement) branchB.second().get(0);
+        loop = (LoopStatement) branchB.second().get(0);
         assertEquals(loop.getCondition(), "true");
         assertEquals(loop.getStatements().size(), 4);
         assertEquals(loop.getStatements().get(0).getStatementType(),
@@ -210,7 +247,8 @@ public class OOLogicTransformerTest {
     // loop. Since it has less than 2 outgoing/incoming edges
     // handleNonSimpleState cannot decide what to do and throws a
     // IllegalArgumentException instead
-    @Test(timeOut = TIMEOUT)
+    @Test(timeOut = TIMEOUT,
+          expectedExceptions = IllegalArgumentException.class)
     public void canTransformLoopFollowedByImmediateIf()
             throws Exception {
 
@@ -219,6 +257,121 @@ public class OOLogicTransformerTest {
         ITransformer<StateMachine, OOLogic> logicITransformer =
                 new OOLogicTransformer(null);
         logicITransformer.transform(machine);
+    }
+
+    @Test(timeOut = TIMEOUT)
+    public void canTransformCompletelySeperateRegions()
+            throws Exception {
+
+        StateMachine machine = getMachine(
+                "src/test/resources/statemachines/FullyParallel.xmi");
+        ITransformer<StateMachine, OOLogic> logicITransformer =
+                new OOLogicTransformer(null);
+        OOLogic logic = logicITransformer.transform(machine);
+        assertEquals(logic.getStatements().size(), 1);
+        assertEquals(logic.getStatements().get(0).getStatementType(),
+                     StatementKind.PARALLEL);
+        ParallelStatement statement =
+                (ParallelStatement) logic.getStatements().get(0);
+        assertEquals(statement.getParallel().size(), 2,
+                     "Should be same as the count of contained regions");
+        for (List<IStatement> list : statement.getParallel()) {
+            assertEquals(list.size(), 1);
+            assertEquals(list.get(0).getStatementType(), StatementKind.OPAQUE);
+            OpaqueStatement opaqueStatement = (OpaqueStatement) list.get(0);
+            if (opaqueStatement.getStatement()
+                    .equals("System.out.println(\"Hello from region 1\");")
+                    || opaqueStatement.getStatement()
+                    .equals("System.out.println(\"Hello from region "
+                                    + "2\");")) {
+                continue;
+            }
+            fail(String.format("Unexpected statement: %s",
+                               opaqueStatement.getStatement()));
+        }
+
+
+    }
+
+    @Test(timeOut = TIMEOUT)
+    public void canTransformRegionsWithSingleSimultaneousSync()
+            throws Exception {
+
+        StateMachine machine =
+                getMachine("src/test/resources/statemachines/SingleSync.xmi");
+        ITransformer<StateMachine, OOLogic> logicITransformer =
+                new OOLogicTransformer(null);
+        OOLogic logic = logicITransformer.transform(machine);
+        assertEquals(logic.getStatements().size(), 2,
+                     "parallel into opaque expected");
+        assertEquals(logic.getStatements().get(0).getStatementType(),
+                     StatementKind.PARALLEL);
+        assertEquals(logic.getStatements().get(1).getStatementType(),
+                     StatementKind.OPAQUE);
+
+        ParallelStatement parallel =
+                (ParallelStatement) logic.getStatements().get(0);
+        assertEquals(parallel.getParallel().size(), 2);
+        for (List<IStatement> list : parallel.getParallel()) {
+            assertEquals(list.size(), 1);
+            IStatement statement = list.get(0);
+            assertEquals(statement.getStatementType(), StatementKind.OPAQUE);
+            OpaqueStatement opaqueStatement = (OpaqueStatement) statement;
+            if (opaqueStatement.getStatement()
+                    .equals("System.out.println(\"region 2 before "
+                                    + "join\");") || opaqueStatement
+                    .getStatement()
+                    .equals("System.out.println(\"region 1 before join\");")) {
+                continue;
+            }
+            fail(String.format("Unexpected statement: %s",
+                               opaqueStatement.getStatement()));
+
+
+        }
+
+        OpaqueStatement opaque = (OpaqueStatement) logic.getStatements().get(1);
+        assertEquals(opaque.getStatement(),
+                     "System.out.println(\"After join\");");
+    }
+
+    @Test(timeOut = TIMEOUT)
+    public void canTransformSingleFork()
+            throws Exception {
+
+        StateMachine machine =
+                getMachine("src/test/resources/statemachines/Splitting.xmi");
+        ITransformer<StateMachine, OOLogic> logicITransformer =
+                new OOLogicTransformer(null);
+        OOLogic logic = logicITransformer.transform(machine);
+        assertEquals(logic.getStatements().size(), 2, "opaque into parallel");
+        assertEquals(logic.getStatements().get(0).getStatementType(),
+                     StatementKind.OPAQUE);
+        assertEquals(logic.getStatements().get(1).getStatementType(),
+                     StatementKind.PARALLEL);
+        assertEquals(
+                ((OpaqueStatement) logic.getStatements().get(0)).getStatement(),
+                "System.out.println(\"region 1 before fork\");");
+        List<List<IStatement>> parallelStatements =
+                ((ParallelStatement) logic.getStatements().get(1))
+                        .getParallel();
+        assertEquals(parallelStatements.size(), 2);
+        assertEquals(parallelStatements.get(0).get(0).getStatementType(),
+                     StatementKind.OPAQUE);
+        assertEquals(parallelStatements.get(1).get(0).getStatementType(),
+                     StatementKind.OPAQUE);
+        for (List<IStatement> list : parallelStatements) {
+            OpaqueStatement statement = (OpaqueStatement) list.get(0);
+            if (statement.getStatement()
+                    .equals("System.out.println(\"region 2 after fork\");")
+                    || statement.getStatement()
+                    .equals("System.out.println(\"region 1 after fork\");")) {
+                continue;
+            }
+            fail(String.format("Unexpected statement: %s",
+                               statement.getStatement()));
+        }
+
     }
 
 }

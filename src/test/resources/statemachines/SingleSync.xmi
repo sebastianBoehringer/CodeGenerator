@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_yDVzEG2sEeqkJsJM7yiRqw" name="SingleSync">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_yF3ioG2sEeqkJsJM7yiRqw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_yEGoEG2sEeqkJsJM7yiRqw" name="StateMachine1">
+    <region xmi:type="uml:Region" xmi:id="_yEJrYG2sEeqkJsJM7yiRqw" name="Region2">
+      <transition xmi:type="uml:Transition" xmi:id="_3yypMG2sEeqkJsJM7yiRqw" source="_zVk3AG2sEeqkJsJM7yiRqw" target="_0w0F8G2sEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_4Or7AG2sEeqkJsJM7yiRqw" source="_0w0F8G2sEeqkJsJM7yiRqw" target="_0GtZAG2sEeqkJsJM7yiRqw"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_zVk3AG2sEeqkJsJM7yiRqw" name="Initial1"/>
+      <subvertex xmi:type="uml:State" xmi:id="_0w0F8G2sEeqkJsJM7yiRqw" name="State2">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_ClNC4G2tEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;region 2 before join&quot;);</body>
+        </doActivity>
+      </subvertex>
+    </region>
+    <region xmi:type="uml:Region" xmi:id="_ytx3MG2sEeqkJsJM7yiRqw" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_25YU8G2sEeqkJsJM7yiRqw" source="_zF6DUG2sEeqkJsJM7yiRqw" target="_1DULMG2sEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_3VOjcG2sEeqkJsJM7yiRqw" source="_1DULMG2sEeqkJsJM7yiRqw" target="_0GtZAG2sEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_4vNOIG2sEeqkJsJM7yiRqw" source="_0GtZAG2sEeqkJsJM7yiRqw" target="_2BcnYG2sEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5P6ugG2sEeqkJsJM7yiRqw" source="_2BcnYG2sEeqkJsJM7yiRqw" target="_zrn_gG2sEeqkJsJM7yiRqw"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_zF6DUG2sEeqkJsJM7yiRqw" name="Initial1"/>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_zrn_gG2sEeqkJsJM7yiRqw" name="FinalState2"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_0GtZAG2sEeqkJsJM7yiRqw" name="Join3" kind="join"/>
+      <subvertex xmi:type="uml:State" xmi:id="_1DULMG2sEeqkJsJM7yiRqw" name="State4">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_AGwDcG2tEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;region 1 before join&quot;);</body>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:State" xmi:id="_2BcnYG2sEeqkJsJM7yiRqw" name="State5">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_9m3goG2sEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;After join&quot;);</body>
+        </doActivity>
+      </subvertex>
+    </region>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_xkcJMG2vEeqkJsJM7yiRqw" name="Splitting">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_xnHpwG2vEeqkJsJM7yiRqw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_xlw-4G2vEeqkJsJM7yiRqw" name="StateMachine1">
+    <region xmi:type="uml:Region" xmi:id="_xl0CMG2vEeqkJsJM7yiRqw" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_4OHL4G2vEeqkJsJM7yiRqw" source="_zoUsgG2vEeqkJsJM7yiRqw" target="_1Z6l8G2vEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_4rrRoG2vEeqkJsJM7yiRqw" source="_1Z6l8G2vEeqkJsJM7yiRqw" target="_19Ar8G2vEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5Kt-EG2vEeqkJsJM7yiRqw" source="_19Ar8G2vEeqkJsJM7yiRqw" target="_2r7ncG2vEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_5mIuwG2vEeqkJsJM7yiRqw" source="_2r7ncG2vEeqkJsJM7yiRqw" target="_3xdFEG2vEeqkJsJM7yiRqw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_6B4PkG2vEeqkJsJM7yiRqw" source="_19Ar8G2vEeqkJsJM7yiRqw" target="_3DZFMG2vEeqkJsJM7yiRqw"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_zoUsgG2vEeqkJsJM7yiRqw" name="Initial1"/>
+      <subvertex xmi:type="uml:State" xmi:id="_1Z6l8G2vEeqkJsJM7yiRqw" name="State2">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="__rbSAG2vEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;region 1 before fork&quot;);</body>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_19Ar8G2vEeqkJsJM7yiRqw" name="Fork3" kind="fork"/>
+      <subvertex xmi:type="uml:State" xmi:id="_2r7ncG2vEeqkJsJM7yiRqw" name="State4">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_B3AYwG2wEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;region 1 after fork&quot;);</body>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_3xdFEG2vEeqkJsJM7yiRqw" name="FinalState5"/>
+    </region>
+    <region xmi:type="uml:Region" xmi:id="_y1374G2vEeqkJsJM7yiRqw" name="Region2">
+      <transition xmi:type="uml:Transition" xmi:id="_6e6w4G2vEeqkJsJM7yiRqw" source="_3DZFMG2vEeqkJsJM7yiRqw" target="_3X-1IG2vEeqkJsJM7yiRqw"/>
+      <subvertex xmi:type="uml:State" xmi:id="_3DZFMG2vEeqkJsJM7yiRqw" name="State1">
+        <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_EQZSAG2wEeqkJsJM7yiRqw">
+          <language>JAVA</language>
+          <body>System.out.println(&quot;region 2 after fork&quot;);</body>
+        </doActivity>
+      </subvertex>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_3X-1IG2vEeqkJsJM7yiRqw" name="FinalState2"/>
+    </region>
+  </packagedElement>
+</uml:Model>
