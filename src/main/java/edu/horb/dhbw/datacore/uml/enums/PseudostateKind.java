@@ -127,4 +127,15 @@ public enum PseudostateKind {
 
         return this.equals(FINAL) || this.equals(TERMINATE);
     }
+
+    /**
+     * @return {@code True} if this state is used as a means of
+     * synchronization. I. e. it has a
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.State#kind} of
+     * {@link #JOIN} or {@link #FORK}.
+     */
+    public boolean isSynchronizationPseudoState() {
+
+        return this.equals(JOIN) || this.equals(FORK);
+    }
 }

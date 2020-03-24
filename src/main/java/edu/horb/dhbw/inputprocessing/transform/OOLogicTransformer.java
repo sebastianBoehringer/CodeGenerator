@@ -25,9 +25,11 @@ import edu.horb.dhbw.datacore.model.OOLogic;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OpaqueStatement;
 import edu.horb.dhbw.datacore.model.Pair;
+import edu.horb.dhbw.datacore.model.ParallelStatement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
@@ -38,14 +40,14 @@ import edu.horb.dhbw.datacore.uml.statemachines.Transition;
 import edu.horb.dhbw.datacore.uml.values.IntervalConstraint;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
 import edu.horb.dhbw.util.Config;
+import edu.horb.dhbw.util.IStatements;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.thymeleaf.util.ListUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -79,14 +81,117 @@ public final class OOLogicTransformer
                 throw new IllegalArgumentException(
                         "A statemachine with a single region "
                                 + "should not have pseudostates "
-                                + "of types join as they serve "
+                                + "of types join or fork as they serve "
                                 + "no purpose");
             }
             return new OOLogic(pair.second());
         }
+        List<State> activeStates = findInitialStates(element);
+        List<IStatement> statementList = new ArrayList<>();
+        ParallelStatement leftOver = new ParallelStatement(new ArrayList<>());
+        for (State ignored : activeStates) {
+            leftOver.getParallel().add(new ArrayList<>());
+        }
+        while (true) {
+            Pair<State, ParallelStatement> pair = handleParallel(activeStates);
+            for (int i = 0; i < pair.second().getParallel().size(); i++) {
+                leftOver.getParallel().get(i)
+                        .addAll(pair.second().getParallel().get(i));
+            }
+            statementList.add(leftOver);
+            activeStates.clear();
+            if (pair.first() == null || pair.first().getKind()
+                    .isTerminating()) {
+                break;
+            }
+            Pair<State, List<IStatement>> progression =
+                    handleIsolatedProgression(pair.first());
+            statementList.addAll(progression.second());
+            leftOver = new ParallelStatement(new ArrayList<>());
+            if (!progression.first().getKind().isTerminating()) {
+                for (Transition transition : progression.first()
+                        .getOutgoing()) {
+                    activeStates.add(transition.getTarget());
+                    leftOver.getParallel().add(new ArrayList<>(
+                            extractTransitionBehavior(transition)));
+                }
+            }
+        }
 
-        //TODO case of multiple regions
-        return new OOLogic(Collections.emptyList());
+        return new OOLogic(IStatements.deepFlatten(statementList));
+    }
+
+    private Pair<State, ParallelStatement> handleParallel(final List<State> states) {
+
+        List<IStatement> statements = new ArrayList<>();
+        while (!states.isEmpty()) {
+            List<Pair<State, List<IStatement>>> collector = new ArrayList<>();
+            for (int i = 0; i < states.size(); i++) {
+                State active = states.get(i);
+                Pair<State, List<IStatement>> pair =
+                        handleIsolatedProgression(active);
+                collector.add(pair);
+                //handling possible fork
+                if (pair.first().getKind().equals(PseudostateKind.FORK)) {
+                    ParallelStatement nestedParallel =
+                            new ParallelStatement(new ArrayList<>());
+                    List<State> parallelStates = new ArrayList<>();
+                    for (Transition transition : pair.first().getOutgoing()) {
+                        List<IStatement> innerStatements = new ArrayList<>(
+                                extractTransitionBehavior(transition));
+                        nestedParallel.getParallel().add(innerStatements);
+                        parallelStates.add(transition.getTarget());
+                    }
+                    Pair<State, ParallelStatement> result =
+                            handleParallel(parallelStates);
+                    for (int j = 0; j < result.second().getParallel().size();
+                         j++) {
+                        nestedParallel.getParallel().get(j)
+                                .addAll(result.second().getParallel().get(j));
+                    }
+                    List<IStatement> temp = collector.get(i).second();
+                    temp.add(nestedParallel);
+                    //Pair is immutable, update entry at i with nex pair
+                    collector.set(i, new Pair<>(result.first(), temp));
+                }
+            }
+            List<State> nextStates = collector.stream().map(Pair::first)
+                    .collect(Collectors.toList());
+            ParallelStatement parallelStatement =
+                    new ParallelStatement(new ArrayList<>());
+            for (int i = 0; i < nextStates.size(); i++) {
+                State nextState = nextStates.get(i);
+                if (nextState == null || nextState.getKind().isTerminating()) {
+                    parallelStatement.getParallel()
+                            .add(collector.get(i).second());
+                }
+            }
+            nextStates = nextStates.stream()
+                    .filter(s -> s != null && !s.getKind().isTerminating())
+                    .collect(Collectors.toList());
+            if (nextStates.isEmpty()) {
+                statements.add(parallelStatement);
+                break;
+            }
+            if (containsOneUnique(nextStates)) {
+                parallelStatement.getParallel()
+                        .addAll(collector.stream().map(Pair::second)
+                                        .collect(Collectors.toList()));
+                states.clear();
+                State joinState = nextStates.get(0);
+                states.add(joinState);
+                log.warn("Joined on state [{}] of kind [{}]", joinState.getId(),
+                         joinState.getKind().toString());
+                return new Pair<>(joinState, parallelStatement);
+            }
+            statements.add(parallelStatement);
+            states.clear();
+            states.addAll(nextStates);
+            log.warn("Something happened d00d, you aint gonna get a correct "
+                             + "result. Probably");
+        }
+        return new Pair<>(null, new ParallelStatement(
+                Collections.singletonList(statements)));
     }
 
     @Override
@@ -142,8 +247,20 @@ public final class OOLogicTransformer
             } else {
                 statement = effect.getBody().get(0);
             }
-            return Collections.singletonList(new OpaqueStatement(statement));
-        } if (behavior instanceof StateMachine) {
+            OpaqueStatement opaqueStatement = new OpaqueStatement(statement);
+            opaqueStatement.setId(behavior.getId());
+            if (!ListUtils.isEmpty(behavior.getOwnedComment())) {
+                opaqueStatement.setComments(behavior.getOwnedComment().stream()
+                                                    .map(Comment::getBody)
+                                                    .collect(Collectors
+                                                                     .toList()));
+            } else {
+                opaqueStatement.setComments(Collections.emptyList());
+            }
+            opaqueStatement.setName(behavior.getName());
+            return Collections.singletonList(opaqueStatement);
+        }
+        if (behavior instanceof StateMachine) {
             OOLogic spec = super.transform(((StateMachine) behavior));
             return spec != null ? spec.getStatements()
                                 : Collections.emptyList();
@@ -205,24 +322,6 @@ public final class OOLogicTransformer
         return statements.size() > 0 ? statements : Collections.emptyList();
     }
 
-    private boolean allCompleted(final List<State> states) {
-
-        for (State state : states) {
-            if (!state.getKind().equals(PseudostateKind.FINAL)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private Map<String, State> getAllStates(final StateMachine machine) {
-
-        Map<String, State> states = new HashMap<>();
-        machine.getRegion().forEach(
-                r -> r.getSubvertex().forEach(v -> states.put(v.getId(), v)));
-        return states;
-    }
-
     /**
      * Converts a single {@link Region} into an {@link OOLogic}.
      * For this to work, the region must be isolated. I. e. it does not
@@ -239,7 +338,8 @@ public final class OOLogicTransformer
         List<IStatement> statements = new ArrayList<>();
         State activeState = startingPoint;
 
-        while (true) {
+        while (!activeState.getKind().isTerminating() && !activeState.getKind()
+                .isSynchronizationPseudoState()) {
             log.debug("Entered loop with state [{}, {}]", activeState.getId(),
                       activeState.getName());
             List<State> simple = collectSimples(activeState);
@@ -249,7 +349,7 @@ public final class OOLogicTransformer
                         .getTarget();
             }
             if (activeState.getKind().isTerminating() || activeState.getKind()
-                    .equals(PseudostateKind.JOIN)) {
+                    .isSynchronizationPseudoState()) {
                 break;
             }
             Pair<State, List<IStatement>> nextStateAndStatement =
@@ -425,7 +525,9 @@ public final class OOLogicTransformer
             activeStates.add(t.getTarget());
         }
         State state;
-        while (!containsOneUnique(activeStates)) {
+        while (!containsOneUnique(
+                activeStates.stream().filter(s -> !s.getKind().isTerminating())
+                        .collect(Collectors.toList()))) {
             for (int i = 0; i < activeStates.size(); i++) {
                 state = activeStates.get(i);
                 if (state.getKind().isTerminating() || state.getKind()
