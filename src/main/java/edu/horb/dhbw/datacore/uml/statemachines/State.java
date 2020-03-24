@@ -122,4 +122,12 @@ public class State extends NamespaceImpl {
      * The submachine that is nested in the state.
      */
     private StateMachine submachine;
+
+    @Override
+    public String toString() {
+
+        return String
+                .format("State[id=%s, name=%s, kind=%s]", getId(), getName(),
+                        getKind().toString());
+    }
 }

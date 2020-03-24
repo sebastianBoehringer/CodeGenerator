@@ -46,4 +46,11 @@ public final class StateMachine extends Behavior {
      * The regions contained inside the stateMachine.
      */
     private List<Region> region = new ArrayList<>();
+
+    @Override
+    public String toString() {
+
+        return String
+                .format("Statemachine[id=%s, name=%s]", getId(), getName());
+    }
 }
