@@ -23,6 +23,7 @@ import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.InvalidConfigurationException;
 import edu.horb.dhbw.exception.ModelParseException;
+import edu.horb.dhbw.exception.ModelValidationException;
 import edu.horb.dhbw.inputprocessing.IModelProcessor;
 import edu.horb.dhbw.inputprocessing.XMIModelProcessor;
 import edu.horb.dhbw.templating.BasicImportResolver;
@@ -147,6 +148,8 @@ public final class CodeGenerator {
             throw new CodeGenerationException(
                     "Could not parse model, nested exception is " + e.getClass()
                             .getSimpleName() + ", message: " + e.getMessage());
+        } catch (ModelValidationException e) {
+            throw new CodeGenerationException(e);
         }
         for (OOPackage parsedPackage : processor.getParsedPackages()) {
             createPackageDirectory(parsedPackage);

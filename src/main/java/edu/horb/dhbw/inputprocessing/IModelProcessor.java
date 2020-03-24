@@ -20,6 +20,9 @@ package edu.horb.dhbw.inputprocessing;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.exception.ModelParseException;
+import edu.horb.dhbw.exception.ModelValidationException;
+import edu.horb.dhbw.inputprocessing.postvalidate.IPostValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 import lombok.NonNull;
 
 import java.nio.file.Path;
@@ -28,12 +31,32 @@ import java.util.List;
 public interface IModelProcessor {
 
     /**
+     * Returns a mutable {@link List} of the {@link IPreValidator}s the
+     * processor should apply.
+     * A user can add and remove the {@link IPreValidator} on the list.
+     *
+     * @return The {@link IPreValidator}s the processors should apply
+     */
+    @NonNull List<IPreValidator> getPreValidators();
+
+    /**
+     * Returns a mutable {@link List} of the {@link IPostValidator}s the
+     * processor should apply.
+     * A user can add and remove the {@link IPostValidator} on the list.
+     *
+     * @return The {@link IPostValidator}s the processor should apply.
+     */
+    @NonNull List<IPostValidator> getPostValidators();
+
+    /**
      * @param modelLocation A path locating where the model is stored
-     * @throws ModelParseException If the parsing of the model at the given
-     *                             location failed
+     * @throws ModelParseException      If the parsing of the model at the given
+     *                                  location failed
+     * @throws ModelValidationException If any of the validators the
+     *                                  processor should apply did not succeed
      */
     void parseModel(@NonNull Path modelLocation)
-            throws ModelParseException;
+            throws ModelParseException, ModelValidationException;
 
     /**
      * @return The classes the IModelProcessor parsed out of the given model.
@@ -50,6 +73,7 @@ public interface IModelProcessor {
      * model.
      */
     @NonNull List<OOType> getParsedInterfaces();
+
     /**
      * @return The enumerations the IModelProcessor parsed out of the given
      * model.

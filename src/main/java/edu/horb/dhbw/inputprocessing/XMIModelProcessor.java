@@ -18,19 +18,25 @@
 package edu.horb.dhbw.inputprocessing;
 
 import com.sdmetrics.model.Model;
+import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.exception.ModelParseException;
+import edu.horb.dhbw.exception.ModelValidationException;
+import edu.horb.dhbw.inputprocessing.postvalidate.IPostValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.transform.ITransformer;
 import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.util.SDMetricsUtil;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +67,18 @@ public final class XMIModelProcessor implements IModelProcessor {
      * {@link #parseModel(Path)} cleans up the cache automatically.
      */
     private final List<OOType> parsedEnums = new ArrayList<>();
+    /**
+     * The {@link IPreValidator} the processor applies after restructuring
+     * the xmi elements.
+     */
+    @Getter
+    private final List<IPreValidator> preValidators = new ArrayList<>();
+    /**
+     * The {@link IPostValidator} the processor applies after transforming
+     * the uml {@link edu.horb.dhbw.datacore.uml.commonstructure.Element}s.
+     */
+    @Getter
+    private final List<IPostValidator> postValidators = new ArrayList<>();
 
     /**
      * The mediator used to restructure the parsed {@link Model}.
@@ -92,7 +110,7 @@ public final class XMIModelProcessor implements IModelProcessor {
 
     @Override
     public void parseModel(final @NonNull Path modelLocation)
-            throws ModelParseException {
+            throws ModelParseException, ModelValidationException {
 
         Model model;
         try {
@@ -110,8 +128,33 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedInterfaces.clear();
         parsedPackages.clear();
         mediator.cleanCaches();
+
+        log.info("Entering PreValidation phase");
         List<XMIElement> commonElements = mediator.restructure(model);
-        //TODO prevalidation here
+        List<String> errorMessages = new ArrayList<>();
+        boolean flag = false;
+        for (XMIElement element : commonElements) {
+            for (IPreValidator preValidator : preValidators) {
+                if (preValidator.canValidate(element)) {
+                    Pair<Boolean, String> result =
+                            preValidator.validate(element);
+                    if (!result.first()) {
+                        errorMessages.add(result.second());
+                        flag = true;
+                    }
+                }
+            }
+        }
+        log.info("Completed PreValidation phase");
+        if (flag) {
+            for (String message : errorMessages) {
+                log.error("PreValidation failed: [{}]", message);
+            }
+            throw new ModelValidationException(
+                    "PreValidation of the Model failed. See the log"
+                            + " for more details");
+        }
+
         ITransformer<UMLClass, OOType> classTransformer =
                 registry.getTransformer(UMLClass.class);
         ITransformer<UMLPackage, OOPackage> packageTransformer =
@@ -125,8 +168,32 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedInterfaces.addAll(interfaceTransformer.transform(commonElements));
         parsedEnums.addAll(enumerationTransformer.transform(commonElements));
         log.info("Transformation of parsed classes successful.");
-        //TODO post validation here
 
+        List<OOBase> collected = new ArrayList<>(parsedClasses);
+        collected.addAll(parsedEnums);
+        collected.addAll(parsedInterfaces);
+        collected.addAll(parsedPackages);
+        log.info("Entering PostValidation phase");
+        for (OOBase ooBase : collected) {
+            for (IPostValidator postValidator : postValidators) {
+                if (postValidator.canValidate(ooBase)) {
+                    Pair<Boolean, String> pair = postValidator.validate(ooBase);
+                    if (pair.first()) {
+                        flag = true;
+                        errorMessages.add(pair.second());
+                    }
+                }
+            }
+        }
+        if (flag) {
+            for (String message : errorMessages) {
+                log.error("PostValidation failed: [{}]", message);
+            }
+            throw new ModelValidationException(
+                    "PostValidation of the Model failed. See the log"
+                            + " for more details");
+        }
+        log.info("Completed PostValidation phase");
     }
 
     /**
