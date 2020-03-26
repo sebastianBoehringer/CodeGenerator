@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a way to classify a set of instances according to their features.
@@ -64,10 +65,16 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
      * inherited ones.
      */
     private List<Feature> feature = new ArrayList<>();
+
     /**
-     * The generalizing classifiers. This attribute can be derived.
+     * @return The immediate classifiers this classifier specializes
      */
-    private List<Classifier> general = new ArrayList<>();
+    public final List<Classifier> getGeneral() {
+
+        return generalization.stream().map(Generalization::getGeneral)
+                .collect(Collectors.toList());
+    }
+
     /**
      * The generalizations of the classifier.
      */

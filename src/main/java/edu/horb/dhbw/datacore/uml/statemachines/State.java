@@ -42,27 +42,49 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class State extends NamespaceImpl {
+public final class State extends NamespaceImpl {
     /**
      * If this is {@code true} the state is a composite state.
-     * I. e. it contains at least one region. This attribute can be derived.
+     * I. e. it contains at least one region.
+     *
+     * @return {@code true} if the state owns at least a single region,
+     * {@code false} otherwise
      */
-    private Boolean isComposite;
+    public Boolean isComposite() {
+
+        return region.size() > 0;
+    }
+
     /**
      * If this is {@code true} the state is an orthogonal state.
      * I. e. it contains at least two regions. This attribute can be derived.
      */
     private Boolean isOrthogonal;
+
     /**
      * If this is {@code true} the state is simple.
      * It does not contain a region. This attribute can be derived.
+     *
+     * @return {@code true} if the state does not own a region and does not
+     * reference a submachine.
      */
-    private Boolean isSimple;
+    public Boolean isSimple() {
+
+        return !isComposite() && !isSubmachineState();
+    }
+
     /**
      * If this is {@code true} the state refers to another {@link StateMachine}.
      * This attribute can be derived.
+     *
+     * @return {@code true} if this state refers to another
+     * {@link StateMachine}, i. e. {@link #submachine} is set.
      */
-    private Boolean isSubmachineState;
+    public Boolean isSubmachineState() {
+
+        return submachine != null;
+    }
+
     /**
      * Entry and Exit points for this state.
      * The state must be a composite one and the pseudostates in the list

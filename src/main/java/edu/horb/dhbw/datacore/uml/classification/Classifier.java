@@ -47,8 +47,6 @@ public interface Classifier extends Type, Namespace {
 
     List<Classifier> getGeneral();
 
-    void setGeneral(List<Classifier> general);
-
     List<Generalization> getGeneralization();
 
     void setGeneralization(List<Generalization> generalization);
