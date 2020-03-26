@@ -22,6 +22,13 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 
 public interface IPreValidator {
     /**
+     * The pair to indicate success when validating.
+     * By using this single instance instead of always allocating a new pair
+     * memory should be used more efficiently.
+     */
+    Pair<Boolean, String> VALID = new Pair<>(Boolean.TRUE, "");
+
+    /**
      * A check to see whether the validator can handle the given element.
      * This allows for more complex logic than simple type checking. E. g. a
      * validator that validates only

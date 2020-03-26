@@ -31,6 +31,42 @@ import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.exception.ModelValidationException;
 import edu.horb.dhbw.inputprocessing.postvalidate.IPostValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.BehavioralFeatureValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.ClassifierValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.GeneralizationSetValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.InstanceSpecificationValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.OperationValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.ParameterValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.classification.PropertyValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonbehavior.BehaviorValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonbehavior.FunctionBehaviorValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ConstraintValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ElementImportValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ElementValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.MultiplicityElementValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.NamedElementValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.NamespaceValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.PackageImportValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.PackageableElementValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.packages.PackageValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.simpleclassifiers.BehavioredClassifierValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.simpleclassifiers.EnumerationValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.simpleclassifiers.InterfaceValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.FinalStateValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.PseudoStateValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.RegionValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.StateMachineValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.StateValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.statemachines.TransitionValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.AssociationClassValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.AssociationValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.ClassValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.ComponentValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.ConnectorEndValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.ConnectorValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.PortValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.values.OpaqueExpressionValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.values.StringExpressionValidator;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.transform.ITransformer;
@@ -42,6 +78,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +131,42 @@ public final class XMIModelProcessor implements IModelProcessor {
     public XMIModelProcessor() {
 
         mediator = new IRestructurerMediator();
+        preValidators.addAll(Arrays.asList(new ConstraintValidator(),
+                                           new ElementImportValidator(),
+                                           new ElementValidator(),
+                                           new MultiplicityElementValidator(),
+                                           new NamedElementValidator(),
+                                           new NamespaceValidator(),
+                                           new PackageableElementValidator(),
+                                           new PackageImportValidator()));
+        preValidators.addAll(Arrays.asList(new OpaqueExpressionValidator(),
+                                           new StringExpressionValidator()));
+        preValidators.addAll(Arrays.asList(new BehavioralFeatureValidator(),
+                                           new ClassifierValidator(),
+                                           new GeneralizationSetValidator(),
+                                           new InstanceSpecificationValidator(),
+                                           new OperationValidator(),
+                                           new ParameterValidator(),
+                                           new PropertyValidator()));
+        preValidators.addAll(Arrays.asList(new BehavioredClassifierValidator(),
+                                           new EnumerationValidator(),
+                                           new InterfaceValidator()));
+        preValidators.addAll(Arrays.asList(new AssociationClassValidator(),
+                                           new AssociationValidator(),
+                                           new ClassValidator(),
+                                           new ComponentValidator(),
+                                           new ConnectorEndValidator(),
+                                           new ConnectorValidator(),
+                                           new PortValidator()));
+        preValidators.add(new PackageValidator());
+        preValidators.add(new FunctionBehaviorValidator());
+        preValidators.add(new BehaviorValidator());
+        preValidators.addAll(Arrays.asList(new FinalStateValidator(),
+                                           new PseudoStateValidator(),
+                                           new RegionValidator(),
+                                           new StateMachineValidator(),
+                                           new StateValidator(),
+                                           new TransitionValidator()));
     }
 
     /**
