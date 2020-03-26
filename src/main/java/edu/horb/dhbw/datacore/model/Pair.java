@@ -17,6 +17,9 @@
 
 package edu.horb.dhbw.datacore.model;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode()
 public final class Pair<F, S> {
     /**
      * The first value in this pair.
