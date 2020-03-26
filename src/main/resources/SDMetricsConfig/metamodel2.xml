@@ -242,6 +242,10 @@ other part of SDMetrics.
         <attribute name="exceptions" type="ref" multiplicity="many">The
             exceptions that could occur during the execution of the operation.
         </attribute>
+        <attribute name="bodycondition" type="ref">
+            A condition on the result values of the operation. Can only be
+            specified if isQuery is true.
+        </attribute>
     </modelelement>
 
     <modelelement name="parameter" parent="multiplicityelement">

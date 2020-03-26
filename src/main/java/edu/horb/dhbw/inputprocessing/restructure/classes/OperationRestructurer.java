@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
+import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
@@ -97,11 +98,15 @@ public final class OperationRestructurer
                                               : CallConcurrencyKind
                                                       .from(concurrency);
         operation.setConcurrency(concurrencyKind);
-
-        log.info("Processing name for exceptions [{}]", id);
+        log.info("Processing exceptions for operation [{}]", id);
         Collection<ModelElement> exceptions = (Collection<ModelElement>) element
                 .getSetAttribute("exceptions");
         operation.setRaisedException(delegateMany(exceptions, Type.class));
+
+        log.info("Processing bodycondition for operation [{}]", id);
+        ModelElement bodyCondition = element.getRefAttribute("bodycondition");
+        operation.setBodyCondition(
+                delegateRestructuring(bodyCondition, Constraint.class));
 
         return operation;
     }

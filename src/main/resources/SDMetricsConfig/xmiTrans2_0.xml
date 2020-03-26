@@ -220,6 +220,7 @@ other part of SDMetrics.
         <trigger name="concurrency" type="ctext" src="concurrency"/>
         <trigger name="exceptions" type="ctext" src="raisedException"/>
         <trigger name="exceptions" type="xmi2assoc" attr="raisedException"/>
+        <trigger name="bodycondition" type="xmi2assoc" attr="bodyCondition"/>
     </xmitransformation>
 
     <xmitransformation modelelement="parameter" xmipattern="uml:Parameter"
