@@ -52,7 +52,7 @@ public class CodeGeneratorTest {
                                    Config.CONFIG.getLanguage());
         } catch (CodeGenerationException e) {
             e.printStackTrace();
-            fail("Generation fo code failed");
+            fail("Generation of code failed");
         }
     }
 }
