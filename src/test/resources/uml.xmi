@@ -5859,7 +5859,7 @@
                 </ownedAttribute>
                 <ownedOperation xmi:type="uml:Operation" xmi:id="ConnectionPointReference-isConsistentWith"
                                 name="isConsistentWith"
-                                visibility="public"
+                                visibility="public" isQuery="true"
                                 bodyCondition="ConnectionPointReference-isConsistentWith-spec">
                     <precondition xmi:idref="ConnectionPointReference-isConsistentWith-pre"/>
                     <redefinedOperation xmi:idref="RedefinableElement-isConsistentWith"/>
@@ -5981,7 +5981,7 @@
                 <generalization xmi:type="uml:Generalization" xmi:id="FinalState-_generalization.0"
                                 general="State"/>
                 <ownedOperation xmi:type="uml:Operation" xmi:id="FinalState-isConsistentWith" name="isConsistentWith"
-                                visibility="public"
+                                visibility="public" isQuery="true"
                                 bodyCondition="FinalState-isConsistentWith-spec">
                     <precondition xmi:idref="FinalState-isConsistentWith-pre"/>
                     <redefinedOperation xmi:idref="RedefinableElement-isConsistentWith"/>
@@ -6423,7 +6423,7 @@
                     <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Pseudostate-stateMachine-_lowerValue"/>
                 </ownedAttribute>
                 <ownedOperation xmi:type="uml:Operation" xmi:id="Pseudostate-isConsistentWith" name="isConsistentWith"
-                                visibility="public"
+                                visibility="public" isQuery="true"
                                 bodyCondition="Pseudostate-isConsistentWith-spec">
                     <precondition xmi:idref="Pseudostate-isConsistentWith-pre"/>
                     <redefinedOperation xmi:idref="RedefinableElement-isConsistentWith"/>
