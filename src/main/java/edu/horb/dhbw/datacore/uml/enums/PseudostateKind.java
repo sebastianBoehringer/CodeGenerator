@@ -55,14 +55,30 @@ public enum PseudostateKind {
      * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s. Incoming
      * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s may not
      * have a guard.
+     * The {@link edu.horb.dhbw.datacore.uml.statemachines.Transition#source} of
+     * the incoming
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s must be
+     * contained in different orthogonal
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.Region} of a
+     * composite {@link edu.horb.dhbw.datacore.uml.statemachines.State}.
+     * Since the codegenerator does not support composite states it does not
+     * support JOIN pseudoStates either.
      */
-    JOIN,
+    @Deprecated JOIN,
     /**
      * Used to start parallel execution. Outgoing
      * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s may not
      * have a guard.
+     * The {@link edu.horb.dhbw.datacore.uml.statemachines.Transition#target} of
+     * the incoming
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.Transition}s must be
+     * contained in different orthogonal
+     * {@link edu.horb.dhbw.datacore.uml.statemachines.Region} of a
+     * composite {@link edu.horb.dhbw.datacore.uml.statemachines.State}.
+     * Since the codegenerator does not support composite states it does not
+     * support FORK pseudoStates either.
      */
-    FORK,
+    @Deprecated FORK,
     /**
      * A kind of pseudostate that can be used to multiply or reduce the
      * number of incoming/ outgoing
@@ -137,5 +153,18 @@ public enum PseudostateKind {
     public boolean isSynchronizationPseudoState() {
 
         return this.equals(JOIN) || this.equals(FORK);
+    }
+
+    /**
+     * Checks whether the literal denotes a pseudoState.
+     * Every literal denotes a pseudoState besides {@link #FINAL} and
+     * {@link #STATE}.
+     *
+     * @return {@code true} if the kind signifies a pseudostate, {@code false
+     * } otherwise
+     */
+    public boolean isPseudoState() {
+
+        return !this.equals(STATE) && !this.equals(FINAL);
     }
 }
