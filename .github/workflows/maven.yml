@@ -19,10 +19,8 @@ jobs:
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
-        java-version: 13
-    - name: GitHub Action for Maven
-      uses: LucaFeger/action-maven-cli@1.1.0
-      with:
-        args: install:install-file -Dfile="../../lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35"
+        java-version: 1.8
+    - name: Install SDMetrics to repo
+      run: mvn install:install-file -Dfile="lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
