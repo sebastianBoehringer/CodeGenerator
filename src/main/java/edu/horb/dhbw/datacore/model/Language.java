@@ -97,4 +97,10 @@ public class Language {
      * primitive UML type unlimitedNatural.
      */
     private final String unlimitedNaturalName;
+
+    /**
+     * The options used to configure the postvalidation of a
+     * {@link edu.horb.dhbw.inputprocessing.XMIModelProcessor}.
+     */
+    private final ValidationOptions validationOptions;
 }

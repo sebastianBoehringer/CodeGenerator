@@ -35,5 +35,16 @@ public enum FirstLetter {
      * {@link edu.horb.dhbw.datacore.model.OOType} to validate must be in
      * lowercase.
      */
-    LOWER
+    LOWER;
+
+    /**
+     * Case insensitive wrapper around {@link #valueOf(String)}.
+     *
+     * @param literal The string representing a literal of this enumeration
+     * @return The enumerationliteral represented to the string
+     */
+    public static FirstLetter from(final String literal) {
+
+        return valueOf(literal.toUpperCase());
+    }
 }

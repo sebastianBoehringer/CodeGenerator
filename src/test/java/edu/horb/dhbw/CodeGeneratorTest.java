@@ -46,7 +46,7 @@ public class CodeGeneratorTest {
     public void smokeTestWithUmlAsModel() {
 
         CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/main/resources/default.properties"));
+                Paths.get("src/test/resources/uml.properties"));
         try {
             generator.generateCode(Paths.get("src/test/resources/uml.xmi"),
                                    Config.CONFIG.getLanguage());

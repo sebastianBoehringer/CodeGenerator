@@ -22,6 +22,7 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
+import edu.horb.dhbw.datacore.model.ValidationOptions;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
@@ -89,6 +90,11 @@ import java.util.Map;
 @Slf4j
 public final class XMIModelProcessor implements IModelProcessor {
     /**
+     * An upper limit for super types that is big enough to never be reached
+     * in "normal" modelling.
+     */
+    private static final int ENOUGH = 123456789;
+    /**
      * A cache for the classes that have been processed. Invoking
      * {@link #parseModel(Path)} cleans up the cache automatically.
      */
@@ -131,8 +137,11 @@ public final class XMIModelProcessor implements IModelProcessor {
     /**
      * Constructs a XMIModelProcessor with an {@link IRestructurerMediator}
      * using its default mappings.
+     *
+     * @param options The validation options to configure the
+     *                {@link IPostValidator}
      */
-    public XMIModelProcessor() {
+    public XMIModelProcessor(final ValidationOptions options) {
 
         mediator = new IRestructurerMediator();
         preValidators.addAll(Arrays.asList(new ConstraintValidator(),
@@ -173,21 +182,26 @@ public final class XMIModelProcessor implements IModelProcessor {
                                            new TransitionValidator()));
 
         postValidators.addAll(Arrays.asList(
-                new edu.horb.dhbw.inputprocessing.postvalidate.ClassValidator(1,
-                                                                              FirstLetter.UPPER),
-                new EnumValidator(0, FirstLetter.UPPER, false),
-                new FieldValidator(FirstLetter.LOWER),
+                new edu.horb.dhbw.inputprocessing.postvalidate.ClassValidator(
+                        options.getClassesMaxSuper(),
+                        options.getFirstLetterMap().get("class")),
+                new EnumValidator(options.getEnumsMaxSuper(),
+                                  options.getFirstLetterMap()
+                                          .get("enumeration"),
+                                  options.isEnumCanImplementInterface()),
+                new FieldValidator(options.getFirstLetterMap().get("field")),
                 new edu.horb.dhbw.inputprocessing.postvalidate.InterfaceValidator(
-                        1203102930, FirstLetter.UPPER),
-                new MethodValidator(FirstLetter.LOWER),
+                        options.getInterfacesMaxSuper(),
+                        options.getFirstLetterMap().get("interface")),
+                new MethodValidator(options.getFirstLetterMap().get("method")),
                 new edu.horb.dhbw.inputprocessing.postvalidate.PackageValidator(
-                        FirstLetter.LOWER),
+                        options.getFirstLetterMap().get("package")),
                 new edu.horb.dhbw.inputprocessing.postvalidate.ParameterValidator(
-                        FirstLetter.LOWER)));
+                        options.getFirstLetterMap().get("parameter"))));
     }
 
     /**
-     * @param mappings The mappings to use for the
+     * @param mappings The mappings to use for thetyp
      *                 {@link IRestructurerMediator} used by this processor.
      */
     public XMIModelProcessor(@NonNull
@@ -222,7 +236,7 @@ public final class XMIModelProcessor implements IModelProcessor {
         log.info("Entering PreValidation phase");
         List<XMIElement> commonElements = mediator.restructure(model);
         List<String> errorMessages = new ArrayList<>();
-        boolean flag = false;
+        boolean hasErrors = false;
         for (XMIElement element : commonElements) {
             for (IPreValidator preValidator : preValidators) {
                 if (preValidator.canValidate(element)) {
@@ -230,13 +244,13 @@ public final class XMIModelProcessor implements IModelProcessor {
                             preValidator.validate(element);
                     if (!result.first()) {
                         errorMessages.add(result.second());
-                        flag = true;
+                        hasErrors = true;
                     }
                 }
             }
         }
         log.info("Completed PreValidation phase");
-        if (flag) {
+        if (hasErrors) {
             for (String message : errorMessages) {
                 log.error("PreValidation failed: [{}]", message);
             }
@@ -270,13 +284,13 @@ public final class XMIModelProcessor implements IModelProcessor {
                 if (postValidator.canValidate(ooBase)) {
                     Pair<Boolean, String> pair = postValidator.validate(ooBase);
                     if (!pair.first()) {
-                        flag = true;
+                        hasErrors = true;
                         errorMessages.add(pair.second());
                     }
                 }
             }
         }
-        if (flag) {
+        if (hasErrors) {
             for (String message : errorMessages) {
                 log.error("PostValidation failed: [{}]", message);
             }

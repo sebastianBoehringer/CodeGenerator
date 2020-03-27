@@ -18,6 +18,8 @@
 package edu.horb.dhbw.util;
 
 import edu.horb.dhbw.datacore.model.Language;
+import edu.horb.dhbw.datacore.model.ValidationOptions;
+import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import lombok.Getter;
 
 import java.nio.file.Path;
@@ -101,12 +103,52 @@ public enum Config {
                 props.getProperty("language.templates.location",
                                   "/src/resources/templates/");
         String delimiter =
-                props.getProperty("language.formatting.delimiter", ".");
+                props.getProperty("language.formatting.packageDelimiter", ".");
         String name = props.getProperty("language.name", "Java");
+        String canImplementInterface =
+                props.getProperty("language.enums.canImplementInterface",
+                                  "true");
+        String enumMaxSuper = props.getProperty("language.enums.maxSuper", "0");
+        String interfaceMaxSuper =
+                props.getProperty("language.interfaces.maxSuper", "3333");
+        String classesMaxSuper =
+                props.getProperty("language.classes.maxSuper", "1");
+        String enumStart =
+                props.getProperty("language.enums.beginsWith", "UPPER");
+        String classStart =
+                props.getProperty("language.classes.beginsWith", "UPPER");
+        String interfaceStart =
+                props.getProperty("language.interfaces.beginsWith", "UPPER");
+        String fieldStart =
+                props.getProperty("language.fields.beginsWith", "LOWER");
+        String methodStart =
+                props.getProperty("language.methods.beginsWith", "LOWER");
+        String pkgStart =
+                props.getProperty("language.packages.beginsWith", "LOWER");
+        String paramStart =
+                props.getProperty("language.parameters.beginsWith", "LOWER");
+        ValidationOptions options = new ValidationOptions(
+                Boolean.parseBoolean(canImplementInterface),
+                Integer.parseInt(classesMaxSuper),
+                Integer.parseInt(interfaceMaxSuper),
+                Integer.parseInt(enumMaxSuper));
+        options.getFirstLetterMap()
+                .put("enumeration", FirstLetter.from(enumStart));
+        options.getFirstLetterMap().put("class", FirstLetter.from(classStart));
+        options.getFirstLetterMap()
+                .put("interface", FirstLetter.from(interfaceStart));
+        options.getFirstLetterMap().put("field", FirstLetter.from(fieldStart));
+        options.getFirstLetterMap()
+                .put("method", FirstLetter.from(methodStart));
+        options.getFirstLetterMap().put("package", FirstLetter.from(pkgStart));
+        options.getFirstLetterMap()
+                .put("parameter", FirstLetter.from(paramStart));
+
         language = new Language(name, extension, delimiter,
                                 Path.of(templateLocation), publicVis,
                                 protectedVis, packageVis, privateVis, primInt,
-                                primString, primBool, primReal, primUnlimited);
+                                primString, primBool, primReal, primUnlimited,
+                                options);
         outputDirectory =
                 Path.of(props.getProperty("generator.output", "generated"));
     }

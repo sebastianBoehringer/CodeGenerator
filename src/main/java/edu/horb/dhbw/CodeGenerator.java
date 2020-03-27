@@ -141,7 +141,7 @@ public final class CodeGenerator {
     public void generateCode(final Path xmiFile, final Language language)
             throws CodeGenerationException {
 
-        IModelProcessor processor = new XMIModelProcessor();
+        IModelProcessor processor = new XMIModelProcessor(language.getValidationOptions());
         try {
             processor.parseModel(xmiFile);
         } catch (ModelParseException e) {
