@@ -15,21 +15,27 @@
  * along with CodeGenerator.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.horb.dhbw.datacore.model;
+package edu.horb.dhbw.inputprocessing.postvalidate;
 
-import lombok.NoArgsConstructor;
+import edu.horb.dhbw.datacore.model.OOBase;
+import edu.horb.dhbw.datacore.model.OOPackage;
+import edu.horb.dhbw.datacore.model.Pair;
 
-@NoArgsConstructor
-public final class DefaultScheme implements INamingScheme {
-    @Override
-    public String provideFileName() {
+public class PackageValidator extends NamingValidator {
+    public PackageValidator(final FirstLetter nameStart) {
 
-        return "Monkey";
+        super(nameStart);
     }
 
     @Override
-    public String provideVariableName() {
+    protected Pair<Boolean, String> continueValidation(final OOBase base) {
 
-        return "monkey";
+        return VALID;
+    }
+
+    @Override
+    public boolean canValidate(final OOBase base) {
+
+        return base instanceof OOPackage;
     }
 }

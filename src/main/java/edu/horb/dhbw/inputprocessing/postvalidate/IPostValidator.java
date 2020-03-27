@@ -19,8 +19,16 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.Pair;
+import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 
 public interface IPostValidator {
+    /**
+     * The pair to indicate success when validating.
+     * By using this single instance instead of always allocating a new pair
+     * memory should be used more efficiently.
+     */
+    Pair<Boolean, String> VALID = IPreValidator.VALID;
+
     /**
      * A check to see whether the validator can handle the given element.
      * This allows for more complex logic than simple type checking. E. g. a

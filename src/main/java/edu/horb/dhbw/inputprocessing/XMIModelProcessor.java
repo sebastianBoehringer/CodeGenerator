@@ -29,7 +29,11 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.exception.ModelValidationException;
+import edu.horb.dhbw.inputprocessing.postvalidate.EnumValidator;
+import edu.horb.dhbw.inputprocessing.postvalidate.FieldValidator;
+import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import edu.horb.dhbw.inputprocessing.postvalidate.IPostValidator;
+import edu.horb.dhbw.inputprocessing.postvalidate.MethodValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.classification.BehavioralFeatureValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.classification.ClassifierValidator;
@@ -167,6 +171,19 @@ public final class XMIModelProcessor implements IModelProcessor {
                                            new StateMachineValidator(),
                                            new StateValidator(),
                                            new TransitionValidator()));
+
+        postValidators.addAll(Arrays.asList(
+                new edu.horb.dhbw.inputprocessing.postvalidate.ClassValidator(1,
+                                                                              FirstLetter.UPPER),
+                new EnumValidator(0, FirstLetter.UPPER, false),
+                new FieldValidator(FirstLetter.LOWER),
+                new edu.horb.dhbw.inputprocessing.postvalidate.InterfaceValidator(
+                        1203102930, FirstLetter.UPPER),
+                new MethodValidator(FirstLetter.LOWER),
+                new edu.horb.dhbw.inputprocessing.postvalidate.PackageValidator(
+                        FirstLetter.LOWER),
+                new edu.horb.dhbw.inputprocessing.postvalidate.ParameterValidator(
+                        FirstLetter.LOWER)));
     }
 
     /**
@@ -242,16 +259,17 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedEnums.addAll(enumerationTransformer.transform(commonElements));
         log.info("Transformation of parsed classes successful.");
 
-        List<OOBase> collected = new ArrayList<>(parsedClasses);
-        collected.addAll(parsedEnums);
-        collected.addAll(parsedInterfaces);
+        List<OOBase> collected = new ArrayList<>(extractParsed(parsedClasses));
+        collected.addAll(extractParsed(parsedEnums));
+        collected.addAll(extractParsed(parsedInterfaces));
         collected.addAll(parsedPackages);
+
         log.info("Entering PostValidation phase");
         for (OOBase ooBase : collected) {
             for (IPostValidator postValidator : postValidators) {
                 if (postValidator.canValidate(ooBase)) {
                     Pair<Boolean, String> pair = postValidator.validate(ooBase);
-                    if (pair.first()) {
+                    if (!pair.first()) {
                         flag = true;
                         errorMessages.add(pair.second());
                     }
@@ -319,5 +337,15 @@ public final class XMIModelProcessor implements IModelProcessor {
     public @NonNull List<OOType> getParsedEnums() {
 
         return List.copyOf(parsedEnums);
+    }
+
+    private List<OOBase> extractParsed(final List<OOType> parsed) {
+
+        List<OOBase> collected = new ArrayList<>(parsed);
+        parsed.forEach(e -> {
+            collected.addAll(e.getFields());
+            collected.addAll(e.getMethods());
+        });
+        return collected;
     }
 }
