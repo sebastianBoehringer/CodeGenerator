@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
+    - name: Set up JDK 13
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: 13
     - name: Install SDMetrics to repo
       run: mvn install:install-file -Dfile="lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35" -Dpackaging="jar"
     - name: Build with Maven
