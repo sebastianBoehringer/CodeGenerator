@@ -21,6 +21,19 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 
+/**
+ * Validates objects whose classes extend {@link OOBase}.
+ * A caller should first call {@link #canValidate(OOBase)} on the object he
+ * wants to validate. {@link #validate(OOBase)} may rely on properties
+ * asserted in {@link #canValidate(OOBase)}. By not calling
+ * {@link #canValidate(OOBase)} beforehand the caller willingly takes the
+ * risk of causing exceptions that could have been prevented.
+ * <p/>
+ * To ease the managing of validators of an
+ * {@link edu.horb.dhbw.inputprocessing.IModelProcessor} it is recommended
+ * that every implementing class of this interface overwrites
+ * {@link Object#equals(Object)} and {@link Object#hashCode()}.
+ */
 public interface IPostValidator {
     /**
      * The pair to indicate success when validating.

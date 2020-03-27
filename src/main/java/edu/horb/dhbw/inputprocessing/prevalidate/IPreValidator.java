@@ -20,6 +20,22 @@ package edu.horb.dhbw.inputprocessing.prevalidate;
 import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 
+/**
+ * Validates objects whose classes extend {@link XMIElement}.
+ * Note that those {@link XMIElement}s do not neccessarily need to represent
+ * UML classes.
+ * <p/>
+ * A caller should first call {@link #canValidate(XMIElement)} on the object he
+ * wants to validate. {@link #validate(XMIElement)} may rely on properties
+ * asserted in {@link #canValidate(XMIElement)}. By not calling
+ * {@link #validate(XMIElement)} beforehand the caller willingly takes the
+ * risk of causing exceptions that could have been prevented.
+ * <p/>
+ * To ease the managing of validators of an
+ * {@link edu.horb.dhbw.inputprocessing.IModelProcessor} it is recommended
+ * that every implementing class of this interface overwrites
+ * {@link Object#equals(Object)} and {@link Object#hashCode()}.
+ */
 public interface IPreValidator {
     /**
      * The pair to indicate success when validating.

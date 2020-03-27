@@ -32,7 +32,6 @@ import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.exception.ModelValidationException;
 import edu.horb.dhbw.inputprocessing.postvalidate.EnumValidator;
 import edu.horb.dhbw.inputprocessing.postvalidate.FieldValidator;
-import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import edu.horb.dhbw.inputprocessing.postvalidate.IPostValidator;
 import edu.horb.dhbw.inputprocessing.postvalidate.MethodValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
@@ -77,7 +76,6 @@ import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.transform.ITransformer;
 import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.util.SDMetricsUtil;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -89,11 +87,6 @@ import java.util.Map;
 
 @Slf4j
 public final class XMIModelProcessor implements IModelProcessor {
-    /**
-     * An upper limit for super types that is big enough to never be reached
-     * in "normal" modelling.
-     */
-    private static final int ENOUGH = 123456789;
     /**
      * A cache for the classes that have been processed. Invoking
      * {@link #parseModel(Path)} cleans up the cache automatically.
@@ -118,13 +111,11 @@ public final class XMIModelProcessor implements IModelProcessor {
      * The {@link IPreValidator} the processor applies after restructuring
      * the xmi elements.
      */
-    @Getter
     private final List<IPreValidator> preValidators = new ArrayList<>();
     /**
      * The {@link IPostValidator} the processor applies after transforming
      * the uml {@link edu.horb.dhbw.datacore.uml.commonstructure.Element}s.
      */
-    @Getter
     private final List<IPostValidator> postValidators = new ArrayList<>();
 
     /**
@@ -361,5 +352,29 @@ public final class XMIModelProcessor implements IModelProcessor {
             collected.addAll(e.getMethods());
         });
         return collected;
+    }
+
+    @Override
+    public void addPreValidator(final IPreValidator preValidator) {
+
+        preValidators.add(preValidator);
+    }
+
+    @Override
+    public void removePreValidator(final IPreValidator preValidator) {
+
+        preValidators.remove(preValidator);
+    }
+
+    @Override
+    public void addPostValidator(final IPostValidator postValidator) {
+
+        postValidators.add(postValidator);
+    }
+
+    @Override
+    public void removePostValidator(final IPostValidator postValidator) {
+
+        postValidators.remove(postValidator);
     }
 }

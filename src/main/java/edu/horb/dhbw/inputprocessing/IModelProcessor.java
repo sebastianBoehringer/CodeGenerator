@@ -31,22 +31,40 @@ import java.util.List;
 public interface IModelProcessor {
 
     /**
-     * Returns a mutable {@link List} of the {@link IPreValidator}s the
-     * processor should apply.
-     * A user can add and remove the {@link IPreValidator} on the list.
+     * Adds a new {@link IPreValidator} to the processor.
+     * This gives the implementation the choice of storage. An implementation
+     * may store the given {@link IPreValidator}s in a list, set, array, ... .
      *
-     * @return The {@link IPreValidator}s the processors should apply
+     * @param preValidator The prevalidator to add
      */
-    @NonNull List<IPreValidator> getPreValidators();
+    void addPreValidator(IPreValidator preValidator);
 
     /**
-     * Returns a mutable {@link List} of the {@link IPostValidator}s the
-     * processor should apply.
-     * A user can add and remove the {@link IPostValidator} on the list.
+     * Removes the given {@link IPreValidator} so that it is not used to
+     * validate {@link edu.horb.dhbw.datacore.uml.XMIElement}s anymore.
+     * Considering this it is recommended for every {@link IPreValidator} to
+     * overwrite {@link Object#equals(Object)} and {@link Object#hashCode()}.
      *
-     * @return The {@link IPostValidator}s the processor should apply.
+     * @param preValidator The preValidator to remove
      */
-    @NonNull List<IPostValidator> getPostValidators();
+    void removePreValidator(IPreValidator preValidator);
+    /**
+     * Adds a new {@link IPostValidator} to the processor.
+     * This gives the implementation the choice of storage. An implementation
+     * may store the given {@link IPostValidator}s in a list, set, array, ... .
+     *
+     * @param postValidator The postvalidator to add
+     */
+    void addPostValidator(IPostValidator postValidator);
+    /**
+     * Removes the given {@link IPostValidator} so that it is not used to
+     * validate {@link edu.horb.dhbw.datacore.uml.XMIElement}s anymore.
+     * Considering this it is recommended for every {@link IPostValidator} to
+     * overwrite {@link Object#equals(Object)} and {@link Object#hashCode()}.
+     *
+     * @param postValidator The preValidator to remove
+     */
+    void removePostValidator(IPostValidator postValidator);
 
     /**
      * @param modelLocation A path locating where the model is stored
