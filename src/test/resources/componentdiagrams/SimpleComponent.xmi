@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><xmi:XMI xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:LocalProfile="http:///schemas/LocalProfile/_6eKgwHAREeqYpcvcCmcfqA/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.omg.org/spec/UML/20110701" xmi:version="2.1" xsi:schemaLocation="http://www.eclipse.org/uml2/3.0.0/UML http://schema.omg.org/spec/UML/20110701 http:///schemas/LocalProfile/_6eKgwHAREeqYpcvcCmcfqA/0 LocalProfile.profile.xmi#_6fJYN3AREeqYpcvcCmcfqA">
+  <uml:Model xmi:id="_6eJ5sHAREeqYpcvcCmcfqA" name="Model">
+    <eAnnotations xmi:id="_6eJ5sXAREeqYpcvcCmcfqA" source="Objing">
+      <contents xmi:type="uml:Property" xmi:id="_6eJ5snAREeqYpcvcCmcfqA" name="exporterVersion">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_6eJ5s3AREeqYpcvcCmcfqA" value="3.0.0"/>
+      </contents>
+    </eAnnotations>
+    <packagedElement xmi:type="uml:Component" xmi:id="_6eJ5tHAREeqYpcvcCmcfqA" name="Component" clientDependency="_6eJ5tnAREeqYpcvcCmcfqA _6eJ5t3AREeqYpcvcCmcfqA">
+      <packagedElement xmi:type="uml:Class" xmi:id="_6eJ5tXAREeqYpcvcCmcfqA" name="InnerRealizingClass"/>
+      <realization xmi:id="_6eJ5tnAREeqYpcvcCmcfqA"
+                   abstraction="_6eJ5tHAREeqYpcvcCmcfqA"
+                   realizingClassifier="_6eJ5uHAREeqYpcvcCmcfqA"/>
+      <realization xmi:id="_6eJ5t3AREeqYpcvcCmcfqA"
+                   abstraction="_6eJ5tHAREeqYpcvcCmcfqA"
+                   realizingClassifier="_6eJ5uXAREeqYpcvcCmcfqA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_6eJ5uHAREeqYpcvcCmcfqA" name="RealizingClassA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_6eJ5uXAREeqYpcvcCmcfqA" name="RealizingClassB"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:applyingPackage="_6eJ5sHAREeqYpcvcCmcfqA" xmi:id="_6gO9UHAREeqYpcvcCmcfqA">
+      <eAnnotations xmi:id="_6gO9UXAREeqYpcvcCmcfqA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="LocalProfile.profile.xmi#_6fJYN3AREeqYpcvcCmcfqA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" xmi:applyingPackage="_6gO9UHAREeqYpcvcCmcfqA" href="LocalProfile.profile.xmi#_6fJYMHAREeqYpcvcCmcfqA"/>
+    </profileApplication>
+  </uml:Model>
+  <LocalProfile:Murdoch xmi:id="_6gPkYHAREeqYpcvcCmcfqA" base_Package="_6eJ5sHAREeqYpcvcCmcfqA"/>
+</xmi:XMI>
