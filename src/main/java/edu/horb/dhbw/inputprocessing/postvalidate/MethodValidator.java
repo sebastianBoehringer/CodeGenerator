@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.Pair;
+import org.thymeleaf.util.ListUtils;
 
 public class MethodValidator extends NamingValidator {
     public MethodValidator(final FirstLetter nameStart) {
@@ -37,7 +38,8 @@ public class MethodValidator extends NamingValidator {
     public Pair<Boolean, String> continueValidation(final OOBase base) {
 
         OOMethod method = (OOMethod) base;
-        if (method.isAbstract() && method.getLogic() != null) {
+        if (method.isAbstract() && !ListUtils
+                .isEmpty(method.getLogic().getStatements())) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Method [%s] is abstract but has a body defined",
                     method.getName()));
