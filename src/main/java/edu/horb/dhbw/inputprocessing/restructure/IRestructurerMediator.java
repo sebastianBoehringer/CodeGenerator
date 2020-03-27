@@ -66,11 +66,13 @@ import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Component;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ComponentRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.EncapsulatedClassifier;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.StructuredClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.values.Interval;
@@ -112,6 +114,8 @@ import edu.horb.dhbw.inputprocessing.restructure.classes.SlotRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.SubstitutionRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.classes.UMLClassRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.components.ComponentRealizationRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.components.ComponentRestrucuturer;
+import edu.horb.dhbw.inputprocessing.restructure.components.PortRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.components.UsageRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.delegating.BehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.delegating.BehavioralFeatureRestructurer;
@@ -159,7 +163,7 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 64;
+    private static final int DEFAULT_SIZE = 66;
 
     /**
      * The mappings to use.
@@ -298,6 +302,9 @@ public final class IRestructurerMediator implements IRestructurer<XMIElement> {
                                 new StructuredClassifierRestructurer(this));
         classToRestructurer.put(OpaqueExpression.class,
                                 new OpaqueExpressionRestructurer(this));
+        classToRestructurer
+                .put(Component.class, new ComponentRestrucuturer(this));
+        classToRestructurer.put(Port.class, new PortRestructurer(this));
     }
 
     /**

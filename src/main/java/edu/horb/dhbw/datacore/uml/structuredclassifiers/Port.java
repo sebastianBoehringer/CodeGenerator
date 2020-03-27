@@ -69,5 +69,4 @@ public final class Port extends PropertyImpl {
      * attribute can be derived.
      */
     private List<Interface> required = new ArrayList<>();
-    //TODO write restructurer
 }

@@ -70,7 +70,7 @@ other part of SDMetrics.
         <attribute name="upperValue" type="ref">The upper bound for the
             multiplicity.
         </attribute>
-        <attribute name="href" >A link to the primitive type</attribute>
+        <attribute name="href">A link to the primitive type</attribute>
     </modelelement>
 
     <!-- abstract stuff from classification -->
@@ -115,6 +115,9 @@ other part of SDMetrics.
         </attribute>
         <attribute name="ownedoperations" type="ref" multiplicity="many">The
             operations of the element.
+        </attribute>
+        <attribute name="ownedports" type="ref" multiplicity="many">The owned
+            ports of the element.
         </attribute>
         <attribute name="nestedclassifiers" type="ref" multiplicity="many">The
             nested classifiers of the element.
@@ -502,7 +505,8 @@ other part of SDMetrics.
             connection points of the state.
         </attribute>
         <attribute name="submachine" type="ref">The submachine this
-            state refers to.</attribute>
+            state refers to.
+        </attribute>
     </modelelement>
 
     <modelelement name="transition">
@@ -608,6 +612,12 @@ other part of SDMetrics.
         <attribute name="members" type="ref" multiplicity="many">Other members
             owned by the component.
         </attribute>
+        <attribute name="packagedElement" type="ref"
+                   multiplicity="many">The elements used to define
+            the component.
+        </attribute>
+        <attribute name="indirectlyInstantiated">If true there does
+            not exist an object of this component at runtime</attribute>
     </modelelement>
 
     <!-- concrete behaviors -->

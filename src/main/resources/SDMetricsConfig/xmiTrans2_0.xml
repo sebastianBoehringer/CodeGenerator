@@ -119,7 +119,7 @@ other part of SDMetrics.
                  attr="ownedAttribute"/>
         <trigger name="ownedoperations" type="xmi2assoc" src="uml:Operation"
                  attr="ownedOperation"/>
-        <trigger name="ownedattributes" type="xmi2assoc" src="uml:Port"
+        <trigger name="ownedports" type="xmi2assoc" src="uml:Port"
                  attr="ownedPort"/>
         <trigger name="nestedclassifiers" type="xmi2assoc"
                  attr="nestedClassifier"/>
@@ -397,8 +397,13 @@ other part of SDMetrics.
     <xmitransformation modelelement="component" xmipattern="uml:Component"
                        recurse="true">
         <trigger name="realizations" type="xmi2assoc" attr="realization"
-                 src="uml:Realization"/>
+                 src="uml:ComponentRealization"/>
         <trigger name="members" type="xmi2assoc" attr="ownedMember"/>
+        <trigger name="packagedElement" type="xmi2assoc" attr="packagedElement"/>
+        <trigger name="indirectlyInstantiated" type="attrval"
+                 attr="isIndirectlyInstantiated"/>
+        <trigger name="indirectlyInstantiated" type="ctext"
+                 src="isIndirectlyInstantiated"/>
     </xmitransformation>
 
     <xmitransformation modelelement="componentrealization"

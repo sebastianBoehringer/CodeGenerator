@@ -62,5 +62,4 @@ public final class Component extends UMLClassImpl {
      */
     private List<Interface> required = new ArrayList<>();
 
-    //TODO write restructurer
 }
