@@ -108,4 +108,11 @@ public class OOType extends OOBase {
         PRIMITIVE;
     }
 
+    @Override
+    public String toString() {
+
+        return String.format("%s: name=%s id=%s", type.toString(), getName(),
+                             getId());
+    }
+
 }
