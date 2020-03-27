@@ -17,5 +17,9 @@
 
 package edu.horb.dhbw.datacore.model;
 
-public class OOStatemachine extends OOBase {
+/**
+ * A statement that produces a value.
+ * E. g. the result of a function call.
+ */
+public interface IValueStatement extends IStatement {
 }
