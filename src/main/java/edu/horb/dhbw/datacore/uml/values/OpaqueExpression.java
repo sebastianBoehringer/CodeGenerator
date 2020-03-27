@@ -60,5 +60,4 @@ public final class OpaqueExpression extends PackageableElementImpl
     private Parameter result;
 
     private Type type;
-    //TODO candidate for removal
 }

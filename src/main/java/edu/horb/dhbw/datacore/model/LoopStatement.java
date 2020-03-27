@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.model;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
-import java.util.Collections;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)

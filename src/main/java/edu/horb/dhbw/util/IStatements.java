@@ -49,8 +49,8 @@ public final class IStatements {
                     for (int i = 0; i < parallel.getParallel().size(); i++) {
                         parallel.getParallel().set(i, deepFlatten(
                                 parallel.getParallel().get(i)));
-                        }
                     }
+                }
             }
             flattened.add(statement);
         }

@@ -61,8 +61,8 @@ public abstract class TypeValidator extends NamingValidator {
         OOType type = (OOType) base;
         if (type.getSuperTypes().size() > upperLimit) {
             return new Pair<>(Boolean.FALSE, String.format(
-                    "Type [%s] extends more than the allowed [%d] "
-                            + "types", type.getName(), upperLimit));
+                    "Type [%s] extends more than the allowed [%d] types",
+                    type.getName(), upperLimit));
         }
 
         if (!VisibilityKind.PUBLIC.equals(type.getVisibility())

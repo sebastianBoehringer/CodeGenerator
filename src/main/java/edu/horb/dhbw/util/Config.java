@@ -104,10 +104,9 @@ public enum Config {
                 props.getProperty("language.formatting.delimiter", ".");
         String name = props.getProperty("language.name", "Java");
         language = new Language(name, extension, delimiter,
-                                Path.of(templateLocation),
-                                publicVis, protectedVis, packageVis, privateVis,
-                                primInt, primString, primBool, primReal,
-                                primUnlimited);
+                                Path.of(templateLocation), publicVis,
+                                protectedVis, packageVis, privateVis, primInt,
+                                primString, primBool, primReal, primUnlimited);
         outputDirectory =
                 Path.of(props.getProperty("generator.output", "generated"));
     }

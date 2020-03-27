@@ -44,47 +44,10 @@ import java.util.List;
 @AllArgsConstructor
 public final class State extends NamespaceImpl {
     /**
-     * If this is {@code true} the state is a composite state.
-     * I. e. it contains at least one region.
-     *
-     * @return {@code true} if the state owns at least a single region,
-     * {@code false} otherwise
-     */
-    public Boolean isComposite() {
-
-        return region.size() > 0;
-    }
-
-    /**
      * If this is {@code true} the state is an orthogonal state.
      * I. e. it contains at least two regions. This attribute can be derived.
      */
     private Boolean isOrthogonal;
-
-    /**
-     * If this is {@code true} the state is simple.
-     * It does not contain a region. This attribute can be derived.
-     *
-     * @return {@code true} if the state does not own a region and does not
-     * reference a submachine.
-     */
-    public Boolean isSimple() {
-
-        return !isComposite() && !isSubmachineState();
-    }
-
-    /**
-     * If this is {@code true} the state refers to another {@link StateMachine}.
-     * This attribute can be derived.
-     *
-     * @return {@code true} if this state refers to another
-     * {@link StateMachine}, i. e. {@link #submachine} is set.
-     */
-    public Boolean isSubmachineState() {
-
-        return submachine != null;
-    }
-
     /**
      * Entry and Exit points for this state.
      * The state must be a composite one and the pseudostates in the list
@@ -114,7 +77,6 @@ public final class State extends NamespaceImpl {
      * A constraint that holds when this state is active.
      */
     private Constraint stateInvariant;
-
     /**
      * The type of the Pseudostate. See {@link PseudostateKind} for all
      * possible kinds of Pseudostates.
@@ -139,11 +101,46 @@ public final class State extends NamespaceImpl {
      * This is from the uml metaclass vertex.
      */
     private List<Transition> outgoing = new ArrayList<>();
-
     /**
      * The submachine that is nested in the state.
      */
     private StateMachine submachine;
+
+    /**
+     * If this is {@code true} the state is simple.
+     * It does not contain a region. This attribute can be derived.
+     *
+     * @return {@code true} if the state does not own a region and does not
+     * reference a submachine.
+     */
+    public Boolean isSimple() {
+
+        return !isComposite() && !isSubmachineState();
+    }
+
+    /**
+     * If this is {@code true} the state is a composite state.
+     * I. e. it contains at least one region.
+     *
+     * @return {@code true} if the state owns at least a single region,
+     * {@code false} otherwise
+     */
+    public Boolean isComposite() {
+
+        return region.size() > 0;
+    }
+
+    /**
+     * If this is {@code true} the state refers to another {@link StateMachine}.
+     * This attribute can be derived.
+     *
+     * @return {@code true} if this state refers to another
+     * {@link StateMachine}, i. e. {@link #submachine} is set.
+     */
+    public Boolean isSubmachineState() {
+
+        return submachine != null;
+    }
 
     @Override
     public String toString() {

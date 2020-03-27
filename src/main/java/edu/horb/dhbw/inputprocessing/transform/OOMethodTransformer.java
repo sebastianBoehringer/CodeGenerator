@@ -39,6 +39,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public final class OOMethodTransformer
         extends CachingTransformer<Operation, OOMethod> {
+    private final OOParameter voidReturn;
+
     /**
      * @param registry The registry to use.
      */
@@ -53,8 +55,6 @@ public final class OOMethodTransformer
         voidReturn.getType().setName("void");
 
     }
-
-    private final OOParameter voidReturn;
 
     @Override
     public @NonNull List<OOMethod> transform(final @NonNull List<?> elements) {

@@ -35,9 +35,9 @@ public final class ComponentValidator implements IPreValidator {
 
         Component component = (Component) base;
         if (!ListUtils.isEmpty(component.getNestedClassifier())) {
-            return new Pair<>(Boolean.FALSE, String.format(
-                    "Component [%s] nests classifiers",
-                    component.getId()));
+            return new Pair<>(Boolean.FALSE,
+                              String.format("Component [%s] nests classifiers",
+                                            component.getId()));
         }
         //TODO constraint: no_packaged_elements is not checked
         return VALID;

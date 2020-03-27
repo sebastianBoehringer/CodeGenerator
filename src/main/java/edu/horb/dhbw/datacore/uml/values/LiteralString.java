@@ -35,7 +35,8 @@ public final class LiteralString extends LiteralSpecificationImpl<String> {
     private final String value;
 
     @Override
-    public String toString(){
+    public String toString() {
+
         return value;
     }
 }

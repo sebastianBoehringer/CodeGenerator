@@ -176,12 +176,6 @@ public final class CodeGenerator {
         }
     }
 
-    private void addImports(final OOType type) {
-
-        adapter.addToContext("imports", importResolver
-                .resolveImports(Config.CONFIG.getLanguage(), type));
-    }
-
     /**
      * @param pkg The package to create a directory for
      * @throws CodeGenerationException IF the directory could not be created.
@@ -205,6 +199,12 @@ public final class CodeGenerator {
                             + ", cause: " + e.getMessage());
         }
 
+    }
+
+    private void addImports(final OOType type) {
+
+        adapter.addToContext("imports", importResolver
+                .resolveImports(Config.CONFIG.getLanguage(), type));
     }
 
     /**

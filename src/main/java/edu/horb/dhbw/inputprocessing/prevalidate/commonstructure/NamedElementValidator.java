@@ -20,7 +20,6 @@ package edu.horb.dhbw.inputprocessing.prevalidate.commonstructure;
 import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
 
 public final class NamedElementValidator implements IPreValidator {

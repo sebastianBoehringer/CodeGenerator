@@ -65,16 +65,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
      * inherited ones.
      */
     private List<Feature> feature = new ArrayList<>();
-
-    /**
-     * @return The immediate classifiers this classifier specializes
-     */
-    public final List<Classifier> getGeneral() {
-
-        return generalization.stream().map(Generalization::getGeneral)
-                .collect(Collectors.toList());
-    }
-
     /**
      * The generalizations of the classifier.
      */
@@ -129,5 +119,14 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
      * Copied from {@link Namespace}.
      */
     private List<PackageImport> packageImport = new ArrayList<>();
+
+    /**
+     * @return The immediate classifiers this classifier specializes
+     */
+    public final List<Classifier> getGeneral() {
+
+        return generalization.stream().map(Generalization::getGeneral)
+                .collect(Collectors.toList());
+    }
 
 }

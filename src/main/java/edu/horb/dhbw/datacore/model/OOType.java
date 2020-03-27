@@ -74,6 +74,21 @@ public class OOType extends OOBase {
 
     private List<OOField> fields;
 
+    /**
+     * Returns the fully qualified name of this type.
+     * {@link Config#language} is used so that the delimiter can be
+     * customized.
+     *
+     * @return The fully qualified name of this type
+     */
+    public String getFQName() {
+
+        String delimiter = Config.CONFIG.getLanguage().getPackageNameLimiter();
+
+        return container == null ? getName() : container.getFQName() + delimiter
+                + getName();
+    }
+
     public enum Type {
         /**
          * Designates this {@link OOType} as an Interface.
@@ -91,21 +106,6 @@ public class OOType extends OOBase {
          * Designates this {@link OOType} as a primitive Type.
          */
         PRIMITIVE;
-    }
-
-    /**
-     * Returns the fully qualified name of this type.
-     * {@link Config#language} is used so that the delimiter can be
-     * customized.
-     *
-     * @return The fully qualified name of this type
-     */
-    public String getFQName() {
-
-        String delimiter = Config.CONFIG.getLanguage().getPackageNameLimiter();
-
-        return container == null ? getName() : container.getFQName() + delimiter
-                + getName();
     }
 
 }
