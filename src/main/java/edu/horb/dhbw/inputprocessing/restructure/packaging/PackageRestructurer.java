@@ -31,6 +31,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -81,6 +82,9 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
                 .getSetAttribute("ownedmembers");
         umlPackage.setPackagedElement(
                 delegateMany(members, PackageableElement.class));
+        umlPackage.getPackagedElement().removeIf(Objects::isNull);
+        umlPackage.getPackagedElement().forEach(m -> m.setOwner(umlPackage));
+
         log.info("Processing ownedType for package [{}]", id);
         umlPackage.setOwnedType(umlPackage.getPackagedElement().stream()
                                         .filter(p -> p instanceof Type)

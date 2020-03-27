@@ -28,6 +28,7 @@ import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
@@ -155,6 +156,13 @@ public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
                 .getSetAttribute("ownedbehaviors");
         clazz.setOwnedBehavior(delegateMany(behaviors, Behavior.class));
 
+        log.debug("Processing ownedports for class [{}]", id);
+        Collection<ModelElement> ports = (Collection<ModelElement>) element
+                .getSetAttribute("ownedports");
+        clazz.setOwnedPort(delegateMany(ports, Port.class));
+        clazz.getOwnedPort().forEach(p -> p.setOwner(clazz));
+        clazz.getOwnedOperation().forEach(o -> o.setOwner(clazz));
+        clazz.getOwnedAttribute().forEach(a -> a.setOwner(clazz));
         return clazz;
     }
 }
