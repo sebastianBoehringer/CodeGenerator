@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.util;
 
-import edu.horb.dhbw.datacore.model.DefaultScheme;
 import edu.horb.dhbw.datacore.model.Language;
 import lombok.Getter;
 
@@ -105,7 +104,7 @@ public enum Config {
                 props.getProperty("language.formatting.delimiter", ".");
         String name = props.getProperty("language.name", "Java");
         language = new Language(name, extension, delimiter,
-                                Path.of(templateLocation), new DefaultScheme(),
+                                Path.of(templateLocation),
                                 publicVis, protectedVis, packageVis, privateVis,
                                 primInt, primString, primBool, primReal,
                                 primUnlimited);

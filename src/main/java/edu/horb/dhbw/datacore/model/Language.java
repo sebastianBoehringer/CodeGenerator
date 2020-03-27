@@ -30,6 +30,7 @@ public class Language {
      * The name of the programming language.
      */
     private final String name;
+
     /**
      * The file extension used for the programming language.
      * This should include a leading dot ({@code '.'}).
@@ -48,48 +49,49 @@ public class Language {
     private final Path templateLocation;
 
     /**
-     * The scheme by which variables, files, etc. are named in this language.
-     * E. g. for Java the names for classes are in camelcase and the file
-     * names correspond to the class name.
-     */
-    private final INamingScheme scheme;
-
-    /**
      * The string the language uses to mark something as public.
      */
     private final String publicVisibility;
+
     /**
      * The string the language uses to mark something as protected.
      */
     private final String protectedVisibility;
+
     /**
      * The string the language uses to mark something as package private.
      */
     private final String packageVisibility;
+
     /**
      * The string the language uses to mark something as private.
      */
     private final String privateVisibility;
+
     /**
      * The name of the class the language uses that corresponds to the
      * primitive UML type integer.
      */
     private final String integerName;
+
     /**
      * The name of the class the language uses that corresponds to the
      * primitive UML type string.
      */
     private final String stringName;
+
     /**
      * The name of the class the language uses that corresponds to the
      * primitive UML type boolean.
      */
     private final String booleanName;
+
     /**
      * The name of the class the language uses that corresponds to the
      * primitive UML type real.
      */
     private final String realName;
+
     /**
      * The name of the class the language uses that corresponds to the
      * primitive UML type unlimitedNatural.
