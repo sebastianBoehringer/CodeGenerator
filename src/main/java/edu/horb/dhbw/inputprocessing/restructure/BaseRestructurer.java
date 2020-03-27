@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -126,7 +127,8 @@ public abstract class BaseRestructurer<T extends XMIElement>
      * @param <V>           The class to be restructured to. Upper type is
      *                      {@link XMIElement} so that a restructurer may
      *                      exist.
-     * @return A collection of the restructured elements
+     * @return A collection of the restructured elements. The collection will
+     * not contain {@code null} elements
      */
     protected final <V extends XMIElement> @NonNull List<V> delegateMany(
             @NonNull final Collection<ModelElement> modelElements,
@@ -137,7 +139,7 @@ public abstract class BaseRestructurer<T extends XMIElement>
         } else {
             return modelElements.stream()
                     .map(e -> delegateRestructuring(e, vClass))
-                    .collect(Collectors.toList());
+                    .filter(Objects::nonNull).collect(Collectors.toList());
         }
     }
 
