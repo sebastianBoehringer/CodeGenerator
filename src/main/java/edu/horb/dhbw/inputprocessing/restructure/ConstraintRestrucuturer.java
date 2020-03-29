@@ -53,21 +53,22 @@ public final class ConstraintRestrucuturer
 
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
-            log.info("Trying to delegate from constraint to specialized type "
+            log.debug("Trying to delegate from Constraint to specialized type "
                              + "for [{}]", umlType);
             Class<? extends Constraint> aClass =
                     LookupUtil.constraintFromUMLType(umlType);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
-                                 + "as constraint", umlType);
+                                 + "as Constraint", umlType);
             } else {
                 return delegateRestructuring(element, aClass);
             }
         }
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Constraint [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading constraint from cache",
+            log.info("Found id [{}] in cache, loading Constraint from cache",
                      id);
             return processed.get(id);
         }
@@ -75,22 +76,23 @@ public final class ConstraintRestrucuturer
         constraint.setId(id);
         processed.put(id, constraint);
 
-        log.info("Processing specification for constraint [{}]", id);
+        log.debug("Processing specification for Constraint [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
         constraint.setSpecification(
                 delegateRestructuring(specification, ValueSpecification.class));
 
-        log.info("Processing context for constraint [{}]", id);
+        log.debug("Processing context for Constraint [{}]", id);
         ModelElement context = element.getRefAttribute("context");
         constraint.setContext(delegateRestructuring(context, Namespace.class));
 
-        log.info("Processing constrainedElement for constraint [{}]", id);
+        log.debug("Processing constrainedElement for Constraint [{}]", id);
         Collection<ModelElement> constrained =
                 (Collection<ModelElement>) element
                         .getSetAttribute("constrainedElement");
         constraint.setConstrainedElement(
                 delegateMany(constrained, Element.class));
 
+        log.info("Completed restructuring of Constraint [{}]", id);
         return constraint;
     }
 }

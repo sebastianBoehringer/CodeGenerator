@@ -60,7 +60,7 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
 
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
-            log.info("Trying to delegate from property to specialized type for"
+            log.debug("Trying to delegate from property to specialized type for"
                              + " [{}]", umlType);
 
             Class<? extends Property> toRestructure =
@@ -74,8 +74,10 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
         }
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Property [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading property from cache", id);
+            log.debug("Found id [{}] in cache, loading Property from cache",
+                      id);
             return processed.get(id);
         }
 
@@ -83,21 +85,21 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
         property.setId(id);
         processed.put(id, property);
 
-        log.info("Processing name for property [{}]", id);
+        log.debug("Processing name for Property [{}]", id);
         property.setName(element.getName());
 
-        log.info("Processing visibility for property [{}]", id);
+        log.debug("Processing visibility for Property [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         property.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        log.info("Processing ordered for property [{}]", id);
+        log.debug("Processing ordered for Property [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         property.setIsOrdered(Boolean.valueOf(ordered));
 
-        log.info("Processing unique for property [{}]", id);
+        log.debug("Processing unique for Property [{}]", id);
         String unique = element.getPlainAttribute("unique");
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
@@ -109,29 +111,29 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
         }
         property.setIsUnique(isUnique);
 
-        log.info("Processing lower for property [{}]", id);
+        log.debug("Processing lower for Property [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (!StringUtils.isEmpty(lower)) {
             property.setLower(Integer.parseInt(lower));
         }
 
-        log.info("Processing upper for property [{}]", id);
+        log.debug("Processing upper for Property [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (!StringUtils.isEmpty(upper)) {
             property.setUpper(new UnlimitedNatural(upper));
         }
 
-        log.info("Processing lowerValue for property [{}]", id);
+        log.debug("Processing lowerValue for Property [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");
         property.setLowerValue(
                 delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        log.info("Processing upperValue for property [{}]", id);
+        log.debug("Processing upperValue for Property [{}]", id);
         ModelElement upperValue = element.getRefAttribute("upperValue");
         property.setUpperValue(
                 delegateRestructuring(upperValue, ValueSpecification.class));
 
-        log.info("Processing propertytype for property [{}]", id);
+        log.debug("Processing propertytype for Property [{}]", id);
         ModelElement type = element.getRefAttribute("propertytype");
         if (type == null) {
             String primitive = element.getPlainAttribute("href");
@@ -139,36 +141,36 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
         } else {
             property.setType(delegateRestructuring(type, Type.class));
         }
-        log.info("Processing isreadonly for property [{}]", id);
+        log.debug("Processing isreadonly for Property [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
         property.setIsReadOnly(Boolean.valueOf(readOnly));
 
-        log.info("Processing association for property [{}]", id);
+        log.debug("Processing association for Property [{}]", id);
         ModelElement association = element.getRefAttribute("association");
         property.setAssociation(
                 delegateRestructuring(association, Association.class));
 
-        log.info("Processing aggregation for property [{}]", id);
+        log.debug("Processing aggregation for Property [{}]", id);
         String aggregation = element.getPlainAttribute("aggregation");
         property.setAggregation(
                 StringUtils.isEmpty(aggregation) ? AggregationKind.NONE
                                                  : AggregationKind
                         .from(aggregation));
 
-        log.info("Processing qualifiers for property [{}]", id);
+        log.debug("Processing qualifiers for Property [{}]", id);
         Collection<ModelElement> qualifiers = (Collection<ModelElement>) element
                 .getSetAttribute("qualifiers");
         property.setQualifier(delegateMany(qualifiers, Property.class));
 
-        log.info("Processing default for property [{}]", id);
+        log.debug("Processing default for Property [{}]", id);
         ModelElement defaultValue = element.getRefAttribute("default");
         property.setDefaultValue(
                 delegateRestructuring(defaultValue, ValueSpecification.class));
 
-        log.info("Processing static for property [{}]", id);
+        log.debug("Processing static for Property [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         property.setIsStatic(Boolean.valueOf(isStatic));
-
+        log.info("Completed restructuring of Property [{}]", id);
         return property;
     }
 }

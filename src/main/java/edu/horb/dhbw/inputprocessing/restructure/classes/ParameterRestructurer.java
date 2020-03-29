@@ -49,8 +49,9 @@ public final class ParameterRestructurer
     public Parameter restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Parameter [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading parameter from cache",
+            log.info("Found id [{}] in cache, loading Parameter from cache",
                      id);
             return processed.get(id);
         }
@@ -58,15 +59,15 @@ public final class ParameterRestructurer
         parameter.setId(id);
         processed.put(id, parameter);
 
-        log.info("Processing name for parameter [{}]", id);
+        log.debug("Processing name for Parameter [{}]", id);
         String name = element.getPlainAttribute("name");
         parameter.setName(name);
 
-        log.info("Processing ordered for parameter [{}]", id);
+        log.debug("Processing ordered for Parameter [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         parameter.setIsOrdered(Boolean.valueOf(ordered));
 
-        log.info("Processing unique for parameter [{}]", id);
+        log.debug("Processing unique for Parameter [{}]", id);
         String unique = element.getPlainAttribute("unique");
         boolean isUnique;
         //Default value for isUnique is true, see uml specification subclause
@@ -78,35 +79,35 @@ public final class ParameterRestructurer
         }
         parameter.setIsUnique(isUnique);
 
-        log.info("Processing lower for parameter [{}]", id);
+        log.debug("Processing lower for Parameter [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (!StringUtils.isEmpty(lower)) {
             parameter.setLower(Integer.parseInt(lower));
         }
-        log.info("Processing upper for parameter [{}]", id);
+        log.debug("Processing upper for Parameter [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (!StringUtils.isEmpty(upper)) {
             parameter.setUpper(new UnlimitedNatural(upper));
         }
 
-        log.info("Processing lowerValue for parameter [{}]", id);
+        log.debug("Processing lowerValue for Parameter [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");
         parameter.setLowerValue(
                 delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        log.info("Processing upperValue for parameter [{}]", id);
+        log.debug("Processing upperValue for Parameter [{}]", id);
         ModelElement upperValue = element.getRefAttribute("upperValue");
         parameter.setUpperValue(
                 delegateRestructuring(upperValue, ValueSpecification.class));
 
-        log.info("Processing kind for parameter [{}]", id);
+        log.debug("Processing kind for Parameter [{}]", id);
         String kind = element.getPlainAttribute("kind");
         ParameterDirectionKind directionKind =
                 StringUtils.isEmpty(kind) ? ParameterDirectionKind.IN
                                           : ParameterDirectionKind.from(kind);
         parameter.setDirection(directionKind);
 
-        log.info("Processing parametertype for parameter [{}]", id);
+        log.debug("Processing parametertype for Parameter [{}]", id);
         ModelElement type = element.getRefAttribute("parametertype");
         if (type == null) {
             String primitive = element.getPlainAttribute("href");
@@ -116,30 +117,30 @@ public final class ParameterRestructurer
             parameter.setType(delegateRestructuring(type, Type.class));
         }
 
-        log.info("Processing effect for parameter [{}]", id);
+        log.debug("Processing effect for Parameter [{}]", id);
         String effect = element.getPlainAttribute("effect");
         ParameterEffectKind effectKind =
                 StringUtils.isEmpty(effect) ? ParameterEffectKind.UNDEFINED
                                             : ParameterEffectKind.from(effect);
         parameter.setEffect(effectKind);
 
-        log.info("Processing exception for parameter [{}]", id);
+        log.debug("Processing exception for Parameter [{}]", id);
         String exception = element.getPlainAttribute("exception");
         parameter.setIsException(Boolean.valueOf(exception));
 
-        log.info("Processing stream for parameter [{}]", id);
+        log.debug("Processing stream for Parameter [{}]", id);
         String stream = element.getPlainAttribute("stream");
         parameter.setIsStream(Boolean.valueOf(stream));
 
-        log.info("Processing default for parameter [{}]", id);
+        log.debug("Processing default for Parameter [{}]", id);
         ModelElement defaults = element.getRefAttribute("default");
         parameter.setDefaultValue(
                 delegateRestructuring(defaults, ValueSpecification.class));
 
-        log.info("Processing defaultstring for parameter [{}]", id);
+        log.debug("Processing defaultstring for Parameter [{}]", id);
         String defaultString = element.getPlainAttribute("defaultstring");
         parameter.setDefaults(defaultString);
-
+        log.info("Completed restructuring of Parameter [{}]", id);
         return parameter;
     }
 }

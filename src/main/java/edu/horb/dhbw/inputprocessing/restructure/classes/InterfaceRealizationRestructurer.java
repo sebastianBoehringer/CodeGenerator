@@ -46,6 +46,7 @@ public final class InterfaceRealizationRestructurer
             @NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of InterfaceRealization [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading InterfaceRealization "
                              + "from cache", id);
@@ -56,22 +57,23 @@ public final class InterfaceRealizationRestructurer
         realization.setId(id);
         processed.put(id, realization);
 
-        log.info("Processing name for interfacerealization [{}]", id);
+        log.debug("Processing name for InterfaceRealization [{}]", id);
         String name = element.getPlainAttribute("name");
         realization.setName(name);
 
-        log.info("Processing contract for interfacerealization [{}]", id);
+        log.debug("Processing contract for InterfaceRealization [{}]", id);
         ModelElement contract = element.getRefAttribute("contract");
         Interface anInterface =
                 delegateRestructuring(contract, Interface.class);
         realization.setContract(anInterface);
 
-        log.info("Processing implementation for interfacerealization [{}]", id);
+        log.debug("Processing implementation for InterfaceRealization [{}]",
+                  id);
         ModelElement implementation = element.getRefAttribute("implementation");
         UMLClass implementer =
                 delegateRestructuring(implementation, UMLClass.class);
         realization.setImplementingClassifier(implementer);
-
+        log.info("Completed restructuring of InterfaceRealization [{}]", id);
         return realization;
     }
 }

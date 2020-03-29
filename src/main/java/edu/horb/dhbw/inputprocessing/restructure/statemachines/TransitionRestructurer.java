@@ -49,49 +49,51 @@ public final class TransitionRestructurer
     public Transition restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Transition [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache", id);
+            log.info("Found Transition id [{}] in cache", id);
             return processed.get(id);
         }
         Transition transition = new Transition();
         processed.put(id, transition);
         transition.setId(id);
 
-        log.info("Processing name for Transition [{}]", id);
+        log.debug("Processing name for Transition [{}]", id);
         String name = element.getPlainAttribute("name");
         transition.setName(name);
 
-        log.info("Processing kind for Transition [{}]", id);
+        log.debug("Processing kind for Transition [{}]", id);
         String kind = element.getPlainAttribute("kind");
         TransitionKind transitionKind =
                 StringUtils.isEmpty(kind) ? TransitionKind.EXTERNAL
                                           : TransitionKind.from(kind);
         transition.setKind(transitionKind);
 
-        log.info("Processing transsource for Transition [{}]", id);
+        log.debug("Processing transsource for Transition [{}]", id);
         ModelElement source = element.getRefAttribute("transsource");
         transition.setSource(delegateRestructuring(source, State.class));
         transition.getSource().getOutgoing().add(transition);
 
-        log.info("Processing transtarget for Transition [{}]", id);
+        log.debug("Processing transtarget for Transition [{}]", id);
         ModelElement target = element.getRefAttribute("transtarget");
         transition.setTarget(delegateRestructuring(target, State.class));
         transition.getTarget().getIncoming().add(transition);
 
-        log.info("Processing guard for Transition [{}]", id);
+        log.debug("Processing guard for Transition [{}]", id);
         ModelElement guard = element.getRefAttribute("guard");
         if (guard != null) {
             transition.setGuard(delegateRestructuring(guard, LookupUtil
                     .constraintFromUMLType(XMIUtil.getUMLType(guard))));
         }
-        log.info("Processing effect for Transition [{}]", id);
+        log.debug("Processing effect for Transition [{}]", id);
         ModelElement effect = element.getRefAttribute("effect");
         transition.setEffect(delegateRestructuring(effect, Behavior.class));
 
-        log.info("Processing container for Transition [{}]", id);
+        log.debug("Processing container for Transition [{}]", id);
         ModelElement container = element.getRefAttribute("container");
         transition.setContainer(delegateRestructuring(container, Region.class));
 
+        log.info("Completed restructuring of Transition [{}]", id);
         return transition;
     }
 }

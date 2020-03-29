@@ -45,8 +45,9 @@ public final class SlotRestructurer extends CachingRestructurer<Slot> {
     public Slot restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Slot [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading slot from cache", id);
+            log.info("Found id [{}] in cache, loading Slot from cache", id);
             return processed.get(id);
         }
 
@@ -54,17 +55,17 @@ public final class SlotRestructurer extends CachingRestructurer<Slot> {
         slot.setId(id);
         processed.put(id, slot);
 
-        log.info("Processing defining for slot [{}]", id);
+        log.debug("Processing defining for Slot [{}]", id);
         ModelElement defining = element.getRefAttribute("defining");
         slot.setDefiningFeature(
                 delegateRestructuring(defining, Property.class));
 
-        log.info("Processing values for slot [{}]", id);
+        log.debug("Processing values for Slot [{}]", id);
         Collection<ModelElement> values =
                 (Collection<ModelElement>) element.getSetAttribute("value");
         slot.setValue(delegateMany(values, ValueSpecification.class));
 
-
+        log.info("Completed restructuring of Slot [{}]", id);
         return slot;
     }
 }

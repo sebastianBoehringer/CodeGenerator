@@ -51,8 +51,9 @@ public final class EnumerationRestructurer
     public Enumeration restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Enumeration [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading enumeration from cache",
+            log.info("Found id [{}] in cache, loading Enumeration from cache",
                      id);
             return processed.get(id);
         }
@@ -60,43 +61,43 @@ public final class EnumerationRestructurer
         processed.put(id, enumeration);
         enumeration.setId(id);
 
-        log.info("Processing name for enumeration [{}]", id);
+        log.debug("Processing name for Enumeration [{}]", id);
         String name = element.getPlainAttribute("name");
         enumeration.setName(name);
 
-        log.info("Processing ownedliterals for enumeration [{}]", id);
+        log.debug("Processing ownedliterals for Enumeration [{}]", id);
         Collection<ModelElement> literals = (Collection<ModelElement>) element
                 .getSetAttribute("ownedliterals");
         enumeration.setOwnedLiteral(new LinkedHashSet<>(
                 delegateMany(literals, EnumerationLiteral.class)));
 
-        log.info("Processing ownedattributes for enumeration [{}]", id);
+        log.debug("Processing ownedattributes for Enumeration [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         enumeration.setOwnedAttribute(delegateMany(attributes, Property.class));
 
-        log.info("Processing ownedoperations for enumeration [{}]", id);
+        log.debug("Processing ownedoperations for Enumeration [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         enumeration
                 .setOwnedOperation(delegateMany(operations, Operation.class));
 
-        log.info("Processing generalizations for enumeration [{}]", id);
+        log.debug("Processing generalizations for Enumeration [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         enumeration.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
-        log.info("Processing abstract for enumeration [{}]", id);
+        log.debug("Processing abstract for Enumeration [{}]", id);
         String isAbstract = element.getPlainAttribute("abstract");
         enumeration.setIsAbstract(Boolean.valueOf(isAbstract));
 
-        log.info("Processing leaf for enumeration [{}]", id);
+        log.debug("Processing leaf for Enumeration [{}]", id);
         String leaf = element.getPlainAttribute("leaf");
         enumeration.setIsFinalSpecialization(Boolean.valueOf(leaf));
 
-        log.info("Processing visibility for enumeration [{}]", id);
+        log.debug("Processing visibility for Enumeration [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind kind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -104,13 +105,13 @@ public final class EnumerationRestructurer
                         .from(visibility);
         enumeration.setVisibility(kind);
 
-        log.info("Processing substitution for enumeration [{}]", id);
+        log.debug("Processing substitution for Enumeration [{}]", id);
         Collection<ModelElement> substitutions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("substitution");
         enumeration.setSubstitution(
                 delegateMany(substitutions, Substitution.class));
-
+        log.info("Completed restructuring of Enumeration [{}]", id);
         return enumeration;
     }
 }

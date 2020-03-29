@@ -41,18 +41,20 @@ public final class OpaqueExpressionRestructurer
     public OpaqueExpression restructure(final @NonNull ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of OpaqueExpression [{}]", id);
         OpaqueExpression expression = new OpaqueExpression();
         expression.setId(id);
 
-        log.info("Processing body for OpaqueExpression [{}]", id);
+        log.debug("Processing body for OpaqueExpression [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");
         expression.setBody(new ArrayList<>(body));
 
-        log.info("Processing language of OpaqueExpression [{}]", id);
+        log.debug("Processing language of OpaqueExpression [{}]", id);
         Collection<String> languages =
                 (Collection<String>) element.getSetAttribute("language");
         expression.setLanguage(new ArrayList<>(languages));
+        log.info("Completed restructuring of OpaqueExpression [{}]", id);
         return expression;
     }
 }

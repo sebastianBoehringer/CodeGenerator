@@ -44,8 +44,9 @@ public final class IntervalConstraintRestrucuturer
     public IntervalConstraint restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of IntervalConstraint [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading intervalconstraint from "
+            log.info("Found id [{}] in cache, loading IntervalConstraint from "
                              + "cache", id);
             return processed.get(id);
         }
@@ -53,25 +54,25 @@ public final class IntervalConstraintRestrucuturer
         constraint.setId(id);
         processed.put(id, constraint);
 
-        log.info("Processing intervalspecification for intervalconstraint [{}]",
-                 id);
+        log.debug("Processing intervalspecification for IntervalConstraint "
+                          + "[{}]", id);
         ModelElement specification =
                 element.getRefAttribute("intervalspecification");
         constraint.setSpecification(
                 delegateRestructuring(specification, Interval.class));
 
-        log.info("Processing context for intervalconstraint [{}]", id);
+        log.debug("Processing context for IntervalConstraint [{}]", id);
         ModelElement context = element.getRefAttribute("context");
         constraint.setContext(delegateRestructuring(context, Namespace.class));
 
-        log.info("Processing constrainedElement for intervalconstraint [{}]",
-                 id);
+        log.debug("Processing constrainedElement for IntervalConstraint [{}]",
+                  id);
         Collection<ModelElement> constrained =
                 (Collection<ModelElement>) element
                         .getSetAttribute("constrainedElement");
         constraint.setConstrainedElement(
                 delegateMany(constrained, Element.class));
-
+        log.info("Completed restructuring of IntervalConstraint [{}]", id);
         return constraint;
     }
 }

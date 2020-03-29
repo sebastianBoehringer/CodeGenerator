@@ -47,15 +47,16 @@ public final class ElementImportRestructurer
     public ElementImport restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of ElementImport [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] for elementimport in cache", id);
+            log.info("Found id [{}] for ElementImport in cache", id);
             return processed.get(id);
         }
         ElementImport elementImport = new ElementImportImpl();
         processed.put(id, elementImport);
         elementImport.setId(id);
 
-        log.info("Processing visiblity for elementimport [{}]", id);
+        log.debug("Processing visiblity for ElementImport [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind kind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -63,16 +64,16 @@ public final class ElementImportRestructurer
                         .from(visibility);
         elementImport.setVisibility(kind);
 
-        log.info("Processing importer for elementimport [{}]", id);
+        log.debug("Processing importer for ElementImport [{}]", id);
         ModelElement importer = element.getRefAttribute("importer");
         elementImport.setImportingNamespace(
                 delegateRestructuring(importer, Namespace.class));
 
-        log.info("Processing imported for elementimport [{}]", id);
+        log.debug("Processing imported for ElementImport [{}]", id);
         ModelElement imported = element.getRefAttribute("imported");
         elementImport.setImportedElement(
                 delegateRestructuring(imported, PackageableElement.class));
-
+        log.info("Completed restructuring of ElementImport [{}]", id);
         return elementImport;
     }
 }

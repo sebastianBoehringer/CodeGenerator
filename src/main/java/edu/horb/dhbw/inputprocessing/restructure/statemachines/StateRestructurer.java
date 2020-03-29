@@ -48,19 +48,20 @@ public final class StateRestructurer extends CachingRestructurer<State> {
     public State restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of State [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading state from cache", id);
+            log.info("Found id [{}] in cache, loading State from cache", id);
             return processed.get(id);
         }
         State state = new State();
         processed.put(id, state);
         state.setId(id);
 
-        log.info("Processing name for State [{}]", id);
+        log.debug("Processing name for State [{}]", id);
         String name = element.getPlainAttribute("name");
         state.setName(name);
 
-        log.info("Processing kind for State [{}]", id);
+        log.debug("Processing kind for State [{}]", id);
         String kind = element.getPlainAttribute("kind");
         PseudostateKind stateKind =
                 StringUtils.isEmpty(kind) ? PseudostateKind.INITIAL
@@ -70,26 +71,26 @@ public final class StateRestructurer extends CachingRestructurer<State> {
         //Pseudo and FinalStates do not possess these attributes so we can
         // skip processing them if the state is not an actual state
         if (stateKind == PseudostateKind.STATE) {
-            log.info("Processing regions for State [{}]", id);
+            log.debug("Processing regions for State [{}]", id);
             Collection<ModelElement> regions =
                     (Collection<ModelElement>) element
                             .getSetAttribute("regions");
             state.setRegion(delegateMany(regions, Region.class));
 
-            log.info("Processing entry for State [{}]", id);
+            log.debug("Processing entry for State [{}]", id);
             ModelElement entry = element.getRefAttribute("entry");
             state.setEntry(delegateRestructuring(entry, Behavior.class));
 
-            log.info("Processing exit for State [{}]", id);
+            log.debug("Processing exit for State [{}]", id);
             ModelElement exit = element.getRefAttribute("exit");
             state.setExit(delegateRestructuring(exit, Behavior.class));
 
-            log.info("Processing doactivity for State [{}]", id);
+            log.debug("Processing doactivity for State [{}]", id);
             ModelElement doActivity = element.getRefAttribute("doactivity");
             state.setDoActivity(
                     delegateRestructuring(doActivity, Behavior.class));
 
-            log.info("Processing conncetionpoints for State [{}]", id);
+            log.debug("Processing conncetionpoints for State [{}]", id);
             Collection<ModelElement> connectionPoints =
                     (Collection<ModelElement>) element
                             .getSetAttribute("connectionpoints");
@@ -101,6 +102,7 @@ public final class StateRestructurer extends CachingRestructurer<State> {
             state.setSubmachine(
                     delegateRestructuring(submachine, StateMachine.class));
         }
+        log.info("Completed restructuring of State [{}]", id);
         return state;
     }
 }

@@ -47,10 +47,11 @@ public final class EnumerationLiteralRestructurer
         EnumerationLiteral literal = new EnumerationLiteral();
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of EnumerationLiteral [{}]", id);
         literal.setId(id);
-        log.info("Processing name for enumerationliteral [{}]", id);
+        log.debug("Processing name for EnumerationLiteral [{}]", id);
         literal.setName(element.getName());
-
+        log.info("Completed restructuring of EnumerationLiteral [{}]", id);
         return literal;
     }
 }

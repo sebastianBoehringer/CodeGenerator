@@ -47,15 +47,16 @@ public final class PackageImportRestructurer
     public PackageImport restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of PackageImport [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] for packageimport in cache", id);
+            log.info("Found id [{}] for PackageImport in cache", id);
             return processed.get(id);
         }
         PackageImport packageImport = new PackageImportImpl();
         processed.put(id, packageImport);
         packageImport.setId(id);
 
-        log.info("Processing visiblity for packageimport [{}]", id);
+        log.debug("Processing visiblity for PackageImport [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind kind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -63,16 +64,16 @@ public final class PackageImportRestructurer
                         .from(visibility);
         packageImport.setVisibility(kind);
 
-        log.info("Processing importer for packageimport [{}]", id);
+        log.debug("Processing importer for PackageImport [{}]", id);
         ModelElement importer = element.getRefAttribute("importer");
         packageImport.setImportingNamespace(
                 delegateRestructuring(importer, Namespace.class));
 
-        log.info("Processing imported for packageimport [{}]", id);
+        log.debug("Processing imported for PackageImport [{}]", id);
         ModelElement imported = element.getRefAttribute("imported");
         packageImport.setImportedPackage(
                 delegateRestructuring(imported, UMLPackage.class));
-
+        log.info("Completed restructuring of PackageImport [{}]", id);
         return packageImport;
     }
 }

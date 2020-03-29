@@ -34,7 +34,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @Slf4j
-public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
+public final class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing
@@ -49,6 +49,7 @@ public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
     public PrimitiveType restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of PrimitiveType [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found datatype [{}] in cache", id);
             return processed.get(id);
@@ -56,11 +57,11 @@ public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
         PrimitiveType type = new PrimitiveTypeImpl();
         processed.put(id, type);
 
-        log.info("Processing name for PrimitiveType [{}]", id);
+        log.debug("Processing name for PrimitiveType [{}]", id);
         String name = element.getPlainAttribute("name");
         type.setName(name);
 
-        log.info("Processing href for PrimitiveType [{}]", id);
+        log.debug("Processing href for PrimitiveType [{}]", id);
         String href = element.getPlainAttribute("href");
         type.setHref(URI.create(href));
         if (!StringUtils.isEmpty(href) && StringUtils.isEmpty(name)) {
@@ -69,23 +70,23 @@ public class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
             return type;
         }
 
-        log.info("Processing ownedoperations for PrimitiveType [{}]", id);
+        log.debug("Processing ownedoperations for PrimitiveType [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         type.setOwnedOperation(delegateMany(operations, Operation.class));
 
-        log.info("Processing ownedattributes for PrimitiveType [{}]", id);
+        log.debug("Processing ownedattributes for PrimitiveType [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         type.setOwnedAttribute(delegateMany(attributes, Property.class));
 
-        log.info("Processing generalizations for PrimitiveType [{}]", id);
+        log.debug("Processing generalizations for PrimitiveType [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         type.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
-
+        log.info("Completed restructuring of PrimitiveType [{}]", id);
         return type;
     }
 }

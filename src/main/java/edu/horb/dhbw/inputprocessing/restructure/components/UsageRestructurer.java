@@ -46,26 +46,28 @@ public final class UsageRestructurer extends CachingRestructurer<Usage> {
     public Usage restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Usage [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading usage from cache", id);
+            log.info("Found id [{}] in cache, loading Usage from cache", id);
             return processed.get(id);
         }
         Usage usage = new UsageImpl();
         usage.setId(id);
         processed.put(id, usage);
 
-        log.info("Processing client for usage [{}]", id);
+        log.debug("Processing client for Usage [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<NamedElement> client = delegateMany(clients, NamedElement.class);
         usage.setClient(client);
 
-        log.info("Processing supplier for usage [{}]", id);
+        log.debug("Processing supplier for Usage [{}]", id);
         Collection<ModelElement> suppliers =
                 (Collection<ModelElement>) element.getSetAttribute("supplier");
         List<NamedElement> supplier =
                 delegateMany(suppliers, NamedElement.class);
         usage.setSupplier(supplier);
+        log.info("Completed restructuring of Usage [{}]", id);
         return usage;
     }
 }

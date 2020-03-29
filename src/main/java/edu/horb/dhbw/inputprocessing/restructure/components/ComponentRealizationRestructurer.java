@@ -48,25 +48,26 @@ public final class ComponentRealizationRestructurer
             @NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of ComponentRealization [{}]", id);
         ComponentRealization realization = new ComponentRealization();
         realization.setId(id);
 
-        log.info("Processing mapping for componentrealization [{}]", id);
+        log.debug("Processing mapping for ComponentRealization [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
         realization.setMapping(
                 delegateRestructuring(mapping, OpaqueExpression.class));
 
-        log.info("Processing client for componentrealization [{}]", id);
+        log.debug("Processing client for ComponentRealization [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<Classifier> client = delegateMany(clients, Classifier.class);
         realization.setRealizingClassifier(client);
 
-        log.info("Processing component for componentrealization [{}]", id);
+        log.debug("Processing component for ComponentRealization [{}]", id);
         ModelElement component = element.getRefAttribute("component");
         realization.setAbstraction(
                 delegateRestructuring(component, Component.class));
-
+        log.info("Completed restructuring of ComponentRealization [{}]", id);
         return realization;
     }
 }

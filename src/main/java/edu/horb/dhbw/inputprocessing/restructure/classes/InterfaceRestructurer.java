@@ -51,8 +51,9 @@ public final class InterfaceRestructurer
     public Interface restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Interface [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading interface from cache",
+            log.info("Found id [{}] in cache, loading Interface from cache",
                      id);
             return processed.get(id);
         }
@@ -60,41 +61,41 @@ public final class InterfaceRestructurer
         anInterface.setId(id);
         processed.put(id, anInterface);
 
-        log.info("Processing name for interface [{}]", id);
+        log.debug("Processing name for Interface [{}]", id);
         String name = element.getPlainAttribute("name");
         anInterface.setName(name);
 
-        log.info("Processing visibility for interface [{}]", id);
+        log.debug("Processing visibility for Interface [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         anInterface.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        log.info("Processing ownedattributes for interface [{}]", id);
+        log.debug("Processing ownedattributes for Interface [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         anInterface.setOwnedAttribute(delegateMany(attributes, Property.class));
 
-        log.info("Processing ownedoperations for interface [{}]", id);
+        log.debug("Processing ownedoperations for Interface [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         anInterface
                 .setOwnedOperation(delegateMany(operations, Operation.class));
 
-        log.info("Processing nestedclassifiers for interface [{}]", id);
+        log.debug("Processing nestedclassifiers for Interface [{}]", id);
         Collection<ModelElement> nested = (Collection<ModelElement>) element
                 .getSetAttribute("nestedclassifiers");
         List<Classifier> classifiers = delegateMany(nested, Classifier.class);
         anInterface.setNestedClassifier(classifiers);
 
-        log.info("Processing generalizations for interface [{}]", id);
+        log.debug("Processing generalizations for Interface [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         anInterface.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
-
+        log.info("Completed restructuring of Interface [{}]", id);
         return anInterface;
     }
 }

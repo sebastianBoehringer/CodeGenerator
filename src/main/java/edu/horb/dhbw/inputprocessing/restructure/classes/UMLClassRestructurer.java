@@ -64,7 +64,7 @@ public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
 
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
-            log.info("Trying to delegate from class to specialized type "
+            log.debug("Trying to delegate from Class to specialized type "
                              + "for [{}]", umlType);
             Class<? extends UMLClass> aClass =
                     LookupUtil.classFromUMLType(umlType);
@@ -76,93 +76,96 @@ public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
             }
         }
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Class [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading class from cache", id);
+            log.info("Found id [{}] in cache, loading Class from cache", id);
             return processed.get(id);
         }
         UMLClass clazz = new UMLClassImpl();
         clazz.setId(id);
         processed.put(id, clazz);
 
-        log.info("Processing name for class [{}]", id);
+        log.debug("Processing name for Class [{}]", id);
         clazz.setName(element.getName());
 
-        log.info("Processing abstract for class [{}]", id);
+        log.debug("Processing abstract for Class [{}]", id);
         clazz.setIsAbstract(
                 Boolean.valueOf(element.getPlainAttribute("abstract")));
 
-        log.info("Processing leaf for class [{}]", id);
+        log.debug("Processing leaf for Class [{}]", id);
         clazz.setIsFinalSpecialization(
                 Boolean.valueOf(element.getPlainAttribute("leaf")));
 
-        log.info("Processing visibility for class [{}]", id);
+        log.debug("Processing visibility for Class [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         clazz.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        log.info("Processing collaborationuses for class [{}]", id);
+        log.debug("Processing collaborationuses for Class [{}]", id);
         Collection<ModelElement> collaborationUses =
                 (Collection<ModelElement>) element
                         .getSetAttribute("collaborationuses");
         clazz.setCollaborationUse(
                 delegateMany(collaborationUses, CollaborationUse.class));
 
-        log.info("Processing generalization for class [{}]", id);
+        log.debug("Processing generalization for Class [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalization");
         clazz.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
-        log.info("Processing substitution for class [{}]", id);
+        log.debug("Processing substitution for Class [{}]", id);
         Collection<ModelElement> substitutions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("substitution");
         clazz.setSubstitution(delegateMany(substitutions, Substitution.class));
 
-        log.info("Processing ownedattributes for class [{}]", id);
+        log.debug("Processing ownedattributes for Class [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         clazz.setOwnedAttribute(delegateMany(attributes, Property.class));
 
-        log.info("Processing ownedoperations for class [{}]", id);
+        log.debug("Processing ownedoperations for Class [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         clazz.setOwnedOperation(delegateMany(operations, Operation.class));
 
-        log.info("Processing nestedclassifiers for class [{}]", id);
+        log.debug("Processing nestedclassifiers for Class [{}]", id);
         Collection<ModelElement> nestedClassifiers =
                 (Collection<ModelElement>) element
                         .getSetAttribute("nestedclassifiers");
         clazz.setNestedClassifier(
                 delegateMany(nestedClassifiers, Classifier.class));
 
-        log.info("Processing interfacerealizations for class [{}]", id);
+        log.debug("Processing interfacerealizations for Class [{}]", id);
         Collection<ModelElement> interfaceRealizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("interfacerealizations");
         clazz.setInterfaceRealization(delegateMany(interfaceRealizations,
                                                    InterfaceRealization.class));
 
-        log.info("Processing connectors for class [{}]", id);
+        log.debug("Processing connectors for Class [{}]", id);
         Collection<ModelElement> connectors = (Collection<ModelElement>) element
                 .getSetAttribute("connectors");
         clazz.setOwnedConnector(delegateMany(connectors, Connector.class));
 
-        log.info("Processing ownedbehaviors for class [{}]", id);
+        log.debug("Processing ownedbehaviors for Class [{}]", id);
         Collection<ModelElement> behaviors = (Collection<ModelElement>) element
                 .getSetAttribute("ownedbehaviors");
         clazz.setOwnedBehavior(delegateMany(behaviors, Behavior.class));
 
-        log.debug("Processing ownedports for class [{}]", id);
+        log.debug("Processing ownedports for Class [{}]", id);
         Collection<ModelElement> ports = (Collection<ModelElement>) element
                 .getSetAttribute("ownedports");
         clazz.setOwnedPort(delegateMany(ports, Port.class));
         clazz.getOwnedPort().forEach(p -> p.setOwner(clazz));
         clazz.getOwnedOperation().forEach(o -> o.setOwner(clazz));
         clazz.getOwnedAttribute().forEach(a -> a.setOwner(clazz));
+
+        log.info("Completed restructuring of Class [{}]", id);
         return clazz;
     }
 }

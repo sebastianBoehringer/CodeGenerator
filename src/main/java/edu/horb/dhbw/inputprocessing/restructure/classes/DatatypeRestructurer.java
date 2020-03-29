@@ -50,56 +50,57 @@ public final class DatatypeRestructurer extends CachingRestructurer<DataType> {
     public DataType restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of DataType [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading datatype from cache", id);
+            log.info("Found id [{}] in cache, loading DataType from cache", id);
             return processed.get(id);
         }
         DataType dataType = new DataTypeImpl();
         dataType.setId(id);
         processed.put(id, dataType);
 
-        log.info("Processing name for DataType [{}]", id);
+        log.debug("Processing name for DataType [{}]", id);
         dataType.setName(element.getName());
 
-        log.info("Processing abstract for DataType [{}]", id);
+        log.debug("Processing abstract for DataType [{}]", id);
         dataType.setIsAbstract(
                 Boolean.valueOf(element.getPlainAttribute("abstract")));
 
-        log.info("Processing leaf for DataType [{}]", id);
+        log.debug("Processing leaf for DataType [{}]", id);
         dataType.setIsFinalSpecialization(
                 Boolean.valueOf(element.getPlainAttribute("leaf")));
 
-        log.info("Processing visibility for DataType [{}]", id);
+        log.debug("Processing visibility for DataType [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         dataType.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        log.info("Processing generalization for DataType [{}]", id);
+        log.debug("Processing generalization for DataType [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         dataType.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
-        log.info("Processing substitution for DataType [{}]", id);
+        log.debug("Processing substitution for DataType [{}]", id);
         Collection<ModelElement> substitutions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("substitution");
         dataType.setSubstitution(
                 delegateMany(substitutions, Substitution.class));
 
-        log.info("Processing ownedattributes for DataType [{}]", id);
+        log.debug("Processing ownedattributes for DataType [{}]", id);
         Collection<ModelElement> attributes = (Collection<ModelElement>) element
                 .getSetAttribute("ownedattributes");
         dataType.setOwnedAttribute(delegateMany(attributes, Property.class));
 
-        log.info("Processing ownedoperations for DataType [{}]", id);
+        log.debug("Processing ownedoperations for DataType [{}]", id);
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         dataType.setOwnedOperation(delegateMany(operations, Operation.class));
-
+        log.info("Completed restructuring of DataType [{}]", id);
         return dataType;
     }
 }

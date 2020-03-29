@@ -43,8 +43,9 @@ public final class GeneralizationRestructurer
     public Generalization restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Generalization [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading generalization from "
+            log.info("Found id [{}] in cache, loading Generalization from "
                              + "cache", id);
             return processed.get(id);
         }
@@ -52,22 +53,22 @@ public final class GeneralizationRestructurer
         generalization.setId(id);
         processed.put(id, generalization);
 
-        log.info("Processing general for generalization [{}]", id);
+        log.debug("Processing general for Generalization [{}]", id);
         ModelElement general = element.getRefAttribute("general");
         generalization
                 .setGeneral(delegateRestructuring(general, Classifier.class));
 
-        log.info("Processing specific for generalization [{}]", id);
+        log.debug("Processing specific for Generalization [{}]", id);
         ModelElement specific = element.getRefAttribute("specific");
         generalization
                 .setSpecific(delegateRestructuring(specific, Classifier.class));
 
-        log.info("Processing substitutable for generalization [{}]", id);
+        log.debug("Processing substitutable for Generalization [{}]", id);
         String substitutable = element.getPlainAttribute("substitutable");
         generalization.setIsSubstitutable(
                 StringUtils.isEmpty(substitutable) ? Boolean.TRUE : Boolean
                         .valueOf(substitutable));
-
+        log.info("Completed restructuring of Generalization [{}]", id);
         return generalization;
     }
 }

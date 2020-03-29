@@ -48,8 +48,9 @@ public final class RealizationRestructurer
     public Realization restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Realization [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading realization from cache",
+            log.debug("Found id [{}] in cache, loading Realization from cache",
                      id);
             return processed.get(id);
         }
@@ -57,24 +58,24 @@ public final class RealizationRestructurer
         realization.setId(id);
         processed.put(id, realization);
 
-        log.info("Processing mapping for realization [{}]", id);
+        log.debug("Processing mapping for Realization [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
         realization.setMapping(
                 delegateRestructuring(mapping, OpaqueExpression.class));
 
-        log.info("Processing client for realization [{}]", id);
+        log.debug("Processing client for Realization [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<NamedElement> client = delegateMany(clients, NamedElement.class);
         realization.setClient(client);
 
-        log.info("Processing supplier for realization [{}]", id);
+        log.debug("Processing supplier for Realization [{}]", id);
         Collection<ModelElement> suppliers =
                 (Collection<ModelElement>) element.getSetAttribute("supplier");
         List<NamedElement> supplier =
                 delegateMany(suppliers, NamedElement.class);
         realization.setSupplier(supplier);
-
+        log.info("Completed restructuring of Realization [{}]", id);
         return realization;
     }
 }

@@ -46,38 +46,39 @@ public final class RegionRestructurer extends CachingRestructurer<Region> {
     public Region restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Region [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found Region id [{}] in cache", id);
+            log.debug("Found Region id [{}] in cache", id);
             return processed.get(id);
         }
         Region region = new Region();
         processed.put(id, region);
         region.setId(id);
 
-        log.info("Processing name for Region [{}]", id);
+        log.debug("Processing name for Region [{}]", id);
         String name = element.getPlainAttribute("name");
         region.setName(name);
 
-        log.info("Processing subvertices for Region [{}]", id);
+        log.debug("Processing subvertices for Region [{}]", id);
         Collection<ModelElement> vertices = (Collection<ModelElement>) element
                 .getSetAttribute("subvertices");
         region.setSubvertex(delegateMany(vertices, State.class));
 
-        log.info("Processing transitions for Region [{}]", id);
+        log.debug("Processing transitions for Region [{}]", id);
         Collection<ModelElement> transitions =
                 (Collection<ModelElement>) element
                         .getSetAttribute("transitions");
         region.setTransition(delegateMany(transitions, Transition.class));
 
-        log.info("Processing statemachine for Region [{}]", id);
+        log.debug("Processing statemachine for Region [{}]", id);
         ModelElement stateMachine = element.getRefAttribute("statemachine");
         region.setStateMachine(
                 delegateRestructuring(stateMachine, StateMachine.class));
 
-        log.info("Processing state for Region [{}]", id);
+        log.debug("Processing state for Region [{}]", id);
         ModelElement state = element.getRefAttribute("state");
         region.setState(delegateRestructuring(state, State.class));
-
+        log.info("Completed restructuring of Region [{}]", id);
         return region;
     }
 }

@@ -46,39 +46,40 @@ public final class GeneralizationSetRestructurer
     public GeneralizationSet restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of GeneralizationSet [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading generalizationset from "
-                             + "cache", id);
+            log.info("Found id [{}] in cache, loading GeneralizationSet from "
+                              + "cache", id);
             return processed.get(id);
         }
         GeneralizationSet generalizationSet = new GeneralizationSet();
         generalizationSet.setId(id);
         processed.put(id, generalizationSet);
 
-        log.info("Processing name for generalizationset [{}]", id);
+        log.debug("Processing name for GeneralizationSet [{}]", id);
         String name = element.getPlainAttribute("name");
         generalizationSet.setName(name);
 
-        log.info("Processing disjoint for generalizationset [{}]", id);
+        log.debug("Processing disjoint for GeneralizationSet [{}]", id);
         String disjoint = element.getPlainAttribute("disjoint");
         generalizationSet.setIsDisjoint(Boolean.valueOf(disjoint));
 
-        log.info("Processing covering for generalizationset [{}]", id);
+        log.debug("Processing covering for GeneralizationSet [{}]", id);
         String covering = element.getPlainAttribute("covering");
         generalizationSet.setIsCovering(Boolean.valueOf(covering));
 
-        log.info("Processing generalizations for generalizationset [{}]", id);
+        log.debug("Processing generalizations for GeneralizationSet [{}]", id);
         Collection<ModelElement> generalizations =
                 (Collection<ModelElement>) element
                         .getSetAttribute("generalizations");
         generalizationSet.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
 
-        log.info("Processing powertype for generalizationset [{}]", id);
+        log.debug("Processing powertype for GeneralizationSet [{}]", id);
         ModelElement powertype = element.getRefAttribute("powertype");
         generalizationSet.setPowertype(
                 delegateRestructuring(powertype, Classifier.class));
-
+        log.info("Completed restructuring of GeneralizationSet [{}]", id);
         return generalizationSet;
     }
 }

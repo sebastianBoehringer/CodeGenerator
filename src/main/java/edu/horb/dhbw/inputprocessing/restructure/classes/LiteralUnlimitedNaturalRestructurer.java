@@ -43,14 +43,14 @@ public final class LiteralUnlimitedNaturalRestructurer
             @NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-
-        log.info("Processing value for LiteralUnlimitedNatural [{}]", id);
+        log.info("Beginning restructuring of LiteralUnlimitedNatural [{}]", id);
+        log.debug("Processing value for LiteralUnlimitedNatural [{}]", id);
         String value = element.getPlainAttribute("value");
         LiteralUnlimitedNatural unlimitedNatural =
                 new LiteralUnlimitedNatural(new UnlimitedNatural(value));
 
         unlimitedNatural.setId(id);
-
+        log.info("Completed restructuring of LiteralUnlimitedNatural [{}]", id);
         return unlimitedNatural;
     }
 }

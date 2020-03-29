@@ -47,8 +47,9 @@ public final class ConnectorRestructurer
     public Connector restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Connector [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading connector from cache",
+            log.info("Found id [{}] in cache, loading Connector from cache",
                      id);
             return processed.get(id);
         }
@@ -56,15 +57,15 @@ public final class ConnectorRestructurer
         connector.setId(id);
         processed.put(id, connector);
 
-        log.info("Processing type for connector [{}]", id);
+        log.debug("Processing type for Connector [{}]", id);
         ModelElement type = element.getRefAttribute("type");
         connector.setType(delegateRestructuring(type, Association.class));
 
-        log.info("Processing ends for connector [{}]", id);
+        log.debug("Processing ends for Connector [{}]", id);
         Collection<ModelElement> ends =
                 (Collection<ModelElement>) element.getSetAttribute("ends");
         connector.setEnd(delegateMany(ends, ConnectorEnd.class));
-
+        log.info("Completed restructuring of Connector [{}]", id);
         return connector;
     }
 }

@@ -48,49 +48,50 @@ public final class OpaqueBehaviorRestructurer
     public OpaqueBehavior restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of OpaqueBehavior [{}]", id);
         OpaqueBehavior behavior = new OpaqueBehavior();
         behavior.setId(id);
 
-        log.info("Processing body for opaquebehavior [{}]", id);
+        log.debug("Processing body for OpaqueBehavior [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");
         behavior.setBody(new ArrayList<>(body));
 
-        log.info("Processing language of opaquebehavior [{}]", id);
+        log.debug("Processing language of OpaqueBehavior [{}]", id);
         Collection<String> languages =
                 (Collection<String>) element.getSetAttribute("language");
         behavior.setLanguage(new ArrayList<>(languages));
 
-        log.info("Processing reentrant for OpaqueBehavior [{}]", id);
+        log.debug("Processing reentrant for OpaqueBehavior [{}]", id);
         String reentrant = element.getPlainAttribute("reentrant");
         Boolean isReentrant = StringUtils.isEmpty(reentrant) ? Boolean.TRUE
                                                              : Boolean
                                       .valueOf(reentrant);
         behavior.setIsReentrant(isReentrant);
 
-        log.info("Processing parameters for OpaqueBehavior [{}]", id);
+        log.debug("Processing parameters for OpaqueBehavior [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("parameters");
         behavior.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
-        log.info("Processing post for OpaqueBehavior [{}]", id);
+        log.debug("Processing post for OpaqueBehavior [{}]", id);
         Collection<ModelElement> post =
                 (Collection<ModelElement>) element.getSetAttribute("post");
         behavior.setPostcondition(delegateMany(post, Constraint.class));
 
-        log.info("Processing pre for OpaqueBehavior [{}]", id);
+        log.debug("Processing pre for OpaqueBehavior [{}]", id);
         Collection<ModelElement> pre =
                 (Collection<ModelElement>) element.getSetAttribute("pre");
         behavior.setPrecondition(delegateMany(pre, Constraint.class));
 
-        log.info("Processing specification for OpaqueBehavior [{}]", id);
+        log.debug("Processing specification for OpaqueBehavior [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
         behavior.setSpecification(
                 delegateRestructuring(specification, Operation.class));
         if (behavior.getSpecification() != null) {
             behavior.getSpecification().getMethod().add(behavior);
         }
-
+        log.info("Completed restructuring of OpaqueBehavior [{}]", id);
         return behavior;
     }
 }

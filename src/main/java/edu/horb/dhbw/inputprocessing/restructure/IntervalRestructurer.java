@@ -38,14 +38,16 @@ public final class IntervalRestructurer extends BaseRestructurer<Interval> {
     public Interval restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Interval [{}]", id);
         Interval interval = new Interval();
         interval.setId(id);
-        log.info("Processing max for interval [{}] as modelelement", id);
+        log.debug("Processing max for Interval [{}] as modelelement", id);
         ModelElement max = element.getRefAttribute("max");
         interval.setMax(delegateRestructuring(max, ValueSpecification.class));
-        log.info("Processing min for interval [{}] as modelelement", id);
+        log.debug("Processing min for Interval [{}] as modelelement", id);
         ModelElement min = element.getRefAttribute("min");
         interval.setMin(delegateRestructuring(min, ValueSpecification.class));
+        log.info("Completed restructuring of Interval [{}]", id);
         return interval;
     }
 }

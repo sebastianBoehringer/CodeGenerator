@@ -47,8 +47,9 @@ public final class DependencyRestructurer
     public Dependency restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Dependency [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading dependency from cache",
+            log.info("Found id [{}] in cache, loading Dependency from cache",
                      id);
             return processed.get(id);
         }
@@ -56,18 +57,19 @@ public final class DependencyRestructurer
         dependency.setId(id);
         processed.put(id, dependency);
 
-        log.info("Processing client for dependency [{}]", id);
+        log.debug("Processing client for Dependency [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<NamedElement> client = delegateMany(clients, NamedElement.class);
         dependency.setClient(client);
 
-        log.info("Processing supplier for dependency [{}]", id);
+        log.debug("Processing supplier for Dependency [{}]", id);
         Collection<ModelElement> suppliers =
                 (Collection<ModelElement>) element.getSetAttribute("supplier");
         List<NamedElement> supplier =
                 delegateMany(suppliers, NamedElement.class);
         dependency.setSupplier(supplier);
+        log.info("Completed restructuring of Dependency [{}]", id);
         return dependency;
     }
 }

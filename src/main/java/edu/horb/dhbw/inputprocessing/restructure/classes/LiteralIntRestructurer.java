@@ -41,12 +41,13 @@ public final class LiteralIntRestructurer
     public LiteralInteger restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        log.info("Processing value for LiteralInteger [{}]", id);
+        log.info("Beginning restructuring of LiteralInteger [{}]", id);
+        log.debug("Processing value for LiteralInteger [{}]", id);
         String value = element.getPlainAttribute("value");
 
         LiteralInteger literalInteger = LiteralInteger.valueOf(value);
         literalInteger.setId(id);
-
+        log.info("Completed restructuring of LiteralInteger [{}]", id);
         return literalInteger;
     }
 }

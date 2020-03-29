@@ -41,12 +41,13 @@ public final class LiteralRealRestructurer
     public LiteralReal restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        log.info("Processing value for LiteralReal [{}]", id);
+        log.info("Beginning restructuring of LiteralReal [{}]", id);
+        log.debug("Processing value for LiteralReal [{}]", id);
         String value = element.getPlainAttribute("value");
         LiteralReal literalReal = new LiteralReal(Double.valueOf(value));
 
         literalReal.setId(id);
-
+        log.info("Completed restructuring of LiteralReal [{}]", id);
         return literalReal;
     }
 }

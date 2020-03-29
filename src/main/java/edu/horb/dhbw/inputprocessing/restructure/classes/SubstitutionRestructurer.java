@@ -47,8 +47,9 @@ public final class SubstitutionRestructurer
     public Substitution restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Substitution [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading substitution from cache",
+            log.info("Found id [{}] in cache, loading Substitution from cache",
                      id);
             return processed.get(id);
         }
@@ -56,12 +57,12 @@ public final class SubstitutionRestructurer
         substitution.setId(id);
         processed.put(id, substitution);
 
-        log.info("Processing mapping for substitution [{}]", id);
+        log.debug("Processing mapping for Substitution [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
         substitution.setMapping(
                 delegateRestructuring(mapping, OpaqueExpression.class));
 
-        log.info("Processing client for substitution [{}]", id);
+        log.debug("Processing client for Substitution [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<Classifier> client = delegateMany(clients, Classifier.class);
@@ -71,7 +72,7 @@ public final class SubstitutionRestructurer
             log.error("Substitution [{}] has [{}] as substituting classifier/"
                               + " client instead of 1", id, client.size());
         }
-        log.info("Processing supplier for substitution [{}]", id);
+        log.debug("Processing supplier for Substitution [{}]", id);
         Collection<ModelElement> suppliers =
                 (Collection<ModelElement>) element.getSetAttribute("supplier");
         List<Classifier> supplier = delegateMany(suppliers, Classifier.class);
@@ -81,7 +82,7 @@ public final class SubstitutionRestructurer
             log.error("Substitution [{}] has [{}] as contract/"
                               + " supplier instead of 1", id, supplier.size());
         }
-
+        log.info("Completed restructuring of Substitution [{}]", id);
         return substitution;
     }
 }

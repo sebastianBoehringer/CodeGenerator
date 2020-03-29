@@ -41,13 +41,14 @@ public final class LiteralBoolRestructurer
     public LiteralBoolean restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        log.info("Processing value for LiteralBoolean [{}]", id);
+        log.info("Beginning restructuring of LiteralBoolean [{}]", id);
+        log.debug("Processing value for LiteralBoolean [{}]", id);
         String value = element.getPlainAttribute("value");
         LiteralBoolean literalBoolean =
                 new LiteralBoolean(Boolean.valueOf(value));
 
         literalBoolean.setId(id);
-
+        log.info("Completed restructuring of LiteralBoolean [{}]", id);
         return literalBoolean;
     }
 }

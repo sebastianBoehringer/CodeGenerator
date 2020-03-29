@@ -47,10 +47,10 @@ public final class AbstractionRestructurer
 
     @Override
     public Abstraction restructure(@NonNull final ModelElement element) {
-
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Abstraction [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading abstraction from cache",
+            log.info("Found id [{}] in cache, loading Abstraction from cache",
                      id);
             return processed.get(id);
         }
@@ -58,23 +58,24 @@ public final class AbstractionRestructurer
         abstraction.setId(id);
         processed.put(id, abstraction);
 
-        log.info("Processing mapping for abstraction [{}]", id);
+        log.debug("Processing mapping for Abstraction [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
         abstraction.setMapping(
                 delegateRestructuring(mapping, OpaqueExpression.class));
 
-        log.info("Processing client for abstraction [{}]", id);
+        log.debug("Processing client for Abstraction [{}]", id);
         Collection<ModelElement> clients =
                 (Collection<ModelElement>) element.getSetAttribute("client");
         List<NamedElement> client = delegateMany(clients, NamedElement.class);
         abstraction.setClient(client);
 
-        log.info("Processing supplier for abstraction [{}]", id);
+        log.debug("Processing supplier for Abstraction [{}]", id);
         Collection<ModelElement> suppliers =
                 (Collection<ModelElement>) element.getSetAttribute("supplier");
         List<NamedElement> supplier =
                 delegateMany(suppliers, NamedElement.class);
         abstraction.setSupplier(supplier);
+        log.info("Completed restructuring of Abstraction [{}]", id);
         return abstraction;
     }
 }

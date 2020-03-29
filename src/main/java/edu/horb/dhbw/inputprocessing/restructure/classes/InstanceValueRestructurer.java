@@ -42,13 +42,15 @@ public final class InstanceValueRestructurer
     public InstanceValue restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-        log.info("Processing instance for instancevalue [{}]", id);
+        log.info("Beginning restructuring of InstanceValue [{}]", id);
+        log.debug("Processing instance for InstanceValue [{}]", id);
         ModelElement instance = element.getRefAttribute("instance");
         InstanceValue value = new InstanceValue();
         value.setInstance(
                 delegateRestructuring(instance, InstanceSpecification.class));
 
         value.setId(id);
+        log.info("Completed restructuring of InstanceValue [{}]", id);
         return value;
     }
 }

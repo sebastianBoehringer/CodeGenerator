@@ -48,25 +48,26 @@ public final class ModelRestructurer extends CachingRestructurer<Model> {
     public Model restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Model [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] for model in cache", id);
+            log.info("Found id [{}] for Model in cache", id);
             return processed.get(id);
         }
         Model model = new Model();
         processed.put(id, model);
         model.setId(id);
 
-        log.info("Processing name for model [{}]", id);
+        log.debug("Processing name for Model [{}]", id);
         String name = element.getPlainAttribute("name");
         model.setName(name);
 
-        log.info("Processing ownedmember for model [{}]", id);
+        log.debug("Processing ownedmember for Model [{}]", id);
         Collection<ModelElement> members = (Collection<ModelElement>) element
                 .getSetAttribute("ownedmembers");
         model.setOwnedMember(delegateMany(members, NamedElement.class));
         model.setPackagedElement(
                 delegateMany(members, PackageableElement.class));
-        log.info("Processing ownedType for package [{}]", id);
+        log.debug("Processing ownedType for Model [{}]", id);
         model.setOwnedType(model.getPackagedElement().stream()
                                    .filter(p -> p instanceof Type)
                                    .map(p -> (Type) p)
@@ -74,7 +75,7 @@ public final class ModelRestructurer extends CachingRestructurer<Model> {
         for (Type type : model.getOwnedType()) {
             type.setAPackage(model);
         }
-        log.info("Processing nestedPackage for model [{}]", id);
+        log.debug("Processing nestedPackage for Model [{}]", id);
         model.setNestedPackage(model.getPackagedElement().stream()
                                        .filter(p -> p instanceof UMLPackage)
                                        .map(p -> (UMLPackage) p)
@@ -82,6 +83,7 @@ public final class ModelRestructurer extends CachingRestructurer<Model> {
         for (UMLPackage aPackage : model.getNestedPackage()) {
             aPackage.setNestingPackage(model);
         }
+        log.info("Completed restructuring of Model [{}]", id);
         return model;
     }
 }

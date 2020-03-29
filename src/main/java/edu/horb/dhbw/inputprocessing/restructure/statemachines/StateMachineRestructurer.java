@@ -49,6 +49,7 @@ public final class StateMachineRestructurer
     public StateMachine restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of StateMachine [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading StateMachine from cache",
                      id);
@@ -58,46 +59,46 @@ public final class StateMachineRestructurer
         processed.put(id, machine);
         machine.setId(id);
 
-        log.info("Processing name for StateMachine [{}]", id);
+        log.debug("Processing name for StateMachine [{}]", id);
         String name = element.getPlainAttribute("name");
         machine.setName(name);
 
-        log.info("Processing regions for StateMachine [{}]", id);
+        log.debug("Processing regions for StateMachine [{}]", id);
         Collection<ModelElement> regions =
                 (Collection<ModelElement>) element.getSetAttribute("regions");
         machine.setRegion(delegateMany(regions, Region.class));
         machine.getRegion().forEach(r -> r.setStateMachine(machine));
 
-        log.info("Processing reentrant for StateMachine [{}]", id);
+        log.debug("Processing reentrant for StateMachine [{}]", id);
         String reentrant = element.getPlainAttribute("reentrant");
         Boolean isReentrant = StringUtils.isEmpty(reentrant) ? Boolean.TRUE
                                                              : Boolean
                                       .valueOf(reentrant);
         machine.setIsReentrant(isReentrant);
 
-        log.info("Processing parameters for StateMachine [{}]", id);
+        log.debug("Processing parameters for StateMachine [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("parameters");
         machine.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
-        log.info("Processing post for StateMachine [{}]", id);
+        log.debug("Processing post for StateMachine [{}]", id);
         Collection<ModelElement> post =
                 (Collection<ModelElement>) element.getSetAttribute("post");
         machine.setPostcondition(delegateMany(post, Constraint.class));
 
-        log.info("Processing pre for StateMachine [{}]", id);
+        log.debug("Processing pre for StateMachine [{}]", id);
         Collection<ModelElement> pre =
                 (Collection<ModelElement>) element.getSetAttribute("pre");
         machine.setPrecondition(delegateMany(pre, Constraint.class));
 
-        log.info("Processing specification for StateMachine [{}]", id);
+        log.debug("Processing specification for StateMachine [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
         machine.setSpecification(
                 delegateRestructuring(specification, Operation.class));
         if (machine.getSpecification() != null) {
             machine.getSpecification().getMethod().add(machine);
         }
-
+        log.info("Completed restructuring of StateMachine [{}]", id);
         return machine;
     }
 }

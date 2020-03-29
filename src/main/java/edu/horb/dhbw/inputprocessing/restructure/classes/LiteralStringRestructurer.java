@@ -41,13 +41,13 @@ public final class LiteralStringRestructurer
     public LiteralString restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
-
-        log.info("Processing value for LiteralString [{}]", id);
+        log.info("Beginning restructuring of LiteralString [{}]", id);
+        log.debug("Processing value for LiteralString [{}]", id);
         String value = element.getPlainAttribute("value");
         LiteralString literalString = new LiteralString(value);
 
         literalString.setId(id);
-
+        log.info("Completed restructuring of LiteralString [{}]", id);
         return literalString;
     }
 }

@@ -45,8 +45,9 @@ public final class ConnectorEndRestructurer
     public ConnectorEnd restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of ConnectorEnd [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading connectorend from cache",
+            log.info("Found id [{}] in cache, loading ConnectorEnd from cache",
                      id);
             return processed.get(id);
         }
@@ -54,11 +55,11 @@ public final class ConnectorEndRestructurer
         end.setId(id);
         processed.put(id, end);
 
-        log.info("Processing ordered for connectorend [{}]", id);
+        log.debug("Processing ordered for ConnectorEnd [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         end.setIsOrdered(Boolean.valueOf(ordered));
 
-        log.info("Processing unique for connectorend [{}]", id);
+        log.debug("Processing unique for ConnectorEnd [{}]", id);
         String unique = element.getPlainAttribute("unique");
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
@@ -70,20 +71,20 @@ public final class ConnectorEndRestructurer
         }
         end.setIsUnique(isUnique);
 
-        log.info("Processing lower for connectorend [{}]", id);
+        log.debug("Processing lower for ConnectorEnd [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (!StringUtils.isEmpty(lower)) {
             end.setLower(Integer.parseInt(lower));
         }
-        log.info("Processing upper for connectorend [{}]", id);
+        log.debug("Processing upper for ConnectorEnd [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (!StringUtils.isEmpty(upper)) {
             end.setUpper(new UnlimitedNatural(upper));
         }
-        log.info("Processing role for connectorend [{}]", id);
+        log.debug("Processing role for ConnectorEnd [{}]", id);
         ModelElement role = element.getRefAttribute("role");
         end.setRole(delegateRestructuring(role, ConnectableElement.class));
-
+        log.info("Completed restructuring of ConnectorEnd [{}]", id);
         return end;
     }
 

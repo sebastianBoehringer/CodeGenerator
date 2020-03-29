@@ -42,6 +42,7 @@ public final class CommentRestructurer extends CachingRestructurer<Comment> {
     public Comment restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Comment [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading constraint from cache",
                      id);
@@ -51,11 +52,11 @@ public final class CommentRestructurer extends CachingRestructurer<Comment> {
         comment.setId(id);
         processed.put(id, comment);
 
-        log.info("Processing body for comment [{}]", id);
+        log.debug("Processing body for Comment [{}]", id);
         String body = element.getPlainAttribute("body");
         comment.setBody(body);
 
-        log.info("Processing annotated for comment [{}]", id);
+        log.debug("Processing annotated for Comment [{}]", id);
         Collection<ModelElement> annotated =
                 (Collection<ModelElement>) element.getSetAttribute("annotated");
         comment.setAnnotatedElement(delegateMany(annotated, Element.class));
@@ -65,6 +66,7 @@ public final class CommentRestructurer extends CachingRestructurer<Comment> {
                 e.getOwnedComment().add(comment);
             }
         }
+        log.info("Completed restructuring of Comment [{}]", id);
         return comment;
     }
 }

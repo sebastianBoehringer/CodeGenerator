@@ -49,46 +49,48 @@ public final class FunctionBehaviorRestructurer
     public FunctionBehavior restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of FunctionBehavior [{}]", id);
         FunctionBehavior behavior = new FunctionBehavior();
         behavior.setId(id);
 
-        log.info("Processing body for functionbehaviro [{}]", id);
+        log.debug("Processing body for FunctionBehavior [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");
         behavior.setBody(new ArrayList<>(body));
 
-        log.info("Processing language of functionbehavior [{}]", id);
+        log.debug("Processing language of FunctionBehavior [{}]", id);
         Collection<String> languages =
                 (Collection<String>) element.getSetAttribute("language");
         behavior.setLanguage(new ArrayList<>(languages));
 
-        log.info("Processing reentrant for StateMachine [{}]", id);
+        log.debug("Processing reentrant for FunctionBehavior [{}]", id);
         String reentrant = element.getPlainAttribute("reentrant");
         Boolean isReentrant = StringUtils.isEmpty(reentrant) ? Boolean.TRUE
                                                              : Boolean
                                       .valueOf(reentrant);
         behavior.setIsReentrant(isReentrant);
 
-        log.info("Processing parameters for StateMachine [{}]", id);
+        log.debug("Processing parameters for FunctionBehavior [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("parameters");
         behavior.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
-        log.info("Processing post for StateMachine [{}]", id);
+        log.debug("Processing post for FunctionBehavior [{}]", id);
         Collection<ModelElement> post =
                 (Collection<ModelElement>) element.getSetAttribute("post");
         behavior.setPostcondition(delegateMany(post, Constraint.class));
 
-        log.info("Processing pre for StateMachine [{}]", id);
+        log.debug("Processing pre for FunctionBehavior [{}]", id);
         Collection<ModelElement> pre =
                 (Collection<ModelElement>) element.getSetAttribute("pre");
         behavior.setPrecondition(delegateMany(pre, Constraint.class));
 
-        log.info("Processing specification for StateMachine [{}]", id);
+        log.debug("Processing specification for FunctionBehavior [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");
         behavior.setSpecification(
                 delegateRestructuring(specification, Operation.class));
 
+        log.info("Completed restructuring of FunctionBehavior [{}]", id);
         return behavior;
     }
 }

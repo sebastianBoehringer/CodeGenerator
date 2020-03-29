@@ -50,26 +50,27 @@ public final class PortRestructurer extends BaseRestructurer<Port> {
     @Override
     public Port restructure(final @NonNull ModelElement element) {
 
-        Port port = new Port();
         String id = element.getXMIID();
-        log.debug("Processing id for port [{}]", id);
+        log.info("Beginning restructuring of Port [{}]", id);
+        log.debug("Processing id for Port [{}]", id);
+        Port port = new Port();
         port.setId(id);
 
-        log.debug("Processing name for port [{}]", id);
+        log.debug("Processing name for Port [{}]", id);
         String name = element.getPlainAttribute("name");
         port.setName(name);
-        log.debug("Processing visibility for port [{}]", id);
+        log.debug("Processing visibility for Port [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         port.setVisibility(
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
                                                 : VisibilityKind
                         .from(visibility));
 
-        log.debug("Processing ordered for port [{}]", id);
+        log.debug("Processing ordered for Port [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
         port.setIsOrdered(Boolean.valueOf(ordered));
 
-        log.debug("Processing unique for port [{}]", id);
+        log.debug("Processing unique for Port [{}]", id);
         String unique = element.getPlainAttribute("unique");
         //Default value for isUnique is true, see uml specification subclause
         // 7.8.8
@@ -81,29 +82,29 @@ public final class PortRestructurer extends BaseRestructurer<Port> {
         }
         port.setIsUnique(isUnique);
 
-        log.debug("Processing lower for port [{}]", id);
+        log.debug("Processing lower for Port [{}]", id);
         String lower = element.getPlainAttribute("lower");
         if (!StringUtils.isEmpty(lower)) {
             port.setLower(Integer.parseInt(lower));
         }
 
-        log.debug("Processing upper for port [{}]", id);
+        log.debug("Processing upper for Port [{}]", id);
         String upper = element.getPlainAttribute("upper");
         if (!StringUtils.isEmpty(upper)) {
             port.setUpper(new UnlimitedNatural(upper));
         }
 
-        log.debug("Processing lowerValue for port [{}]", id);
+        log.debug("Processing lowerValue for Port [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");
         port.setLowerValue(
                 delegateRestructuring(lowerValue, ValueSpecification.class));
 
-        log.debug("Processing upperValue for port [{}]", id);
+        log.debug("Processing upperValue for Port [{}]", id);
         ModelElement upperValue = element.getRefAttribute("upperValue");
         port.setUpperValue(
                 delegateRestructuring(upperValue, ValueSpecification.class));
 
-        log.debug("Processing porttype for port [{}]", id);
+        log.debug("Processing porttype for Port [{}]", id);
         ModelElement type = element.getRefAttribute("porttype");
         if (type == null) {
             String primitive = element.getPlainAttribute("href");
@@ -111,37 +112,37 @@ public final class PortRestructurer extends BaseRestructurer<Port> {
         } else {
             port.setType(delegateRestructuring(type, Type.class));
         }
-        log.debug("Processing isreadonly for port [{}]", id);
+        log.debug("Processing isreadonly for Port [{}]", id);
         String readOnly = element.getPlainAttribute("isreadonly");
         port.setIsReadOnly(Boolean.valueOf(readOnly));
 
-        log.debug("Processing association for port [{}]", id);
+        log.debug("Processing association for Port [{}]", id);
         ModelElement association = element.getRefAttribute("association");
         port.setAssociation(
                 delegateRestructuring(association, Association.class));
 
-        log.debug("Processing aggregation for port [{}]", id);
+        log.debug("Processing aggregation for Port [{}]", id);
         String aggregation = element.getPlainAttribute("aggregation");
         port.setAggregation(
                 StringUtils.isEmpty(aggregation) ? AggregationKind.NONE
                                                  : AggregationKind
                         .from(aggregation));
 
-        log.debug("Processing qualifiers for port [{}]", id);
+        log.debug("Processing qualifiers for Port [{}]", id);
         Collection<ModelElement> qualifiers = (Collection<ModelElement>) element
                 .getSetAttribute("qualifiers");
         port.setQualifier(delegateMany(qualifiers, Property.class));
 
-        log.debug("Processing default for port [{}]", id);
+        log.debug("Processing default for Port [{}]", id);
         ModelElement defaultValue = element.getRefAttribute("default");
         port.setDefaultValue(
                 delegateRestructuring(defaultValue, ValueSpecification.class));
 
-        log.debug("Processing static for port [{}]", id);
+        log.debug("Processing static for Port [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         port.setIsStatic(Boolean.valueOf(isStatic));
 
-        log.debug("Processing service for port [{}]", id);
+        log.debug("Processing service for Port [{}]", id);
         String service = element.getPlainAttribute("service");
         boolean isService;
         if (StringUtils.isEmpty(service)) {
@@ -151,14 +152,14 @@ public final class PortRestructurer extends BaseRestructurer<Port> {
         }
         port.setIsService(isService);
 
-        log.debug("Processing conjugated for port [{}]", id);
+        log.debug("Processing conjugated for Port [{}]", id);
         String conjugated = element.getPlainAttribute("conjugated");
         port.setIsConjugated(Boolean.parseBoolean(conjugated));
 
-        log.debug("Processing behavior for port [{}]", id);
+        log.debug("Processing behavior for Port [{}]", id);
         String behavior = element.getPlainAttribute("behavior");
         port.setIsBehavior(Boolean.parseBoolean(behavior));
-
+        log.info("Completed restructuring of Port [{}]", id);
         return port;
     }
 }

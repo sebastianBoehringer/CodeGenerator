@@ -51,8 +51,9 @@ public final class OperationRestructurer
     public Operation restructure(@NonNull final ModelElement element) {
 
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Operation [{}]", id);
         if (processed.containsKey(id)) {
-            log.info("Found id [{}] in cache, loading operation from cache",
+            log.info("Found id [{}] in cache, loading Operation from cache",
                      id);
             return processed.get(id);
         }
@@ -60,17 +61,17 @@ public final class OperationRestructurer
         operation.setId(id);
         processed.put(id, operation);
 
-        log.info("Processing name for operation [{}]", id);
+        log.debug("Processing name for Operation [{}]", id);
         String name = element.getPlainAttribute("name");
         operation.setName(name);
 
-        log.info("Processing static for operation [{}]", id);
+        log.debug("Processing static for Operation [{}]", id);
         String isStatic = element.getPlainAttribute("static");
         operation.setIsStatic(Boolean.valueOf(isStatic));
 
         //there is no default visibility for operations in the uml
         // specification. Here, public is used
-        log.info("Processing visibility for operation [{}]", id);
+        log.debug("Processing visibility for Operation [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind visibilityKind =
                 StringUtils.isEmpty(visibility) ? VisibilityKind.PUBLIC
@@ -78,36 +79,36 @@ public final class OperationRestructurer
                         .from(visibility);
         operation.setVisibility(visibilityKind);
 
-        log.info("Processing abstract for operation [{}]", id);
+        log.debug("Processing abstract for Operation [{}]", id);
         String isAbstract = element.getPlainAttribute("abstract");
         operation.setIsAbstract(Boolean.valueOf(isAbstract));
 
-        log.info("Processing isquery for operation [{}]", id);
+        log.debug("Processing isquery for Operation [{}]", id);
         String query = element.getPlainAttribute("isquery");
         operation.setIsQuery(Boolean.valueOf(query));
 
-        log.info("Processing ownedparameters for operation [{}]", id);
+        log.debug("Processing ownedparameters for Operation [{}]", id);
         Collection<ModelElement> parameters = (Collection<ModelElement>) element
                 .getSetAttribute("ownedparameters");
         operation.setOwnedParameter(delegateMany(parameters, Parameter.class));
 
-        log.info("Processing concurrency for operation [{}]", id);
+        log.debug("Processing concurrency for Operation [{}]", id);
         String concurrency = element.getPlainAttribute("concurrency");
         CallConcurrencyKind concurrencyKind = StringUtils.isEmpty(concurrency)
                                               ? CallConcurrencyKind.SEQUENTIAL
                                               : CallConcurrencyKind
                                                       .from(concurrency);
         operation.setConcurrency(concurrencyKind);
-        log.info("Processing exceptions for operation [{}]", id);
+        log.debug("Processing exceptions for Operation [{}]", id);
         Collection<ModelElement> exceptions = (Collection<ModelElement>) element
                 .getSetAttribute("exceptions");
         operation.setRaisedException(delegateMany(exceptions, Type.class));
 
-        log.info("Processing bodycondition for operation [{}]", id);
+        log.debug("Processing bodycondition for Operation [{}]", id);
         ModelElement bodyCondition = element.getRefAttribute("bodycondition");
         operation.setBodyCondition(
                 delegateRestructuring(bodyCondition, Constraint.class));
-
+        log.info("Completed restructuring of Operation [{}]", id);
         return operation;
     }
 }

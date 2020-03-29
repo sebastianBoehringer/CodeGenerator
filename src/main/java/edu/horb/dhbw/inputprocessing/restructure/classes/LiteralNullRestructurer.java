@@ -41,8 +41,10 @@ public final class LiteralNullRestructurer
     public LiteralNull restructure(@NonNull final ModelElement element) {
 
         LiteralNull literalNull = new LiteralNull();
-        literalNull.setId(element.getXMIID());
-        log.info("Processed  LiteralNull [{}]", element.getXMIID());
+        String id = element.getXMIID();
+        log.info("Beginning restructuring of LiteralNull [{}]", id);
+        literalNull.setId(id);
+        log.info("Completed restructuring of LiteralNull [{}]", id);
         return literalNull;
     }
 }

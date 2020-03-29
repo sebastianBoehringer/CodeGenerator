@@ -65,6 +65,7 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
             }
         }
         String id = element.getXMIID();
+        log.info("Beginning restructuring of Package [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] for package in cache", id);
             return processed.get(id);
@@ -73,11 +74,11 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         processed.put(id, umlPackage);
         umlPackage.setId(id);
 
-        log.info("Processing name for package [{}]", id);
+        log.debug("Processing name for Package [{}]", id);
         String name = element.getPlainAttribute("name");
         umlPackage.setName(name);
 
-        log.info("Processing ownedmember for package [{}]", id);
+        log.debug("Processing ownedmember for Package [{}]", id);
         Collection<ModelElement> members = (Collection<ModelElement>) element
                 .getSetAttribute("ownedmembers");
         umlPackage.setPackagedElement(
@@ -85,7 +86,7 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         umlPackage.getPackagedElement().removeIf(Objects::isNull);
         umlPackage.getPackagedElement().forEach(m -> m.setOwner(umlPackage));
 
-        log.info("Processing ownedType for package [{}]", id);
+        log.debug("Processing ownedType for Package [{}]", id);
         umlPackage.setOwnedType(umlPackage.getPackagedElement().stream()
                                         .filter(p -> p instanceof Type)
                                         .map(p -> (Type) p)
@@ -93,7 +94,7 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         for (Type type : umlPackage.getOwnedType()) {
             type.setAPackage(umlPackage);
         }
-        log.info("Processing nestedPackage for package [{}]", id);
+        log.debug("Processing nestedPackage for Package [{}]", id);
         umlPackage.setNestedPackage(umlPackage.getPackagedElement().stream()
                                             .filter(p -> p instanceof UMLPackage)
                                             .map(p -> (UMLPackage) p)
@@ -101,6 +102,7 @@ public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
         for (UMLPackage aPackage : umlPackage.getNestedPackage()) {
             aPackage.setNestingPackage(umlPackage);
         }
+        log.info("Completed restructuring of Package [{}]", id);
         return umlPackage;
     }
 }

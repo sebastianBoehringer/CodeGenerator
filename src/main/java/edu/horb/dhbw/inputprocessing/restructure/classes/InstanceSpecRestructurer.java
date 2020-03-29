@@ -26,6 +26,7 @@ import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,9 +54,9 @@ public final class InstanceSpecRestructurer
     public InstanceSpecification restructure(
             @NonNull final ModelElement element) {
 
-        String type = element.getType().getName();
+        String type = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(type)) {
-            log.info("Trying to delegate from InstanceSpecification to "
+            log.debug("Trying to delegate from InstanceSpecification to "
                              + "specialized type [{}]", type);
             Class<? extends InstanceSpecification> aClass =
                     LookupUtil.instanceSpecFromUMLType(type);
@@ -67,6 +68,7 @@ public final class InstanceSpecRestructurer
             }
         }
         String id = element.getXMIID();
+        log.info("Beginning restructuring of InstanceSpecification [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading instancespecification "
                              + "from cache", id);
@@ -76,27 +78,28 @@ public final class InstanceSpecRestructurer
         processed.put(id, specification);
         specification.setId(id);
 
-        log.info("Processing name for instancespecification [{}]", id);
+        log.debug("Processing name for InstanceSpecification [{}]", id);
         String name = element.getPlainAttribute("name");
         specification.setName(name);
 
-        log.info("Processing classifier for instancespecification [{}]", id);
+        log.debug("Processing classifier for InstanceSpecification [{}]", id);
         Collection<ModelElement> classifiers =
                 (Collection<ModelElement>) element
                         .getSetAttribute("classifier");
         specification
                 .setClassifier(delegateMany(classifiers, Classifier.class));
 
-        log.info("Processing slots for instancespecification [{}]", id);
+        log.debug("Processing slots for InstanceSpecification [{}]", id);
         Collection<ModelElement> slots =
                 (Collection<ModelElement>) element.getSetAttribute("slots");
         specification.setSlot(delegateMany(slots, Slot.class));
 
-        log.info("Processing specification for instancespecification [{}]", id);
+        log.debug("Processing specification for InstanceSpecification [{}]",
+                  id);
         ModelElement spec = element.getRefAttribute("specification");
         specification.setSpecification(
                 delegateRestructuring(spec, ValueSpecification.class));
-
+        log.info("Completed restructuring of InstanceSpecification [{}]", id);
         return specification;
     }
 }
