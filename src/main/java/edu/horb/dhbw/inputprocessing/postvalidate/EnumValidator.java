@@ -21,9 +21,11 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 
 import java.util.Optional;
 
+@EqualsAndHashCode(callSuper = true)
 public class EnumValidator extends TypeValidator {
     /**
      * If {@code true} enums are allowed to implement interfaces, otherwise

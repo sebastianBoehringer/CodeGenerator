@@ -20,7 +20,9 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 public class InterfaceValidator extends TypeValidator {
     public InterfaceValidator(final int upperLimit,
                               final FirstLetter nameStart) {

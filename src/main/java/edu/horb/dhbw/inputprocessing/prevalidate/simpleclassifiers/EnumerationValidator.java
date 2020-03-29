@@ -22,7 +22,9 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public final class EnumerationValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

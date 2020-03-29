@@ -22,8 +22,10 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.Namespace;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
+@EqualsAndHashCode
 public final class NamespaceValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

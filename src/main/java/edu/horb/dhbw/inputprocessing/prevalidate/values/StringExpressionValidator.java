@@ -22,10 +22,12 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.values.LiteralString;
 import edu.horb.dhbw.datacore.uml.values.StringExpression;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
 import java.util.Optional;
 
+@EqualsAndHashCode
 public final class StringExpressionValidator implements IPreValidator {
 
     @Override

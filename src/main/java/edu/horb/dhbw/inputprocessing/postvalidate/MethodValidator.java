@@ -20,8 +20,10 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
+@EqualsAndHashCode(callSuper = true)
 public class MethodValidator extends NamingValidator {
     public MethodValidator(final FirstLetter nameStart) {
 

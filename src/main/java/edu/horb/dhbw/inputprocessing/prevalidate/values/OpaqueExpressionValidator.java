@@ -24,11 +24,13 @@ import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode
 public final class OpaqueExpressionValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

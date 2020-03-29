@@ -21,10 +21,12 @@ import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Element;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
 import java.util.List;
 
+@EqualsAndHashCode
 public final class ElementValidator implements IPreValidator {
 
     @Override

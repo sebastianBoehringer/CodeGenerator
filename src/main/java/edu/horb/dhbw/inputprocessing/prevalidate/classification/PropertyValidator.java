@@ -21,8 +21,10 @@ import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
+@EqualsAndHashCode
 public final class PropertyValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

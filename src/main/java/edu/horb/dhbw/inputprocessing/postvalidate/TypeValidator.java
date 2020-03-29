@@ -21,7 +21,9 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 public abstract class TypeValidator extends NamingValidator {
     /**
      * The number of classes the class is allowed to extend.

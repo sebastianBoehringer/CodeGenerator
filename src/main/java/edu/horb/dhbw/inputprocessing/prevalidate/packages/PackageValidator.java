@@ -23,7 +23,9 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public final class PackageValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

@@ -22,11 +22,13 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.InstanceSpecification;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode
 public final class InstanceSpecificationValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

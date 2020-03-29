@@ -23,8 +23,10 @@ import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 import org.thymeleaf.util.ListUtils;
 
+@EqualsAndHashCode
 public final class StateMachineValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

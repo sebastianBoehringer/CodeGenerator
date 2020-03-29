@@ -19,7 +19,9 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public abstract class NamingValidator implements IPostValidator {
     /**
      * Determines how the name of the element to validate has to start.

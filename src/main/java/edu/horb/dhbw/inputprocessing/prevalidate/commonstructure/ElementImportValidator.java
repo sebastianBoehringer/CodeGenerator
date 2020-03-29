@@ -22,7 +22,9 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public final class ElementImportValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

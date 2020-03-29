@@ -21,9 +21,11 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 
 import java.util.Optional;
 
+@EqualsAndHashCode(callSuper = true)
 public class ClassValidator extends TypeValidator {
 
     public ClassValidator(final int upperLimit, final FirstLetter nameStart) {

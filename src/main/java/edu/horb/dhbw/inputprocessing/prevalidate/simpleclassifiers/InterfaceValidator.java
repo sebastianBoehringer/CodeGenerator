@@ -23,10 +23,12 @@ import edu.horb.dhbw.datacore.uml.classification.Feature;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 public final class InterfaceValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

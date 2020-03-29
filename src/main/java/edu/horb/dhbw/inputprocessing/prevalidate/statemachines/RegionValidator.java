@@ -23,10 +23,12 @@ import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode
 public final class RegionValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {

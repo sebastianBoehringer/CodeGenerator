@@ -20,7 +20,9 @@ package edu.horb.dhbw.inputprocessing.postvalidate;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.Pair;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 public class PackageValidator extends NamingValidator {
     public PackageValidator(final FirstLetter nameStart) {
 

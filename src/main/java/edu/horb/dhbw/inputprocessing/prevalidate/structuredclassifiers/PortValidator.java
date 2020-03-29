@@ -24,7 +24,9 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.EncapsulatedClassifier;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public final class PortValidator implements IPreValidator {
     @Override
     public boolean canValidate(final XMIElement base) {
