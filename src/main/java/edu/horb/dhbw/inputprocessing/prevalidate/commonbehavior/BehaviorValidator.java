@@ -36,14 +36,14 @@ public final class BehaviorValidator implements IPreValidator {
 
         Behavior behavior = (Behavior) base;
         //TODO constraint most_one_behavior is not checked
-        if (behavior.getSpecification() != null
+        /*if (behavior.getSpecification() != null
                 && behavior.getOwnedParameter().size() != behavior
                 .getSpecification().getOwnedParameter().size()) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Behavior [%s] does not own the same amount of "
                             + "parameters as its specification",
                     behavior.getId()));
-        }
+        }*/
         //TODO constraint feature_of_context_classifier
         return VALID;
     }
