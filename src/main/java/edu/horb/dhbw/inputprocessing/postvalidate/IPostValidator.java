@@ -28,7 +28,7 @@ import edu.horb.dhbw.inputprocessing.prevalidate.IPreValidator;
  * asserted in {@link #canValidate(OOBase)}. By not calling
  * {@link #canValidate(OOBase)} beforehand the caller willingly takes the
  * risk of causing exceptions that could have been prevented.
- * <p/>
+ * <p>
  * To ease the managing of validators of an
  * {@link edu.horb.dhbw.inputprocessing.IModelProcessor} it is recommended
  * that every implementing class of this interface overwrites
