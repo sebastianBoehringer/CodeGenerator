@@ -65,7 +65,7 @@ public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.debug("Trying to delegate from Class to specialized type "
-                             + "for [{}]", umlType);
+                              + "for [{}]", umlType);
             Class<? extends UMLClass> aClass =
                     LookupUtil.classFromUMLType(umlType);
             if (aClass == null) {

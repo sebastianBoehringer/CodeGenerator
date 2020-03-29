@@ -57,7 +57,7 @@ public final class InstanceSpecRestructurer
         String type = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(type)) {
             log.debug("Trying to delegate from InstanceSpecification to "
-                             + "specialized type [{}]", type);
+                              + "specialized type [{}]", type);
             Class<? extends InstanceSpecification> aClass =
                     LookupUtil.instanceSpecFromUMLType(type);
             if (aClass == null) {

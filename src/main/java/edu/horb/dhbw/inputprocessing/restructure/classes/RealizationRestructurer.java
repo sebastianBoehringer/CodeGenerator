@@ -51,7 +51,7 @@ public final class RealizationRestructurer
         log.info("Beginning restructuring of Realization [{}]", id);
         if (processed.containsKey(id)) {
             log.debug("Found id [{}] in cache, loading Realization from cache",
-                     id);
+                      id);
             return processed.get(id);
         }
         Realization realization = new RealizationImpl();

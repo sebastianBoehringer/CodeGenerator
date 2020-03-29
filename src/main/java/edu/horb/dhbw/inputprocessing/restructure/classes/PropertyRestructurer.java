@@ -61,7 +61,7 @@ public final class PropertyRestructurer extends CachingRestructurer<Property> {
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.debug("Trying to delegate from property to specialized type for"
-                             + " [{}]", umlType);
+                              + " [{}]", umlType);
 
             Class<? extends Property> toRestructure =
                     LookupUtil.propertyFromUMLType(umlType);

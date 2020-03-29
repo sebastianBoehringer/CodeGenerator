@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TransformerRegistry {
+public final class TransformerRegistry {
     /**
      * The map storing all the {@link ITransformer}s this registry knows.
      */

@@ -204,6 +204,30 @@ public final class XMIModelProcessor implements IModelProcessor {
     }
 
     @Override
+    public void addPreValidator(final IPreValidator preValidator) {
+
+        preValidators.add(preValidator);
+    }
+
+    @Override
+    public void removePreValidator(final IPreValidator preValidator) {
+
+        preValidators.remove(preValidator);
+    }
+
+    @Override
+    public void addPostValidator(final IPostValidator postValidator) {
+
+        postValidators.add(postValidator);
+    }
+
+    @Override
+    public void removePostValidator(final IPostValidator postValidator) {
+
+        postValidators.remove(postValidator);
+    }
+
+    @Override
     public void parseModel(final @NonNull Path modelLocation)
             throws ModelParseException, ModelValidationException {
 
@@ -352,29 +376,5 @@ public final class XMIModelProcessor implements IModelProcessor {
             collected.addAll(e.getMethods());
         });
         return collected;
-    }
-
-    @Override
-    public void addPreValidator(final IPreValidator preValidator) {
-
-        preValidators.add(preValidator);
-    }
-
-    @Override
-    public void removePreValidator(final IPreValidator preValidator) {
-
-        preValidators.remove(preValidator);
-    }
-
-    @Override
-    public void addPostValidator(final IPostValidator postValidator) {
-
-        postValidators.add(postValidator);
-    }
-
-    @Override
-    public void removePostValidator(final IPostValidator postValidator) {
-
-        postValidators.remove(postValidator);
     }
 }

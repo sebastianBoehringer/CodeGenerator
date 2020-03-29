@@ -48,6 +48,7 @@ public interface IModelProcessor {
      * @param preValidator The preValidator to remove
      */
     void removePreValidator(IPreValidator preValidator);
+
     /**
      * Adds a new {@link IPostValidator} to the processor.
      * This gives the implementation the choice of storage. An implementation
@@ -56,6 +57,7 @@ public interface IModelProcessor {
      * @param postValidator The postvalidator to add
      */
     void addPostValidator(IPostValidator postValidator);
+
     /**
      * Removes the given {@link IPostValidator} so that it is not used to
      * validate {@link edu.horb.dhbw.datacore.uml.XMIElement}s anymore.

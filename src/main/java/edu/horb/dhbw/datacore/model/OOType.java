@@ -89,6 +89,13 @@ public class OOType extends OOBase {
                 + getName();
     }
 
+    @Override
+    public String toString() {
+
+        return String.format("%s: name=%s id=%s", type.toString(), getName(),
+                             getId());
+    }
+
     public enum Type {
         /**
          * Designates this {@link OOType} as an Interface.
@@ -106,13 +113,6 @@ public class OOType extends OOBase {
          * Designates this {@link OOType} as a primitive Type.
          */
         PRIMITIVE;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format("%s: name=%s id=%s", type.toString(), getName(),
-                             getId());
     }
 
 }

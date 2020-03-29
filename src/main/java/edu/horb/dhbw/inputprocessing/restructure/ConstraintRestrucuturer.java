@@ -54,7 +54,7 @@ public final class ConstraintRestrucuturer
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.debug("Trying to delegate from Constraint to specialized type "
-                             + "for [{}]", umlType);
+                              + "for [{}]", umlType);
             Class<? extends Constraint> aClass =
                     LookupUtil.constraintFromUMLType(umlType);
             if (aClass == null) {

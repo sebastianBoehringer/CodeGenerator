@@ -47,6 +47,7 @@ public final class AbstractionRestructurer
 
     @Override
     public Abstraction restructure(@NonNull final ModelElement element) {
+
         String id = element.getXMIID();
         log.info("Beginning restructuring of Abstraction [{}]", id);
         if (processed.containsKey(id)) {

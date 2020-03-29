@@ -34,7 +34,8 @@ import java.net.URI;
 import java.util.Collection;
 
 @Slf4j
-public final class PrimitiveRestructurer extends CachingRestructurer<PrimitiveType> {
+public final class PrimitiveRestructurer
+        extends CachingRestructurer<PrimitiveType> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing
