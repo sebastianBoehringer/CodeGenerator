@@ -22,7 +22,9 @@
           </doActivity>
         </subvertex>
         <subvertex xmi:type="uml:State" xmi:id="_7iO4AGqOEeqHTeM9ldx_DA" name="B" submachine="_HqzzYGqPEeqHTeM9ldx_DA"/>
-        <subvertex xmi:type="uml:State" xmi:id="_7yru0GqOEeqHTeM9ldx_DA" name="X"/>
+        <subvertex xmi:type="uml:State" xmi:id="_7yru0GqOEeqHTeM9ldx_DA" name="X">
+          <entry xmi:type="uml:StateMachine" xmi:id="_3dauAG-MEeq3IoQM7Zj-zA" name="MadLad" specification="_vc8hMGqOEeqHTeM9ldx_DA"/>
+        </subvertex>
         <subvertex xmi:type="uml:Pseudostate" xmi:id="_8GYG4GqOEeqHTeM9ldx_DA" name="Begin"/>
         <subvertex xmi:type="uml:FinalState" xmi:id="_8aZ2IGqOEeqHTeM9ldx_DA" name="End"/>
       </region>
@@ -38,7 +40,10 @@
         <subvertex xmi:type="uml:State" xmi:id="_J6JYwGqPEeqHTeM9ldx_DA" name="Gamma"/>
       </region>
     </ownedBehavior>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_vc8hMGqOEeqHTeM9ldx_DA" name="doSomething" method="_1OYUUGqOEeqHTeM9ldx_DA"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_vc8hMGqOEeqHTeM9ldx_DA" name="doSomething" method="_1OYUUGqOEeqHTeM9ldx_DA _3dauAG-MEeq3IoQM7Zj-zA"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_wkeJ8GqOEeqHTeM9ldx_DA" name="smallHelper" visibility="private" method="_HqzzYGqPEeqHTeM9ldx_DA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_OZiUwHJcEeqeBLC67jDREA" name="thePackage">
+    <realization xmi:type="uml:ComponentRealization" xmi:id="_WDVXsHJcEeqeBLC67jDREA" client="_tV244GqOEeqHTeM9ldx_DA" supplier="_OZiUwHJcEeqeBLC67jDREA"/>
   </packagedElement>
 </uml:Model>
