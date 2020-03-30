@@ -64,35 +64,22 @@ public final class OOLogicTransformer
     @Override
     protected OOLogic doTransformation(final @NonNull StateMachine element) {
 
-        if (element.getRegion().size() == 1) {
-            State startState =
-                    element.getRegion().get(0).getSubvertex().stream()
-                            .filter(v -> v.getKind()
-                                    .equals(PseudostateKind.INITIAL))
-                            .findFirst().orElse(null);
-            if (startState == null) {
-                throw new IllegalArgumentException(String.format(
-                        "Statemachine %s has a single region but no initial "
-                                + "state", element.getId()));
-            }
-            Pair<State, List<IStatement>> pair =
-                    handleIsolatedProgression(startState);
-            if (!pair.first().getKind().isTerminating()) {
-                throw new IllegalArgumentException(
-                        "A statemachine with a single region "
-                                + "should not have pseudostates "
-                                + "of types join or fork as they serve "
-                                + "no purpose");
-            }
-            return new OOLogic(pair.second());
-        }
         List<State> activeStates = findInitialStates(element);
         List<IStatement> statementList = new ArrayList<>();
         ParallelStatement leftOver = new ParallelStatement(new ArrayList<>());
         for (State ignored : activeStates) {
             leftOver.getParallel().add(new ArrayList<>());
         }
-        while (true) {
+        Pair<State, List<IStatement>> pair;
+        for (int i = 0; i < activeStates.size(); i++) {
+            pair = handleIsolatedProgression(activeStates.get(i));
+            leftOver.getParallel().get(i).addAll(pair.second());
+            if (!pair.first().getKind().isTerminating()) {
+                log.error("Returned with a nonterminating state");
+            }
+        }
+        statementList.add(leftOver);
+        /*while (!ListUtils.isEmpty(activeStates)) {
             Pair<State, ParallelStatement> pair = handleParallel(activeStates);
             for (int i = 0; i < pair.second().getParallel().size(); i++) {
                 leftOver.getParallel().get(i)
@@ -116,7 +103,7 @@ public final class OOLogicTransformer
                             extractTransitionBehavior(transition)));
                 }
             }
-        }
+        }*/
 
         return new OOLogic(IStatements.deepFlatten(statementList));
     }
