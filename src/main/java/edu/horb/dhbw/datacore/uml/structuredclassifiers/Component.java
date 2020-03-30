@@ -62,4 +62,9 @@ public final class Component extends UMLClassImpl {
      */
     private List<Interface> required = new ArrayList<>();
 
+    @Override
+    public String toString() {
+
+        return "Component[ id=" + getId() + ", name=" + getName() + "]";
+    }
 }
