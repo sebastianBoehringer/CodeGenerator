@@ -24,6 +24,7 @@ import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -75,7 +76,7 @@ public class OperationRestructurerTest extends BaseRestructurerTest {
     public void isRegisteredAtMediator() {
 
         IRestructurerMediator restructurerMediator =
-                new IRestructurerMediator();
+                new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(Operation.class);
         assertFalse(restructurer instanceof IRestructurerDefImpl,

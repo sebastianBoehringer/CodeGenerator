@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public abstract class BaseRestructurerTest {
     protected IRestructurerMediator mediator =
-            new IRestructurerMediator(new HashMap<>());
+            new RestructurerMediator(new HashMap<>());
 
     @DataProvider(name = "classdiagramfiles")
     public Object[][] provideClasses() {

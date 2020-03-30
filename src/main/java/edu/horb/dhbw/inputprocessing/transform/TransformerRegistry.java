@@ -30,6 +30,7 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 
 import java.util.Collections;
@@ -37,13 +38,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class TransformerRegistry {
+public final class TransformerRegistry implements ITransformerRegistry {
     /**
      * The map storing all the {@link ITransformer}s this registry knows.
      */
     private final Map<Class<? extends XMIElement>, ITransformer<?
             extends XMIElement, ? extends OOBase>>
             registry = new HashMap<>();
+
+    @Override
+    public void readyForNextTransforming() {
+
+        for (Map.Entry<Class<? extends XMIElement>, ITransformer<?
+                extends XMIElement, ? extends OOBase>> entry : registry
+                .entrySet()) {
+            ITransformer<?, ?> value = entry.getValue();
+            if (value instanceof Caching) {
+                ((Caching) value).cleanCache();
+            }
+        }
+    }
 
     /**
      * A noop {@link ITransformer} that is used when a specialized one is not
@@ -75,15 +89,15 @@ public final class TransformerRegistry {
     /**
      * Registers a new {@link ITransformer} in this registry.
      *
-     * @param key         The class the transformer transforms from.
+     * @param fClass      The class the transformer transforms from.
      * @param transformer The transformer to add.
      * @param <T>         A class implementing {@link XMIElement}.
      */
-    public <T extends XMIElement> void register(final Class<T> key,
+    public <T extends XMIElement> void register(final Class<T> fClass,
                                                 final ITransformer<T, ?
                                                         extends OOBase> transformer) {
 
-        registry.put(key, transformer);
+        registry.put(fClass, transformer);
     }
 
     /**
@@ -94,12 +108,16 @@ public final class TransformerRegistry {
      *              {@link OOBase}.
      * @return An {@link ITransformer} capable of transforming a F to a T.
      */
+    @NonNull
     public <F extends XMIElement, T extends OOBase> ITransformer<F, T> getTransformer(final Class<F> clazz) {
 
         return (ITransformer<F, T>) registry
                 .getOrDefault(clazz, defaultTransformer);
     }
 
+    /**
+     * A default noop implementation of {@link ITransformer}.
+     */
     private static class DefaultTransformer
             implements ITransformer<XMIElement, OOBase> {
         @Override
@@ -113,5 +131,11 @@ public final class TransformerRegistry {
 
             return null;
         }
+    }
+
+    @Override
+    public <F extends XMIElement> void remove(final Class<F> fClass) {
+
+        registry.remove(fClass);
     }
 }

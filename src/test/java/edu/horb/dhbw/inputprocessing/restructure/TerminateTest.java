@@ -50,7 +50,7 @@ public class TerminateTest {
 
         System.out.println(pathToFile);
         final Model model = SDMetricsUtil.parseXMI(pathToFile);
-        final IRestructurerMediator mediator = new IRestructurerMediator();
+        final IRestructurerMediator mediator = new RestructurerMediator();
         mediator.getIRestructurer(UMLClass.class).restructure(model);
     }
 }

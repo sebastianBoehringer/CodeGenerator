@@ -71,9 +71,10 @@ import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.Connector
 import edu.horb.dhbw.inputprocessing.prevalidate.structuredclassifiers.PortValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.values.OpaqueExpressionValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.values.StringExpressionValidator;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.inputprocessing.transform.ITransformer;
+import edu.horb.dhbw.inputprocessing.transform.ITransformerRegistry;
 import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.NonNull;
@@ -83,7 +84,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 public final class XMIModelProcessor implements IModelProcessor {
@@ -123,18 +123,29 @@ public final class XMIModelProcessor implements IModelProcessor {
      */
     private final IRestructurerMediator mediator;
 
-    private final TransformerRegistry registry = new TransformerRegistry();
+    /**
+     * The registry used to transform the restructured classes.
+     */
+    private final ITransformerRegistry registry;
 
     /**
-     * Constructs a XMIModelProcessor with an {@link IRestructurerMediator}
-     * using its default mappings.
+     * Constructs a XMIModelProcessor with a {@link RestructurerMediator} as
+     * the used {@link IRestructurerMediator} and a
+     * {@link TransformerRegistry} as the used {@link ITransformerRegistry}.
+     * Both are using their default mappings.
      *
      * @param options The validation options to configure the
      *                {@link IPostValidator}
      */
     public XMIModelProcessor(final ValidationOptions options) {
 
-        mediator = new IRestructurerMediator();
+        registry = new TransformerRegistry();
+        mediator = new RestructurerMediator();
+        initDefaultValidators(options);
+    }
+
+    private void initDefaultValidators(final ValidationOptions options) {
+
         preValidators.addAll(Arrays.asList(new ConstraintValidator(),
                                            new ElementImportValidator(),
                                            new ElementValidator(),
@@ -192,15 +203,20 @@ public final class XMIModelProcessor implements IModelProcessor {
     }
 
     /**
-     * @param mappings The mappings to use for thetyp
-     *                 {@link IRestructurerMediator} used by this processor.
+     * Customizes the mediator and registry the processor uses.
+     * The default validators will still be used.
+     *
+     * @param mediator The mediator to use
+     * @param registry The registry to use
+     * @param options  The validationoptions to use for the default validators
      */
-    public XMIModelProcessor(@NonNull
-                             final Map<Class<? extends XMIElement>,
-            IRestructurer<? extends XMIElement>> mappings) {
+    public XMIModelProcessor(final IRestructurerMediator mediator,
+                             final ITransformerRegistry registry,
+                             final ValidationOptions options) {
 
-        mediator = new IRestructurerMediator(mappings);
-
+        this.mediator = mediator;
+        this.registry = registry;
+        initDefaultValidators(options);
     }
 
     @Override
@@ -246,7 +262,7 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedClasses.clear();
         parsedInterfaces.clear();
         parsedPackages.clear();
-        mediator.cleanCaches();
+        mediator.readyForNextRestructuring();
 
         log.info("Entering PreValidation phase");
         List<XMIElement> commonElements = mediator.restructure(model);
@@ -274,6 +290,7 @@ public final class XMIModelProcessor implements IModelProcessor {
                             + " for more details");
         }
 
+        registry.readyForNextTransforming();
         ITransformer<UMLClass, OOType> classTransformer =
                 registry.getTransformer(UMLClass.class);
         ITransformer<UMLPackage, OOPackage> packageTransformer =

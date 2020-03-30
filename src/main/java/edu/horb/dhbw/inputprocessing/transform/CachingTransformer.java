@@ -19,13 +19,14 @@ package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.XMIElement;
+import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
-        extends BaseTransformer<F, T> {
+        extends BaseTransformer<F, T> implements Caching {
     /**
      * The cache saving all the already processed {@link T}s.
      * This maps from the id
@@ -59,4 +60,10 @@ public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
     }
 
     protected abstract T doTransformation(@NonNull F element);
+
+    @Override
+    public void cleanCache() {
+
+        cache.clear();
+    }
 }

@@ -18,13 +18,14 @@
 package edu.horb.dhbw.inputprocessing.restructure;
 
 import edu.horb.dhbw.datacore.uml.XMIElement;
+import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CachingRestructurer<T extends XMIElement>
-        extends BaseRestructurer<T> {
+        extends BaseRestructurer<T> implements Caching {
 
     /**
      * A mapping from the xmi:id of the element to the restructured object.
@@ -40,6 +41,7 @@ public abstract class CachingRestructurer<T extends XMIElement>
     /**
      * Cleans the cache of this restructurer.
      */
+    @Override
     public void cleanCache() {
 
         processed.clear();

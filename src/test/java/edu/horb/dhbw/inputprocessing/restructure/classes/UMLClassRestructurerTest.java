@@ -32,6 +32,7 @@ import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -82,8 +83,8 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
           dataProvider = "classdiagramfiles")
     public void restructureSimpleClass(final String pathToFile) {
 
-        mediator = new IRestructurerMediator();
-        mediator.cleanCaches();
+        mediator = new RestructurerMediator();
+        mediator.readyForNextRestructuring();
         Model model = parseXMI(pathToFile);
 
         List<UMLClass> classes =
@@ -139,8 +140,7 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
     @Test
     public void isRegisteredAtMediator() {
 
-        IRestructurerMediator restructurerMediator =
-                new IRestructurerMediator();
+        IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(UMLClass.class);
         assertFalse(restructurer instanceof IRestructurerDefImpl,

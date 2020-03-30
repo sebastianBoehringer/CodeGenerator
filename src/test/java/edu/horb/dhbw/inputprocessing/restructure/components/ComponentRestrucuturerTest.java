@@ -28,6 +28,7 @@ import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -51,8 +52,7 @@ public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
     @Test
     public void isRegisteredAtMediator() {
 
-        IRestructurerMediator restructurerMediator =
-                new IRestructurerMediator();
+        IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(StateMachine.class);
         assertFalse(restructurer instanceof IRestructurerDefImpl,
@@ -65,7 +65,7 @@ public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
         Model model = parseXMI(
                 "src/test/resources/componentdiagrams/SimpleComponent"
                         + ".xmi");
-        IRestructurerMediator mediator = new IRestructurerMediator();
+        IRestructurerMediator mediator = new RestructurerMediator();
         List<Component> components =
                 mediator.getIRestructurer(Component.class).restructure(model);
         assertEquals(components.size(), 1,

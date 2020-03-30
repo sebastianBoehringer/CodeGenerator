@@ -28,6 +28,7 @@ import edu.horb.dhbw.datacore.model.ParallelStatement;
 import edu.horb.dhbw.datacore.model.StatementKind;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.util.Config;
 import edu.horb.dhbw.util.SDMetricsUtil;
 import org.testng.annotations.BeforeClass;
@@ -62,7 +63,7 @@ public class OOLogicTransformerTest {
             throws Exception {
 
         Model model = SDMetricsUtil.parseXMI(path);
-        IRestructurerMediator mediator = new IRestructurerMediator();
+        IRestructurerMediator mediator = new RestructurerMediator();
         return mediator.getIRestructurer(StateMachine.class).restructure(model)
                 .get(0);
     }
