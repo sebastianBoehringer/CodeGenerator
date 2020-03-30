@@ -1,9 +1,9 @@
 # CodeGenerator
-A codegenerator for a similarily named student research paper.
+A codegenerator for a similarly named student research paper.
 It is based on UML and more precisely
-* Class diagrams
-* Statemachines
-* Component diagrams
+* Class diagrams (for the structure of the code)
+* Statemachines (for the implementation of the methods)
+* Component diagrams (for the logical grouping of classes)
 
 # Dependencies
 Below here is a list of all dependencies this project depends on and their respective license. Additionally you may find a download link and a link to the homepage of the project.
