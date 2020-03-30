@@ -22,6 +22,7 @@ import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.exception.NotYetImplementedException;
+import edu.horb.dhbw.util.XMIUtil;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -113,7 +114,7 @@ public abstract class BaseRestructurer<T extends XMIElement>
     @Override
     public boolean canRestructure(final @NonNull ModelElement element) {
 
-        String type = element.getPlainAttribute("umltype");
+        String type = XMIUtil.getUMLType(element);
         return umlType.equals(type);
     }
 
