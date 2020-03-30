@@ -18,7 +18,12 @@
 package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOPackage;
-import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
+import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.uml.classification.Classifier;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.Type;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.Component;
+import edu.horb.dhbw.datacore.uml.structuredclassifiers.ComponentRealization;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOPackageTransformer
-        extends CachingTransformer<UMLPackage, OOPackage> {
+        extends CachingTransformer<Component, OOPackage> {
     /**
      * @param registry The registry to use.
      */
@@ -40,10 +45,10 @@ public final class OOPackageTransformer
     @Override
     public @NonNull List<OOPackage> transform(final @NonNull List<?> elements) {
 
-        List<UMLPackage> classes = new ArrayList<>();
+        List<Component> classes = new ArrayList<>();
         for (Object e : elements) {
-            if (e instanceof UMLPackage) {
-                classes.add((UMLPackage) e);
+            if (e instanceof Component) {
+                classes.add((Component) e);
             }
         }
         return classes.stream().map(this::transform)
@@ -51,7 +56,7 @@ public final class OOPackageTransformer
     }
 
     @Override
-    public OOPackage doTransformation(@NonNull final UMLPackage element) {
+    public OOPackage doTransformation(@NonNull final Component element) {
 
         String id = element.getId();
         log.info("Beginning transformation of [{}]", id);
@@ -62,12 +67,25 @@ public final class OOPackageTransformer
         log.debug("Set name for [{}]", id);
         ooPackage.setName(element.getName());
         log.debug("Set container for [{}]", id);
-        UMLPackage umlPackage = element.getNestingPackage();
-        if (umlPackage == null) {
-            ooPackage.setContainer(null);
-        } else {
-            ooPackage.setContainer(transform(umlPackage));
-        }
+        List<PackageableElement> packagedElement = element.getPackagedElement();
+        ITransformer<Type, OOType> classifierOOTypeITransformer =
+                getTransformer(Type.class);
+        ooPackage.getContainedElements().addAll(classifierOOTypeITransformer
+                                                        .transform(
+                                                                packagedElement));
+        List<ComponentRealization> realizations = element.getRealization();
+        List<List<Classifier>> collect = realizations.stream()
+                .map(ComponentRealization::getRealizingClassifier)
+                .collect(Collectors.toList());
+        List<Classifier> classifiers = new ArrayList<>();
+        collect.forEach(classifiers::addAll);
+        List<OOType> realizingTypes =
+                classifierOOTypeITransformer.transform(classifiers);
+        List<OOPackage> realizingComponents = this.transform(classifiers);
+        realizingComponents.forEach(c -> c.setContainer(ooPackage));
+        realizingTypes.forEach(t -> t.setContainer(ooPackage));
+        ooPackage.getContainedElements().addAll(realizingTypes);
+
         return ooPackage;
     }
 }
