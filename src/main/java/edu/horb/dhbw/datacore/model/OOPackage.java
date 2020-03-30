@@ -21,21 +21,23 @@ import edu.horb.dhbw.util.Config;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 @Data
 public class OOPackage extends OOBase {
 
     /**
      * The elements contained in the package.
      */
-    private List<OOType> containedElements = Collections.emptyList();
+
+    private Set<OOType> containedElements = new HashSet<>();
 
     /**
      * The package containing this package.
      */
+    @EqualsAndHashCode.Include
     private OOPackage container = null;
 
     /**
