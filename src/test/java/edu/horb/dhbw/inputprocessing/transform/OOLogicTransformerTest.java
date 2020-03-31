@@ -29,14 +29,11 @@ import edu.horb.dhbw.datacore.model.StatementKind;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
-import edu.horb.dhbw.util.Config;
 import edu.horb.dhbw.util.SDMetricsUtil;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -52,22 +49,6 @@ public class OOLogicTransformerTest {
      */
     private static final long TIMEOUT = 10000L;
 
-    @BeforeClass
-    private void setUp() {
-
-        Config.CONFIG.readInProperties(new Properties());
-
-    }
-
-    private StateMachine getMachine(String path)
-            throws Exception {
-
-        Model model = SDMetricsUtil.parseXMI(path);
-        IRestructurerMediator mediator = new RestructurerMediator();
-        return mediator.getIRestructurer(StateMachine.class).restructure(model)
-                .get(0);
-    }
-
     @Test(timeOut = TIMEOUT)
     public void canTransformLoop()
             throws Exception {
@@ -77,6 +58,15 @@ public class OOLogicTransformerTest {
         ITransformer<StateMachine, OOLogic> logicITransformer =
                 new OOLogicTransformer(null);
         logicITransformer.transform(machine);
+    }
+
+    private StateMachine getMachine(String path)
+            throws Exception {
+
+        Model model = SDMetricsUtil.parseXMI(path);
+        IRestructurerMediator mediator = new RestructurerMediator();
+        return mediator.getIRestructurer(StateMachine.class).restructure(model)
+                .get(0);
     }
 
     @Test(timeOut = TIMEOUT)

@@ -33,9 +33,9 @@ public class CodeGeneratorTest {
         CodeGenerator generator = new CodeGenerator(
                 Paths.get("src/main/resources/default.properties"));
         try {
-            generator.generateCode(Paths.get(
-                    "src/test/resources/simpleExample.xmi"),
-                                   Config.CONFIG.getLanguage());
+            generator.generateCode(
+                    Paths.get("src/test/resources/simpleExample.xmi"),
+                    Config.CONFIG.getLanguage());
         } catch (CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");

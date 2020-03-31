@@ -25,12 +25,10 @@ import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
-import edu.horb.dhbw.util.Config;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Collection;
-import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -41,7 +39,6 @@ public class OperationRestructurerTest extends BaseRestructurerTest {
     public void init() {
 
         mediator.register(Operation.class, new OperationRestructurer(mediator));
-        Config.CONFIG.readInProperties(new Properties());
     }
 
     @Test(dataProvider = "classdiagramfiles")
@@ -75,8 +72,7 @@ public class OperationRestructurerTest extends BaseRestructurerTest {
     @Test
     public void isRegisteredAtMediator() {
 
-        IRestructurerMediator restructurerMediator =
-                new RestructurerMediator();
+        IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(Operation.class);
         assertFalse(restructurer instanceof IRestructurerDefImpl,

@@ -22,6 +22,10 @@ import edu.horb.dhbw.datacore.model.ValidationOptions;
 import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import lombok.Getter;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Properties;
 
@@ -33,7 +37,24 @@ public enum Config {
     /**
      * A singleton holding the configuration for the codegenerator.
      */
-    CONFIG;
+    CONFIG();
+
+    /**
+     * Constructor that initializes the config with default.properties.
+     */
+    Config() {
+
+        Properties props = new Properties();
+        try (InputStream in = new BufferedInputStream(
+                new FileInputStream("src/main/resources/default.properties"))) {
+            props.load(in);
+        } catch (IOException ex) {
+            //ignored since the default properties should always exist.
+            // Furthermore #readInProperties is coded defensively. Thus an
+            // empty Properties object does no harm.
+        }
+        readInProperties(props);
+    }
 
     /**
      * The fully qualified class name of a class implementing

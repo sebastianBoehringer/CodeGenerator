@@ -29,25 +29,16 @@ import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
-import edu.horb.dhbw.util.Config;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
-
-    @BeforeClass
-    private void init() {
-
-        Config.CONFIG.readInProperties(new Properties());
-    }
 
     @Test
     public void isRegisteredAtMediator() {
