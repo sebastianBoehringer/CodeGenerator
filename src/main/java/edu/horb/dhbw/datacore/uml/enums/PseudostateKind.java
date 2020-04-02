@@ -97,24 +97,22 @@ public enum PseudostateKind {
      * Represents a way to start the execution in a state different to an
      * {@link #INITIAL} pseudostate.
      */
-    ENTRYPOINT,
+    @Deprecated ENTRYPOINT,
     /**
      * A way to exit a composite or submachine state.
      */
-    EXITPOINT,
+    @Deprecated EXITPOINT,
     /**
      * Terminates the execution of the entire
      * {@link edu.horb.dhbw.datacore.uml.statemachines.StateMachine}.
      */
     TERMINATE,
-
     /**
      * If a {@link edu.horb.dhbw.datacore.uml.statemachines.State} of this
      * kind is reached, the execution of the
      * {@link edu.horb.dhbw.datacore.uml.statemachines.StateMachine} completes.
      */
     FINAL,
-
     /**
      * A normal {@link edu.horb.dhbw.datacore.uml.statemachines.State}, i. e.
      * a state that is acutally not a PseudoState.
