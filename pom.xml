@@ -21,6 +21,28 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-sdmetrics</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <artifactId>open-core</artifactId>
+                            <groupId>com.SDMetrics</groupId>
+                            <version>2.35</version>
+                            <packaging>jar</packaging>
+                            <file>lib/SDMetricsOpenCore-2.35.jar</file>
+                            <!-- config for file 1 -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
@@ -88,8 +110,7 @@
         </dependency>
         <!-- Testing dependencies -->
 
-        <!-- Dependency for XMI-parsing. This has to be installed into your
-        local repository since it is not distributed on maven central.-->
+        <!-- Dependency for XMI-parsing-->
         <dependency>
             <groupId>com.SDMetrics</groupId>
             <artifactId>open-core</artifactId>
