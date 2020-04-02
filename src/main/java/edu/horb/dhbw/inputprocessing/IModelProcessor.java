@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.inputprocessing;
 
+import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.exception.ModelParseException;
@@ -29,6 +30,13 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface IModelProcessor {
+
+    /**
+     * Initializes the processor for a certain programming language.
+     *
+     * @param language The language to configure the processor for
+     */
+    void initialize(Language language);
 
     /**
      * Adds a new {@link IPreValidator} to the processor.

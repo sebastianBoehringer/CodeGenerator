@@ -18,6 +18,7 @@
 package edu.horb.dhbw.inputprocessing;
 
 import com.sdmetrics.model.Model;
+import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
@@ -183,6 +184,11 @@ public final class XMIModelProcessor implements IModelProcessor {
                                            new StateValidator(),
                                            new TransitionValidator()));
 
+        configurePostValidators(options);
+    }
+
+    private void configurePostValidators(final ValidationOptions options) {
+
         postValidators.addAll(Arrays.asList(
                 new edu.horb.dhbw.inputprocessing.postvalidate.ClassValidator(
                         options.getClassesMaxSuper(),
@@ -344,6 +350,13 @@ public final class XMIModelProcessor implements IModelProcessor {
     public @NonNull List<OOType> getParsedClasses() {
 
         return List.copyOf(parsedClasses);
+    }
+
+    @Override
+    public void initialize(final Language language) {
+
+        configurePostValidators(language.getValidationOptions());
+
     }
 
     /**
