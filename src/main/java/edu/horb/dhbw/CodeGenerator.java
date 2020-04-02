@@ -26,6 +26,8 @@ import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.exception.ModelValidationException;
 import edu.horb.dhbw.inputprocessing.IModelProcessor;
 import edu.horb.dhbw.inputprocessing.XMIModelProcessor;
+import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
+import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.templating.BasicImportResolver;
 import edu.horb.dhbw.templating.IImportResolver;
 import edu.horb.dhbw.templating.ITemplateEngineAdapter;
@@ -55,7 +57,29 @@ public final class CodeGenerator {
      */
     private ITemplateEngineAdapter adapter;
 
+    /**
+     * Resolves the imports for a class file.
+     */
     private IImportResolver importResolver;
+
+    /**
+     * The processor to use for reading the model file.
+     */
+    private IModelProcessor modelProcessor;
+
+    /**
+     * @param engineAdapter The adapter to produce templates
+     * @param resolver      A way to resolve the imports
+     * @param processor     The processor to parse the model
+     */
+    public CodeGenerator(final ITemplateEngineAdapter engineAdapter,
+                         final IImportResolver resolver,
+                         final IModelProcessor processor) {
+
+        this.adapter = engineAdapter;
+        this.importResolver = resolver;
+        this.modelProcessor = processor;
+    }
 
     /**
      * Generates a codeGenerator using the .properties the path points to.
@@ -88,6 +112,10 @@ public final class CodeGenerator {
         }
         importResolver = new BasicImportResolver();
         setUpAdapter();
+        modelProcessor = new XMIModelProcessor(new RestructurerMediator(),
+                                               new TransformerRegistry(),
+                                               Config.CONFIG.getLanguage()
+                                                       .getValidationOptions());
     }
 
     private void setUpAdapter() {
@@ -132,18 +160,33 @@ public final class CodeGenerator {
 
     /**
      * Reads in the XMI and produces code for the specified language.
+     * This method relies on {@link Config#CONFIG} having read in a
+     * {@link Language}. Considering the singleton is initialized defensively
+     * there will always be a language present, i. e. the standard language
+     * Java.
      *
-     * @param xmiFile  The file holding a valid XMI representation of an UML
-     *                 model
-     * @param language The language the generated code should be in
+     * @param modelFile The file holding a valid representation of a model
      * @throws CodeGenerationException If the generation of code failed
      */
-    public void generateCode(final Path xmiFile, final Language language)
+    public void generateCode(final Path modelFile)
             throws CodeGenerationException {
 
-        IModelProcessor processor = new XMIModelProcessor(language.getValidationOptions());
+        generateCode(modelFile, Config.CONFIG.getLanguage());
+    }
+
+    /**
+     * Reads in the XMI and produces code for the specified language.
+     *
+     * @param modelFile The file holding a valid representation of a model
+     * @param language  The language the generated code should be in
+     * @throws CodeGenerationException If the generation of code failed
+     */
+    public void generateCode(final Path modelFile, final Language language)
+            throws CodeGenerationException {
+
+        modelProcessor.initialize(language);
         try {
-            processor.parseModel(xmiFile);
+            modelProcessor.parseModel(modelFile);
         } catch (ModelParseException e) {
             throw new CodeGenerationException(
                     "Could not parse model, nested exception is " + e.getClass()
@@ -151,23 +194,25 @@ public final class CodeGenerator {
         } catch (ModelValidationException e) {
             throw new CodeGenerationException(e);
         }
-        for (OOPackage parsedPackage : processor.getParsedPackages()) {
+        for (OOPackage parsedPackage : modelProcessor.getParsedPackages()) {
             createPackageDirectory(parsedPackage);
         }
-        for (OOType parsedClass : processor.getParsedClasses()) {
+
+        adapter.initialize(language);
+        for (OOType parsedClass : modelProcessor.getParsedClasses()) {
             log.info("Generating template for [{}]", parsedClass.getName());
             adapter.addToContext("class", parsedClass);
             addImports(parsedClass);
             adapter.process("Class", fqNameToPath(parsedClass.getFQName()));
         }
-        for (OOType parsedEnum : processor.getParsedEnums()) {
+        for (OOType parsedEnum : modelProcessor.getParsedEnums()) {
             log.info("Generating template for [{}]", parsedEnum.getName());
             adapter.addToContext("enumeration", parsedEnum);
             addImports(parsedEnum);
             adapter.process("Enumeration",
                             fqNameToPath(parsedEnum.getFQName()));
         }
-        for (OOType parsedInterface : processor.getParsedInterfaces()) {
+        for (OOType parsedInterface : modelProcessor.getParsedInterfaces()) {
             log.info("Generating template for [{}]", parsedInterface.getName());
             adapter.addToContext("interface", parsedInterface);
             addImports(parsedInterface);
