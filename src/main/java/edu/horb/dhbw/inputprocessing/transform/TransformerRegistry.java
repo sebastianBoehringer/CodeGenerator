@@ -33,12 +33,11 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public final class TransformerRegistry implements ITransformerRegistry {
+public final class TransformerRegistry
+        implements ITransformerRegistry, Caching {
     /**
      * The map storing all the {@link ITransformer}s this registry knows.
      */
@@ -59,12 +58,18 @@ public final class TransformerRegistry implements ITransformerRegistry {
         }
     }
 
+    @Override
+    public void cleanCache() {
+
+        readyForNextTransforming();
+    }
+
     /**
      * A noop {@link ITransformer} that is used when a specialized one is not
      * found.
      */
-    private final DefaultTransformer defaultTransformer =
-            new DefaultTransformer();
+    private final ITransformer<XMIElement, OOBase> defaultTransformer =
+            new NoopTransformer();
 
     /**
      * Default constructor.
@@ -73,7 +78,7 @@ public final class TransformerRegistry implements ITransformerRegistry {
     public TransformerRegistry() {
 
         registry.put(UMLClass.class, new OOClassTransformer(this));
-        registry.put(XMIElement.class, new DefaultTransformer());
+        registry.put(XMIElement.class, defaultTransformer);
         registry.put(Property.class, new OOFieldTransformer(this));
         registry.put(UMLPackage.class, new OOPackageTransformer(this));
         registry.put(Operation.class, new OOMethodTransformer(this));
@@ -115,23 +120,6 @@ public final class TransformerRegistry implements ITransformerRegistry {
                 .getOrDefault(clazz, defaultTransformer);
     }
 
-    /**
-     * A default noop implementation of {@link ITransformer}.
-     */
-    private static class DefaultTransformer
-            implements ITransformer<XMIElement, OOBase> {
-        @Override
-        public @NonNull List<OOBase> transform(final @NonNull List<?> elements) {
-
-            return Collections.emptyList();
-        }
-
-        @Override
-        public OOBase transform(final @NonNull XMIElement element) {
-
-            return null;
-        }
-    }
 
     @Override
     public <F extends XMIElement> void remove(final Class<F> fClass) {
