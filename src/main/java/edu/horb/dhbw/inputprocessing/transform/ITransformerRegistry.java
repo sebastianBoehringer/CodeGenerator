@@ -55,10 +55,9 @@ public interface ITransformerRegistry {
      * but not to the wanted T. I. e. the user themselves has to keep track
      * of the concrete type of the registered {@link ITransformer}.
      * <p>
-     * Since is not allowed to return null, it is recommended to return a
-     * default implementation like
-     * {@link edu.horb.dhbw.inputprocessing.transform.TransformerRegistry.DefaultTransformer}.
-     * This prevents NPEs from occuring in {@link ITransformer}s that rely on
+     * Since it is not allowed to return {@code null}, it is recommended to
+     * return a default implementation like {@link NoopTransformer}.
+     * This prevents NPEs from occurring in {@link ITransformer}s that rely on
      * others.
      *
      * @param clazz The clazz to transform from
