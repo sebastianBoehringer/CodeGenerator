@@ -19,7 +19,6 @@ package edu.horb.dhbw.templating;
 
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.exception.CodeGenerationException;
-import edu.horb.dhbw.util.Config;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.TemplateEngine;
@@ -61,12 +60,12 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
         FileTemplateResolver fileResolver = new FileTemplateResolver();
         fileResolver.setTemplateMode(TemplateMode.TEXT);
         String separator = FileSystems.getDefault().getSeparator();
-        String prefix =
-                language.getTemplateLocation().toAbsolutePath().toString()
-                        + separator;
+        String prefix = language.getTemplatingOptions().getTemplateLocation()
+                .toAbsolutePath().toString() + separator;
         fileResolver.setPrefix(prefix);
         log.info("Set fileresolver to search with prefix [{}]", prefix);
-        fileResolver.setSuffix(language.getExtension());
+        fileResolver.setSuffix(
+                language.getTemplatingOptions().getTemplateExtension());
         log.info("Set suffix to [{}]", language.getExtension());
         fileResolver.setCheckExistence(true);
         fileResolver.setCharacterEncoding("UTF8");
@@ -102,12 +101,8 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
             throws CodeGenerationException {
 
 
-        String outputFileName =
-                Config.CONFIG.getOutputDirectory().toString() + "/" + fileName
-                        + lang.getExtension();
-
         try {
-            Writer writer = new BufferedWriter(new FileWriter(outputFileName));
+            Writer writer = new BufferedWriter(new FileWriter(fileName));
             engine.process(templateName, context, writer);
             context.clearVariables();
         } catch (IOException e) {

@@ -20,6 +20,7 @@ package edu.horb.dhbw;
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.datacore.model.TemplatingOptions;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.InvalidConfigurationException;
 import edu.horb.dhbw.exception.ModelParseException;
@@ -68,6 +69,27 @@ public final class CodeGenerator {
     private IModelProcessor modelProcessor;
 
     /**
+     * Default constructor, that attempts to detect the configuration file
+     * automatically.
+     * <p>
+     * It first searches for a file {@code "codegenerator.properties"} in the
+     * current directory, after that it defaults to the default properties.
+     * <p>
+     * Using this constructor will result in using the default
+     * {@link IModelProcessor}, i. e. {@link XMIModelProcessor} and the
+     * default {@link IImportResolver}, i. e. {@link BasicImportResolver}. If
+     * you wish to change either of these components use
+     * {@link #CodeGenerator(ITemplateEngineAdapter, IImportResolver, IModelProcessor)}
+     * instead.
+     */
+    public CodeGenerator() {
+
+        this(Files.exists(Path.of("codegenerator.properties")) ? Path
+                .of("codegenerator.properties") : Path
+                     .of("src/main/resources/default.properties"));
+    }
+
+    /**
      * @param engineAdapter The adapter to produce templates
      * @param resolver      A way to resolve the imports
      * @param processor     The processor to parse the model
@@ -79,6 +101,7 @@ public final class CodeGenerator {
         this.adapter = engineAdapter;
         this.importResolver = resolver;
         this.modelProcessor = processor;
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     /**
@@ -121,7 +144,8 @@ public final class CodeGenerator {
     private void setUpAdapter() {
 
         log.info("Setting up adapter");
-        String adapterClass = Config.CONFIG.getAdpaterClass();
+        String adapterClass = Config.CONFIG.getLanguage().getTemplatingOptions()
+                .getAdpaterClass();
         try {
             Class<?> clazz = Class.forName(adapterClass);
             if (ITemplateEngineAdapter.class.isAssignableFrom(clazz)) {
@@ -197,27 +221,31 @@ public final class CodeGenerator {
         for (OOPackage parsedPackage : modelProcessor.getParsedPackages()) {
             createPackageDirectory(parsedPackage);
         }
+        TemplatingOptions options =
+                Config.CONFIG.getLanguage().getTemplatingOptions();
 
         adapter.initialize(language);
         for (OOType parsedClass : modelProcessor.getParsedClasses()) {
             log.info("Generating template for [{}]", parsedClass.getName());
-            adapter.addToContext("class", parsedClass);
+            adapter.addToContext(options.getClassVariable(), parsedClass);
             addImports(parsedClass);
-            adapter.process("Class", fqNameToPath(parsedClass.getFQName()));
+            adapter.process(options.getClassTemplateName(),
+                            getFullPath(parsedClass, options));
         }
         for (OOType parsedEnum : modelProcessor.getParsedEnums()) {
             log.info("Generating template for [{}]", parsedEnum.getName());
-            adapter.addToContext("enumeration", parsedEnum);
+            adapter.addToContext(options.getEnumVariable(), parsedEnum);
             addImports(parsedEnum);
-            adapter.process("Enumeration",
-                            fqNameToPath(parsedEnum.getFQName()));
+            adapter.process(options.getEnumTemplateName(),
+                            getFullPath(parsedEnum, options));
         }
         for (OOType parsedInterface : modelProcessor.getParsedInterfaces()) {
             log.info("Generating template for [{}]", parsedInterface.getName());
-            adapter.addToContext("interface", parsedInterface);
+            adapter.addToContext(options.getInterfaceVariable(),
+                                 parsedInterface);
             addImports(parsedInterface);
-            adapter.process("Interface",
-                            fqNameToPath(parsedInterface.getFQName()));
+            adapter.process(options.getInterfaceTemplateName(),
+                            getFullPath(parsedInterface, options));
         }
     }
 
@@ -231,8 +259,8 @@ public final class CodeGenerator {
             throws CodeGenerationException {
 
         String fqName = pkg.getFQName();
-        String path =
-                Config.CONFIG.getOutputDirectory() + "/" + fqNameToPath(fqName);
+        String path = Config.CONFIG.getLanguage().getTemplatingOptions()
+                .getOutputDirectory() + "/" + fqNameToPath(fqName);
         Path output = Path.of(path);
         try {
             Files.createDirectories(output);
@@ -250,6 +278,14 @@ public final class CodeGenerator {
 
         adapter.addToContext("imports", importResolver
                 .resolveImports(Config.CONFIG.getLanguage(), type));
+    }
+
+    private String getFullPath(final OOType type,
+                               final TemplatingOptions options) {
+
+        return options.getOutputDirectory().toAbsolutePath().toString() + "/"
+                + fqNameToPath(type.getFQName()) + Config.CONFIG.getLanguage()
+                .getExtension();
     }
 
     /**

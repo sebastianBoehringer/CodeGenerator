@@ -39,12 +39,18 @@ public enum FirstLetter {
 
     /**
      * Case insensitive wrapper around {@link #valueOf(String)}.
+     * If the {@link #valueOf(String)} method throws an
+     * {@link IllegalArgumentException} the return defaults to {@link #EITHER}.
      *
      * @param literal The string representing a literal of this enumeration
-     * @return The enumerationliteral represented to the string
+     * @return The enumerationLiteral represented to the string
      */
     public static FirstLetter from(final String literal) {
 
-        return valueOf(literal.toUpperCase());
+        try {
+            return valueOf(literal.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return EITHER;
+        }
     }
 }

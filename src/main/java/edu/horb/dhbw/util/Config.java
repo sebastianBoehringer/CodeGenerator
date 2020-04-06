@@ -18,6 +18,7 @@
 package edu.horb.dhbw.util;
 
 import edu.horb.dhbw.datacore.model.Language;
+import edu.horb.dhbw.datacore.model.TemplatingOptions;
 import edu.horb.dhbw.datacore.model.ValidationOptions;
 import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import lombok.Getter;
@@ -56,20 +57,15 @@ public enum Config {
         readInProperties(props);
     }
 
-    /**
-     * The fully qualified class name of a class implementing
-     * {@link edu.horb.dhbw.templating.ITemplateEngineAdapter}.
-     * Corresponds to property {@code templating.adapter}.
-     */
-    private String adpaterClass;
+
     /**
      * The path to the SDMetrics metamodel file.
-     * Corresponds to property {@code sdmetrics.metamodel}.
+     * Corresponds to property {@code xmi.sdmetrics.metamodel}.
      */
     private String metaModelPath;
     /**
      * The path to the SDMetrics transformations file.
-     * Corresponds to property {@code sdmetrics.transformations}.
+     * Corresponds to property {@code xmi.sdmetrics.transformations}.
      */
     private String transformationsPath;
 
@@ -80,26 +76,18 @@ public enum Config {
     private Language language;
 
     /**
-     * The directory in which the code should be generated into.
-     * Corresponds to property {@code generator.output}.
-     */
-    private Path outputDirectory;
-
-
-    /**
      * @param props The properties that should be used as a configuration
      */
     public void readInProperties(final Properties props) {
 
-        metaModelPath = props.getProperty("sdmetrics.metamodel",
-                                          "src/main/resources/SDMetricsConfig"
-                                                  + "/metamodel2.xml");
-        transformationsPath = props.getProperty("sdmetrics.transformations",
-                                                "src/main/resources"
-                                                        + "/SDMetricsConfig"
-                                                        + "/xmiTrans2_0.xml");
-        adpaterClass = props.getProperty("templating.adapter", "edu.horb.dhbw"
-                + ".templating.ThymeleafAdapter");
+        metaModelPath = props.
+                getProperty("xmi.sdmetrics.metamodel",
+                            "src/main/resources/SDMetricsConfig"
+                                    + "/metamodel2.xml");
+        transformationsPath = props.
+                getProperty("xmi.sdmetrics.transformations",
+                            "src/main/resources/SDMetricsConfig"
+                                    + "/xmiTrans2_0.xml");
         String publicVis =
                 props.getProperty("language.visibility.public", "public");
         String protectedVis =
@@ -120,39 +108,50 @@ public enum Config {
                 props.getProperty("language.primitive.unlimitedNatural",
                                   "Double");
         String extension = props.getProperty("language.extension", ".java");
-        String templateLocation =
-                props.getProperty("language.templates.location",
-                                  "/src/resources/templates/");
         String delimiter =
                 props.getProperty("language.formatting.packageDelimiter", ".");
         String name = props.getProperty("language.name", "Java");
+
+
+        language = new Language(name, extension, delimiter, publicVis,
+                                protectedVis, packageVis, privateVis, primInt,
+                                primString, primBool, primReal, primUnlimited,
+                                getValidationOptions(props),
+                                getTemplatingOptions(props));
+
+    }
+
+    private ValidationOptions getValidationOptions(final Properties props) {
+
         String canImplementInterface =
-                props.getProperty("language.enums.canImplementInterface",
+                props.getProperty("validation.enums.canImplementInterface",
                                   "true");
-        String enumMaxSuper = props.getProperty("language.enums.maxSuper", "0");
+        String enumMaxSuper =
+                props.getProperty("validation.enums.maxSuper", "0");
         String interfaceMaxSuper =
-                props.getProperty("language.interfaces.maxSuper", "3333");
+                props.getProperty("validation.interfaces.maxSuper", "3333");
         String classesMaxSuper =
-                props.getProperty("language.classes.maxSuper", "1");
+                props.getProperty("validation.classes.maxSuper", "1");
         String enumStart =
-                props.getProperty("language.enums.beginsWith", "UPPER");
+                props.getProperty("validation.enums.beginsWith", "UPPER");
         String classStart =
-                props.getProperty("language.classes.beginsWith", "UPPER");
+                props.getProperty("validation.classes.beginsWith", "UPPER");
         String interfaceStart =
-                props.getProperty("language.interfaces.beginsWith", "UPPER");
+                props.getProperty("validation.interfaces.beginsWith", "UPPER");
         String fieldStart =
-                props.getProperty("language.fields.beginsWith", "LOWER");
+                props.getProperty("validation.fields.beginsWith", "LOWER");
         String methodStart =
-                props.getProperty("language.methods.beginsWith", "LOWER");
+                props.getProperty("validation.methods.beginsWith", "LOWER");
         String pkgStart =
-                props.getProperty("language.packages.beginsWith", "LOWER");
+                props.getProperty("validation.packages.beginsWith", "LOWER");
         String paramStart =
-                props.getProperty("language.parameters.beginsWith", "LOWER");
-        ValidationOptions options = new ValidationOptions(
-                Boolean.parseBoolean(canImplementInterface),
-                Integer.parseInt(classesMaxSuper),
-                Integer.parseInt(interfaceMaxSuper),
-                Integer.parseInt(enumMaxSuper));
+                props.getProperty("validation.parameters.beginsWith", "LOWER");
+        ValidationOptions options =
+                new ValidationOptions(Integer.parseInt(enumMaxSuper),
+                                      Boolean.parseBoolean(
+                                              canImplementInterface),
+                                      Integer.parseInt(classesMaxSuper),
+                                      Integer.parseInt(interfaceMaxSuper));
         options.getFirstLetterMap()
                 .put("enumeration", FirstLetter.from(enumStart));
         options.getFirstLetterMap().put("class", FirstLetter.from(classStart));
@@ -164,13 +163,37 @@ public enum Config {
         options.getFirstLetterMap().put("package", FirstLetter.from(pkgStart));
         options.getFirstLetterMap()
                 .put("parameter", FirstLetter.from(paramStart));
+        return options;
+    }
 
-        language = new Language(name, extension, delimiter,
-                                Path.of(templateLocation), publicVis,
-                                protectedVis, packageVis, privateVis, primInt,
-                                primString, primBool, primReal, primUnlimited,
-                                options);
-        outputDirectory =
-                Path.of(props.getProperty("generator.output", "generated"));
+    private TemplatingOptions getTemplatingOptions(final Properties props) {
+
+        String adpaterClass = props.
+                getProperty("templating.adapter",
+                            "edu.horb.dhbw.templating.ThymeleafAdapter");
+        String templateLocation =
+                props.getProperty("templating.template.location",
+                                  "/src/resources/templates/");
+        Path outputDirectory =
+                Path.of(props.getProperty("templating.outputdirectory",
+                                          "generated"));
+        String className =
+                props.getProperty("templating.template.class", "Class");
+        String classVar =
+                props.getProperty("templating.variable.class", "class");
+        String interfaceName =
+                props.getProperty("templating.template.interface", "Interface");
+        String interfaceVar =
+                props.getProperty("templating.variable.interface", "interface");
+        String enumName = props.getProperty("templating.template.enumeration",
+                                            "Enumeration");
+        String enumVar = props.getProperty("templating.variable.enumeration",
+                                           "enumeration");
+        String templateExtension =
+                props.getProperty("templating.template.extension", ".java");
+        return new TemplatingOptions(adpaterClass, Path.of(templateLocation),
+                                     outputDirectory, className, classVar,
+                                     interfaceName, interfaceVar, enumName,
+                                     enumVar, templateExtension);
     }
 }

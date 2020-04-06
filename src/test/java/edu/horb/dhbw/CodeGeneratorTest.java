@@ -21,8 +21,11 @@ import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.util.Config;
 import org.testng.annotations.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class CodeGeneratorTest {
@@ -36,6 +39,8 @@ public class CodeGeneratorTest {
             generator.generateCode(
                     Paths.get("src/test/resources/simpleExample.xmi"),
                     Config.CONFIG.getLanguage());
+            assertTrue(
+                    Files.exists(Path.of("generated/thePackage/Example.java")));
         } catch (CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");

@@ -26,27 +26,31 @@ import java.util.Map;
 @Value
 public final class ValidationOptions {
     /**
-     * Maps from the name of a subtype of {@link OOBase} to a
-     * {@link FirstLetter} to determine what the first letter of its name
-     * has to look like.
+     * The maximum size of {@link OOType#superTypes} for enums.
+     * Corresponds to property {@code validation.enums.maxSuper}.
      */
-    private final Map<String, FirstLetter> firstLetterMap = new HashMap<>();
+    private final int enumsMaxSuper;
     /**
      * If this is {@code true} Enumerations of the language can implement
      * interfaces.
+     * Corresponds to property {@code validation.enums.canImplementInterfaces}.
      */
     private final boolean enumCanImplementInterface;
     /**
      * The maximum size of {@link OOType#superTypes} for classes.
+     * Corresponds to property {@code validation.classes.maxSuper}.
      */
     private final int classesMaxSuper;
     /**
-     * The maximum size of {@link OOType#superTypes} for classes.
+     * The maximum size of {@link OOType#superTypes} for interfaces.
      */
     private final int interfacesMaxSuper;
-    /**
-     * The maximum size of {@link OOType#superTypes} for classes.
-     */
-    private final int enumsMaxSuper;
 
+    /**
+     * Maps from the name of a subtype of {@link OOBase} to a
+     * {@link FirstLetter} to determine what the first letter of its name
+     * has to look like.
+     * Encapsulates all properties of the form {@code validation.*.beginsWith}.
+     */
+    private final Map<String, FirstLetter> firstLetterMap = new HashMap<>();
 }
