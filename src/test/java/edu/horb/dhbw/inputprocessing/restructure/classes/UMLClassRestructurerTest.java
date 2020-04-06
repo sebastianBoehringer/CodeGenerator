@@ -30,7 +30,7 @@ import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import org.testng.annotations.BeforeClass;
@@ -140,7 +140,7 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
         IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(UMLClass.class);
-        assertFalse(restructurer instanceof IRestructurerDefImpl,
+        assertFalse(restructurer instanceof NoopRestructurer,
                     "No restructurer registered for UMLClass.class");
     }
 }

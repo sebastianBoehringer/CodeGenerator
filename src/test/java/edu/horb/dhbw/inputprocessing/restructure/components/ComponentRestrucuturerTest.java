@@ -26,7 +26,7 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.ComponentRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import org.testng.annotations.Test;
@@ -46,7 +46,7 @@ public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
         IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(StateMachine.class);
-        assertFalse(restructurer instanceof IRestructurerDefImpl,
+        assertFalse(restructurer instanceof NoopRestructurer,
                     "No restructurer registered for Component.class");
     }
 

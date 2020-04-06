@@ -31,12 +31,12 @@ import java.util.List;
  * will allow {@link IRestructurerMediator} to always provide an
  * {@link BaseRestructurer} that can handle the given type.
  */
-public final class IRestructurerDefImpl extends BaseRestructurer<XMIElement> {
+public final class NoopRestructurer extends BaseRestructurer<XMIElement> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s
      */
-    public IRestructurerDefImpl(final IRestructurerMediator iRestructurerMediator) {
+    public NoopRestructurer(final IRestructurerMediator iRestructurerMediator) {
 
         super(iRestructurerMediator, "Irrelevant");
     }

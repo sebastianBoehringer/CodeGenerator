@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.enums.CallConcurrencyKind;
 import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import org.testng.annotations.BeforeClass;
@@ -75,7 +75,7 @@ public class OperationRestructurerTest extends BaseRestructurerTest {
         IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(Operation.class);
-        assertFalse(restructurer instanceof IRestructurerDefImpl,
+        assertFalse(restructurer instanceof NoopRestructurer,
                     "No restructurer registered for Operation.class");
     }
 }

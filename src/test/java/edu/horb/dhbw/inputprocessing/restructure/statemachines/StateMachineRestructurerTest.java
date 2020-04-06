@@ -25,7 +25,7 @@ import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
 import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.IRestructurerDefImpl;
+import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import org.testng.annotations.BeforeClass;
@@ -147,7 +147,7 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
         IRestructurerMediator restructurerMediator = new RestructurerMediator();
         IRestructurer<?> restructurer =
                 restructurerMediator.getIRestructurer(StateMachine.class);
-        assertFalse(restructurer instanceof IRestructurerDefImpl,
+        assertFalse(restructurer instanceof NoopRestructurer,
                     "No restructurer registered for StateMachine.class");
     }
 }
