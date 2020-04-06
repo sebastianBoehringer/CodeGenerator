@@ -42,7 +42,7 @@ public final class NamespaceValidator implements IPreValidator {
                 if (namespace.getOwnedMember()
                         .contains(elementImport.getImportedElement())) {
                     return new Pair<>(Boolean.FALSE, String.format(
-                            "Namespace [%s] imports an element it " + "owns",
+                            "Namespace [%s] imports an element it owns",
                             namespace.getId()));
                 }
             }
