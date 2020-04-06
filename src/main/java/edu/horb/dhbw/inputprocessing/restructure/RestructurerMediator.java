@@ -150,7 +150,6 @@ import edu.horb.dhbw.inputprocessing.restructure.statemachines.TransitionRestruc
 import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.thymeleaf.cache.ICache;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,7 +157,8 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public final class RestructurerMediator implements IRestructurerMediator {
+public final class RestructurerMediator
+        implements IRestructurerMediator, Caching {
 
     /**
      * The number of {@link IRestructurer}s registered when using the default
@@ -178,7 +178,7 @@ public final class RestructurerMediator implements IRestructurerMediator {
      * registered in {@link #classToRestructurer}.
      */
     private final IRestructurer<? extends XMIElement> defaultImplementation =
-            new IRestructurerDefImpl(this);
+            new NoopRestructurer(this);
 
     /**
      * Default Constructor.
@@ -418,5 +418,11 @@ public final class RestructurerMediator implements IRestructurerMediator {
     public <T extends XMIElement> void remove(@NonNull final Class<T> tClass) {
 
         classToRestructurer.remove(tClass);
+    }
+
+    @Override
+    public void cleanCache() {
+
+        readyForNextRestructuring();
     }
 }
