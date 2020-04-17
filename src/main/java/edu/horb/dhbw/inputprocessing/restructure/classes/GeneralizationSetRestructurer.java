@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.GeneralizationSet;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -31,7 +31,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class GeneralizationSetRestructurer
-        extends CachingRestructurer<GeneralizationSet> {
+        extends AbstractCachingRestructurer<GeneralizationSet> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

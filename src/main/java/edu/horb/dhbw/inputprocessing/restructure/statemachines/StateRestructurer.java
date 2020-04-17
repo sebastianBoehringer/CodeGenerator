@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.enums.PseudostateKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -33,7 +33,8 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Collection;
 
 @Slf4j
-public final class StateRestructurer extends CachingRestructurer<State> {
+public final class StateRestructurer
+        extends AbstractCachingRestructurer<State> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

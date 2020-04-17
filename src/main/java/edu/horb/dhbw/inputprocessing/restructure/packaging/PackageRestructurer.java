@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackageImpl;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
@@ -35,7 +35,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class PackageRestructurer extends CachingRestructurer<UMLPackage> {
+public final class PackageRestructurer
+        extends AbstractCachingRestructurer<UMLPackage> {
 
     private static final String PROCESSED_METAMODEL_ELEMENT = "package";
 

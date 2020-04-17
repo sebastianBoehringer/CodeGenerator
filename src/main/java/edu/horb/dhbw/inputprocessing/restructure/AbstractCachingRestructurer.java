@@ -24,16 +24,16 @@ import lombok.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class CachingRestructurer<T extends XMIElement>
-        extends BaseRestructurer<T> implements Caching {
+public abstract class AbstractCachingRestructurer<T extends XMIElement>
+        extends AbstractRestructurer<T> implements Caching {
 
     /**
      * A mapping from the xmi:id of the element to the restructured object.
      */
     protected final Map<String, T> processed = new HashMap<>();
 
-    public CachingRestructurer(final IRestructurerMediator iRestructurerMediator,
-                               @NonNull final String type) {
+    public AbstractCachingRestructurer(final IRestructurerMediator iRestructurerMediator,
+                                       @NonNull final String type) {
 
         super(iRestructurerMediator, type);
     }

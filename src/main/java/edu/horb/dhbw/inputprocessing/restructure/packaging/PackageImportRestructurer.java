@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageImportImpl;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -32,7 +32,7 @@ import org.thymeleaf.util.StringUtils;
 
 @Slf4j
 public final class PackageImportRestructurer
-        extends CachingRestructurer<PackageImport> {
+        extends AbstractCachingRestructurer<PackageImport> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

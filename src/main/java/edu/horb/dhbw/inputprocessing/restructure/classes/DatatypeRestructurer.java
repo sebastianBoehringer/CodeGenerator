@@ -25,7 +25,7 @@ import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataTypeImpl;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -35,7 +35,8 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Collection;
 
 @Slf4j
-public final class DatatypeRestructurer extends CachingRestructurer<DataType> {
+public final class DatatypeRestructurer
+        extends AbstractCachingRestructurer<DataType> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

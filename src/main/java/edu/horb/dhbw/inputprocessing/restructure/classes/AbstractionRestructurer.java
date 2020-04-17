@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
 import edu.horb.dhbw.datacore.uml.commonstructure.AbstractionImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -33,7 +33,7 @@ import java.util.List;
 
 @Slf4j
 public final class AbstractionRestructurer
-        extends CachingRestructurer<Abstraction> {
+        extends AbstractCachingRestructurer<Abstraction> {
 
 
     /**

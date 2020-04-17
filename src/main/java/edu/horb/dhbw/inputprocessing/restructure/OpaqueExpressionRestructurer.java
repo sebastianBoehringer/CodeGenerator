@@ -27,7 +27,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class OpaqueExpressionRestructurer
-        extends BaseRestructurer<OpaqueExpression> {
+        extends AbstractRestructurer<OpaqueExpression> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

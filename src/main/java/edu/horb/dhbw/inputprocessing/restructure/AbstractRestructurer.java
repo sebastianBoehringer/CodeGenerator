@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> Same as the type parameter of {@link IRestructurer}
  */
-public abstract class BaseRestructurer<T extends XMIElement>
+public abstract class AbstractRestructurer<T extends XMIElement>
         implements IRestructurer<T> {
 
     /**
@@ -69,8 +69,8 @@ public abstract class BaseRestructurer<T extends XMIElement>
      * @param type                  The name of the metamodelelement this class
      *                              processes
      */
-    public BaseRestructurer(final IRestructurerMediator iRestructurerMediator,
-                            @NonNull final String type) {
+    public AbstractRestructurer(final IRestructurerMediator iRestructurerMediator,
+                                @NonNull final String type) {
 
         mediator = iRestructurerMediator;
         umlType = type;

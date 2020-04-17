@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -34,7 +34,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class OpaqueBehaviorRestructurer
-        extends BaseRestructurer<OpaqueBehavior> {
+        extends AbstractRestructurer<OpaqueBehavior> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

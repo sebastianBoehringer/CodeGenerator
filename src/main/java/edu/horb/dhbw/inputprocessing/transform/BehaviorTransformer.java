@@ -32,7 +32,7 @@ import java.util.List;
 
 @Slf4j
 public final class BehaviorTransformer
-        extends BaseTransformer<Behavior, OOLogic> {
+        extends AbstractTransformer<Behavior, OOLogic> {
     /**
      * @param registry The registry to use.
      */
@@ -76,6 +76,8 @@ public final class BehaviorTransformer
             if (index >= 0) {
                 body = behavior.getBody().get(index);
             } else {
+                //TODO better handling in case of nonexisting language
+                // collection
                 log.warn("Language [{}] has no corresponding body in opaque "
                                  + "behavior [{}]",
                          Config.CONFIG.getLanguage().getName(),

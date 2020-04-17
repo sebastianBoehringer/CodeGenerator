@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveTypeImpl;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -35,7 +35,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class PrimitiveRestructurer
-        extends CachingRestructurer<PrimitiveType> {
+        extends AbstractCachingRestructurer<PrimitiveType> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

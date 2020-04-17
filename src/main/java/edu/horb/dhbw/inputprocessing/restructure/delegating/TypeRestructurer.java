@@ -19,14 +19,14 @@ package edu.horb.dhbw.inputprocessing.restructure.delegating;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
 import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 
-public final class TypeRestructurer extends BaseRestructurer<Type> {
+public final class TypeRestructurer extends AbstractRestructurer<Type> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

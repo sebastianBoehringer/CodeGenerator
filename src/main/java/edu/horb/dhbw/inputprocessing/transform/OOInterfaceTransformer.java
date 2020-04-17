@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOInterfaceTransformer
-        extends BaseOOTypeTransformer<Interface> {
+        extends AbstractOOTypeTransformer<Interface> {
 
     /**
      * @param registry The registry to use.

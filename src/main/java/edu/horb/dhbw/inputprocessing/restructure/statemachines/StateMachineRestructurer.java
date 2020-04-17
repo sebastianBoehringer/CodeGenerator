@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -34,7 +34,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class StateMachineRestructurer
-        extends CachingRestructurer<StateMachine> {
+        extends AbstractCachingRestructurer<StateMachine> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

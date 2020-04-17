@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOParameterTransformer
-        extends BaseTransformer<Parameter, OOParameter> {
+        extends AbstractTransformer<Parameter, OOParameter> {
 
     /**
      * @param registry The registry to use.

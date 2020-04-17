@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -32,7 +32,7 @@ import java.util.List;
 
 @Slf4j
 public final class SubstitutionRestructurer
-        extends CachingRestructurer<Substitution> {
+        extends AbstractCachingRestructurer<Substitution> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.InstanceSpecification;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
@@ -34,7 +34,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class InstanceSpecRestructurer
-        extends CachingRestructurer<InstanceSpecification> {
+        extends AbstractCachingRestructurer<InstanceSpecification> {
     /**
      * The name of the metamodel element this restructurer can process.
      */

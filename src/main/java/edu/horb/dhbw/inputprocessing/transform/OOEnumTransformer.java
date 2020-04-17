@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOEnumTransformer
-        extends BaseOOTypeTransformer<Enumeration> {
+        extends AbstractOOTypeTransformer<Enumeration> {
     /**
      * @param registry The registry to use.
      */

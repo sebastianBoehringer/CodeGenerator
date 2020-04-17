@@ -17,24 +17,22 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
-import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
-import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class BaseOOTypeTransformer<F extends Classifier>
+public abstract class AbstractOOTypeTransformer<F extends Classifier>
         extends CachingTransformer<F, OOType> {
 
     /**
      * @param registry The registry to use.
      */
-    public BaseOOTypeTransformer(final TransformerRegistry registry) {
+    public AbstractOOTypeTransformer(final TransformerRegistry registry) {
 
         super(registry);
     }

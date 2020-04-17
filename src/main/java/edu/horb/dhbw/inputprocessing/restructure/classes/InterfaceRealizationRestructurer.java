@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class InterfaceRealizationRestructurer
-        extends CachingRestructurer<InterfaceRealization> {
+        extends AbstractCachingRestructurer<InterfaceRealization> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

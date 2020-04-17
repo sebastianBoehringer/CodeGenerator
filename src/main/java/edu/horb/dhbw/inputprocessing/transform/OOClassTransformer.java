@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class OOClassTransformer extends BaseOOTypeTransformer<UMLClass> {
+public final class OOClassTransformer
+        extends AbstractOOTypeTransformer<UMLClass> {
 
     /**
      * @param registry The registry to use.

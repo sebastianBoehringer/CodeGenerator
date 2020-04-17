@@ -24,7 +24,7 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -36,7 +36,7 @@ import java.util.List;
 
 @Slf4j
 public final class InterfaceRestructurer
-        extends CachingRestructurer<Interface> {
+        extends AbstractCachingRestructurer<Interface> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

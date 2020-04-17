@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.Model;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -33,7 +33,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class ModelRestructurer extends CachingRestructurer<Model> {
+public final class ModelRestructurer
+        extends AbstractCachingRestructurer<Model> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

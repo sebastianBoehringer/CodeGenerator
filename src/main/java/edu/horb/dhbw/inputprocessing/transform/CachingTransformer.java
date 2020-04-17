@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
-        extends BaseTransformer<F, T> implements Caching {
+        extends AbstractTransformer<F, T> implements Caching {
     /**
      * The cache saving all the already processed {@link T}s.
      * This maps from the id

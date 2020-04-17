@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public final class OOTypeTransformer extends BaseTransformer<Type, OOType> {
+public final class OOTypeTransformer extends AbstractTransformer<Type, OOType> {
     /**
      * @param registry The registry to use.
      */
@@ -73,6 +73,7 @@ public final class OOTypeTransformer extends BaseTransformer<Type, OOType> {
             log.info("Transforming [{}] to primitiveType", id);
             return transformTo(PrimitiveType.class, (PrimitiveType) element);
         }
+        //TODO support DataType
         return null;
     }
 

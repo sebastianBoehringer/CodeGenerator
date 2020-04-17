@@ -26,12 +26,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The default implementation for an {@link BaseRestructurer}.
+ * The default implementation for an {@link AbstractRestructurer}.
  * None of the methods actually process the data in any sort or way. This
  * will allow {@link IRestructurerMediator} to always provide an
- * {@link BaseRestructurer} that can handle the given type.
+ * {@link AbstractRestructurer} that can handle the given type.
  */
-public final class NoopRestructurer extends BaseRestructurer<XMIElement> {
+public final class NoopRestructurer extends AbstractRestructurer<XMIElement> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

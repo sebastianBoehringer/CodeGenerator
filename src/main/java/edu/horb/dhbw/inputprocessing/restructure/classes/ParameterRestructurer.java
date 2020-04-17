@@ -24,7 +24,7 @@ import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.PrimitiveTypeUtil;
@@ -34,7 +34,7 @@ import org.thymeleaf.util.StringUtils;
 
 @Slf4j
 public final class ParameterRestructurer
-        extends CachingRestructurer<Parameter> {
+        extends AbstractCachingRestructurer<Parameter> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectorEnd;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -30,7 +30,7 @@ import org.thymeleaf.util.StringUtils;
 
 @Slf4j
 public final class ConnectorEndRestructurer
-        extends CachingRestructurer<ConnectorEnd> {
+        extends AbstractCachingRestructurer<ConnectorEnd> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

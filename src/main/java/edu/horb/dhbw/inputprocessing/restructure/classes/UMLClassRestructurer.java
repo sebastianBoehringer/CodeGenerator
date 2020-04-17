@@ -31,7 +31,7 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.Connector;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
@@ -42,7 +42,8 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Collection;
 
 @Slf4j
-public final class UMLClassRestructurer extends CachingRestructurer<UMLClass> {
+public final class UMLClassRestructurer
+        extends AbstractCachingRestructurer<UMLClass> {
 
 
     /**

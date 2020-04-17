@@ -29,7 +29,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class IntervalConstraintRestrucuturer
-        extends CachingRestructurer<IntervalConstraint> {
+        extends AbstractCachingRestructurer<IntervalConstraint> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

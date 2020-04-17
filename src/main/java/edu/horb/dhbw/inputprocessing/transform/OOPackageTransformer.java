@@ -43,19 +43,6 @@ public final class OOPackageTransformer
     }
 
     @Override
-    public @NonNull List<OOPackage> transform(final @NonNull List<?> elements) {
-
-        List<Component> classes = new ArrayList<>();
-        for (Object e : elements) {
-            if (e instanceof Component) {
-                classes.add((Component) e);
-            }
-        }
-        return classes.stream().map(this::transform)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public OOPackage doTransformation(@NonNull final Component element) {
 
         String id = element.getId();
@@ -87,5 +74,18 @@ public final class OOPackageTransformer
         ooPackage.getContainedElements().addAll(realizingTypes);
 
         return ooPackage;
+    }
+
+    @Override
+    public @NonNull List<OOPackage> transform(final @NonNull List<?> elements) {
+
+        List<Component> classes = new ArrayList<>();
+        for (Object e : elements) {
+            if (e instanceof Component) {
+                classes.add((Component) e);
+            }
+        }
+        return classes.stream().map(this::transform)
+                .collect(Collectors.toList());
     }
 }

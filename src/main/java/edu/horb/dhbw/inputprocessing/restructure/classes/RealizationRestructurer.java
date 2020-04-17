@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Realization;
 import edu.horb.dhbw.datacore.uml.commonstructure.RealizationImpl;
 import edu.horb.dhbw.datacore.uml.values.OpaqueExpression;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -33,7 +33,7 @@ import java.util.List;
 
 @Slf4j
 public final class RealizationRestructurer
-        extends CachingRestructurer<Realization> {
+        extends AbstractCachingRestructurer<Realization> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

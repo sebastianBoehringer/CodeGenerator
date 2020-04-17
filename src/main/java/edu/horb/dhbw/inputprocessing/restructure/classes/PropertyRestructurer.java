@@ -26,7 +26,7 @@ import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
@@ -39,7 +39,8 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Collection;
 
 @Slf4j
-public final class PropertyRestructurer extends CachingRestructurer<Property> {
+public final class PropertyRestructurer
+        extends AbstractCachingRestructurer<Property> {
 
     /**
      * The name of the metamodel element this restructurer can process.

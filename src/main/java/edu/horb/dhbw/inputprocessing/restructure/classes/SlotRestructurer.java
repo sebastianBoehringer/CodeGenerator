@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Collection;
 
 @Slf4j
-public final class SlotRestructurer extends CachingRestructurer<Slot> {
+public final class SlotRestructurer extends AbstractCachingRestructurer<Slot> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

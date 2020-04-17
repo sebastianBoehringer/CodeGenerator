@@ -21,7 +21,7 @@ import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonstructure.Dependency;
 import edu.horb.dhbw.datacore.uml.commonstructure.DependencyImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.NamedElement;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -32,7 +32,7 @@ import java.util.List;
 
 @Slf4j
 public final class DependencyRestructurer
-        extends CachingRestructurer<Dependency> {
+        extends AbstractCachingRestructurer<Dependency> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

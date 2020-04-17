@@ -23,7 +23,7 @@ import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
 import edu.horb.dhbw.datacore.uml.statemachines.Transition;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.LookupUtil;
@@ -34,7 +34,7 @@ import org.thymeleaf.util.StringUtils;
 
 @Slf4j
 public final class TransitionRestructurer
-        extends CachingRestructurer<Transition> {
+        extends AbstractCachingRestructurer<Transition> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

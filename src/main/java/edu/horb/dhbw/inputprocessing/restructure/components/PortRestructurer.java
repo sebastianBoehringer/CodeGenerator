@@ -26,7 +26,7 @@ import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Port;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.util.PrimitiveTypeUtil;
@@ -37,7 +37,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Collection;
 
 @Slf4j
-public final class PortRestructurer extends BaseRestructurer<Port> {
+public final class PortRestructurer extends AbstractRestructurer<Port> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

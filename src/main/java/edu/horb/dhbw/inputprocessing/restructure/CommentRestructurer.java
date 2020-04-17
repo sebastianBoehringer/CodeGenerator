@@ -27,7 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Collection;
 
 @Slf4j
-public final class CommentRestructurer extends CachingRestructurer<Comment> {
+public final class CommentRestructurer
+        extends AbstractCachingRestructurer<Comment> {
 
     /**
      * @param iRestructurerMediator The mediator responsible for providing

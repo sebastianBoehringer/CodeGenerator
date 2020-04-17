@@ -27,12 +27,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class OOPrimitiveTransformer
-        extends BaseTransformer<PrimitiveType, OOType> {
-    private OOType primitiveBool;
-    private OOType primitiveInt;
-    private OOType primitiveString;
-    private OOType primitiveReal;
-    private OOType primitiveUnlimitedNatural;
+        extends AbstractTransformer<PrimitiveType, OOType> {
+    private final OOType primitiveBool;
+    private final OOType primitiveInt;
+    private final OOType primitiveString;
+    private final OOType primitiveReal;
+    private final OOType primitiveUnlimitedNatural;
 
     public OOPrimitiveTransformer(final TransformerRegistry registry) {
 

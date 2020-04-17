@@ -80,7 +80,7 @@ public interface IRestructurerMediator extends IRestructurer<XMIElement> {
     /**
      * Readies the mediator for the parsing of the next model.
      * {@link IRestructurer}s may cache their result, e. g.
-     * {@link CachingRestructurer}. This is no problem if
+     * {@link AbstractCachingRestructurer}. This is no problem if
      * the mediator is not used for restructuring two models in a row. In
      * that case it might occur that the modelling tools have used the same
      * id for two different classes. Thus it is recommended for a caller to

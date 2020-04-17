@@ -22,7 +22,8 @@ import edu.horb.dhbw.datacore.uml.XMIElement;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class BaseTransformer<F extends XMIElement, T extends OOBase>
+public abstract class AbstractTransformer<F extends XMIElement,
+        T extends OOBase>
         implements ITransformer<F, T> {
     /**
      * The {@link TransformerRegistry} used to access other

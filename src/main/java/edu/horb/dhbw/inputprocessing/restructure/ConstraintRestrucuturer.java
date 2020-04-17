@@ -32,7 +32,7 @@ import java.util.Collection;
 
 @Slf4j
 public final class ConstraintRestrucuturer
-        extends CachingRestructurer<Constraint> {
+        extends AbstractCachingRestructurer<Constraint> {
     /**
      * The name of the metamodel element this restructurer processes.
      */

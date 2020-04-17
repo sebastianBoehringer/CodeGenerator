@@ -20,7 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure.classes;
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
-import edu.horb.dhbw.inputprocessing.restructure.CachingRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
@@ -29,7 +29,7 @@ import org.thymeleaf.util.StringUtils;
 
 @Slf4j
 public final class GeneralizationRestructurer
-        extends CachingRestructurer<Generalization> {
+        extends AbstractCachingRestructurer<Generalization> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

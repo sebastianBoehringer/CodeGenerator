@@ -19,14 +19,15 @@ package edu.horb.dhbw.inputprocessing.restructure.components;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Collaboration;
-import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.AbstractRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CollaborationRestructurer extends BaseRestructurer<Collaboration> {
+public class CollaborationRestructurer
+        extends AbstractRestructurer<Collaboration> {
     /**
      * @param iRestructurerMediator The mediator responsible for providing
      *                              the other {@link IRestructurer}s

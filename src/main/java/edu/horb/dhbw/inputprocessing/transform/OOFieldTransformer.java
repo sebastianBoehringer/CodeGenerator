@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOFieldTransformer
-        extends BaseTransformer<Property, OOField> {
+        extends AbstractTransformer<Property, OOField> {
     /**
      * @param registry The registry to use.
      */
