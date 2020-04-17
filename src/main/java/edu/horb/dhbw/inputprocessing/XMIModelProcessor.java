@@ -226,6 +226,13 @@ public final class XMIModelProcessor implements IModelProcessor {
     }
 
     @Override
+    public void initialize(final Language language) {
+
+        configurePostValidators(language.getValidationOptions());
+
+    }
+
+    @Override
     public void addPreValidator(final IPreValidator preValidator) {
 
         preValidators.add(preValidator);
@@ -350,13 +357,6 @@ public final class XMIModelProcessor implements IModelProcessor {
     public @NonNull List<OOType> getParsedClasses() {
 
         return List.copyOf(parsedClasses);
-    }
-
-    @Override
-    public void initialize(final Language language) {
-
-        configurePostValidators(language.getValidationOptions());
-
     }
 
     /**

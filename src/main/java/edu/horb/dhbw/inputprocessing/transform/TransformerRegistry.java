@@ -44,26 +44,6 @@ public final class TransformerRegistry
     private final Map<Class<? extends XMIElement>, ITransformer<?
             extends XMIElement, ? extends OOBase>>
             registry = new HashMap<>();
-
-    @Override
-    public void readyForNextTransforming() {
-
-        for (Map.Entry<Class<? extends XMIElement>, ITransformer<?
-                extends XMIElement, ? extends OOBase>> entry : registry
-                .entrySet()) {
-            ITransformer<?, ?> value = entry.getValue();
-            if (value instanceof Caching) {
-                ((Caching) value).cleanCache();
-            }
-        }
-    }
-
-    @Override
-    public void cleanCache() {
-
-        readyForNextTransforming();
-    }
-
     /**
      * A noop {@link ITransformer} that is used when a specialized one is not
      * found.
@@ -91,6 +71,12 @@ public final class TransformerRegistry
         registry.put(Behavior.class, new BehaviorTransformer(this));
     }
 
+    @Override
+    public void cleanCache() {
+
+        readyForNextTransforming();
+    }
+
     /**
      * Registers a new {@link ITransformer} in this registry.
      *
@@ -103,6 +89,12 @@ public final class TransformerRegistry
                                                         extends OOBase> transformer) {
 
         registry.put(fClass, transformer);
+    }
+
+    @Override
+    public <F extends XMIElement> void remove(final Class<F> fClass) {
+
+        registry.remove(fClass);
     }
 
     /**
@@ -120,10 +112,16 @@ public final class TransformerRegistry
                 .getOrDefault(clazz, defaultTransformer);
     }
 
-
     @Override
-    public <F extends XMIElement> void remove(final Class<F> fClass) {
+    public void readyForNextTransforming() {
 
-        registry.remove(fClass);
+        for (Map.Entry<Class<? extends XMIElement>, ITransformer<?
+                extends XMIElement, ? extends OOBase>> entry : registry
+                .entrySet()) {
+            ITransformer<?, ?> value = entry.getValue();
+            if (value instanceof Caching) {
+                ((Caching) value).cleanCache();
+            }
+        }
     }
 }

@@ -45,5 +45,5 @@ public enum StatementKind {
     /**
      * Multiple series of statements tht are executed at the same time.
      */
-    PARALLEL;
+    PARALLEL
 }

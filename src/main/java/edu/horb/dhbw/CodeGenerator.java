@@ -61,12 +61,12 @@ public final class CodeGenerator {
     /**
      * Resolves the imports for a class file.
      */
-    private IImportResolver importResolver;
+    private final IImportResolver importResolver;
 
     /**
      * The processor to use for reading the model file.
      */
-    private IModelProcessor modelProcessor;
+    private final IModelProcessor modelProcessor;
 
     /**
      * Default constructor, that attempts to detect the configuration file
@@ -87,21 +87,6 @@ public final class CodeGenerator {
         this(Files.exists(Path.of("codegenerator.properties")) ? Path
                 .of("codegenerator.properties") : Path
                      .of("src/main/resources/default.properties"));
-    }
-
-    /**
-     * @param engineAdapter The adapter to produce templates
-     * @param resolver      A way to resolve the imports
-     * @param processor     The processor to parse the model
-     */
-    public CodeGenerator(final ITemplateEngineAdapter engineAdapter,
-                         final IImportResolver resolver,
-                         final IModelProcessor processor) {
-
-        this.adapter = engineAdapter;
-        this.importResolver = resolver;
-        this.modelProcessor = processor;
-        Config.CONFIG.readInProperties(new Properties());
     }
 
     /**
@@ -180,6 +165,21 @@ public final class CodeGenerator {
             throw new InvalidConfigurationException(
                     "Could not access constructor of " + adapterClass);
         }
+    }
+
+    /**
+     * @param engineAdapter The adapter to produce templates
+     * @param resolver      A way to resolve the imports
+     * @param processor     The processor to parse the model
+     */
+    public CodeGenerator(final ITemplateEngineAdapter engineAdapter,
+                         final IImportResolver resolver,
+                         final IModelProcessor processor) {
+
+        this.adapter = engineAdapter;
+        this.importResolver = resolver;
+        this.modelProcessor = processor;
+        Config.CONFIG.readInProperties(new Properties());
     }
 
     /**

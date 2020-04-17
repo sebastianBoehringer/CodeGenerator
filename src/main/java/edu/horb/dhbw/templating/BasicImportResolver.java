@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BasicImportResolver implements IImportResolver {
-    private static String PLACEHOLDER = "PLACEHOLDER";
+    private static final String PLACEHOLDER = "PLACEHOLDER";
 
     /**
      * {@inheritDoc}

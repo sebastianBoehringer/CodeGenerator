@@ -320,6 +320,12 @@ public final class RestructurerMediator
         classToRestructurer.put(clazz, restructurer);
     }
 
+    @Override
+    public <T extends XMIElement> void remove(@NonNull final Class<T> tClass) {
+
+        classToRestructurer.remove(tClass);
+    }
+
     /**
      * @param clazz The class to restructure to
      * @param <T>   The class that the IRestructurer restructures to. Upper
@@ -376,6 +382,20 @@ public final class RestructurerMediator
     }
 
     /**
+     * Cleans up the caches of every registered
+     * {@link AbstractCachingRestructurer}.
+     */
+    @Override
+    public void readyForNextRestructuring() {
+
+        for (IRestructurer<?> value : classToRestructurer.values()) {
+            if (value instanceof Caching) {
+                ((Caching) value).cleanCache();
+            }
+        }
+    }
+
+    /**
      * @param base    The object to add the general attributes to.
      * @param element The modelelement holding the information
      * @param <S>     A subclass of {@link XMIElement}.
@@ -399,25 +419,6 @@ public final class RestructurerMediator
 
         return classToRestructurer.values().stream()
                 .anyMatch(it -> it.canRestructure(element));
-    }
-
-    /**
-     * Cleans up the caches of every registered {@link CachingRestructurer}.
-     */
-    @Override
-    public void readyForNextRestructuring() {
-
-        for (IRestructurer<?> value : classToRestructurer.values()) {
-            if (value instanceof Caching) {
-                ((Caching) value).cleanCache();
-            }
-        }
-    }
-
-    @Override
-    public <T extends XMIElement> void remove(@NonNull final Class<T> tClass) {
-
-        classToRestructurer.remove(tClass);
     }
 
     @Override

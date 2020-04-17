@@ -112,7 +112,7 @@ public class OOType extends OOBase {
         /**
          * Designates this {@link OOType} as a primitive Type.
          */
-        PRIMITIVE;
+        PRIMITIVE
     }
 
 }

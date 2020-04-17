@@ -27,11 +27,11 @@ import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
 
 public final class PrimitiveTypeUtil {
 
-    private static PrimitiveString primitiveString = new PrimitiveString();
-    private static PrimitiveBoolean primitiveBoolean = new PrimitiveBoolean();
-    private static PrimitiveInteger primitiveInteger = new PrimitiveInteger();
-    private static PrimitiveReal primitiveReal = new PrimitiveReal();
-    private static UnlimitedNatural unlimitedNatural = new UnlimitedNatural(0L);
+    private static final PrimitiveString primitiveString = new PrimitiveString();
+    private static final PrimitiveBoolean primitiveBoolean = new PrimitiveBoolean();
+    private static final PrimitiveInteger primitiveInteger = new PrimitiveInteger();
+    private static final PrimitiveReal primitiveReal = new PrimitiveReal();
+    private static final UnlimitedNatural unlimitedNatural = new UnlimitedNatural(0L);
 
     private PrimitiveTypeUtil() {
 

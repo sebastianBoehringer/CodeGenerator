@@ -41,6 +41,22 @@ public enum Config {
     CONFIG();
 
     /**
+     * The path to the SDMetrics metamodel file.
+     * Corresponds to property {@code xmi.sdmetrics.metamodel}.
+     */
+    private String metaModelPath;
+    /**
+     * The path to the SDMetrics transformations file.
+     * Corresponds to property {@code xmi.sdmetrics.transformations}.
+     */
+    private String transformationsPath;
+    /**
+     * The language that is read in from the loaded properties.
+     * Handles all of the properties with a prefix of {@code language}.
+     */
+    private Language language;
+
+    /**
      * Constructor that initializes the config with default.properties.
      */
     Config() {
@@ -56,24 +72,6 @@ public enum Config {
         }
         readInProperties(props);
     }
-
-
-    /**
-     * The path to the SDMetrics metamodel file.
-     * Corresponds to property {@code xmi.sdmetrics.metamodel}.
-     */
-    private String metaModelPath;
-    /**
-     * The path to the SDMetrics transformations file.
-     * Corresponds to property {@code xmi.sdmetrics.transformations}.
-     */
-    private String transformationsPath;
-
-    /**
-     * The language that is read in from the loaded properties.
-     * Handles all of the properties with a prefix of {@code language}.
-     */
-    private Language language;
 
     /**
      * @param props The properties that should be used as a configuration
