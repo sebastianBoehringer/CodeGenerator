@@ -29,6 +29,7 @@ import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
+import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.ModelParseException;
 import edu.horb.dhbw.exception.ModelValidationException;
 import edu.horb.dhbw.inputprocessing.postvalidate.EnumValidator;
@@ -81,10 +82,18 @@ import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 @Slf4j
 public final class XMIModelProcessor implements IModelProcessor {
@@ -227,7 +236,7 @@ public final class XMIModelProcessor implements IModelProcessor {
 
     @Override
     public void initialize(final Language language) {
-
+        postValidators.clear();
         configurePostValidators(language.getValidationOptions());
 
     }
@@ -256,15 +265,51 @@ public final class XMIModelProcessor implements IModelProcessor {
         postValidators.remove(postValidator);
     }
 
+    /**
+     * Preprocesses a xmi file.
+     * Preprocessing in this case means replacing an attribute {@code
+     * "xmitype"} with {@code "xmi:type}. That way stereotypes will be picked
+     * up when parsing the model.
+     *
+     * @param modelLocation The path where the model is located
+     * @return Path to the preprocessed model
+     *
+     * @throws CodeGenerationException If an {@link IOException} occurs
+     */
+    private Path preprocessModel(final Path modelLocation)
+            throws CodeGenerationException {
+
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("temp", ".xmi", new File("."));
+            tempFile.deleteOnExit();
+            try (Scanner scanner = new Scanner(new BufferedInputStream(
+                    new FileInputStream(modelLocation.toFile())));
+                 Writer writer = new BufferedWriter(new FileWriter(tempFile))) {
+                String line;
+                while (scanner.hasNext()) {
+                    line = scanner.nextLine();
+                    writer.append(line.replace("xmitype=\"", "xmi:type=\""))
+                            .append("\n");
+                }
+            }
+
+        } catch (IOException e) {
+            throw new CodeGenerationException(e);
+        }
+        return tempFile.toPath();
+    }
+
     @Override
     public void parseModel(final @NonNull Path modelLocation)
             throws ModelParseException, ModelValidationException {
 
         Model model;
         try {
+            Path tempFileLocation = preprocessModel(modelLocation);
             log.info("Attempting to parse model at [{}]", modelLocation);
             model = SDMetricsUtil
-                    .parseXMI(modelLocation.toAbsolutePath().toString());
+                    .parseXMI(tempFileLocation.toAbsolutePath().toString());
         } catch (Exception e) {
             log.error("Could not parse model due to [{}] with cause [{}]",
                       e.getClass().getSimpleName(), e.getMessage());

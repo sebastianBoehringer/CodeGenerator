@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:model="http:///schemas/model/_qejn8GeWEeqPk87OiF9lRA/6" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/model/_qejn8GeWEeqPk87OiF9lRA/6 model.profile.uml#_qekPAGeWEeqPk87OiF9lRA">
+  <uml:Model xmi:id="_LezvsBHKEeqInqceS695qw" name="BeispieleArbeit">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_LfjWkBHKEeqInqceS695qw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_KVoSwGn-EeqF0al9U1KzLA" name="Person">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tBrloGn_EeqF0al9U1KzLA" name="Property1" type="_RehPYBHKEeqInqceS695qw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_RehPYBHKEeqInqceS695qw" name="Liste">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_VVA_0BHKEeqInqceS695qw" name="RedefinableTemplateSignature1" parameter="_icOGoBHKEeqInqceS695qw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_icOGoBHKEeqInqceS695qw" parameteredElement="_qmhOkBHKEeqInqceS695qw"/>
+      </ownedTemplateSignature>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_0pAnMBHKEeqInqceS695qw" name="inhalt" type="_qmhOkBHKEeqInqceS695qw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1_tUYBHKEeqInqceS695qw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1_3FYBHKEeqInqceS695qw" value="*"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_qmhOkBHKEeqInqceS695qw" name="T" templateParameter="_icOGoBHKEeqInqceS695qw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_I-bBIBHLEeqInqceS695qw" name="PersonenListe">
+      <templateBinding xmi:type="uml:TemplateBinding" xmi:id="_lGJH4Gn-EeqF0al9U1KzLA" signature="_VVA_0BHKEeqInqceS695qw">
+        <parameterSubstitution xmi:type="uml:TemplateParameterSubstitution" xmi:id="_puWpIGn-EeqF0al9U1KzLA" actual="_KVoSwGn-EeqF0al9U1KzLA" formal="_icOGoBHKEeqInqceS695qw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ZBbOEIJCEeqGBqD7NNxnqA" name="Test"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_N-vHQIJDEeqGBqD7NNxnqA" name="Test2"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_1riXMBH2EeqInqceS695qw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_r9GpkGeWEeqPk87OiF9lRA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r9GpkWeWEeqPk87OiF9lRA" key="Version" value="0.0.7"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r9GpkmeWEeqPk87OiF9lRA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r9Gpk2eWEeqPk87OiF9lRA" key="Copyright" value="None, copy it if you think it is that good"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r9GplGeWEeqPk87OiF9lRA" key="Date" value="2020-03-16"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_r9GplWeWEeqPk87OiF9lRA" key="Author" value="Sebastian Boehringer"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_1rlagBH2EeqInqceS695qw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="model.profile.uml#_qekPAGeWEeqPk87OiF9lRA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="model.profile.uml#_-FYq8BHeEeqInqceS695qw"/>
+    </profileApplication>
+  </uml:Model>
+  <model:POJO xmi:id="_arj0oIJCEeqGBqD7NNxnqA" base_Class="_ZBbOEIJCEeqGBqD7NNxnqA" xmitype="Berta" getterVisibility="protected" setterVisibility="package"/>
+  <model:POJO xmi:id="_PMi-MIJDEeqGBqD7NNxnqA" base_Class="_N-vHQIJDEeqGBqD7NNxnqA" xmitype="Die zweite karamba" getterVisibility="private"/>
+</xmi:XMI>
