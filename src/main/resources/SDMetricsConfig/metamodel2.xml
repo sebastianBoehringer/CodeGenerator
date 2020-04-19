@@ -617,7 +617,8 @@ other part of SDMetrics.
             the component.
         </attribute>
         <attribute name="indirectlyInstantiated">If true there does
-            not exist an object of this component at runtime</attribute>
+            not exist an object of this component at runtime
+        </attribute>
     </modelelement>
 
     <!-- concrete behaviors -->
