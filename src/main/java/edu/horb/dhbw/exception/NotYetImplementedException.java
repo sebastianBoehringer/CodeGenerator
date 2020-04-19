@@ -20,7 +20,7 @@ package edu.horb.dhbw.exception;
 
 import lombok.NonNull;
 
-public class NotYetImplementedException extends RuntimeException {
+public final class NotYetImplementedException extends RuntimeException {
     /**
      * Default Constructor.
      * Deprecated to make myself aware that the method throwing this
