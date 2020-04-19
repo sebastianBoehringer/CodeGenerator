@@ -14,6 +14,8 @@
             </pattern>
         </encoder>
     </appender>
+    <logger name="edu.horb.dhbw" level="warn"/>
+    <logger name="org.thymeleaf" level="warn"/>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>./target/codegenerator.log</file>
         <append>false</append>
