@@ -24,6 +24,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OOParameter extends OOBase {
+
+    /**
+     * The method that uses this parameter.
+     */
+    private OOMethod parent;
     /**
      * The type of this parameter.
      */
@@ -33,7 +38,13 @@ public class OOParameter extends OOBase {
      */
     private String defaults;
 
+    /**
+     * The cardinality of the parameter.
+     */
     private Cardinality cardinality;
 
+    /**
+     * If this parameter is headed into or out of a method.
+     */
     private ParameterDirectionKind direction;
 }

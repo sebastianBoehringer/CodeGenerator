@@ -26,6 +26,10 @@ import lombok.EqualsAndHashCode;
 public class OOField extends OOBase {
 
     /**
+     * The type the field belongs to.
+     */
+    private OOType parent;
+    /**
      * The type of this field.
      */
     private OOType type;
@@ -41,7 +45,7 @@ public class OOField extends OOBase {
     private Cardinality cardinality;
 
     /**
-     * If this is {@code true} the field cannot be written to
+     * If this is {@code true} the field cannot be written to.
      */
     private boolean readOnly;
 

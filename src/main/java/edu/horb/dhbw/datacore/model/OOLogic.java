@@ -34,4 +34,22 @@ public final class OOLogic extends OOBase {
      * The statements to execute.
      */
     private final List<IStatement> statements;
+
+    /**
+     * Throws an {@link UnsupportedOperationException}.
+     */
+    @Override
+    protected OOBase getParent() {
+
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Throws an {@link UnsupportedOperationException}.
+     */
+    @Override
+    public String getFQName() {
+
+        throw new UnsupportedOperationException();
+    }
 }

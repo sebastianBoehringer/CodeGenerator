@@ -25,4 +25,22 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 public abstract class BaseStatement extends OOBase implements IStatement {
+
+    /**
+     * Throws an {@link UnsupportedOperationException}.
+     */
+    @Override
+    public String getFQName() {
+
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Throws an {@link UnsupportedOperationException}.
+     */
+    @Override
+    protected OOBase getParent() {
+
+        throw new UnsupportedOperationException();
+    }
 }

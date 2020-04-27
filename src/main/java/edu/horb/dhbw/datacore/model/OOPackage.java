@@ -38,20 +38,5 @@ public class OOPackage extends OOBase {
      * The package containing this package.
      */
     @EqualsAndHashCode.Include
-    private OOPackage container = null;
-
-    /**
-     * Returns the fully qualified name of this type.
-     * {@link Config#language} is used so that the delimiter can be
-     * customized.
-     *
-     * @return The fully qualified name of this type
-     */
-    public String getFQName() {
-
-        return container == null ? this.getName()
-                                 : container.getFQName() + Config.CONFIG
-                                         .getLanguage().getPackageNameLimiter()
-                       + this.getName();
-    }
+    private OOPackage parent = null;
 }

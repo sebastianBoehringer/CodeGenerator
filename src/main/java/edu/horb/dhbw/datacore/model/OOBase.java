@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.datacore.model;
 
+import edu.horb.dhbw.util.Config;
 import lombok.Data;
 
 import java.util.List;
@@ -37,4 +38,21 @@ public abstract class OOBase {
      * Comments that were attached to the corresponding model element.
      */
     private List<String> comments;
+
+    protected abstract OOBase getParent();
+
+    /**
+     * Returns the fully qualified name of this type.
+     * {@link Config#language} is used so that the delimiter can be
+     * customized.
+     *
+     * @return The fully qualified name of this type
+     */
+    public String getFQName() {
+
+        return getParent() != null ? getParent().getFQName()
+                + Config.CONFIG.getLanguage().getPackageNameLimiter() + name
+                                               : name;
+    }
+
 }

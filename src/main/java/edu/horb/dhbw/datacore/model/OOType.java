@@ -18,7 +18,6 @@
 package edu.horb.dhbw.datacore.model;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import edu.horb.dhbw.util.Config;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,7 +40,7 @@ public class OOType extends OOBase {
     /**
      * The package containing this type.
      */
-    private OOPackage container;
+    private OOPackage parent;
     /**
      * The visibility of the type inside that package.
      */
@@ -68,26 +67,25 @@ public class OOType extends OOBase {
      */
     private List<OOType> implementedInterfaces = Collections.emptyList();
 
+    /**
+     * If this is {@code true} the type cannot be instantiated.
+     */
     private boolean isAbstract;
 
+    /**
+     * If this is {@code true} the type cannot be specialized.
+     */
     private boolean isFinal;
 
+    /**
+     * The attributes of the type.
+     */
     private List<OOField> fields;
 
     /**
-     * Returns the fully qualified name of this type.
-     * {@link Config#language} is used so that the delimiter can be
-     * customized.
-     *
-     * @return The fully qualified name of this type
+     * The elements that this type has imported.
      */
-    public String getFQName() {
-
-        String delimiter = Config.CONFIG.getLanguage().getPackageNameLimiter();
-
-        return container == null ? getName() : container.getFQName() + delimiter
-                + getName();
-    }
+    private List<OOBase> importedElements = Collections.emptyList();
 
     @Override
     public String toString() {

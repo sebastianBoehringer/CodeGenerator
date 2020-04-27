@@ -29,6 +29,10 @@ import java.util.List;
 public class OOMethod extends OOBase {
 
     /**
+     * The type that owns the method.
+     */
+    private OOType parent;
+    /**
      * Defines the logic used when executing this method.
      */
     private OOLogic logic;
