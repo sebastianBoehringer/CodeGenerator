@@ -1,0 +1,1 @@
+[# th:if="${type.getParent()}"]package [(${type.getParent().getFQName()})];[/]
