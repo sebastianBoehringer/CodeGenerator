@@ -21,6 +21,7 @@ jobs:
       with:
         java-version: 13
     - name: Install SDMetrics to repo
-      run: mvn install:install-file -Dfile="lib/SDMetricsOpenCore-2.35.jar" -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35" -Dpackaging="jar"
+      run: mvn install:install-file -Dfile="lib/SDMetricsOpenCore-2.35-mod.jar"
+      -DgroupId="com.SDMetrics" -DartifactId="open-core" -Dversion="2.35" -Dpackaging="jar"
     - name: Build with Maven
       run: mvn -B package --file pom.xml
