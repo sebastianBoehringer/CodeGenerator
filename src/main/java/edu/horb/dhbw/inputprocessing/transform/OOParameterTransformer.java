@@ -37,7 +37,7 @@ public final class OOParameterTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOParameterTransformer(final TransformerRegistry registry) {
+    public OOParameterTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

@@ -25,7 +25,7 @@ public enum StatementKind {
     /**
      * Creates and assigns a variable.
      */
-    CREATEANDASSIGN,
+    CREATE_AND_ASSIGN,
     /**
      * Creates a variable.
      */
@@ -33,7 +33,7 @@ public enum StatementKind {
     /**
      * A call to a function, possibly chained.
      */
-    FUNCTIONCALL,
+    FUNCTION_CALL,
     /**
      * A choice between multiple different statements by evaluating a condition.
      */

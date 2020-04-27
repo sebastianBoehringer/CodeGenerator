@@ -36,7 +36,7 @@ public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
     /**
      * @param registry The registry to use.
      */
-    public CachingTransformer(final TransformerRegistry registry) {
+    public CachingTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

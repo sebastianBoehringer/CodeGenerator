@@ -36,7 +36,7 @@ public final class BehaviorTransformer
     /**
      * @param registry The registry to use.
      */
-    public BehaviorTransformer(final TransformerRegistry registry) {
+    public BehaviorTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }
@@ -76,13 +76,12 @@ public final class BehaviorTransformer
             if (index >= 0) {
                 body = behavior.getBody().get(index);
             } else {
-                //TODO better handling in case of nonexisting language
-                // collection
                 log.warn("Language [{}] has no corresponding body in opaque "
                                  + "behavior [{}]",
                          Config.CONFIG.getLanguage().getName(),
                          behavior.getId());
-                body = "";
+                body = behavior.getBody().size() > 0 ? behavior.getBody().get(0)
+                                                     : "";
             }
             return new OOLogic(
                     Collections.singletonList(new OpaqueStatement(body)));

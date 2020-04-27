@@ -35,7 +35,7 @@ public final class OOTypeTransformer extends AbstractTransformer<Type, OOType> {
     /**
      * @param registry The registry to use.
      */
-    public OOTypeTransformer(final TransformerRegistry registry) {
+    public OOTypeTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

@@ -37,7 +37,7 @@ public final class OOPackageTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOPackageTransformer(final TransformerRegistry registry) {
+    public OOPackageTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }
@@ -69,8 +69,8 @@ public final class OOPackageTransformer
         List<OOType> realizingTypes =
                 classifierOOTypeITransformer.transform(classifiers);
         List<OOPackage> realizingComponents = this.transform(classifiers);
-        realizingComponents.forEach(c -> c.setContainer(ooPackage));
-        realizingTypes.forEach(t -> t.setContainer(ooPackage));
+        realizingComponents.forEach(c -> c.setParent(ooPackage));
+        realizingTypes.forEach(t -> t.setParent(ooPackage));
         ooPackage.getContainedElements().addAll(realizingTypes);
 
         return ooPackage;

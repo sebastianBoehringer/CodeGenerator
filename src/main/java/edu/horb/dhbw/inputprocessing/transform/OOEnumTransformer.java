@@ -37,7 +37,7 @@ public final class OOEnumTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOEnumTransformer(final TransformerRegistry registry) {
+    public OOEnumTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

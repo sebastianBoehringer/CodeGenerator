@@ -36,7 +36,7 @@ public final class OOFieldTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOFieldTransformer(final TransformerRegistry registry) {
+    public OOFieldTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

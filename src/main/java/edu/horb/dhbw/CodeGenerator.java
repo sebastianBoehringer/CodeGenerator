@@ -54,19 +54,17 @@ import java.util.regex.Pattern;
 @Slf4j
 public final class CodeGenerator {
     /**
-     * The adapter that is configured for the codegenerator.
-     */
-    private ITemplateEngineAdapter adapter;
-
-    /**
      * Resolves the imports for a class file.
      */
     private final IImportResolver importResolver;
-
     /**
      * The processor to use for reading the model file.
      */
     private final IModelProcessor modelProcessor;
+    /**
+     * The adapter that is configured for the codegenerator.
+     */
+    private ITemplateEngineAdapter adapter;
 
     /**
      * Default constructor, that attempts to detect the configuration file

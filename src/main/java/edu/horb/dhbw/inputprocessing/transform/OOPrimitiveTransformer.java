@@ -34,7 +34,7 @@ public final class OOPrimitiveTransformer
     private final OOType primitiveReal;
     private final OOType primitiveUnlimitedNatural;
 
-    public OOPrimitiveTransformer(final TransformerRegistry registry) {
+    public OOPrimitiveTransformer(final ITransformerRegistry registry) {
 
         super(registry);
         primitiveBool = new OOType(OOType.Type.PRIMITIVE);

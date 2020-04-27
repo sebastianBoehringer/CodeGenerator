@@ -37,7 +37,7 @@ public final class OOInterfaceTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOInterfaceTransformer(final TransformerRegistry registry) {
+    public OOInterfaceTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }

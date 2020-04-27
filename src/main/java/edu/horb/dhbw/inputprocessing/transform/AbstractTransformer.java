@@ -26,14 +26,14 @@ public abstract class AbstractTransformer<F extends XMIElement,
         T extends OOBase>
         implements ITransformer<F, T> {
     /**
-     * The {@link TransformerRegistry} used to access other
+     * The {@link ITransformerRegistry} used to access other
      * {@link ITransformer}s.
      */
-    private final TransformerRegistry registry;
+    private final ITransformerRegistry registry;
 
     protected final <A extends XMIElement, B extends OOBase> ITransformer<A,
-            B> getTransformer(final Class<A> fClass) {
+            B> getTransformer(final Class<A> aClass) {
 
-        return registry.getTransformer(fClass);
+        return registry.getTransformer(aClass);
     }
 }

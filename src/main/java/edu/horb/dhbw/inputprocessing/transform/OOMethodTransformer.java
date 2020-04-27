@@ -44,7 +44,7 @@ public final class OOMethodTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOMethodTransformer(final TransformerRegistry registry) {
+    public OOMethodTransformer(final ITransformerRegistry registry) {
 
         super(registry);
         voidReturn = new OOParameter();
@@ -111,6 +111,9 @@ public final class OOMethodTransformer
         } else {
             ooMethod.setLogic(new OOLogic(Collections.emptyList()));
         }
+
+        ooMethod.getParameters()
+                .forEach(ooParameter -> ooParameter.setParent(ooMethod));
         ooMethod.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)
                         .collect(Collectors.toList()));

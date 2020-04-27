@@ -82,6 +82,10 @@ public abstract class AbstractRestructurer<T extends XMIElement>
      * this treats the model as an immutable object and does not change any
      * of its contents. So one can apply other IRestructurers to the same model.
      * The return value of this method will never be null.
+     * <p>
+     * The method filters the parsed xmi-elements by their
+     * {@link com.sdmetrics.model.MetaModelElement}. Said element is
+     * determined by checking {@link #umlType}.
      *
      * @param model The model to restructure
      * @return A collection with the restructured uml classes.

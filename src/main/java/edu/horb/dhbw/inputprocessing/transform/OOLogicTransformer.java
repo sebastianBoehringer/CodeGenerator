@@ -56,7 +56,7 @@ public final class OOLogicTransformer
     /**
      * @param registry The registry to use.
      */
-    public OOLogicTransformer(final TransformerRegistry registry) {
+    public OOLogicTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }
@@ -79,6 +79,7 @@ public final class OOLogicTransformer
             }
         }
         statementList.add(leftOver);
+        //TODO
         /*while (!ListUtils.isEmpty(activeStates)) {
             Pair<State, ParallelStatement> pair = handleParallel(activeStates);
             for (int i = 0; i < pair.second().getParallel().size(); i++) {

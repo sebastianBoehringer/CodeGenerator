@@ -236,6 +236,7 @@ public final class XMIModelProcessor implements IModelProcessor {
 
     @Override
     public void initialize(final Language language) {
+
         postValidators.clear();
         configurePostValidators(language.getValidationOptions());
 
@@ -263,41 +264,6 @@ public final class XMIModelProcessor implements IModelProcessor {
     public void removePostValidator(final IPostValidator postValidator) {
 
         postValidators.remove(postValidator);
-    }
-
-    /**
-     * Preprocesses a xmi file.
-     * Preprocessing in this case means replacing an attribute {@code
-     * "xmitype"} with {@code "xmi:type}. That way stereotypes will be picked
-     * up when parsing the model.
-     *
-     * @param modelLocation The path where the model is located
-     * @return Path to the preprocessed model
-     *
-     * @throws CodeGenerationException If an {@link IOException} occurs
-     */
-    private Path preprocessModel(final Path modelLocation)
-            throws CodeGenerationException {
-
-        File tempFile;
-        try {
-            tempFile = File.createTempFile("temp", ".xmi", new File("."));
-            tempFile.deleteOnExit();
-            try (Scanner scanner = new Scanner(new BufferedInputStream(
-                    new FileInputStream(modelLocation.toFile())));
-                 Writer writer = new BufferedWriter(new FileWriter(tempFile))) {
-                String line;
-                while (scanner.hasNext()) {
-                    line = scanner.nextLine();
-                    writer.append(line.replace("xmitype=\"", "xmi:type=\""))
-                            .append("\n");
-                }
-            }
-
-        } catch (IOException e) {
-            throw new CodeGenerationException(e);
-        }
-        return tempFile.toPath();
     }
 
     @Override
@@ -392,6 +358,51 @@ public final class XMIModelProcessor implements IModelProcessor {
     }
 
     /**
+     * Preprocesses a xmi file.
+     * Preprocessing in this case means replacing an attribute {@code
+     * "xmitype"} with {@code "xmi:type}. That way stereotypes will be picked
+     * up when parsing the model.
+     *
+     * @param modelLocation The path where the model is located
+     * @return Path to the preprocessed model
+     *
+     * @throws CodeGenerationException If an {@link IOException} occurs
+     */
+    private Path preprocessModel(final Path modelLocation)
+            throws CodeGenerationException {
+
+        File tempFile;
+        try {
+            tempFile = File.createTempFile("temp", ".xmi", new File("."));
+            tempFile.deleteOnExit();
+            try (Scanner scanner = new Scanner(new BufferedInputStream(
+                    new FileInputStream(modelLocation.toFile())));
+                 Writer writer = new BufferedWriter(new FileWriter(tempFile))) {
+                String line;
+                while (scanner.hasNext()) {
+                    line = scanner.nextLine();
+                    writer.append(line.replace("xmitype=\"", "xmi:type=\""))
+                            .append("\n");
+                }
+            }
+
+        } catch (IOException e) {
+            throw new CodeGenerationException(e);
+        }
+        return tempFile.toPath();
+    }
+
+    private List<OOBase> extractParsed(final List<OOType> parsed) {
+
+        List<OOBase> collected = new ArrayList<>(parsed);
+        parsed.forEach(e -> {
+            collected.addAll(e.getFields());
+            collected.addAll(e.getMethods());
+        });
+        return collected;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @return An unmodifiable view of {@link #parsedClasses}. Invoking
@@ -441,15 +452,5 @@ public final class XMIModelProcessor implements IModelProcessor {
     public @NonNull List<OOType> getParsedEnums() {
 
         return List.copyOf(parsedEnums);
-    }
-
-    private List<OOBase> extractParsed(final List<OOType> parsed) {
-
-        List<OOBase> collected = new ArrayList<>(parsed);
-        parsed.forEach(e -> {
-            collected.addAll(e.getFields());
-            collected.addAll(e.getMethods());
-        });
-        return collected;
     }
 }
