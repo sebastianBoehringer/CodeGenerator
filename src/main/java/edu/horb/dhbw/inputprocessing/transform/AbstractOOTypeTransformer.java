@@ -32,7 +32,7 @@ public abstract class AbstractOOTypeTransformer<F extends Classifier>
     /**
      * @param registry The registry to use.
      */
-    public AbstractOOTypeTransformer(final TransformerRegistry registry) {
+    public AbstractOOTypeTransformer(final ITransformerRegistry registry) {
 
         super(registry);
     }
@@ -73,7 +73,12 @@ public abstract class AbstractOOTypeTransformer<F extends Classifier>
         ooType.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)
                         .collect(Collectors.toList()));
-        return doSpecificTransformation(ooType, element);
+        final OOType returnedType = doSpecificTransformation(ooType, element);
+        returnedType.getMethods()
+                .forEach(ooMethod -> ooMethod.setParent(returnedType));
+        returnedType.getFields()
+                .forEach(ooField -> ooField.setParent(returnedType));
+        return returnedType;
     }
 
     /**

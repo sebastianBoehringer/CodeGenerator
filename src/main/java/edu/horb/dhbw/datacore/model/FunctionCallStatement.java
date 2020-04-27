@@ -39,6 +39,6 @@ public final class FunctionCallStatement extends BaseStatement
     @Override
     public StatementKind getStatementType() {
 
-        return StatementKind.FUNCTIONCALL;
+        return StatementKind.FUNCTION_CALL;
     }
 }
