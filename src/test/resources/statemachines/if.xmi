@@ -13,7 +13,7 @@
       <transition xmi:type="uml:Transition" xmi:id="_kR-3EGquEeqHTeM9ldx_DA" guard="_8mp80G3YEeqkJsJM7yiRqw" source="_gZuzIGquEeqHTeM9ldx_DA" target="_g1ZbcGquEeqHTeM9ldx_DA">
         <ownedRule xmi:type="uml:Constraint" xmi:id="_8mp80G3YEeqkJsJM7yiRqw">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="__IHM8G3YEeqkJsJM7yiRqw">
-            <language>JAVA</language>
+            <language>Java</language>
             <body>b>d</body>
           </specification>
         </ownedRule>
@@ -21,7 +21,7 @@
       <transition xmi:type="uml:Transition" xmi:id="_ll_coGquEeqHTeM9ldx_DA" guard="_MgOdkG3ZEeqkJsJM7yiRqw" source="_gZuzIGquEeqHTeM9ldx_DA" target="_hICDkGquEeqHTeM9ldx_DA">
         <ownedRule xmi:type="uml:Constraint" xmi:id="_MgOdkG3ZEeqkJsJM7yiRqw">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="_P5RdAG3ZEeqkJsJM7yiRqw">
-            <language>JAVA</language>
+            <language>Java</language>
             <body>a>b</body>
           </specification>
         </ownedRule>
@@ -29,8 +29,10 @@
       <transition xmi:type="uml:Transition" xmi:id="_mEtY8GquEeqHTeM9ldx_DA" guard="_RX1swG3ZEeqkJsJM7yiRqw" source="_gZuzIGquEeqHTeM9ldx_DA" target="_h2PNYGquEeqHTeM9ldx_DA">
         <ownedRule xmi:type="uml:Constraint" xmi:id="_RX1swG3ZEeqkJsJM7yiRqw">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="_T8lhcG3ZEeqkJsJM7yiRqw">
-            <language>JAVA</language>
-            <body>b>a</body>
+              <language>SomeOtherLanguage</language>
+            <language>Java</language>
+            <body>A Wrong Expression</body>
+              <body>b>a</body>
           </specification>
         </ownedRule>
       </transition>
@@ -49,7 +51,7 @@
       <transition xmi:type="uml:Transition" xmi:id="_m_UAAGquEeqHTeM9ldx_DA" guard="_28WscG3YEeqkJsJM7yiRqw" source="_gZuzIGquEeqHTeM9ldx_DA" target="_iUAHcGquEeqHTeM9ldx_DA">
         <ownedRule xmi:type="uml:Constraint" xmi:id="_28WscG3YEeqkJsJM7yiRqw">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="_28WscW3YEeqkJsJM7yiRqw">
-            <language>JAVA</language>
+            <language>Java</language>
             <body>else</body>
           </specification>
         </ownedRule>
@@ -64,8 +66,10 @@
       <subvertex xmi:type="uml:Pseudostate" xmi:id="_e78mgGquEeqHTeM9ldx_DA"/>
       <subvertex xmi:type="uml:State" xmi:id="_gZuzIGquEeqHTeM9ldx_DA" name="State2">
         <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_HepaEG3ZEeqkJsJM7yiRqw">
-          <language>JAVA</language>
+          <language>Java</language>
+            <language>SomeOtherLanguage</language>
           <body>before If</body>
+            <body>A Wrong Statement</body>
         </doActivity>
       </subvertex>
       <subvertex xmi:type="uml:State" xmi:id="_g1ZbcGquEeqHTeM9ldx_DA" name="State3"/>
@@ -75,7 +79,7 @@
       <subvertex xmi:type="uml:State" xmi:id="_iUAHcGquEeqHTeM9ldx_DA" name="State7"/>
       <subvertex xmi:type="uml:State" xmi:id="_jC9fMGquEeqHTeM9ldx_DA" name="State9">
         <doActivity xmi:type="uml:OpaqueBehavior" xmi:id="_WdqXEG3ZEeqkJsJM7yiRqw">
-          <language>JAVA</language>
+          <language>Java</language>
           <body>after if</body>
         </doActivity>
       </subvertex>
