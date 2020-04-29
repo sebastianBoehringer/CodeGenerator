@@ -48,6 +48,31 @@ public class CodeGeneratorTest {
     }
 
     @Test
+    public void realisticSmokeTest() {
+
+        CodeGenerator generator = new CodeGenerator(
+                Paths.get("src/test/resources/uml.properties"));
+        try {
+            generator.generateCode(Paths.get("src/test/resources/aufzug.xmi"),
+                                   Config.CONFIG.getLanguage());
+            assertTrue(Files.exists(
+                    Path.of("generated/ShoppingCenter/Aufzug.java")));
+            assertTrue(Files.exists(
+                    Path.of("generated/ShoppingCenter/DoorState.java")));
+            assertTrue(Files.exists(
+                    Path.of("generated/ShoppingCenter/Etage.java")));
+            assertTrue(Files.exists(
+                    Path.of("generated/ShoppingCenter/Fahrgast.java")));
+            assertTrue(Files.exists(Path.of("generated/ShoppingCenter/Exception"
+                                                    + "/InvalidDoorState"
+                                                    + ".java")));
+        } catch (CodeGenerationException e) {
+            e.printStackTrace();
+            fail("Generation of code failed");
+        }
+    }
+
+    @Test
     public void smokeTestWithUmlAsModel() {
 
         CodeGenerator generator = new CodeGenerator(
