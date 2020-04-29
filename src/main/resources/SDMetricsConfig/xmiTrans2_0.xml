@@ -89,6 +89,10 @@ other part of SDMetrics.
                  src="uml:Generalization" attr="generalization"/>
         <trigger name="substitution" type="xmi2assoc" src="uml:Substitution"
                  attr="substitution"/>
+        <trigger name="elementimports" type="xmi2assoc"
+                 src="uml:ElementImport" attr="elementImport"/>
+        <trigger name="packageimports" type="xmi2assoc"
+                 src="uml:PackageImport" attr="packageImport"/>
     </xmitransformation>
 
     <xmitransformation modelelement="feature"
@@ -583,4 +587,8 @@ other part of SDMetrics.
         <trigger name="annotated" type="xmi2assoc" attr="annotatedElement"/>
     </xmitransformation>
 
+    <xmitransformation modelelement="appliedstereotype"
+                       xmipattern="Berta">
+        <trigger name="targets" type="xmi2assoc" attr="base_Class"/>
+    </xmitransformation>
 </xmitransformations>

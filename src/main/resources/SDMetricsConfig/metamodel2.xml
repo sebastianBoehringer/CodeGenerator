@@ -96,6 +96,13 @@ other part of SDMetrics.
                    multiplicity="many">
             Substitutions owned by the classifier.
         </attribute>
+        <attribute name="elementimports" type="ref"
+                   multiplicity="many">
+            The elements imported by the classifier
+        </attribute>
+        <attribute name="packageimports" type="ref">
+            The packages imported by the classifier
+        </attribute>
     </modelelement>
 
     <modelelement name="feature">
@@ -133,7 +140,7 @@ other part of SDMetrics.
         </attribute>
     </modelelement>
 
-    <modelelement name="interface">
+    <modelelement name="interface" parent="classifier">
         <attribute name="visibility">Visibility of the interface.</attribute>
         <attribute name="ownedattributes" type="ref" multiplicity="many">The
             attributes of the interface.
@@ -650,6 +657,12 @@ other part of SDMetrics.
         <attribute name="body">The comment text.</attribute>
         <attribute name="annotated" type="ref" multiplicity="many">
             The elements the comment applies to.
+        </attribute>
+    </modelelement>
+
+    <modelelement name="appliedstereotype">
+        <attribute name="targets" type="ref" multiplicity="many">
+            The uml elements the stereotype is applied to
         </attribute>
     </modelelement>
 
