@@ -44,6 +44,7 @@ import edu.horb.dhbw.util.IStatements;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.ListUtils;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -296,7 +297,9 @@ public final class OOLogicTransformer
             method = methodITransformer.transform(Collections.singletonList(
                     state.getSubmachine().getSpecification()));
             if (method.size() > 0) {
-                statements.add(new FunctionCallStatement("TODO", method));
+                statements.add(new FunctionCallStatement("TODO", method.get(0),
+                                                         Collections
+                                                                 .emptyList()));
             }
         }
         if (state.getExit() != null) {
@@ -363,7 +366,8 @@ public final class OOLogicTransformer
         }
         if (state.getOutgoing().size() > 1) {
             log.info("State [{}, {}] is branching", state.getId(),
-                     state.getName());
+                     StringUtils.isEmpty(state.getName()) ? "\"\""
+                                                          : state.getName());
             return handleBranching(state);
         }
         throw new IllegalArgumentException(
@@ -513,9 +517,8 @@ public final class OOLogicTransformer
             activeStates.add(t.getTarget());
         }
         State state;
-        while (!containsOneUnique(
-                activeStates.stream().filter(s -> !s.getKind().isTerminating())
-                        .collect(Collectors.toList()))) {
+        while (!containsOneUnique(activeStates)) {
+            activeStates.removeIf(s -> s.getKind().isTerminating());
             for (int i = 0; i < activeStates.size(); i++) {
                 state = activeStates.get(i);
                 if (state.getKind().isTerminating() || state.getKind()
@@ -547,11 +550,15 @@ public final class OOLogicTransformer
             branches.add(new Pair<>(condition, statements[i]));
         }
         statementList.add(new ChoiceStatement(branches));
-        statementList.addAll(extractTransitionBehavior(
-                activeStates.get(0).getOutgoing().get(0)));
+        boolean isTerminating = activeStates.get(0).getKind().isTerminating();
+        if (!isTerminating) {
+            statementList.addAll(extractTransitionBehavior(
+                    activeStates.get(0).getOutgoing().get(0)));
+        }
 
-        return new Pair<>(activeStates.get(0).getOutgoing().get(0).getTarget(),
-                          statementList);
+        return new Pair<>(isTerminating ? activeStates.get(0)
+                                        : activeStates.get(0).getOutgoing()
+                                  .get(0).getTarget(), statementList);
     }
 
     /**

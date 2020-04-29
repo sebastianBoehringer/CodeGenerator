@@ -26,15 +26,19 @@ import java.util.List;
 @Value
 public final class FunctionCallStatement extends BaseStatement
         implements IValueStatement {
-    //TODO how to handle arguments?
     /**
      * The name of the first variable in the call chain.
      */
     private String varName;
     /**
-     * The methods to be called.
+     * The method that is called.
      */
-    private List<OOMethod> calledMethods;
+    private OOMethod calledMethod;
+
+    /**
+     * The arguments to pass to the function call.
+     */
+    private List<String> arguments;
 
     @Override
     public StatementKind getStatementType() {
