@@ -18,6 +18,7 @@
 package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.OOBase;
+import edu.horb.dhbw.datacore.uml.AppliedStereotype;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
@@ -69,6 +70,7 @@ public final class TransformerRegistry
         registry.put(Parameter.class, new OOParameterTransformer(this));
         registry.put(StateMachine.class, new OOLogicTransformer(this));
         registry.put(Behavior.class, new BehaviorTransformer(this));
+        registry.put(AppliedStereotype.class, new StereotypeTransformer(this));
     }
 
     @Override

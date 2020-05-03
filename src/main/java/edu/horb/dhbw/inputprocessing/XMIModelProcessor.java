@@ -23,7 +23,9 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.model.Pair;
+import edu.horb.dhbw.datacore.model.TransformedStereotype;
 import edu.horb.dhbw.datacore.model.ValidationOptions;
+import edu.horb.dhbw.datacore.uml.AppliedStereotype;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
@@ -323,6 +325,15 @@ public final class XMIModelProcessor implements IModelProcessor {
                 registry.getTransformer(Interface.class);
         ITransformer<Enumeration, OOType> enumerationTransformer =
                 registry.getTransformer(Enumeration.class);
+        ITransformer<AppliedStereotype, TransformedStereotype>
+                stereotypeITransformer =
+                registry.getTransformer(AppliedStereotype.class);
+        for (TransformedStereotype stereotype : stereotypeITransformer
+                .transform(commonElements)) {
+            for (OOBase target : stereotype.getTargets()) {
+                target.getAppliedStereotypes().add(stereotype);
+            }
+        }
         parsedClasses.addAll(classTransformer.transform(commonElements));
         parsedPackages.addAll(packageTransformer.transform(commonElements));
         parsedInterfaces.addAll(interfaceTransformer.transform(commonElements));

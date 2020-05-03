@@ -20,6 +20,7 @@ package edu.horb.dhbw.inputprocessing.restructure;
 
 import com.sdmetrics.model.Model;
 import com.sdmetrics.model.ModelElement;
+import edu.horb.dhbw.datacore.uml.AppliedStereotype;
 import edu.horb.dhbw.datacore.uml.XMIElement;
 import edu.horb.dhbw.datacore.uml.classification.BehavioralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Classifier;
@@ -164,7 +165,7 @@ public final class RestructurerMediator
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 66;
+    private static final int DEFAULT_SIZE = 68;
 
     /**
      * The mappings to use.
@@ -228,7 +229,9 @@ public final class RestructurerMediator
         classToRestructurer.put(Behavior.class, new BehaviorRestructurer(this));
         classToRestructurer.put(DirectedRelationship.class,
                                 new DirectedRelationshipRestructurer(this));
-        classToRestructurer.put(Element.class, new ElementRestructurer(this));
+        ElementRestructurer elementRestructurer = new ElementRestructurer(this);
+        classToRestructurer.put(Element.class, elementRestructurer);
+        classToRestructurer.put(XMIElement.class, elementRestructurer);
         classToRestructurer.put(MultiplicityElement.class,
                                 new MultElementRestructurer(this));
         classToRestructurer
@@ -306,6 +309,8 @@ public final class RestructurerMediator
         classToRestructurer
                 .put(Component.class, new ComponentRestrucuturer(this));
         classToRestructurer.put(Port.class, new PortRestructurer(this));
+        classToRestructurer.put(AppliedStereotype.class,
+                                new AppliedStereotypeRestructurer(this));
     }
 
     /**

@@ -20,10 +20,16 @@ package edu.horb.dhbw.datacore.model;
 import edu.horb.dhbw.util.Config;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public abstract class OOBase {
+
+    /**
+     * The stereotypes applied to this element.
+     */
+    private List<TransformedStereotype> appliedStereotypes = new ArrayList<>();
     /**
      * The name of this OO-feature.
      */
@@ -50,9 +56,8 @@ public abstract class OOBase {
      */
     public String getFQName() {
 
-        return getParent() != null ? getParent().getFQName()
-                + Config.CONFIG.getLanguage().getPackageNameLimiter() + name
-                                               : name;
+        return getParent() != null ? getParent().getFQName() + Config.CONFIG
+                .getLanguage().getPackageNameLimiter() + name : name;
     }
 
 }

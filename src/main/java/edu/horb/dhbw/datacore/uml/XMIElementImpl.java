@@ -1,8 +1,13 @@
 package edu.horb.dhbw.datacore.uml;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.net.URI;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -57,4 +62,24 @@ public abstract class XMIElementImpl implements XMIElement {
      * more detail.
      */
     private String idref;
+
+    /**
+     * The stereotypes applied to this element.
+     */
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private List<AppliedStereotype> appliedStereotypes = new ArrayList<>();
+
+
+    @Override
+    public final void applyStereotype(final AppliedStereotype stereotype) {
+
+        appliedStereotypes.add(stereotype);
+    }
+
+    @Override
+    public final List<AppliedStereotype> getAppliedStereotypes() {
+
+        return appliedStereotypes;
+    }
 }

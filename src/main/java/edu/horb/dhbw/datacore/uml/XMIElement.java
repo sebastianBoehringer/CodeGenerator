@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.uml;
 
 import java.net.URI;
+import java.util.List;
 
 public interface XMIElement {
 
@@ -45,4 +46,15 @@ public interface XMIElement {
 
     void setIdref(String idref);
 
+    /**
+     * Applies the passed stereotype to the element.
+     *
+     * @param stereotype The stereotype to apply
+     */
+    void applyStereotype(AppliedStereotype stereotype);
+
+    /**
+     * @return The {@link AppliedStereotype} applied to this element.
+     */
+    List<AppliedStereotype> getAppliedStereotypes();
 }
