@@ -71,6 +71,7 @@ public class BasicImportResolver implements IImportResolver {
             }
         }
         fqNames.remove(PLACEHOLDER);
+        fqNames.remove("");
         //A type does not need to import itself
         fqNames.remove(extractFQName(type));
         return fqNames;
