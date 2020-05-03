@@ -74,6 +74,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
      * {@code 0}.
      *
      * @param string The string from which the value should be parsed.
+     * @return The UnlimitedNatural represented by the value
      */
     public static UnlimitedNatural of(final String string) {
 
@@ -107,6 +108,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
      * null or less than {@code 0}.
      *
      * @param nestedValue The long value this unlimitedNatural should wrap
+     * @return The UnlimitedNatural represented by the value
      */
     public static UnlimitedNatural of(final Long nestedValue) {
 

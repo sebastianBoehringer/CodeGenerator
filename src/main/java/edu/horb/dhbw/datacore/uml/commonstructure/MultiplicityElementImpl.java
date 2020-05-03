@@ -21,14 +21,14 @@ public abstract class MultiplicityElementImpl extends ElementImpl
         implements MultiplicityElement {
     /**
      * Defines if the values of the attribute should be ordered. This only
-     * applies if the attribute can be multivalued, i. e. {@link #upper} is
-     * greater than {@code 0}.
+     * applies if the attribute can be multivalued, i. e. {@link #getUpper()}
+     * returns a value greater than {@code 0}.
      */
     private Boolean isOrdered = Boolean.FALSE;
     /**
      * Defines if the value of the attributes should be unique. This only
-     * applies if the attribute can be multivalued, i. e. {@link #upper} is
-     * greater than {@code 0}.
+     * applies if the attribute can be multivalued, i. e. {@link #getUpper()}
+     * returns a value greater than {@code 0}.
      */
     private Boolean isUnique = Boolean.TRUE;
 
@@ -36,6 +36,8 @@ public abstract class MultiplicityElementImpl extends ElementImpl
      * The lower bound of the cardinality. If this equals to {@code 0} the
      * attribute is optional. The value is derived by evaluating
      * {@link #lowerValue}.
+     *
+     * @return The lower limit of this element
      */
     public Integer getLower() {
 
@@ -55,6 +57,8 @@ public abstract class MultiplicityElementImpl extends ElementImpl
      * The upper bound of the cardinality. If this is not less than {@code 2}
      * the attribute is multivalued. The value is derived by evaluation
      * {@link #upperValue}.
+     *
+     * @return The upper limit of this element
      */
     public UnlimitedNatural getUpper() {
         if (upperValue == null) {
