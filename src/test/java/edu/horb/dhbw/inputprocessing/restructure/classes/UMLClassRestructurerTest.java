@@ -107,7 +107,7 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
         ValueSpecification upperSpec = property.getUpperValue();
         assertTrue(upperSpec instanceof LiteralUnlimitedNatural);
         assertEquals(((LiteralUnlimitedNatural) upperSpec).getValue(),
-                     new UnlimitedNatural(1L));
+                     UnlimitedNatural.ONE);
 
         List<Operation> operations = theClass.getOwnedOperation();
         assertEquals(operations.size(), 1,
@@ -130,7 +130,7 @@ public class UMLClassRestructurerTest extends BaseRestructurerTest {
             ValueSpecification upperSpecOp = parameter.getUpperValue();
             assertTrue(upperSpecOp instanceof LiteralUnlimitedNatural);
             assertEquals(((LiteralUnlimitedNatural) upperSpecOp).getValue(),
-                         new UnlimitedNatural(1L));
+                         UnlimitedNatural.ONE);
         }
     }
 

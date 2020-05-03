@@ -33,6 +33,11 @@ import org.thymeleaf.util.StringUtils;
 @EqualsAndHashCode(callSuper = false)
 @Data
 public final class UnlimitedNatural extends PrimitiveTypeImpl {
+    private UnlimitedNatural(final long value) {
+
+        this.value = value;
+    }
+
     /**
      * Represents the special value unlimited as {@link Long#MAX_VALUE}.
      * Since UnlimitedNatural is most often used in conjunction with
@@ -44,7 +49,16 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
      * relationship of one to many and [*,*] to represent a many to many
      * relationship.
      */
-    public static final UnlimitedNatural UNLIMITED = new UnlimitedNatural("*");
+    public static final UnlimitedNatural UNLIMITED =
+            new UnlimitedNatural(Long.MAX_VALUE);
+    /**
+     * Represents the value {@code 0}.
+     */
+    public static final UnlimitedNatural ZERO = new UnlimitedNatural(0L);
+    /**
+     * Represents the value {@code 1}.
+     */
+    public static final UnlimitedNatural ONE = new UnlimitedNatural(1L);
     /**
      * The value of this unlimitedNatural.
      */
@@ -61,7 +75,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
      *
      * @param string The string from which the value should be parsed.
      */
-    public UnlimitedNatural(final String string) {
+    public static UnlimitedNatural of(final String string) {
 
         try {
             long intermediate = Long.parseLong(string);
@@ -70,14 +84,14 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
                         String.format("Parsed value [%d] is less than 0",
                                       intermediate));
             }
-            value = intermediate;
+            return UnlimitedNatural.of(intermediate);
         } catch (NumberFormatException e) {
             if ("*".equals(string)) {
-                value = Long.MAX_VALUE;
+                return UNLIMITED;
             } else {
                 if (StringUtils.isEmpty(string)) {
                     //default value for literalunlimited natural is 0
-                    value = 0L;
+                    return ZERO;
                 } else {
                     throw new IllegalArgumentException(String.format(
                             "Could not parse [%s] as long and it wasnt "
@@ -89,19 +103,21 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
 
     /**
      * Constructs a new UnlimitedNatural by boxing the given parameter.
-     * This throws an {@link IllegalArgumentException} if the paramter is
+     * This throws an {@link IllegalArgumentException} if the parameter is
      * null or less than {@code 0}.
      *
      * @param nestedValue The long value this unlimitedNatural should wrap
      */
-    public UnlimitedNatural(final Long nestedValue) {
+    public static UnlimitedNatural of(final Long nestedValue) {
 
         if (nestedValue == null || nestedValue < 0) {
             throw new IllegalArgumentException(
                     String.format("Parsed value [%d] is less than 0 or null",
                                   nestedValue));
         }
-        value = nestedValue;
+
+        return nestedValue > 1 ? new UnlimitedNatural(nestedValue)
+                               : nestedValue == 0 ? ZERO : ONE;
     }
 
     @Override

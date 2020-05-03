@@ -53,7 +53,10 @@ public final class ConnectorEndRestructurer
         }
         ConnectorEnd end = new ConnectorEnd();
         end.setId(id);
-        processed.put(id, end);
+        processed.putIfAbsent(id, end);
+
+        log.debug("Processing umltype for ConnectorEnd [{}]", id);
+        end.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing ordered for ConnectorEnd [{}]", id);
         String ordered = element.getPlainAttribute("ordered");
@@ -71,16 +74,6 @@ public final class ConnectorEndRestructurer
         }
         end.setIsUnique(isUnique);
 
-        log.debug("Processing lower for ConnectorEnd [{}]", id);
-        String lower = element.getPlainAttribute("lower");
-        if (!StringUtils.isEmpty(lower)) {
-            end.setLower(Integer.parseInt(lower));
-        }
-        log.debug("Processing upper for ConnectorEnd [{}]", id);
-        String upper = element.getPlainAttribute("upper");
-        if (!StringUtils.isEmpty(upper)) {
-            end.setUpper(new UnlimitedNatural(upper));
-        }
         log.debug("Processing role for ConnectorEnd [{}]", id);
         ModelElement role = element.getRefAttribute("role");
         end.setRole(delegateRestructuring(role, ConnectableElement.class));

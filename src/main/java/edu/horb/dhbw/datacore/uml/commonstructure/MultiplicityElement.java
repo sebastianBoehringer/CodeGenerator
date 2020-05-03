@@ -31,11 +31,7 @@ public interface MultiplicityElement extends Element {
 
     Integer getLower();
 
-    void setLower(Integer lower);
-
     UnlimitedNatural getUpper();
-
-    void setUpper(UnlimitedNatural upper);
 
     ValueSpecification getLowerValue();
 

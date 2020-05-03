@@ -84,7 +84,10 @@ public final class PropertyRestructurer
 
         Property property = new PropertyImpl();
         property.setId(id);
-        processed.put(id, property);
+        processed.putIfAbsent(id, property);
+
+        log.debug("Processing umltype for Property [{}]", id);
+        property.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Property [{}]", id);
         property.setName(element.getName());
@@ -111,18 +114,6 @@ public final class PropertyRestructurer
             isUnique = Boolean.parseBoolean(unique);
         }
         property.setIsUnique(isUnique);
-
-        log.debug("Processing lower for Property [{}]", id);
-        String lower = element.getPlainAttribute("lower");
-        if (!StringUtils.isEmpty(lower)) {
-            property.setLower(Integer.parseInt(lower));
-        }
-
-        log.debug("Processing upper for Property [{}]", id);
-        String upper = element.getPlainAttribute("upper");
-        if (!StringUtils.isEmpty(upper)) {
-            property.setUpper(new UnlimitedNatural(upper));
-        }
 
         log.debug("Processing lowerValue for Property [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");

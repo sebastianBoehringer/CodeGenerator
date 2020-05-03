@@ -57,7 +57,10 @@ public final class ParameterRestructurer
         }
         Parameter parameter = new Parameter();
         parameter.setId(id);
-        processed.put(id, parameter);
+        processed.putIfAbsent(id, parameter);
+
+        log.debug("Processing umltype for Parameter [{}]", id);
+        parameter.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Parameter [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -78,17 +81,6 @@ public final class ParameterRestructurer
             isUnique = Boolean.parseBoolean(unique);
         }
         parameter.setIsUnique(isUnique);
-
-        log.debug("Processing lower for Parameter [{}]", id);
-        String lower = element.getPlainAttribute("lower");
-        if (!StringUtils.isEmpty(lower)) {
-            parameter.setLower(Integer.parseInt(lower));
-        }
-        log.debug("Processing upper for Parameter [{}]", id);
-        String upper = element.getPlainAttribute("upper");
-        if (!StringUtils.isEmpty(upper)) {
-            parameter.setUpper(new UnlimitedNatural(upper));
-        }
 
         log.debug("Processing lowerValue for Parameter [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");

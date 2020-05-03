@@ -82,18 +82,6 @@ public final class PortRestructurer extends AbstractRestructurer<Port> {
         }
         port.setIsUnique(isUnique);
 
-        log.debug("Processing lower for Port [{}]", id);
-        String lower = element.getPlainAttribute("lower");
-        if (!StringUtils.isEmpty(lower)) {
-            port.setLower(Integer.parseInt(lower));
-        }
-
-        log.debug("Processing upper for Port [{}]", id);
-        String upper = element.getPlainAttribute("upper");
-        if (!StringUtils.isEmpty(upper)) {
-            port.setUpper(new UnlimitedNatural(upper));
-        }
-
         log.debug("Processing lowerValue for Port [{}]", id);
         ModelElement lowerValue = element.getRefAttribute("lowerValue");
         port.setLowerValue(

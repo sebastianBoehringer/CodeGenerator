@@ -5,6 +5,8 @@ import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
 import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.ConnectableElementImpl;
+import edu.horb.dhbw.datacore.uml.values.LiteralInteger;
+import edu.horb.dhbw.datacore.uml.values.LiteralUnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -78,7 +80,19 @@ public final class Parameter extends ConnectableElementImpl
      * Copied from
      * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
      */
-    private Integer lower = 0;
+    public Integer getLower() {
+
+        if (lowerValue == null) {
+            return 1;
+        }
+        Integer lower;
+        try {
+            lower = ((LiteralInteger) lowerValue).getValue();
+        } catch (ClassCastException e) {
+            lower = 1;
+        }
+        return lower;
+    }
     /**
      * The upper bound of the cardinality. If this is not less than {@code 2}
      * the attribute is multivalued. The value is derived by evaluation
@@ -86,7 +100,18 @@ public final class Parameter extends ConnectableElementImpl
      * Copied from
      * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
      */
-    private UnlimitedNatural upper = UnlimitedNatural.UNLIMITED;
+    public UnlimitedNatural getUpper() {
+        if (upperValue == null) {
+            return UnlimitedNatural.ONE;
+        }
+        UnlimitedNatural upper;
+        try {
+            upper = ((LiteralUnlimitedNatural) upperValue).getValue();
+        } catch (ClassCastException e) {
+            upper = UnlimitedNatural.ONE;
+        }
+        return upper;
+    }
     /**
      * A specification for the lower bound of the cardinality, i. e.
      * {@link #lower}.

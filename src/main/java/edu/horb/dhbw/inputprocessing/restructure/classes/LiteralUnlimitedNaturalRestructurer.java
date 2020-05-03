@@ -47,9 +47,13 @@ public final class LiteralUnlimitedNaturalRestructurer
         log.debug("Processing value for LiteralUnlimitedNatural [{}]", id);
         String value = element.getPlainAttribute("value");
         LiteralUnlimitedNatural unlimitedNatural =
-                new LiteralUnlimitedNatural(new UnlimitedNatural(value));
+                new LiteralUnlimitedNatural(UnlimitedNatural.of(value));
 
         unlimitedNatural.setId(id);
+
+        log.debug("Processing umltype for LiteralUnlimitedNatural [{}]", id);
+        unlimitedNatural.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralUnlimitedNatural [{}]", id);
         return unlimitedNatural;
     }
