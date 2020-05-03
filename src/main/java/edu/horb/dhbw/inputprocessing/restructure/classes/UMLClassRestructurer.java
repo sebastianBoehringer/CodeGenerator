@@ -24,6 +24,8 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.InterfaceRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.CollaborationUse;
@@ -84,7 +86,10 @@ public final class UMLClassRestructurer
         }
         UMLClass clazz = new UMLClassImpl();
         clazz.setId(id);
-        processed.put(id, clazz);
+        processed.putIfAbsent(id, clazz);
+
+        log.debug("Processing umltype for Class [{}]", id);
+        clazz.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Class [{}]", id);
         clazz.setName(element.getName());
@@ -161,6 +166,21 @@ public final class UMLClassRestructurer
         log.debug("Processing ownedports for Class [{}]", id);
         Collection<ModelElement> ports = (Collection<ModelElement>) element
                 .getSetAttribute("ownedports");
+
+        log.debug("Processing elementimports for Class [{}]", id);
+        Collection<ModelElement> elementImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("elementimports");
+        clazz.setElementImport(
+                delegateMany(elementImports, ElementImport.class));
+
+        log.debug("Processing packageimports for Class [{}]", id);
+        Collection<ModelElement> packageImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("packageimports");
+        clazz.setPackageImport(
+                delegateMany(packageImports, PackageImport.class));
+
         clazz.setOwnedPort(delegateMany(ports, Port.class));
         clazz.getOwnedPort().forEach(p -> p.setOwner(clazz));
         clazz.getOwnedOperation().forEach(o -> o.setOwner(clazz));

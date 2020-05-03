@@ -75,8 +75,11 @@ public final class InstanceSpecRestructurer
             return processed.get(id);
         }
         InstanceSpecification specification = new InstanceSpecification();
-        processed.put(id, specification);
+        processed.putIfAbsent(id, specification);
         specification.setId(id);
+
+        log.debug("Processing umltype for InstanceSpecification [{}]", id);
+        specification.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for InstanceSpecification [{}]", id);
         String name = element.getPlainAttribute("name");

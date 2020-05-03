@@ -48,8 +48,11 @@ public final class InstanceValueRestructurer
         InstanceValue value = new InstanceValue();
         value.setInstance(
                 delegateRestructuring(instance, InstanceSpecification.class));
-
         value.setId(id);
+
+        log.debug("Processing umltype for InstanceValue [{}]", id);
+        value.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of InstanceValue [{}]", id);
         return value;
     }

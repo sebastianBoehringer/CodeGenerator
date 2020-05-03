@@ -49,6 +49,10 @@ public final class EnumerationLiteralRestructurer
         String id = element.getXMIID();
         log.info("Beginning restructuring of EnumerationLiteral [{}]", id);
         literal.setId(id);
+
+        log.debug("Processing umltype for EnumerationLiteral [{}]", id);
+        literal.setUmlType(element.getPlainAttribute("umltype"));
+
         log.debug("Processing name for EnumerationLiteral [{}]", id);
         literal.setName(element.getName());
         log.info("Completed restructuring of EnumerationLiteral [{}]", id);

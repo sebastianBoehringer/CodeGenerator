@@ -57,7 +57,10 @@ public final class AbstractionRestructurer
         }
         Abstraction abstraction = new AbstractionImpl();
         abstraction.setId(id);
-        processed.put(id, abstraction);
+        processed.putIfAbsent(id, abstraction);
+
+        log.debug("Processing umltype for Abstraction [{}]", id);
+        abstraction.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing mapping for Abstraction [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");

@@ -54,7 +54,10 @@ public final class GeneralizationSetRestructurer
         }
         GeneralizationSet generalizationSet = new GeneralizationSet();
         generalizationSet.setId(id);
-        processed.put(id, generalizationSet);
+        processed.putIfAbsent(id, generalizationSet);
+
+        log.debug("Processing umltype for GeneralizationSet [{}]", id);
+        generalizationSet.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for GeneralizationSet [{}]", id);
         String name = element.getPlainAttribute("name");

@@ -22,6 +22,8 @@ import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataType;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.DataTypeImpl;
@@ -58,7 +60,10 @@ public final class DatatypeRestructurer
         }
         DataType dataType = new DataTypeImpl();
         dataType.setId(id);
-        processed.put(id, dataType);
+        processed.putIfAbsent(id, dataType);
+
+        log.debug("Processing umltype for DataType [{}]", id);
+        dataType.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for DataType [{}]", id);
         dataType.setName(element.getName());
@@ -101,6 +106,21 @@ public final class DatatypeRestructurer
         Collection<ModelElement> operations = (Collection<ModelElement>) element
                 .getSetAttribute("ownedoperations");
         dataType.setOwnedOperation(delegateMany(operations, Operation.class));
+
+        log.debug("Processing elementimports for DataType [{}]", id);
+        Collection<ModelElement> elementImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("elementimports");
+        dataType.setElementImport(
+                delegateMany(elementImports, ElementImport.class));
+
+        log.debug("Processing packageimports for DataType [{}]", id);
+        Collection<ModelElement> packageImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("packageimports");
+        dataType.setPackageImport(
+                delegateMany(packageImports, PackageImport.class));
+
         log.info("Completed restructuring of DataType [{}]", id);
         return dataType;
     }

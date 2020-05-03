@@ -56,7 +56,10 @@ public final class PrimitiveRestructurer
             return processed.get(id);
         }
         PrimitiveType type = new PrimitiveTypeImpl();
-        processed.put(id, type);
+        processed.putIfAbsent(id, type);
+
+        log.debug("Processing umltype for PrimitiveType [{}]", id);
+        type.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for PrimitiveType [{}]", id);
         String name = element.getPlainAttribute("name");

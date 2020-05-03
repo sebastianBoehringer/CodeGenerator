@@ -55,7 +55,10 @@ public final class ConnectorRestructurer
         }
         Connector connector = new Connector();
         connector.setId(id);
-        processed.put(id, connector);
+        processed.putIfAbsent(id, connector);
+
+        log.debug("Processing umltype for Connector [{}]", id);
+        connector.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing type for Connector [{}]", id);
         ModelElement type = element.getRefAttribute("type");

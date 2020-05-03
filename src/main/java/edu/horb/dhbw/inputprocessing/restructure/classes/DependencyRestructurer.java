@@ -55,7 +55,10 @@ public final class DependencyRestructurer
         }
         Dependency dependency = new DependencyImpl();
         dependency.setId(id);
-        processed.put(id, dependency);
+        processed.putIfAbsent(id, dependency);
+
+        log.debug("Processing umltype for Dependency [{}]", id);
+        dependency.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing client for Dependency [{}]", id);
         Collection<ModelElement> clients =

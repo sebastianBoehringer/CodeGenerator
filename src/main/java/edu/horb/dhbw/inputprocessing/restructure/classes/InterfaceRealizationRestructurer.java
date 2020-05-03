@@ -55,7 +55,11 @@ public final class InterfaceRealizationRestructurer
 
         InterfaceRealization realization = new InterfaceRealization();
         realization.setId(id);
-        processed.put(id, realization);
+        processed.putIfAbsent(id, realization);
+
+
+        log.debug("Processing umltype for InterfaceRealization [{}]", id);
+        realization.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for InterfaceRealization [{}]", id);
         String name = element.getPlainAttribute("name");

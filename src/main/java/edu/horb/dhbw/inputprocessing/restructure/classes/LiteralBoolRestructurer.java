@@ -48,6 +48,10 @@ public final class LiteralBoolRestructurer
                 new LiteralBoolean(Boolean.valueOf(value));
 
         literalBoolean.setId(id);
+
+        log.debug("Processing umltype for LiteralBoolean [{}]", id);
+        literalBoolean.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralBoolean [{}]", id);
         return literalBoolean;
     }

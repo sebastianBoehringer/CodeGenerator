@@ -53,7 +53,10 @@ public final class SlotRestructurer extends AbstractCachingRestructurer<Slot> {
 
         Slot slot = new Slot();
         slot.setId(id);
-        processed.put(id, slot);
+        processed.putIfAbsent(id, slot);
+
+        log.debug("Processing umltype for Slot [{}]", id);
+        slot.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing defining for Slot [{}]", id);
         ModelElement defining = element.getRefAttribute("defining");

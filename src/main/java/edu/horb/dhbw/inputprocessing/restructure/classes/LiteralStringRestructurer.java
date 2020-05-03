@@ -47,6 +47,10 @@ public final class LiteralStringRestructurer
         LiteralString literalString = new LiteralString(value);
 
         literalString.setId(id);
+
+        log.debug("Processing umltype for LiteralString [{}]", id);
+        literalString.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralString [{}]", id);
         return literalString;
     }

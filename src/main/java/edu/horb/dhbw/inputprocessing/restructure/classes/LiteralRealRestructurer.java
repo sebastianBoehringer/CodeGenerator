@@ -47,6 +47,10 @@ public final class LiteralRealRestructurer
         LiteralReal literalReal = new LiteralReal(Double.valueOf(value));
 
         literalReal.setId(id);
+
+        log.debug("Processing umltype for LiteralReal [{}]", id);
+        literalReal.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralReal [{}]", id);
         return literalReal;
     }

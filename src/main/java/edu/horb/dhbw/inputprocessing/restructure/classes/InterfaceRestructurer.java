@@ -22,6 +22,8 @@ import edu.horb.dhbw.datacore.uml.classification.Classifier;
 import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
@@ -59,7 +61,11 @@ public final class InterfaceRestructurer
         }
         Interface anInterface = new Interface();
         anInterface.setId(id);
-        processed.put(id, anInterface);
+        processed.putIfAbsent(id, anInterface);
+
+
+        log.debug("Processing umltype for Interface [{}]", id);
+        anInterface.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Interface [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -95,6 +101,21 @@ public final class InterfaceRestructurer
                         .getSetAttribute("generalizations");
         anInterface.setGeneralization(
                 delegateMany(generalizations, Generalization.class));
+
+        log.debug("Processing elementimports for Interface [{}]", id);
+        Collection<ModelElement> elementImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("elementimports");
+        anInterface.setElementImport(
+                delegateMany(elementImports, ElementImport.class));
+
+        log.debug("Processing packageimports for Interface [{}]", id);
+        Collection<ModelElement> packageImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("packageimports");
+        anInterface.setPackageImport(
+                delegateMany(packageImports, PackageImport.class));
+
         log.info("Completed restructuring of Interface [{}]", id);
         return anInterface;
     }

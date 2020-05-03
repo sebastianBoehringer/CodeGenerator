@@ -51,7 +51,10 @@ public final class GeneralizationRestructurer
         }
         Generalization generalization = new Generalization();
         generalization.setId(id);
-        processed.put(id, generalization);
+        processed.putIfAbsent(id, generalization);
+
+        log.debug("Processing umltype for Generalization [{}]", id);
+        generalization.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing general for Generalization [{}]", id);
         ModelElement general = element.getRefAttribute("general");

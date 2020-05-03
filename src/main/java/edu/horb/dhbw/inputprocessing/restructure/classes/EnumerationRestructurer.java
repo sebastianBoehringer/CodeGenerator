@@ -22,6 +22,8 @@ import edu.horb.dhbw.datacore.uml.classification.Generalization;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
+import edu.horb.dhbw.datacore.uml.commonstructure.PackageImport;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.EnumerationLiteral;
@@ -58,8 +60,12 @@ public final class EnumerationRestructurer
             return processed.get(id);
         }
         Enumeration enumeration = new Enumeration();
-        processed.put(id, enumeration);
+        processed.putIfAbsent(id, enumeration);
         enumeration.setId(id);
+
+
+        log.debug("Processing umltype for Enumeration [{}]", id);
+        enumeration.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Enumeration [{}]", id);
         String name = element.getPlainAttribute("name");
@@ -111,6 +117,21 @@ public final class EnumerationRestructurer
                         .getSetAttribute("substitution");
         enumeration.setSubstitution(
                 delegateMany(substitutions, Substitution.class));
+
+        log.debug("Processing elementimports for Enumeration [{}]", id);
+        Collection<ModelElement> elementImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("elementimports");
+        enumeration.setElementImport(
+                delegateMany(elementImports, ElementImport.class));
+
+        log.debug("Processing packageimports for Enumeration [{}]", id);
+        Collection<ModelElement> packageImports =
+                (Collection<ModelElement>) element
+                        .getSetAttribute("packageimports");
+        enumeration.setPackageImport(
+                delegateMany(packageImports, PackageImport.class));
+
         log.info("Completed restructuring of Enumeration [{}]", id);
         return enumeration;
     }

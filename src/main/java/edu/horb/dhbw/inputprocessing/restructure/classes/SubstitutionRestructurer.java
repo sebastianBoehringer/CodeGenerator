@@ -55,7 +55,10 @@ public final class SubstitutionRestructurer
         }
         Substitution substitution = new Substitution();
         substitution.setId(id);
-        processed.put(id, substitution);
+        processed.putIfAbsent(id, substitution);
+
+        log.debug("Processing umltype for Substitution [{}]", id);
+        substitution.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing mapping for Substitution [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");

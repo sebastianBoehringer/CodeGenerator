@@ -56,7 +56,10 @@ public final class RealizationRestructurer
         }
         Realization realization = new RealizationImpl();
         realization.setId(id);
-        processed.put(id, realization);
+        processed.putIfAbsent(id, realization);
+
+        log.debug("Processing umltype for Realization [{}]", id);
+        realization.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing mapping for Realization [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");

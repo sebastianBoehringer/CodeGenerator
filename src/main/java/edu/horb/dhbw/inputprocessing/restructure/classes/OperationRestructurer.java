@@ -59,7 +59,11 @@ public final class OperationRestructurer
         }
         Operation operation = new Operation();
         operation.setId(id);
-        processed.put(id, operation);
+        processed.putIfAbsent(id, operation);
+
+
+        log.debug("Processing umltype for Operation [{}]", id);
+        operation.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Operation [{}]", id);
         String name = element.getPlainAttribute("name");

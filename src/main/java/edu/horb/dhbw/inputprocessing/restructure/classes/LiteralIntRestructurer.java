@@ -47,6 +47,10 @@ public final class LiteralIntRestructurer
 
         LiteralInteger literalInteger = LiteralInteger.valueOf(value);
         literalInteger.setId(id);
+
+        log.debug("Processing umltype for LiteralInteger [{}]", id);
+        literalInteger.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralInteger [{}]", id);
         return literalInteger;
     }

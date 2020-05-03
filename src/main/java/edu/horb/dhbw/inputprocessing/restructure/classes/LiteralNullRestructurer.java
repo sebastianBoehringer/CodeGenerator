@@ -44,6 +44,10 @@ public final class LiteralNullRestructurer
         String id = element.getXMIID();
         log.info("Beginning restructuring of LiteralNull [{}]", id);
         literalNull.setId(id);
+
+        log.debug("Processing umltype for LiteralNull [{}]", id);
+        literalNull.setUmlType(element.getPlainAttribute("umltype"));
+
         log.info("Completed restructuring of LiteralNull [{}]", id);
         return literalNull;
     }
