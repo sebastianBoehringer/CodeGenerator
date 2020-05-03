@@ -116,4 +116,10 @@ public class Language {
      * Wraps properties whose key begins with {@code templating.}.
      */
     private final TemplatingOptions templatingOptions;
+    /**
+     * The options used to configure the
+     * {@link edu.horb.dhbw.templating.BasicImportResolver}.
+     * Wraps properties whose key begins with {@code language.imports.}.
+     */
+    private final ImportOptions importOptions;
 }

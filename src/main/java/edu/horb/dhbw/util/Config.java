@@ -17,6 +17,7 @@
 
 package edu.horb.dhbw.util;
 
+import edu.horb.dhbw.datacore.model.ImportOptions;
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.model.TemplatingOptions;
 import edu.horb.dhbw.datacore.model.ValidationOptions;
@@ -28,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -115,8 +117,38 @@ public enum Config {
                                 protectedVis, packageVis, privateVis, primInt,
                                 primString, primBool, primReal, primUnlimited,
                                 getValidationOptions(props),
-                                getTemplatingOptions(props));
+                                getTemplatingOptions(props),
+                                getImportOptions(props));
 
+    }
+
+    private ImportOptions getImportOptions(final Properties props) {
+
+        String single = props.getProperty("language.imports.single", "");
+        String optional = props.getProperty("language.imports.optional", "");
+        String list = props.getProperty("language.imports.list",
+                                        "java.util.List,java.util.ArrayList");
+        String bag = props.getProperty("language.imports.bag",
+                                       "java.util.Collection,java.util"
+                                               + ".ArrayList");
+        String set = props.getProperty("language.imports.set",
+                                       "java.util.Set,java.util.HashSet");
+        String orderedSet = props.getProperty("language.imports.orderedSet",
+                                              "java.util.Set,java.util"
+                                                      + ".LinkedHashSet");
+        ImportOptions options = new ImportOptions();
+        options.getSingleImports().addAll(Arrays.asList(split(single)));
+        options.getOptionalImports().addAll(Arrays.asList(split(optional)));
+        options.getListImports().addAll(Arrays.asList(split(list)));
+        options.getBagImports().addAll(Arrays.asList(split(bag)));
+        options.getSetImports().addAll(Arrays.asList(split(set)));
+        options.getOrderedSetImports().addAll(Arrays.asList(split(orderedSet)));
+        return options;
+    }
+
+    private static String[] split(final String string) {
+
+        return string.split(",");
     }
 
     private ValidationOptions getValidationOptions(final Properties props) {

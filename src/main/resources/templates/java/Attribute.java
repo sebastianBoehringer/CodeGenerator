@@ -1,1 +1,1 @@
-[(${attribute.getVisibility().toString()})] [(${attribute.getType().getName()})] [(${attribute.getName()})];
+[(${attribute.getVisibility().toString()})] [# th:insert="Cardinal" th:with="cardinal=${attribute}"][/];

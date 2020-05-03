@@ -1,1 +1,1 @@
-[# th:each="parameter,iterStat: ${method.getParameters()}"][(${parameter.getType().getName()})] [(${parameter.getName()})][# th:unless="${iterStat.last}"], [/][/]
+[# th:each="parameter,iterStat: ${method.getParameters()}"][# th:insert="Cardinal" th:with="cardinal=${parameter}"][/][# th:unless="${iterStat.last}"], [/][/]

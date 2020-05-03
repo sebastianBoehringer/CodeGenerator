@@ -17,23 +17,31 @@
 
 package edu.horb.dhbw.templating;
 
+import edu.horb.dhbw.datacore.model.Cardinality;
+import edu.horb.dhbw.datacore.model.ImportOptions;
 import edu.horb.dhbw.datacore.model.Language;
 import edu.horb.dhbw.datacore.model.OOField;
 import edu.horb.dhbw.datacore.model.OOMethod;
-import edu.horb.dhbw.datacore.model.OOPackage;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
+import edu.horb.dhbw.util.Config;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class BasicImportResolver implements IImportResolver {
+    /**
+     * A placeholder that is inserted into the set if the type is primitive.
+     * It is removed after processing all the imports.
+     */
     private static final String PLACEHOLDER = "PLACEHOLDER";
 
     /**
      * {@inheritDoc}
-     * Since {@link OOPackage#getFQName()} and {@link OOType#getFQName()}
-     * rely on the configured language the param lang is ignored in this
+     * Since {@link edu.horb.dhbw.datacore.model.OOBase#getFQName()} relies on
+     * the configured language the param lang is ignored in this
      * implementation.
      *
      * @param lang The programming language in which the source code is
@@ -50,15 +58,42 @@ public class BasicImportResolver implements IImportResolver {
         }
         for (OOField field : type.getFields()) {
             fqNames.add(extractFQName(field.getType()));
+            fqNames.addAll(resolveCardinality(field.getCardinality()));
         }
         for (OOMethod method : type.getMethods()) {
             fqNames.add(extractFQName(method.getReturnParam().getType()));
             for (OOParameter parameter : method.getParameters()) {
                 fqNames.add(extractFQName(parameter.getType()));
+                fqNames.addAll(resolveCardinality(parameter.getCardinality()));
+            }
+            for (OOType exception : method.getExceptions()) {
+                fqNames.add(extractFQName(exception));
             }
         }
         fqNames.remove(PLACEHOLDER);
+        //A type does not need to import itself
+        fqNames.remove(extractFQName(type));
         return fqNames;
+    }
+
+    private List<String> resolveCardinality(final Cardinality cardinality) {
+
+        ImportOptions options = Config.CONFIG.getLanguage().getImportOptions();
+        switch (cardinality) {
+            case OPTIONAL:
+                return options.getOptionalImports();
+            case SINGLE:
+                return options.getSingleImports();
+            case LIST:
+                return options.getListImports();
+            case BAG:
+                return options.getBagImports();
+            case SET:
+                return options.getSetImports();
+            case ORDERED_SET:
+                return options.getOrderedSetImports();
+        }
+        return Collections.emptyList();
     }
 
     private String extractFQName(final OOType type) {
