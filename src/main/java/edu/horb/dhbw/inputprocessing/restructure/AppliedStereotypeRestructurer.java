@@ -90,6 +90,8 @@ public final class AppliedStereotypeRestructurer
         for (XMIElement target : stereotype.getTargets()) {
             target.applyStereotype(stereotype);
         }
+        log.debug("Processing umltype of Stereotype [{}]", id);
+        stereotype.setUmlType(element.getPlainAttribute("umltype"));
 
         MetaModelElement metaModelElement = element.getType();
         Collection<String> singlePlain = new HashSet<>();

@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.model;
 
-import edu.horb.dhbw.datacore.uml.XMIElement;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
@@ -60,6 +59,11 @@ public final class TransformedStereotype extends OOBase {
     private Map<String, List<OOBase>> multiRefs = new HashMap<>();
 
     /**
+     * The value used for the name attribute in the metamodel file.
+     */
+    private String type;
+
+    /**
      * Throws an {@link UnsupportedOperationException}.
      */
     @Override
@@ -77,5 +81,33 @@ public final class TransformedStereotype extends OOBase {
 
         throw new UnsupportedOperationException(
                 "Cannot call #getFQName on a TransformedStereotype");
+    }
+
+    /**
+     * Returns the value of the attribute identified by the given name.
+     * Convenience method that checks all maps in this class for the given
+     * key and returns the first value found.
+     * Search order is {@link #singlePlain} -> {@link #singleRef} ->
+     * {@link #multiPlains} -> {@link #multiRefs}.
+     *
+     * @param attributeName The name of the attribute to return
+     * @return The value associated with the given string or null if no map
+     * contains the key
+     */
+    public Object getAttribute(final String attributeName) {
+
+        if (singlePlain.containsKey(attributeName)) {
+            return singlePlain.get(attributeName);
+        }
+        if (singleRef.containsKey(attributeName)) {
+            return singleRef.get(attributeName);
+        }
+        if (multiPlains.containsKey(attributeName)) {
+            return multiPlains.get(attributeName);
+        }
+        if (multiRefs.containsKey(attributeName)) {
+            return multiRefs.get(attributeName);
+        }
+        return null;
     }
 }

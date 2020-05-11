@@ -60,4 +60,21 @@ public abstract class OOBase {
                 .getLanguage().getPackageNameLimiter() + name : name;
     }
 
+    /**
+     * Tests if a stereotype of the given name is applied to the element.
+     * The stereotypeName must match the name of a metamodelelement declared
+     * in the metamodel xml file.
+     *
+     * @param stereotypeName The name of the stereotype to check for
+     * @return Whether a stereotype of that type has been applied to this
+     * element
+     *
+     * @see TransformedStereotype#type
+     */
+    public boolean hasStereotypeApplied(final String stereotypeName) {
+
+        return appliedStereotypes.stream()
+                .anyMatch(s -> stereotypeName.equals(s.getType()));
+    }
+
 }
