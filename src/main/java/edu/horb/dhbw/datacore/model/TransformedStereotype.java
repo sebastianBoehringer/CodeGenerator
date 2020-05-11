@@ -87,8 +87,8 @@ public final class TransformedStereotype extends OOBase {
      * Returns the value of the attribute identified by the given name.
      * Convenience method that checks all maps in this class for the given
      * key and returns the first value found.
-     * Search order is {@link #singlePlain} -> {@link #singleRef} ->
-     * {@link #multiPlains} -> {@link #multiRefs}.
+     * Search order is {@link #singlePlain} then {@link #singleRef} then
+     * {@link #multiPlains} then {@link #multiRefs}.
      *
      * @param attributeName The name of the attribute to return
      * @return The value associated with the given string or null if no map
