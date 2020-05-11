@@ -68,7 +68,6 @@ public final class TransformerRegistry
         registry.put(PrimitiveType.class, new OOPrimitiveTransformer(this));
         registry.put(Enumeration.class, new OOEnumTransformer(this));
         registry.put(Parameter.class, new OOParameterTransformer(this));
-        registry.put(StateMachine.class, new OOLogicTransformer(this));
         registry.put(Behavior.class, new BehaviorTransformer(this));
         registry.put(AppliedStereotype.class, new StereotypeTransformer(this));
     }

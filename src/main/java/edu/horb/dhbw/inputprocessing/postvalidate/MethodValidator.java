@@ -21,7 +21,8 @@ import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.Pair;
 import lombok.EqualsAndHashCode;
-import org.thymeleaf.util.ListUtils;
+
+import static edu.horb.dhbw.inputprocessing.transform.BehaviorTransformer.OOBaseStringWrapper.EMPTY;
 
 @EqualsAndHashCode(callSuper = true)
 public class MethodValidator extends NamingValidator {
@@ -40,8 +41,7 @@ public class MethodValidator extends NamingValidator {
     public Pair<Boolean, String> continueValidation(final OOBase base) {
 
         OOMethod method = (OOMethod) base;
-        if (method.isAbstract() && !ListUtils
-                .isEmpty(method.getLogic().getStatements())) {
+        if (method.isAbstract() && !(EMPTY.equals(method.getLogic()))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Method [%s] is abstract but has a body defined",
                     method.getName()));

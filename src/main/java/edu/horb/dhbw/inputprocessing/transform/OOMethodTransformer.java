@@ -18,7 +18,6 @@
 package edu.horb.dhbw.inputprocessing.transform;
 
 import edu.horb.dhbw.datacore.model.Cardinality;
-import edu.horb.dhbw.datacore.model.OOLogic;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
@@ -104,12 +103,12 @@ public final class OOMethodTransformer
                 typeITransformer.transform(element.getRaisedException()));
         log.debug("Set comments for [{}]", id);
         if (element.getMethod().size() > 0) {
-            ITransformer<Behavior, OOLogic> logicITransformer =
+            ITransformer<Behavior, BehaviorTransformer.OOBaseStringWrapper> logicITransformer =
                     getTransformer(Behavior.class);
             ooMethod.setLogic(
                     logicITransformer.transform(element.getMethod().get(0)));
         } else {
-            ooMethod.setLogic(new OOLogic(Collections.emptyList()));
+            ooMethod.setLogic(BehaviorTransformer.OOBaseStringWrapper.EMPTY);
         }
 
         ooMethod.getParameters()

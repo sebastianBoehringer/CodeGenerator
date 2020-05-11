@@ -17,22 +17,20 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
-import edu.horb.dhbw.datacore.model.OOLogic;
-import edu.horb.dhbw.datacore.model.OpaqueStatement;
+import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
-import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.util.Config;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-public final class BehaviorTransformer
-        extends AbstractTransformer<Behavior, OOLogic> {
+public final class BehaviorTransformer extends
+                                       AbstractTransformer<Behavior,
+                                               BehaviorTransformer.OOBaseStringWrapper> {
     /**
      * @param registry The registry to use.
      */
@@ -41,8 +39,40 @@ public final class BehaviorTransformer
         super(registry);
     }
 
+    public static final class OOBaseStringWrapper extends OOBase {
+        /**
+         * A wrapper wrapping the empty string
+         */
+        public static final OOBaseStringWrapper EMPTY =
+                new OOBaseStringWrapper("");
+        /**
+         * The wrapped string.
+         * This is the extracted body of an {@link OpaqueBehavior}.
+         */
+        private final String body;
+
+        /**
+         * @param body The string to wrap
+         */
+        public OOBaseStringWrapper(String body) {
+
+            this.body = body;
+        }
+
+        @Override
+        protected OOBase getParent() {
+
+            return null;
+        }
+
+        public String getBody() {
+
+            return body;
+        }
+    }
+
     @Override
-    public @NonNull List<OOLogic> transform(final @NonNull List<?> elements) {
+    public @NonNull List<OOBaseStringWrapper> transform(final @NonNull List<?> elements) {
 
         List<Behavior> behaviors = new ArrayList<>();
         for (Object e : elements) {
@@ -50,9 +80,9 @@ public final class BehaviorTransformer
                 behaviors.add((Behavior) e);
             }
         }
-        List<OOLogic> result = new ArrayList<>();
+        List<OOBaseStringWrapper> result = new ArrayList<>();
         for (Behavior behavior : behaviors) {
-            OOLogic logic = transform(behavior);
+            OOBaseStringWrapper logic = transform(behavior);
             if (logic != null) {
                 result.add(transform(behavior));
             }
@@ -61,13 +91,8 @@ public final class BehaviorTransformer
     }
 
     @Override
-    public OOLogic transform(final @NonNull Behavior element) {
+    public OOBaseStringWrapper transform(final @NonNull Behavior element) {
 
-        if (element instanceof StateMachine) {
-            ITransformer<StateMachine, OOLogic> transformer =
-                    getTransformer(StateMachine.class);
-            return transformer.transform((StateMachine) element);
-        }
         if (element instanceof OpaqueBehavior) {
             String body;
             OpaqueBehavior behavior = (OpaqueBehavior) element;
@@ -83,8 +108,9 @@ public final class BehaviorTransformer
                 body = behavior.getBody().size() > 0 ? behavior.getBody().get(0)
                                                      : "";
             }
-            return new OOLogic(
-                    Collections.singletonList(new OpaqueStatement(body)));
+            OOBaseStringWrapper wrapper = new OOBaseStringWrapper(body);
+            wrapper.setId(behavior.getId());
+            return wrapper;
         }
 
         return null;

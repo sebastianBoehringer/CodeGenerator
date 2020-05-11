@@ -18,6 +18,7 @@
 package edu.horb.dhbw.datacore.model;
 
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
+import edu.horb.dhbw.inputprocessing.transform.BehaviorTransformer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -35,7 +36,7 @@ public class OOMethod extends OOBase {
     /**
      * Defines the logic used when executing this method.
      */
-    private OOLogic logic;
+    private BehaviorTransformer.OOBaseStringWrapper logic;
     /**
      * The parameters used for the invocation of the method.
      * This does not include {@link #returnParam}. I. e. {@code parameters

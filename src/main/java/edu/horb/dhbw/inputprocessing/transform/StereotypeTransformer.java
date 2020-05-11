@@ -55,7 +55,8 @@ public final class StereotypeTransformer
     @Override
     public TransformedStereotype transform(final @NonNull AppliedStereotype element) {
 
-        TransformedStereotype stereotype = new TransformedStereotype();
+        TransformedStereotype stereotype =
+                new TransformedStereotype(element.getUmlType());
         stereotype.setId(element.getId());
         stereotype.getMultiPlains().putAll(element.getMultiPlains());
         stereotype.getSinglePlain().putAll(element.getSinglePlain());
