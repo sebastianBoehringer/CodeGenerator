@@ -51,7 +51,10 @@ public final class CommentRestructurer
         }
         Comment comment = new CommentImpl();
         comment.setId(id);
-        processed.put(id, comment);
+        processed.putIfAbsent(id, comment);
+
+        log.debug("Processing umltype for Comment [{}]", id);
+        comment.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing body for Comment [{}]", id);
         String body = element.getPlainAttribute("body");

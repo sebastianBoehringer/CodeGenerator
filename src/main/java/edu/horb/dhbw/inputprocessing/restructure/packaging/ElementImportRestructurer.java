@@ -53,8 +53,11 @@ public final class ElementImportRestructurer
             return processed.get(id);
         }
         ElementImport elementImport = new ElementImportImpl();
-        processed.put(id, elementImport);
+        processed.putIfAbsent(id, elementImport);
         elementImport.setId(id);
+
+        log.debug("Processing umltype for ElementImport [{}]", id);
+        elementImport.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing visiblity for ElementImport [{}]", id);
         String visibility = element.getPlainAttribute("visibility");

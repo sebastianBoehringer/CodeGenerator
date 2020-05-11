@@ -55,12 +55,15 @@ public final class ModelRestructurer
             return processed.get(id);
         }
         Model model = new Model();
-        processed.put(id, model);
+        processed.putIfAbsent(id, model);
         model.setId(id);
 
         log.debug("Processing name for Model [{}]", id);
         String name = element.getPlainAttribute("name");
         model.setName(name);
+
+        log.debug("Processing umltype for Model [{}]", id);
+        model.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing ownedmember for Model [{}]", id);
         Collection<ModelElement> members = (Collection<ModelElement>) element

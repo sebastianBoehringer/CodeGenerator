@@ -55,12 +55,15 @@ public final class StateRestructurer
             return processed.get(id);
         }
         State state = new State();
-        processed.put(id, state);
+        processed.putIfAbsent(id, state);
         state.setId(id);
 
         log.debug("Processing name for State [{}]", id);
         String name = element.getPlainAttribute("name");
         state.setName(name);
+
+        log.debug("Processing umltype for State [{}]", id);
+        state.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing kind for State [{}]", id);
         String kind = element.getPlainAttribute("kind");

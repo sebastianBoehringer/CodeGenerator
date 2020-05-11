@@ -56,8 +56,11 @@ public final class StateMachineRestructurer
             return processed.get(id);
         }
         StateMachine machine = new StateMachine();
-        processed.put(id, machine);
+        processed.putIfAbsent(id, machine);
         machine.setId(id);
+
+        log.debug("Processing umltype for StateMachine [{}]", id);
+        machine.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for StateMachine [{}]", id);
         String name = element.getPlainAttribute("name");

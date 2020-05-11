@@ -72,8 +72,11 @@ public final class PackageRestructurer
             return processed.get(id);
         }
         UMLPackage umlPackage = new UMLPackageImpl();
-        processed.put(id, umlPackage);
+        processed.putIfAbsent(id, umlPackage);
         umlPackage.setId(id);
+
+        log.debug("Processing umltype for Package [{}]", id);
+        umlPackage.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Package [{}]", id);
         String name = element.getPlainAttribute("name");

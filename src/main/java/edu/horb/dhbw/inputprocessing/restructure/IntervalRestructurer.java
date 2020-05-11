@@ -41,6 +41,8 @@ public final class IntervalRestructurer extends AbstractRestructurer<Interval> {
         log.info("Beginning restructuring of Interval [{}]", id);
         Interval interval = new Interval();
         interval.setId(id);
+        log.debug("Processing umltype for Interval [{}]", id);
+        interval.setUmlType(element.getPlainAttribute("umltype"));
         log.debug("Processing max for Interval [{}] as modelelement", id);
         ModelElement max = element.getRefAttribute("max");
         interval.setMax(delegateRestructuring(max, ValueSpecification.class));

@@ -53,8 +53,12 @@ public final class RegionRestructurer
             return processed.get(id);
         }
         Region region = new Region();
-        processed.put(id, region);
+        processed.putIfAbsent(id, region);
         region.setId(id);
+
+
+        log.debug("Processing umltype for Region [{}]", id);
+        region.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Region [{}]", id);
         String name = element.getPlainAttribute("name");

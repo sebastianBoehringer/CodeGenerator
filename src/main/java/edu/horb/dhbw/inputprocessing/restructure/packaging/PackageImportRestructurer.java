@@ -53,9 +53,11 @@ public final class PackageImportRestructurer
             return processed.get(id);
         }
         PackageImport packageImport = new PackageImportImpl();
-        processed.put(id, packageImport);
+        processed.putIfAbsent(id, packageImport);
         packageImport.setId(id);
 
+        log.debug("Processing umltype for PackageImport [{}]", id);
+        packageImport.setUmlType(element.getPlainAttribute("umltype"));
         log.debug("Processing visiblity for PackageImport [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         VisibilityKind kind =

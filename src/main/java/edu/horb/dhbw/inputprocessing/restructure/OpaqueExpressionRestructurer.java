@@ -45,6 +45,9 @@ public final class OpaqueExpressionRestructurer
         OpaqueExpression expression = new OpaqueExpression();
         expression.setId(id);
 
+        log.debug("Processing umltype for OpaqueExpression [{}]", id);
+        expression.setUmlType(element.getPlainAttribute("umltype"));
+
         log.debug("Processing body for OpaqueExpression [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");

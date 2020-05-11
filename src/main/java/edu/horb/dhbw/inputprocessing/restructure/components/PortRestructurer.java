@@ -56,6 +56,8 @@ public final class PortRestructurer extends AbstractRestructurer<Port> {
         Port port = new Port();
         port.setId(id);
 
+        log.debug("Processing umltype for Port [{}]", id);
+        port.setUmlType(element.getPlainAttribute("umltype"));
         log.debug("Processing name for Port [{}]", id);
         String name = element.getPlainAttribute("name");
         port.setName(name);

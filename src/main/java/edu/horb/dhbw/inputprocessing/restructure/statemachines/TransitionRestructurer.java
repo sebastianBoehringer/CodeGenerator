@@ -55,8 +55,11 @@ public final class TransitionRestructurer
             return processed.get(id);
         }
         Transition transition = new Transition();
-        processed.put(id, transition);
+        processed.putIfAbsent(id, transition);
         transition.setId(id);
+
+        log.debug("Processing umltype for Abstraction [{}]", id);
+        transition.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing name for Transition [{}]", id);
         String name = element.getPlainAttribute("name");

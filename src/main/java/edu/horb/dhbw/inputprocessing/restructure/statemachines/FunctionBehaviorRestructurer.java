@@ -53,6 +53,9 @@ public final class FunctionBehaviorRestructurer
         FunctionBehavior behavior = new FunctionBehavior();
         behavior.setId(id);
 
+        log.debug("Processing umltype for FunctionBehavior [{}]", id);
+        behavior.setUmlType(element.getPlainAttribute("umltype"));
+
         log.debug("Processing body for FunctionBehavior [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");

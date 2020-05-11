@@ -74,7 +74,10 @@ public final class ConstraintRestrucuturer
         }
         Constraint constraint = new ConstraintImpl();
         constraint.setId(id);
-        processed.put(id, constraint);
+        processed.putIfAbsent(id, constraint);
+
+        log.debug("Processing umltype for Constraint [{}]", id);
+        constraint.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing specification for Constraint [{}]", id);
         ModelElement specification = element.getRefAttribute("specification");

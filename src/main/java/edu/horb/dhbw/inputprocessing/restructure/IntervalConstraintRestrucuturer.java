@@ -52,8 +52,10 @@ public final class IntervalConstraintRestrucuturer
         }
         IntervalConstraint constraint = new IntervalConstraint();
         constraint.setId(id);
-        processed.put(id, constraint);
+        processed.putIfAbsent(id, constraint);
 
+        log.debug("Processing umltype for IntervalConstraint [{}]", id);
+        constraint.setUmlType(element.getPlainAttribute("umltype"));
         log.debug("Processing intervalspecification for IntervalConstraint "
                           + "[{}]", id);
         ModelElement specification =

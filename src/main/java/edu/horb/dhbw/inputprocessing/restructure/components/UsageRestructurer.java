@@ -54,7 +54,10 @@ public final class UsageRestructurer
         }
         Usage usage = new UsageImpl();
         usage.setId(id);
-        processed.put(id, usage);
+        processed.putIfAbsent(id, usage);
+
+        log.debug("Processing umltype for Usage [{}]", id);
+        usage.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing client for Usage [{}]", id);
         Collection<ModelElement> clients =

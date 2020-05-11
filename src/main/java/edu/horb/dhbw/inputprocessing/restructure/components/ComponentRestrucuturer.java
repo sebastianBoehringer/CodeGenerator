@@ -67,7 +67,10 @@ public final class ComponentRestrucuturer
         log.debug("Processing id for Component [{}]", id);
         Component component = new Component();
         component.setId(id);
-        processed.put(id, component);
+        processed.putIfAbsent(id, component);
+
+        log.debug("Processing umltype for Component [{}]", id);
+        component.setUmlType(element.getPlainAttribute("umltype"));
 
         log.debug("Processing realizations for Component [{}]", id);
         Collection<ModelElement> realizations =

@@ -52,6 +52,9 @@ public final class OpaqueBehaviorRestructurer
         OpaqueBehavior behavior = new OpaqueBehavior();
         behavior.setId(id);
 
+        log.debug("Processing umltype for OpaqueBehavior [{}]", id);
+        behavior.setUmlType(element.getPlainAttribute("umltype"));
+
         log.debug("Processing body for OpaqueBehavior [{}]", id);
         Collection<String> body =
                 (Collection<String>) element.getSetAttribute("body");

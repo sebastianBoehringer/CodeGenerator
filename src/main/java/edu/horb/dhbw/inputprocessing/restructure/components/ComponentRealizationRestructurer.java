@@ -52,6 +52,9 @@ public final class ComponentRealizationRestructurer
         ComponentRealization realization = new ComponentRealization();
         realization.setId(id);
 
+        log.debug("Processing umltype for ComponentRealization [{}]", id);
+        realization.setUmlType(element.getPlainAttribute("umltype"));
+
         log.debug("Processing mapping for ComponentRealization [{}]", id);
         ModelElement mapping = element.getRefAttribute("mapping");
         realization.setMapping(
