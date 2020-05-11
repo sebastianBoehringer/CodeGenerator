@@ -30,9 +30,14 @@ import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.classification.StructuralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
+import edu.horb.dhbw.datacore.uml.commonbehavior.AnyReceiveEvent;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.CallEvent;
+import edu.horb.dhbw.datacore.uml.commonbehavior.ChangeEvent;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Event;
 import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
@@ -193,6 +198,9 @@ public final class LookupUtil {
 
         if ("collaborationuse".equals(umlType)) {
             return CollaborationUse.class;
+        }
+        if ("trigger".equals(umlType)) {
+            return Trigger.class;
         }
         Class<? extends NamedElement> aClass = featureFromUMLType(umlType);
         if (aClass != null) {
@@ -368,7 +376,33 @@ public final class LookupUtil {
         if (aClass != null) {
             return aClass;
         }
+        aClass = eventFromUMLType(umlType);
+        if (aClass != null) {
+            return aClass;
+        }
         return valueSpecFromUMLType(umlType);
+    }
+
+    /**
+     * Maps the type of an uml class to the corresponding java class.
+     * This method specializes on classes extending {@link Event}.
+     * This method does NOT trim the namespace.
+     *
+     * @param umlType The value of the attribute xmi:type
+     * @return The class corresponding to this particular type
+     */
+    public static Class<? extends Event> eventFromUMLType(
+            @NonNull final String umlType) {
+
+        switch (umlType) {
+            case "anyreceiveevent":
+                return AnyReceiveEvent.class;
+            case "callevent":
+                return CallEvent.class;
+            case "changeevent":
+                return ChangeEvent.class;
+        }
+        return null;
     }
 
     /**

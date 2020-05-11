@@ -48,6 +48,7 @@ import edu.horb.dhbw.inputprocessing.prevalidate.classification.ParameterValidat
 import edu.horb.dhbw.inputprocessing.prevalidate.classification.PropertyValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.commonbehavior.BehaviorValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.commonbehavior.FunctionBehaviorValidator;
+import edu.horb.dhbw.inputprocessing.prevalidate.commonbehavior.TriggerValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ConstraintValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ElementImportValidator;
 import edu.horb.dhbw.inputprocessing.prevalidate.commonstructure.ElementValidator;
@@ -186,8 +187,9 @@ public final class XMIModelProcessor implements IModelProcessor {
                                            new ConnectorValidator(),
                                            new PortValidator()));
         preValidators.add(new PackageValidator());
-        preValidators.add(new FunctionBehaviorValidator());
-        preValidators.add(new BehaviorValidator());
+        preValidators.addAll(Arrays.asList(new FunctionBehaviorValidator(),
+                                           new BehaviorValidator(),
+                                           new TriggerValidator()));
         preValidators.addAll(Arrays.asList(new FinalStateValidator(),
                                            new PseudoStateValidator(),
                                            new RegionValidator(),

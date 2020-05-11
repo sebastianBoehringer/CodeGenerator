@@ -36,8 +36,10 @@ import edu.horb.dhbw.datacore.uml.classification.Slot;
 import edu.horb.dhbw.datacore.uml.classification.StructuralFeature;
 import edu.horb.dhbw.datacore.uml.classification.Substitution;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Event;
 import edu.horb.dhbw.datacore.uml.commonbehavior.FunctionBehavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.commonstructure.Abstraction;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Constraint;
@@ -142,12 +144,14 @@ import edu.horb.dhbw.inputprocessing.restructure.packaging.ElementImportRestruct
 import edu.horb.dhbw.inputprocessing.restructure.packaging.ModelRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.PackageImportRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.packaging.PackageRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.EventRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.FunctionBehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.OpaqueBehaviorRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.RegionRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateMachineRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.StateRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.statemachines.TransitionRestructurer;
+import edu.horb.dhbw.inputprocessing.restructure.statemachines.TriggerRestructurer;
 import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -165,7 +169,7 @@ public final class RestructurerMediator
      * The number of {@link IRestructurer}s registered when using the default
      * constructor.
      */
-    private static final int DEFAULT_SIZE = 68;
+    private static final int DEFAULT_SIZE = 70;
 
     /**
      * The mappings to use.
@@ -311,6 +315,8 @@ public final class RestructurerMediator
         classToRestructurer.put(Port.class, new PortRestructurer(this));
         classToRestructurer.put(AppliedStereotype.class,
                                 new AppliedStereotypeRestructurer(this));
+        classToRestructurer.put(Trigger.class, new TriggerRestructurer(this));
+        classToRestructurer.put(Event.class, new EventRestructurer(this));
     }
 
     /**

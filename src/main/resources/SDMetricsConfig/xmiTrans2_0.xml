@@ -505,6 +505,20 @@ other part of SDMetrics.
         <trigger name="event" type="xmi2assoc" attr="event"/>
     </xmitransformation>
 
+    <xmitransformation modelelement="event" xmipattern="uml:CallEvent" recurse="true">
+        <trigger name="linkedeventelement" type="xmi2assoc" attr="operation" src="uml:Operation" />
+        <trigger name="kind" type="constant" attr="call"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="event" xmipattern="uml:ChangeEvent" recurse="true">
+        <trigger name="linkedeventelement" type="xmi2assoc" attr="changeExpression"/>
+        <trigger name="kind" type="constant" attr="change"/>
+    </xmitransformation>
+
+    <xmitransformation modelelement="event" xmipattern="uml:AnyReceiveEvent" recurse="true">
+        <trigger name="kind" type="constant" attr="anyreceive"/>
+    </xmitransformation>
+
     <xmitransformation modelelement="constraint" xmipattern="uml:Constraint"
                        recurse="true">
         <trigger name="specification" type="xmi2assoc"

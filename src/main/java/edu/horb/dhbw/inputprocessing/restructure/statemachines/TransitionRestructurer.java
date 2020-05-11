@@ -19,6 +19,7 @@ package edu.horb.dhbw.inputprocessing.restructure.statemachines;
 
 import com.sdmetrics.model.ModelElement;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonbehavior.Trigger;
 import edu.horb.dhbw.datacore.uml.enums.TransitionKind;
 import edu.horb.dhbw.datacore.uml.statemachines.Region;
 import edu.horb.dhbw.datacore.uml.statemachines.State;
@@ -31,6 +32,8 @@ import edu.horb.dhbw.util.XMIUtil;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
+
+import java.util.Collection;
 
 @Slf4j
 public final class TransitionRestructurer
@@ -76,6 +79,11 @@ public final class TransitionRestructurer
         ModelElement source = element.getRefAttribute("transsource");
         transition.setSource(delegateRestructuring(source, State.class));
         transition.getSource().getOutgoing().add(transition);
+
+        log.debug("Processing triggers for Transition [{}]", id);
+        Collection<ModelElement> triggers =
+                (Collection<ModelElement>) element.getSetAttribute("triggers");
+        transition.setTriggers(delegateMany(triggers, Trigger.class));
 
         log.debug("Processing transtarget for Transition [{}]", id);
         ModelElement target = element.getRefAttribute("transtarget");
