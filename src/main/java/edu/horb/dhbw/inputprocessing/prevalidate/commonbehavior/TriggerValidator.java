@@ -41,6 +41,7 @@ public final class TriggerValidator implements IPreValidator {
                     "Trigger %s has ports but its event is not a message"
                             + " event but %s", trigger.getId(),
                     trigger.getEvent().getClass().getSimpleName()));
-        } return VALID;
+        }
+        return VALID;
     }
 }

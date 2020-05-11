@@ -29,7 +29,6 @@ import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
-import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;

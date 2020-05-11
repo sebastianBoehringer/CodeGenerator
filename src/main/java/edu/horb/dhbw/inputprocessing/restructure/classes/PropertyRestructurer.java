@@ -23,7 +23,6 @@ import edu.horb.dhbw.datacore.uml.classification.PropertyImpl;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.AggregationKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.Association;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;

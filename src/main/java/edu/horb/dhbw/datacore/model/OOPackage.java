@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.datacore.model;
 
-import edu.horb.dhbw.util.Config;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -77,6 +77,12 @@ public abstract class StructuralFeatureImpl extends FeatureImpl
      * {@link edu.horb.dhbw.datacore.uml.commonstructure.MultiplicityElement}.
      */
     private ValueSpecification upperValue;
+    /**
+     * The type of this element.
+     * Copied from
+     * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}.
+     */
+    private Type type;
 
     /**
      * The lower bound of the cardinality. If this equals to {@code 0} the
@@ -123,11 +129,4 @@ public abstract class StructuralFeatureImpl extends FeatureImpl
         }
         return upper;
     }
-
-    /**
-     * The type of this element.
-     * Copied from
-     * {@link edu.horb.dhbw.datacore.uml.commonstructure.TypedElement}.
-     */
-    private Type type;
 }

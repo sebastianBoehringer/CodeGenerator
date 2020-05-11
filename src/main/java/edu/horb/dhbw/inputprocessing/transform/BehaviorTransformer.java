@@ -39,38 +39,6 @@ public final class BehaviorTransformer extends
         super(registry);
     }
 
-    public static final class OOBaseStringWrapper extends OOBase {
-        /**
-         * A wrapper wrapping the empty string
-         */
-        public static final OOBaseStringWrapper EMPTY =
-                new OOBaseStringWrapper("");
-        /**
-         * The wrapped string.
-         * This is the extracted body of an {@link OpaqueBehavior}.
-         */
-        private final String body;
-
-        /**
-         * @param body The string to wrap
-         */
-        public OOBaseStringWrapper(String body) {
-
-            this.body = body;
-        }
-
-        @Override
-        protected OOBase getParent() {
-
-            return null;
-        }
-
-        public String getBody() {
-
-            return body;
-        }
-    }
-
     @Override
     public @NonNull List<OOBaseStringWrapper> transform(final @NonNull List<?> elements) {
 
@@ -114,5 +82,37 @@ public final class BehaviorTransformer extends
         }
 
         return null;
+    }
+
+    public static final class OOBaseStringWrapper extends OOBase {
+        /**
+         * A wrapper wrapping the empty string
+         */
+        public static final OOBaseStringWrapper EMPTY =
+                new OOBaseStringWrapper("");
+        /**
+         * The wrapped string.
+         * This is the extracted body of an {@link OpaqueBehavior}.
+         */
+        private final String body;
+
+        /**
+         * @param body The string to wrap
+         */
+        public OOBaseStringWrapper(String body) {
+
+            this.body = body;
+        }
+
+        @Override
+        protected OOBase getParent() {
+
+            return null;
+        }
+
+        public String getBody() {
+
+            return body;
+        }
     }
 }

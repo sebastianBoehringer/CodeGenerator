@@ -33,11 +33,6 @@ import org.thymeleaf.util.StringUtils;
 @EqualsAndHashCode(callSuper = false)
 @Data
 public final class UnlimitedNatural extends PrimitiveTypeImpl {
-    private UnlimitedNatural(final long value) {
-
-        this.value = value;
-    }
-
     /**
      * Represents the special value unlimited as {@link Long#MAX_VALUE}.
      * Since UnlimitedNatural is most often used in conjunction with
@@ -63,6 +58,11 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
      * The value of this unlimitedNatural.
      */
     private long value;
+
+    private UnlimitedNatural(final long value) {
+
+        this.value = value;
+    }
 
     /**
      * Constructs a new UnlimitedNatural from the String.

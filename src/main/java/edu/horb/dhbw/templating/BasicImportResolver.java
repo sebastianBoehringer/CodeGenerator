@@ -77,6 +77,15 @@ public class BasicImportResolver implements IImportResolver {
         return fqNames;
     }
 
+    private String extractFQName(final OOType type) {
+
+        if (type.getType().equals(OOType.Type.PRIMITIVE)) {
+            return PLACEHOLDER;
+        } else {
+            return type.getFQName();
+        }
+    }
+
     private List<String> resolveCardinality(final Cardinality cardinality) {
 
         ImportOptions options = Config.CONFIG.getLanguage().getImportOptions();
@@ -95,14 +104,5 @@ public class BasicImportResolver implements IImportResolver {
                 return options.getOrderedSetImports();
         }
         return Collections.emptyList();
-    }
-
-    private String extractFQName(final OOType type) {
-
-        if (type.getType().equals(OOType.Type.PRIMITIVE)) {
-            return PLACEHOLDER;
-        } else {
-            return type.getFQName();
-        }
     }
 }

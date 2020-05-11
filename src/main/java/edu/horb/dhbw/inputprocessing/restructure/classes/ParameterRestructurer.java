@@ -22,7 +22,6 @@ import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.ParameterEffectKind;
-import edu.horb.dhbw.datacore.uml.primitivetypes.UnlimitedNatural;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import edu.horb.dhbw.inputprocessing.restructure.AbstractCachingRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;

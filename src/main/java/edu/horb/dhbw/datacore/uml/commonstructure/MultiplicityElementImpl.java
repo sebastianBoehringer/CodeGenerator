@@ -31,6 +31,14 @@ public abstract class MultiplicityElementImpl extends ElementImpl
      * returns a value greater than {@code 0}.
      */
     private Boolean isUnique = Boolean.TRUE;
+    /**
+     * A specification for the lower bound of the cardinality.
+     */
+    private ValueSpecification lowerValue;
+    /**
+     * A specification for the upper bound of the cardinality.
+     */
+    private ValueSpecification upperValue;
 
     /**
      * The lower bound of the cardinality. If this equals to {@code 0} the
@@ -61,6 +69,7 @@ public abstract class MultiplicityElementImpl extends ElementImpl
      * @return The upper limit of this element
      */
     public UnlimitedNatural getUpper() {
+
         if (upperValue == null) {
             return UnlimitedNatural.ONE;
         }
@@ -72,14 +81,4 @@ public abstract class MultiplicityElementImpl extends ElementImpl
         }
         return upper;
     }
-
-
-    /**
-     * A specification for the lower bound of the cardinality.
-     */
-    private ValueSpecification lowerValue;
-    /**
-     * A specification for the upper bound of the cardinality.
-     */
-    private ValueSpecification upperValue;
 }

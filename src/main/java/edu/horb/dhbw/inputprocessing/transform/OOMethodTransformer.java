@@ -31,7 +31,6 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -103,8 +102,8 @@ public final class OOMethodTransformer
                 typeITransformer.transform(element.getRaisedException()));
         log.debug("Set comments for [{}]", id);
         if (element.getMethod().size() > 0) {
-            ITransformer<Behavior, BehaviorTransformer.OOBaseStringWrapper> logicITransformer =
-                    getTransformer(Behavior.class);
+            ITransformer<Behavior, BehaviorTransformer.OOBaseStringWrapper>
+                    logicITransformer = getTransformer(Behavior.class);
             ooMethod.setLogic(
                     logicITransformer.transform(element.getMethod().get(0)));
         } else {

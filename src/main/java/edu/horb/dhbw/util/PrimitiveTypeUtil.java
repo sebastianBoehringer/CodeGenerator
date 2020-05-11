@@ -34,7 +34,8 @@ public final class PrimitiveTypeUtil {
     private static final PrimitiveInteger primitiveInteger =
             new PrimitiveInteger();
     private static final PrimitiveReal primitiveReal = new PrimitiveReal();
-    private static final UnlimitedNatural unlimitedNatural =UnlimitedNatural.ZERO;
+    private static final UnlimitedNatural unlimitedNatural =
+            UnlimitedNatural.ZERO;
 
     private PrimitiveTypeUtil() {
 
