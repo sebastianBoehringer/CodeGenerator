@@ -13,7 +13,6 @@ Below here is a list of all dependencies this project depends on and their respe
 * [Thymeleaf](https://www.thymeleaf.org/), Apache License 2.0
 * [SDMetricsOpenCore](https://www.sdmetrics.com/), GNU Affero General Public License v3.0, [download](https://www.sdmetrics.com/OpenCore.html) 
 * [TestNG](https://testng.org/doc/index.html), Apache License 2.0
-* [mockito](https://site.mockito.org/), MIT license
 
 Following is a list of the aforementioned licenses linked to a page you may read them on
 * [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
