@@ -29,6 +29,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class AnyReceiveEvent extends PackageableElementImpl
+public final class AnyReceiveEvent extends PackageableElementImpl
         implements MessageEvent {
 }

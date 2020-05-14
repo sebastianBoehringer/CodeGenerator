@@ -30,7 +30,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class CallEvent extends PackageableElementImpl implements MessageEvent {
+public final class CallEvent extends PackageableElementImpl
+        implements MessageEvent {
     /**
      * The operation that raised the event.
      */

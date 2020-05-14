@@ -34,14 +34,14 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Trigger extends NamedElementImpl {
+public final class Trigger extends NamedElementImpl {
     /**
      * The event this trigger detects.
      */
     private Event event;
 
     /**
-     * Optional ports through which the event is detected
+     * Optional ports through which the event is detected.
      */
     private List<Port> ports = new ArrayList<>();
 }

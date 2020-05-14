@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class ChangeEvent extends PackageableElementImpl implements Event {
+public final class ChangeEvent extends PackageableElementImpl implements Event {
     /**
      * When this evaluates from {@code false} to {@code true} the event is
      * fired.
