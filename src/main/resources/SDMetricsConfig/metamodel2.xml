@@ -138,6 +138,12 @@ other part of SDMetrics.
         <attribute name="ownedbehaviors" type="ref" multiplicity="many">Behavior
             specifications owned by the collaboration.
         </attribute>
+        <attribute name="classifierbehavior" type="ref">The behavior
+            of the classifier
+        </attribute>
+        <attribute name="active">Whether the class has an active
+            behavior
+        </attribute>
     </modelelement>
 
     <modelelement name="interface" parent="classifier">

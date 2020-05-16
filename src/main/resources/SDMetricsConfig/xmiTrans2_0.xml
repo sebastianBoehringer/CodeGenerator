@@ -136,6 +136,10 @@ other part of SDMetrics.
         <trigger name="generalization" type="xmi2assoc" attr="superClass"/>
         <trigger name="generalization" type="xmi2assoc"
                  src="uml:Generalization" attr="generalization"/>
+        <trigger name="classifierbehavior" type="xmi2assoc"
+                 attr="classifierBehavior"/>
+        <trigger name="active" type="attrval" attr="isActive"/>
+        <trigger name="active" type="ctext" src="isActive"/>
     </xmitransformation>
 
     <xmitransformation modelelement="interface" xmipattern="uml:Interface"
