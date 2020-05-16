@@ -1,1 +1,1 @@
-[(${attribute.getVisibility().toString()})] [# th:insert="Cardinal" th:with="cardinal=${attribute}"][/];
+[(${attribute.getVisibility().toString()})] [# th:insert="Cardinal" th:with="cardinal=${attribute}"][/][# th:if="${attribute.getDefaultValue}"] = [(${attribute.getDefaultValue()})][/];

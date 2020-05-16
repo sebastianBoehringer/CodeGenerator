@@ -1,4 +1,5 @@
 [(${method.getVisibility().toString()})] [# th:if="${method.isAbstract()}"]abstract [/][# th:switch="${method.getReturnParam().getCardinality().toString()}"][# th:case="OPTIONAL"][(${method.getReturnParam().getType().getName()})][/][# th:case="SINGLE"][(${method.getReturnParam().getType().getName()})][/][# th:case="LIST"]List<[(${method.getReturnParam().getType().getName()})]>[/][# th:case="BAG"]Collection<[(${method.getReturnParam().getType().getName()})]>[/][# th:case="SET"]Set<[(${method.getReturnParam().getType().getName()})]>[/][# th:case="ORDERED_SET"]LinkedHashSet<[(${method.getReturnParam().getType().getName()})]>[/][# th:case="*"][(${method.getReturnParam().getCardinality()})][/][/] [(${method.getName()})]([# th:insert="Parameter"][/])[# th:if="${method.getExceptions().size() >0}"]
-    throws [# th:each="ex,iter: ${method.getExceptions()}"][(${ex.getName()})][# th:unless="${iter.last}"], [/][/][/]{
-    throw new UnsupportedOperationException();
-    };
+    throws [# th:each="ex,iter: ${method.getExceptions()}"][(${ex.getName()})][# th:unless="${iter.last}"], [/][/][/][# th:unless="${method.isAbstract()}"]{
+[# th:unless="${method.getLogic().getBody().length() gt 0}"][(${"    ".repeat(intendation)})]throw new UnsupportedOperationException();[/]
+[# th:if="${method.getLogic().getBody().length() gt 0}"][(${method.getLogic().getBody()})][/]
+    }[/];
