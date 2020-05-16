@@ -17,9 +17,8 @@ public final class Main {
     public static void main(final String[] args)
             throws Exception {
 
-        System.out.println(Arrays.toString(args));
         List<String> fileNames = new ArrayList<>(Arrays.asList(args));
-        fileNames.removeIf(s -> !s.endsWith(".xmi"));
+        fileNames.removeIf(s -> !s.endsWith(".xmi") && !s.endsWith(".uml"));
 
         CodeGenerator gen = new CodeGenerator();
         for (String name : fileNames) {
