@@ -17,7 +17,7 @@
     <logger name="edu.horb.dhbw" level="warn"/>
     <logger name="org.thymeleaf" level="warn"/>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./target/codegenerator.log</file>
+        <file>./codegenerator.log</file>
         <append>false</append>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
