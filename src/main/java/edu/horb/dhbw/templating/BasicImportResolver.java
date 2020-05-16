@@ -26,7 +26,6 @@ import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.util.Config;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +61,8 @@ public class BasicImportResolver implements IImportResolver {
         }
         for (OOMethod method : type.getMethods()) {
             fqNames.add(extractFQName(method.getReturnParam().getType()));
+            fqNames.addAll(resolveCardinality(
+                    method.getReturnParam().getCardinality()));
             for (OOParameter parameter : method.getParameters()) {
                 fqNames.add(extractFQName(parameter.getType()));
                 fqNames.addAll(resolveCardinality(parameter.getCardinality()));
@@ -89,20 +90,13 @@ public class BasicImportResolver implements IImportResolver {
     private List<String> resolveCardinality(final Cardinality cardinality) {
 
         ImportOptions options = Config.CONFIG.getLanguage().getImportOptions();
-        switch (cardinality) {
-            case OPTIONAL:
-                return options.getOptionalImports();
-            case SINGLE:
-                return options.getSingleImports();
-            case LIST:
-                return options.getListImports();
-            case BAG:
-                return options.getBagImports();
-            case SET:
-                return options.getSetImports();
-            case ORDERED_SET:
-                return options.getOrderedSetImports();
-        }
-        return Collections.emptyList();
+        return switch (cardinality) {
+            case OPTIONAL -> options.getOptionalImports();
+            case SINGLE -> options.getSingleImports();
+            case LIST -> options.getListImports();
+            case BAG -> options.getBagImports();
+            case SET -> options.getSetImports();
+            case ORDERED_SET -> options.getOrderedSetImports();
+        };
     }
 }
