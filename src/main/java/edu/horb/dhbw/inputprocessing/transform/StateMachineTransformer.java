@@ -146,6 +146,7 @@ public final class StateMachineTransformer extends
             //Disregard any non final pseudoStates
 
             OOType aClass = new OOType(OOType.Type.CLASS);
+            aClass.setId(subVertex.getId());
             aClass.setName(getStateClassName(context, subVertex));
             if (isTargetOfInitial(subVertex)) {
                 currentState.setDefaultValue(getStateFieldName(aClass));
@@ -199,13 +200,20 @@ public final class StateMachineTransformer extends
                     boolean hasGuard = transition.getGuard() != null;
                     switch (transition.getKind()) {
                         case INTERNAL -> someMethod.setLogic(wrapper);
-                        case LOCAL, EXTERNAL -> someMethod.setLogic(
-                                wrapper.prepend("        exit();\n")
-                                        .append(String.format(
-                                                "\n        state_context"
-                                                        + ".transit"
-                                                        + "(state_context.%s);",
-                                                getStateFieldName(aClass))));
+                        case LOCAL, EXTERNAL -> {
+                            wrapper = wrapper.prepend("        exit();\n")
+                                    .append(String.format(
+                                            "\n        state_context.transit"
+                                                    + "(state_context.%s);",
+                                            getStateFieldName(aClass)));
+                            if (hasGuard) {
+                                wrapper = wrapper.prepend(") {\n").prepend(
+                                        extractConditionFromTransition(
+                                                transition)).prepend("if (");
+                                wrapper.append("\n        }");
+                            }
+                            someMethod.setLogic(wrapper);
+                        }
                         default -> throw new IllegalStateException(
                                 "Unexpected value: " + transition.getKind());
                     }
@@ -381,7 +389,7 @@ public final class StateMachineTransformer extends
     /**
      * Creates the entry, exit and doActivity methods for the given state.
      *
-     * @param state The state to create the default methods for
+     * @param state    The state to create the default methods for
      * @param original The state from which the state parameter was created
      */
     private void createDefaultBehaviorMethods(final OOType state,
