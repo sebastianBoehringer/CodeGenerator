@@ -26,8 +26,6 @@ package edu.horb.dhbw.datacore.uml.values;
  */
 public interface LiteralSpecification<T> extends ValueSpecification {
 
-    T getValue();
-
     /**
      * Easy access to the {@link Object#toString()} of the wrapped value.
      *
@@ -37,5 +35,7 @@ public interface LiteralSpecification<T> extends ValueSpecification {
 
         return getValue().toString();
     }
+
+    T getValue();
 
 }

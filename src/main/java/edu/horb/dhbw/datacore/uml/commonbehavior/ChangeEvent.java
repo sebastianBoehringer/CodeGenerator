@@ -20,7 +20,6 @@ package edu.horb.dhbw.datacore.uml.commonbehavior;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
 import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;

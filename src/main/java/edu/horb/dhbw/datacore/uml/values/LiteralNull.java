@@ -14,15 +14,15 @@ import lombok.ToString;
 public final class LiteralNull extends LiteralSpecificationImpl<Void> {
 
     @Override
-    public Void getValue() {
-
-        return null;
-    }
-
-    @Override
     public String stringify() {
 
         return "null";
+    }
+
+    @Override
+    public Void getValue() {
+
+        return null;
     }
 
 }

@@ -145,19 +145,6 @@ public final class CodeGenerator {
                                                        .getValidationOptions());
     }
 
-    /**
-     * Generates a codeGenerator using the .properties the path points to.
-     * If the loading of the properties fails in any way, the default
-     * properties will be used. See the implementation of
-     * {@link Config#readInProperties(Properties)} for more details.
-     *
-     * @param propertyLocation The location of the properties file to use
-     */
-    public CodeGenerator(final Path propertyLocation) {
-
-        initFromPath(propertyLocation);
-    }
-
     private void setUpAdapter() {
 
         log.info("Setting up adapter");
@@ -197,6 +184,19 @@ public final class CodeGenerator {
             throw new InvalidConfigurationException(
                     "Could not access constructor of " + adapterClass);
         }
+    }
+
+    /**
+     * Generates a codeGenerator using the .properties the path points to.
+     * If the loading of the properties fails in any way, the default
+     * properties will be used. See the implementation of
+     * {@link Config#readInProperties(Properties)} for more details.
+     *
+     * @param propertyLocation The location of the properties file to use
+     */
+    public CodeGenerator(final Path propertyLocation) {
+
+        initFromPath(propertyLocation);
     }
 
     /**
@@ -282,6 +282,21 @@ public final class CodeGenerator {
         }
     }
 
+    private void createOutputDirectory()
+            throws CodeGenerationException {
+
+        if (!Files.exists(Config.CONFIG.getLanguage().getTemplatingOptions()
+                                  .getOutputDirectory())) {
+            try {
+                Files.createDirectories(
+                        Config.CONFIG.getLanguage().getTemplatingOptions()
+                                .getOutputDirectory());
+            } catch (IOException e) {
+                throw new CodeGenerationException(e);
+            }
+        }
+    }
+
     /**
      * @param pkg The package to create a directory for
      * @throws CodeGenerationException IF the directory could not be created.
@@ -331,20 +346,5 @@ public final class CodeGenerator {
 
         return fqName.replaceAll(Pattern.quote(
                 Config.CONFIG.getLanguage().getPackageNameLimiter()), "/");
-    }
-
-    private void createOutputDirectory()
-            throws CodeGenerationException {
-
-        if (!Files.exists(Config.CONFIG.getLanguage().getTemplatingOptions()
-                                  .getOutputDirectory())) {
-            try {
-                Files.createDirectories(
-                        Config.CONFIG.getLanguage().getTemplatingOptions()
-                                .getOutputDirectory());
-            } catch (IOException e) {
-                throw new CodeGenerationException(e);
-            }
-        }
     }
 }

@@ -24,8 +24,6 @@ import edu.horb.dhbw.datacore.model.ValidationOptions;
 import edu.horb.dhbw.inputprocessing.postvalidate.FirstLetter;
 import lombok.Getter;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;

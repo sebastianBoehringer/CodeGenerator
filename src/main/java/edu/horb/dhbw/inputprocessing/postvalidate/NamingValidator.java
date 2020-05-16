@@ -36,6 +36,10 @@ public abstract class NamingValidator implements IPostValidator {
     @Override
     public final Pair<Boolean, String> validate(final OOBase base) {
 
+        if (base.getName().length() == 0) {
+            return new Pair<>(Boolean.FALSE, String.format(
+                    "Element[%s] does have a 0 length name", base.getId()));
+        }
         if (FirstLetter.UPPER.equals(nameStart) && !Character
                 .isUpperCase(base.getName().charAt(0))) {
             return new Pair<>(Boolean.FALSE, String.format(

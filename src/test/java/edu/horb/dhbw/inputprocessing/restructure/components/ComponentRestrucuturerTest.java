@@ -26,8 +26,8 @@ import edu.horb.dhbw.datacore.uml.structuredclassifiers.ComponentRealization;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClassImpl;
 import edu.horb.dhbw.inputprocessing.restructure.BaseRestructurerTest;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurer;
-import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
+import edu.horb.dhbw.inputprocessing.restructure.NoopRestructurer;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import org.testng.annotations.Test;
 

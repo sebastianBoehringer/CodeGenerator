@@ -63,38 +63,6 @@ public final class StateMachineTransformer extends
         super(registry);
     }
 
-    public static final class ListOOTypeWrapper extends OOBase {
-        /**
-         * The wrapped types.
-         */
-        @NonNull
-        private final List<OOType> wrapped;
-
-        /**
-         * @param wrappee The types to wrap
-         */
-        public ListOOTypeWrapper(final List<OOType> wrappee) {
-
-            wrapped = ListUtils.isEmpty(wrappee) ? Collections.emptyList()
-                                                 : wrappee;
-        }
-
-        /**
-         * @return The wrapped types
-         */
-        @NonNull
-        public List<OOType> getWrapped() {
-
-            return wrapped;
-        }
-
-        @Override
-        protected OOBase getParent() {
-
-            throw new UnsupportedOperationException();
-        }
-    }
-
     @Override
     protected ListOOTypeWrapper doTransformation(
             @NonNull final StateMachine element) {
@@ -229,7 +197,6 @@ public final class StateMachineTransformer extends
         context.getFields().add(currentState);
         return new ListOOTypeWrapper(generatedClasses);
     }
-
 
     /**
      * @param kind The kind of the pseudoState to check
@@ -498,5 +465,37 @@ public final class StateMachineTransformer extends
                                                    : "false";
         }
         return body;
+    }
+
+    public static final class ListOOTypeWrapper extends OOBase {
+        /**
+         * The wrapped types.
+         */
+        @NonNull
+        private final List<OOType> wrapped;
+
+        /**
+         * @param wrappee The types to wrap
+         */
+        public ListOOTypeWrapper(final List<OOType> wrappee) {
+
+            wrapped = ListUtils.isEmpty(wrappee) ? Collections.emptyList()
+                                                 : wrappee;
+        }
+
+        /**
+         * @return The wrapped types
+         */
+        @NonNull
+        public List<OOType> getWrapped() {
+
+            return wrapped;
+        }
+
+        @Override
+        protected OOBase getParent() {
+
+            throw new UnsupportedOperationException();
+        }
     }
 }

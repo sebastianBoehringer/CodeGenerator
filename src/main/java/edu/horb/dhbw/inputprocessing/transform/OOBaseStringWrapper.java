@@ -68,6 +68,7 @@ public final class OOBaseStringWrapper extends OOBase {
      * @return A new wrapper where the original value has the string appended
      */
     public OOBaseStringWrapper append(@NonNull final String string) {
+
         if (this.equals(EMPTY) && "".equals(string)) {
             return EMPTY;
         }
