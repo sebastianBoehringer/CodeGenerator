@@ -88,6 +88,9 @@ public final class EventRestructurer extends AbstractRestructurer<Event> {
         log.debug("Processing umltype for Event [{}]", id);
         event.setUmlType(element.getPlainAttribute("umltype"));
 
+        log.debug("Processing name for Event [{}]", id);
+        event.setName(element.getPlainAttribute("name"));
+
         log.info("Completed restructuring of Event [{}]", id);
         return event;
     }

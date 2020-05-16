@@ -28,4 +28,14 @@ public interface LiteralSpecification<T> extends ValueSpecification {
 
     T getValue();
 
+    /**
+     * Easy access to the {@link Object#toString()} of the wrapped value.
+     *
+     * @return A string representation of {@link #getValue()}.
+     */
+    default String stringify() {
+
+        return getValue().toString();
+    }
+
 }

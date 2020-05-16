@@ -28,6 +28,8 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Properties;
@@ -64,11 +66,11 @@ public enum Config {
     Config() {
 
         Properties props = new Properties();
-        try (InputStream in = new BufferedInputStream(
-                new FileInputStream("src/main/resources/default.properties"))) {
+        try (InputStream in = this.getClass().getClassLoader()
+                .getResourceAsStream("default.properties")) {
             props.load(in);
         } catch (IOException ex) {
-            //ignored since the default properties should always exist.
+            // Ignored since the default properties should always exist.
             // Furthermore #readInProperties is coded defensively. Thus an
             // empty Properties object does no harm.
         }
@@ -80,14 +82,34 @@ public enum Config {
      */
     public void readInProperties(final Properties props) {
 
-        metaModelPath = props.
-                getProperty("xmi.sdmetrics.metamodel",
-                            "src/main/resources/SDMetricsConfig"
-                                    + "/metamodel2.xml");
-        transformationsPath = props.
-                getProperty("xmi.sdmetrics.transformations",
-                            "src/main/resources/SDMetricsConfig"
-                                    + "/xmiTrans2_0.xml");
+        metaModelPath = (String) props.get("xmi.sdmetrics.metamodel");
+        if (metaModelPath == null) {
+            URL url = getClass().getClassLoader()
+                    .getResource("SDMetricsConfig/metamodel2.xml");
+            if (url != null) {
+                try {
+                    metaModelPath =
+                            Path.of(url.toURI()).toAbsolutePath().toString();
+                } catch (URISyntaxException e) {
+                    //praying that classLoaders return proper urls
+                }
+            }
+        }
+        transformationsPath =
+                (String) props.get("xmi.sdmetrics.transformations");
+        if (transformationsPath == null) {
+            URL url = getClass().getClassLoader()
+                    .getResource("SDMetricsConfig/xmiTrans2_0.xml");
+            if (url != null) {
+                try {
+                    transformationsPath =
+                            Path.of(url.toURI()).toAbsolutePath().toString();
+                } catch (URISyntaxException e) {
+                    //praying that classLoaders return proper urls
+                }
+            }
+        }
+
         String publicVis =
                 props.getProperty("language.visibility.public", "public");
         String protectedVis =

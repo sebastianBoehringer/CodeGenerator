@@ -24,11 +24,13 @@ import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.classification.Parameter;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.PrimitiveType;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.util.Caching;
 import lombok.NonNull;
@@ -69,6 +71,8 @@ public final class TransformerRegistry
         registry.put(Parameter.class, new OOParameterTransformer(this));
         registry.put(Behavior.class, new BehaviorTransformer(this));
         registry.put(AppliedStereotype.class, new StereotypeTransformer(this));
+        registry.put(ElementImport.class, new ImportTransformer(this));
+        registry.put(StateMachine.class, new StateMachineTransformer(this));
     }
 
     @Override

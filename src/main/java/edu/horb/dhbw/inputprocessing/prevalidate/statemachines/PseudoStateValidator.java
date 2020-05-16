@@ -94,9 +94,7 @@ public final class PseudoStateValidator implements IPreValidator {
 
                 break;
             case ENTRYPOINT:
-                break;
             case EXITPOINT:
-                break;
             case TERMINATE:
                 break;
             case FINAL:

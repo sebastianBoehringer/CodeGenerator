@@ -54,4 +54,10 @@ public class OOField extends OOBase {
      */
     private boolean isStatic;
 
+    /**
+     * A default value for this field.
+     * Does not have to be set.
+     */
+    private String defaultValue;
+
 }

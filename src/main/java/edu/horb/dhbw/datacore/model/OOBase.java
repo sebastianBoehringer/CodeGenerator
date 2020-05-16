@@ -62,8 +62,8 @@ public abstract class OOBase {
 
     /**
      * Tests if a stereotype of the given name is applied to the element.
-     * The stereotypeName must match the name of a metamodelelement declared
-     * in the metamodel xml file.
+     * The stereotypeName corresponds to the xmi:type attribute in the
+     * xmi-file.
      *
      * @param stereotypeName The name of the stereotype to check for
      * @return Whether a stereotype of that type has been applied to this

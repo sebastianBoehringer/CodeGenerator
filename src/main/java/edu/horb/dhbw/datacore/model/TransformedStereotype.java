@@ -59,7 +59,7 @@ public final class TransformedStereotype extends OOBase {
     private Map<String, List<OOBase>> multiRefs = new HashMap<>();
 
     /**
-     * The value used for the name attribute in the metamodel file.
+     * The value used for the xmi:type attribute in the xmi file.
      */
     private String type;
 

@@ -17,8 +17,9 @@
 
 package edu.horb.dhbw.datacore.model;
 
+import edu.horb.dhbw.datacore.uml.enums.ParameterDirectionKind;
 import edu.horb.dhbw.datacore.uml.enums.VisibilityKind;
-import edu.horb.dhbw.inputprocessing.transform.BehaviorTransformer;
+import edu.horb.dhbw.inputprocessing.transform.OOBaseStringWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,6 +29,20 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class OOMethod extends OOBase {
+    /**
+     * Special type indicating that nothing is returned.
+     * Specialized for Java where said type is named "void".
+     */
+    private static final OOParameter VOID_RETURN;
+
+    static {
+        VOID_RETURN = new OOParameter();
+        VOID_RETURN.setName("void");
+        VOID_RETURN.setDirection(ParameterDirectionKind.RETURN);
+        VOID_RETURN.setCardinality(Cardinality.SINGLE);
+        VOID_RETURN.setType(new OOType((OOType.Type.PRIMITIVE)));
+        VOID_RETURN.getType().setName("void");
+    }
 
     /**
      * The type that owns the method.
@@ -36,7 +51,7 @@ public class OOMethod extends OOBase {
     /**
      * Defines the logic used when executing this method.
      */
-    private BehaviorTransformer.OOBaseStringWrapper logic;
+    private OOBaseStringWrapper logic = OOBaseStringWrapper.EMPTY;
     /**
      * The parameters used for the invocation of the method.
      * This does not include {@link #returnParam}. I. e. {@code parameters
@@ -68,4 +83,12 @@ public class OOMethod extends OOBase {
      * possibly cause.
      */
     private List<OOType> exceptions = Collections.emptyList();
+
+    /**
+     * @return The return param or {@link #VOID_RETURN} if none is specified
+     */
+    public OOParameter getReturnParam() {
+
+        return this.returnParam == null ? VOID_RETURN : returnParam;
+    }
 }

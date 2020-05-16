@@ -62,7 +62,7 @@ public abstract class CachingTransformer<F extends XMIElement, T extends OOBase>
     protected abstract T doTransformation(@NonNull F element);
 
     @Override
-    public void cleanCache() {
+    public final void cleanCache() {
 
         cache.clear();
     }

@@ -108,6 +108,8 @@ public final class InterfaceRestructurer
                         .getSetAttribute("elementimports");
         anInterface.setElementImport(
                 delegateMany(elementImports, ElementImport.class));
+        anInterface.getElementImport()
+                .forEach(i -> i.setImportingNamespace(anInterface));
 
         log.debug("Processing packageimports for Interface [{}]", id);
         Collection<ModelElement> packageImports =

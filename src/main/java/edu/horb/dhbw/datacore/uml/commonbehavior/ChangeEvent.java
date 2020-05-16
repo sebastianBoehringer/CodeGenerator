@@ -23,11 +23,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 /**
  * A event fired when a boolean condition changes.
  * See subclauses 13.3 and 13.4.4 of the UML specification for more details.
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public final class ChangeEvent extends PackageableElementImpl implements Event {
@@ -36,4 +37,30 @@ public final class ChangeEvent extends PackageableElementImpl implements Event {
      * fired.
      */
     private ValueSpecification changeExpression;
+
+    @Override
+    public boolean equals(final Object o) {
+
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        ChangeEvent changeEvent = (ChangeEvent) o;
+
+        return Objects.equals(changeExpression, changeEvent.changeExpression);
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = getId().hashCode();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
+    }
 }

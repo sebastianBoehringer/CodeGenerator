@@ -22,7 +22,7 @@ import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.Pair;
 import lombok.EqualsAndHashCode;
 
-import static edu.horb.dhbw.inputprocessing.transform.BehaviorTransformer.OOBaseStringWrapper.EMPTY;
+import static edu.horb.dhbw.inputprocessing.transform.OOBaseStringWrapper.EMPTY;
 
 @EqualsAndHashCode(callSuper = true)
 public class MethodValidator extends NamingValidator {

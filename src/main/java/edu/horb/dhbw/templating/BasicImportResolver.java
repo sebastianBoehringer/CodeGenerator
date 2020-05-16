@@ -52,7 +52,7 @@ public class BasicImportResolver implements IImportResolver {
     @Override
     public Set<String> resolveImports(final Language lang, final OOType type) {
 
-        Set<String> fqNames = new HashSet<>();
+        Set<String> fqNames = new HashSet<>(type.getImports());
         for (OOType superType : type.getSuperTypes()) {
             fqNames.add(superType.getFQName());
         }

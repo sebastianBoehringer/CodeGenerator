@@ -20,14 +20,14 @@ package edu.horb.dhbw.datacore.uml.commonbehavior;
 import edu.horb.dhbw.datacore.uml.classification.Operation;
 import edu.horb.dhbw.datacore.uml.commonstructure.PackageableElementImpl;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 /**
  * An event that is fired when an operation is called.
  * See subclauses 13.3 and 13.4.3 of the UML specification for more details.
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public final class CallEvent extends PackageableElementImpl
@@ -36,4 +36,30 @@ public final class CallEvent extends PackageableElementImpl
      * The operation that raised the event.
      */
     private Operation operation;
+
+    @Override
+    public boolean equals(final Object o) {
+
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        CallEvent callEvent = (CallEvent) o;
+
+        return Objects.equals(operation, callEvent.operation);
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = getId().hashCode();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
+    }
 }

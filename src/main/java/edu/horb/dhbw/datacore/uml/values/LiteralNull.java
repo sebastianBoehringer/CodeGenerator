@@ -18,4 +18,11 @@ public final class LiteralNull extends LiteralSpecificationImpl<Void> {
 
         return null;
     }
+
+    @Override
+    public String stringify() {
+
+        return "null";
+    }
+
 }

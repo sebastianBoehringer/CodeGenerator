@@ -124,6 +124,8 @@ public final class EnumerationRestructurer
                         .getSetAttribute("elementimports");
         enumeration.setElementImport(
                 delegateMany(elementImports, ElementImport.class));
+        enumeration.getElementImport()
+                .forEach(i -> i.setImportingNamespace(enumeration));
 
         log.debug("Processing packageimports for Enumeration [{}]", id);
         Collection<ModelElement> packageImports =

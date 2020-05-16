@@ -83,9 +83,9 @@ public class OOType extends OOBase {
     private List<OOField> fields;
 
     /**
-     * The elements that this type has imported.
+     * The qualified names of the elements to import.
      */
-    private List<OOBase> importedElements = Collections.emptyList();
+    private List<String> imports = new ArrayList<>();
 
     @Override
     public String toString() {

@@ -44,15 +44,10 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
      * The thymeleaf template engine this adapter adapts.
      */
     private TemplateEngine engine;
-    /**
-     * The language that this adapter produces.
-     */
-    private Language lang;
 
     @Override
     public void initialize(final Language language) {
 
-        lang = language;
         log.info("Started configuration for Thymeleaf Engine");
         context = new Context();
 

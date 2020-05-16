@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
-import edu.horb.dhbw.datacore.model.OOBase;
 import edu.horb.dhbw.datacore.uml.commonbehavior.Behavior;
 import edu.horb.dhbw.datacore.uml.commonbehavior.OpaqueBehavior;
 import edu.horb.dhbw.util.Config;
@@ -28,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public final class BehaviorTransformer extends
-                                       AbstractTransformer<Behavior,
-                                               BehaviorTransformer.OOBaseStringWrapper> {
+public final class BehaviorTransformer
+        extends AbstractTransformer<Behavior, OOBaseStringWrapper> {
     /**
      * @param registry The registry to use.
      */
@@ -59,7 +57,8 @@ public final class BehaviorTransformer extends
     }
 
     @Override
-    public OOBaseStringWrapper transform(final @NonNull Behavior element) {
+    @NonNull
+    public OOBaseStringWrapper transform(final Behavior element) {
 
         if (element instanceof OpaqueBehavior) {
             String body;
@@ -81,38 +80,7 @@ public final class BehaviorTransformer extends
             return wrapper;
         }
 
-        return null;
+        return OOBaseStringWrapper.EMPTY;
     }
 
-    public static final class OOBaseStringWrapper extends OOBase {
-        /**
-         * A wrapper wrapping the empty string
-         */
-        public static final OOBaseStringWrapper EMPTY =
-                new OOBaseStringWrapper("");
-        /**
-         * The wrapped string.
-         * This is the extracted body of an {@link OpaqueBehavior}.
-         */
-        private final String body;
-
-        /**
-         * @param body The string to wrap
-         */
-        public OOBaseStringWrapper(String body) {
-
-            this.body = body;
-        }
-
-        @Override
-        protected OOBase getParent() {
-
-            return null;
-        }
-
-        public String getBody() {
-
-            return body;
-        }
-    }
 }

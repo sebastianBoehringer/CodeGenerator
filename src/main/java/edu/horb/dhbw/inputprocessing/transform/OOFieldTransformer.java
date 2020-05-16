@@ -23,6 +23,8 @@ import edu.horb.dhbw.datacore.model.OOType;
 import edu.horb.dhbw.datacore.uml.classification.Property;
 import edu.horb.dhbw.datacore.uml.commonstructure.Comment;
 import edu.horb.dhbw.datacore.uml.commonstructure.Type;
+import edu.horb.dhbw.datacore.uml.values.LiteralSpecification;
+import edu.horb.dhbw.datacore.uml.values.ValueSpecification;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,8 +70,6 @@ public final class OOFieldTransformer
         log.debug("Set visibility for [{}]", id);
         field.setVisibility(element.getVisibility());
         log.debug("Set cardinality for [{}]", id);
-        //TODO latest place that should handle the case of just a ValueSpec
-        // being present for lower/ upper limit
         field.setCardinality(Cardinality.getCorrectCardinality(
                 element.getIsUnique(), element.getIsOrdered(),
                 element.getLower(), element.getUpper()));
@@ -85,7 +85,13 @@ public final class OOFieldTransformer
         field.setComments(
                 element.getOwnedComment().stream().map(Comment::getBody)
                         .collect(Collectors.toList()));
-        //TODO what happens to #qualifiers, #default, #aggregation,
+
+        log.debug("Attempting to set defaultValue for [{}]", id);
+        ValueSpecification spec = element.getDefaultValue();
+        if (spec instanceof LiteralSpecification) {
+            field.setDefaultValue(((LiteralSpecification<?>) spec).stringify());
+        }
+        //TODO what happens to #qualifiers,  #aggregation,
         // #association, #upperValue, #lowerValue
         return field;
     }

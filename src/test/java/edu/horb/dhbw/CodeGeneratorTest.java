@@ -21,26 +21,35 @@ import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.util.Config;
 import org.testng.annotations.Test;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class CodeGeneratorTest {
 
     @Test
+    public void smokeTestWithUmlAsModel() {
+
+        CodeGenerator generator = new CodeGenerator(
+                Paths.get("src/test/resources/uml.properties"));
+        try {
+            generator.generateCode(Paths.get("src/test/resources/uml.xmi"),
+                                   Config.CONFIG.getLanguage());
+        } catch (CodeGenerationException e) {
+            e.printStackTrace();
+            fail("Generation of code failed");
+        }
+    }
+
+    @Test
     public void smallSmokeTest() {
 
         CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/main/resources/default.properties"));
+                Paths.get("src/test/resources/uml.properties"));
         try {
             generator.generateCode(
-                    Paths.get("src/test/resources/simpleExample.xmi"),
+                    Paths.get("src/test/resources/ActiveClass.xmi"),
                     Config.CONFIG.getLanguage());
-            assertTrue(
-                    Files.exists(Path.of("generated/thePackage/Example.java")));
         } catch (CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");
@@ -54,31 +63,6 @@ public class CodeGeneratorTest {
                 Paths.get("src/test/resources/uml.properties"));
         try {
             generator.generateCode(Paths.get("src/test/resources/aufzug.xmi"),
-                                   Config.CONFIG.getLanguage());
-            assertTrue(Files.exists(
-                    Path.of("generated/ShoppingCenter/Aufzug.java")));
-            assertTrue(Files.exists(
-                    Path.of("generated/ShoppingCenter/DoorState.java")));
-            assertTrue(Files.exists(
-                    Path.of("generated/ShoppingCenter/Etage.java")));
-            assertTrue(Files.exists(
-                    Path.of("generated/ShoppingCenter/Fahrgast.java")));
-            assertTrue(Files.exists(Path.of("generated/ShoppingCenter/Exception"
-                                                    + "/InvalidDoorState"
-                                                    + ".java")));
-        } catch (CodeGenerationException e) {
-            e.printStackTrace();
-            fail("Generation of code failed");
-        }
-    }
-
-    @Test
-    public void smokeTestWithUmlAsModel() {
-
-        CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/test/resources/uml.properties"));
-        try {
-            generator.generateCode(Paths.get("src/test/resources/uml.xmi"),
                                    Config.CONFIG.getLanguage());
         } catch (CodeGenerationException e) {
             e.printStackTrace();

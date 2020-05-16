@@ -40,6 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -56,11 +58,11 @@ public final class CodeGenerator {
     /**
      * Resolves the imports for a class file.
      */
-    private final IImportResolver importResolver;
+    private IImportResolver importResolver;
     /**
      * The processor to use for reading the model file.
      */
-    private final IModelProcessor modelProcessor;
+    private IModelProcessor modelProcessor;
     /**
      * The adapter that is configured for the codegenerator.
      */
@@ -82,20 +84,39 @@ public final class CodeGenerator {
      */
     public CodeGenerator() {
 
-        this(Files.exists(Path.of("codegenerator.properties")) ? Path
-                .of("codegenerator.properties") : Path
-                     .of("src/main/resources/default.properties"));
+        if (Files.exists(Path.of("codegenerator.properties"))) {
+            initFromPath(Path.of("codegenerator.properties"));
+            return;
+        }
+        URL url = this.getClass().getClassLoader()
+                .getResource("codegenerator.properties");
+        if (url != null) {
+            try {
+                this.initFromPath(Path.of(url.toURI()));
+                return;
+            } catch (URISyntaxException e) {
+                log.warn("Could not convert URL [{}]. Skipping "
+                                 + "codegenerator.properties on class path",
+                         url.toString());
+            }
+        }
+        url = this.getClass().getClassLoader()
+                .getResource("default.properties");
+        if (url != null) {
+            try {
+                initFromPath(Path.of(url.toURI()));
+                return;
+            } catch (URISyntaxException e) {
+                log.warn("Could not convert URL [{}]. Skipping "
+                                 + "default.properties on class path",
+                         url.toString());
+            }
+        }
+        initFromPath(Path.of("nonexisting.properties"));
     }
 
-    /**
-     * Generates a codeGenerator using the .properties the path points to.
-     * If the loading of the properties fails in any way, the default
-     * properties will be used. See the implementation of
-     * {@link Config#readInProperties(Properties)} for more details.
-     *
-     * @param propertyLocation The location of the properties file to use
-     */
-    public CodeGenerator(final Path propertyLocation) {
+
+    private void initFromPath(final Path propertyLocation) {
 
         Properties properties = new Properties();
         log.info("Trying to load properties from location [{}]",
@@ -122,6 +143,19 @@ public final class CodeGenerator {
                                                new TransformerRegistry(),
                                                Config.CONFIG.getLanguage()
                                                        .getValidationOptions());
+    }
+
+    /**
+     * Generates a codeGenerator using the .properties the path points to.
+     * If the loading of the properties fails in any way, the default
+     * properties will be used. See the implementation of
+     * {@link Config#readInProperties(Properties)} for more details.
+     *
+     * @param propertyLocation The location of the properties file to use
+     */
+    public CodeGenerator(final Path propertyLocation) {
+
+        initFromPath(propertyLocation);
     }
 
     private void setUpAdapter() {
@@ -216,6 +250,7 @@ public final class CodeGenerator {
         } catch (ModelValidationException e) {
             throw new CodeGenerationException(e);
         }
+        createOutputDirectory();
         for (OOPackage parsedPackage : modelProcessor.getParsedPackages()) {
             createPackageDirectory(parsedPackage);
         }
@@ -258,7 +293,7 @@ public final class CodeGenerator {
 
         String fqName = pkg.getFQName();
         String path = Config.CONFIG.getLanguage().getTemplatingOptions()
-                .getOutputDirectory() + "/" + fqNameToPath(fqName);
+                .getOutputDirectory() + "\\" + fqNameToPath(fqName);
         Path output = Path.of(path);
         try {
             Files.createDirectories(output);
@@ -281,7 +316,7 @@ public final class CodeGenerator {
     private String getFullPath(final OOType type,
                                final TemplatingOptions options) {
 
-        return options.getOutputDirectory().toAbsolutePath().toString() + "/"
+        return options.getOutputDirectory().toAbsolutePath().toString() + "\\"
                 + fqNameToPath(type.getFQName()) + Config.CONFIG.getLanguage()
                 .getExtension();
     }
@@ -296,5 +331,20 @@ public final class CodeGenerator {
 
         return fqName.replaceAll(Pattern.quote(
                 Config.CONFIG.getLanguage().getPackageNameLimiter()), "/");
+    }
+
+    private void createOutputDirectory()
+            throws CodeGenerationException {
+
+        if (!Files.exists(Config.CONFIG.getLanguage().getTemplatingOptions()
+                                  .getOutputDirectory())) {
+            try {
+                Files.createDirectories(
+                        Config.CONFIG.getLanguage().getTemplatingOptions()
+                                .getOutputDirectory());
+            } catch (IOException e) {
+                throw new CodeGenerationException(e);
+            }
+        }
     }
 }

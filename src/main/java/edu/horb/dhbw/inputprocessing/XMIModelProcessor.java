@@ -27,9 +27,11 @@ import edu.horb.dhbw.datacore.model.TransformedStereotype;
 import edu.horb.dhbw.datacore.model.ValidationOptions;
 import edu.horb.dhbw.datacore.uml.AppliedStereotype;
 import edu.horb.dhbw.datacore.uml.XMIElement;
+import edu.horb.dhbw.datacore.uml.commonstructure.ElementImport;
 import edu.horb.dhbw.datacore.uml.packages.UMLPackage;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Enumeration;
 import edu.horb.dhbw.datacore.uml.simpleclassifiers.Interface;
+import edu.horb.dhbw.datacore.uml.statemachines.StateMachine;
 import edu.horb.dhbw.datacore.uml.structuredclassifiers.UMLClass;
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.exception.ModelParseException;
@@ -80,6 +82,8 @@ import edu.horb.dhbw.inputprocessing.restructure.IRestructurerMediator;
 import edu.horb.dhbw.inputprocessing.restructure.RestructurerMediator;
 import edu.horb.dhbw.inputprocessing.transform.ITransformer;
 import edu.horb.dhbw.inputprocessing.transform.ITransformerRegistry;
+import edu.horb.dhbw.inputprocessing.transform.OOBaseStringWrapper;
+import edu.horb.dhbw.inputprocessing.transform.StateMachineTransformer;
 import edu.horb.dhbw.inputprocessing.transform.TransformerRegistry;
 import edu.horb.dhbw.util.SDMetricsUtil;
 import lombok.NonNull;
@@ -330,6 +334,11 @@ public final class XMIModelProcessor implements IModelProcessor {
         ITransformer<AppliedStereotype, TransformedStereotype>
                 stereotypeITransformer =
                 registry.getTransformer(AppliedStereotype.class);
+        ITransformer<ElementImport, OOBaseStringWrapper> importITransformer =
+                registry.getTransformer(ElementImport.class);
+        ITransformer<StateMachine, StateMachineTransformer.ListOOTypeWrapper>
+                stateMachineITransformer =
+                registry.getTransformer(StateMachine.class);
         for (TransformedStereotype stereotype : stereotypeITransformer
                 .transform(commonElements)) {
             for (OOBase target : stereotype.getTargets()) {
@@ -340,6 +349,13 @@ public final class XMIModelProcessor implements IModelProcessor {
         parsedPackages.addAll(packageTransformer.transform(commonElements));
         parsedInterfaces.addAll(interfaceTransformer.transform(commonElements));
         parsedEnums.addAll(enumerationTransformer.transform(commonElements));
+        for (StateMachineTransformer.ListOOTypeWrapper wrapper :
+                stateMachineITransformer
+                .transform(commonElements)) {
+            parsedClasses.addAll(wrapper.getWrapped());
+        }
+        importITransformer.transform(commonElements);
+
         log.info("Transformation of parsed classes successful.");
 
         List<OOBase> collected = new ArrayList<>(extractParsed(parsedClasses));

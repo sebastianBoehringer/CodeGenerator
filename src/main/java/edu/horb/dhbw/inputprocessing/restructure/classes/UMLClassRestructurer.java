@@ -102,6 +102,16 @@ public final class UMLClassRestructurer
         clazz.setIsFinalSpecialization(
                 Boolean.valueOf(element.getPlainAttribute("leaf")));
 
+        log.debug("Processing active for Class [{}]", id);
+        clazz.setIsActive(Boolean.valueOf(element.getPlainAttribute("active")));
+
+        log.debug("Processing classifierbehavior for Class [{}]", id);
+        clazz.setClassifierBehavior(delegateRestructuring(
+                element.getRefAttribute("classifierbehavior"), Behavior.class));
+        if (clazz.getClassifierBehavior() != null) {
+            clazz.getClassifierBehavior().setContext(clazz);
+        }
+
         log.debug("Processing visibility for Class [{}]", id);
         String visibility = element.getPlainAttribute("visibility");
         clazz.setVisibility(
@@ -173,6 +183,7 @@ public final class UMLClassRestructurer
                         .getSetAttribute("elementimports");
         clazz.setElementImport(
                 delegateMany(elementImports, ElementImport.class));
+        clazz.getElementImport().forEach(i -> i.setImportingNamespace(clazz));
 
         log.debug("Processing packageimports for Class [{}]", id);
         Collection<ModelElement> packageImports =

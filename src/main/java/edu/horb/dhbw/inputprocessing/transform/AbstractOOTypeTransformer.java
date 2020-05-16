@@ -59,8 +59,8 @@ public abstract class AbstractOOTypeTransformer<F extends Classifier>
         ooType.setSuperTypes(transform(element.getGeneralization().stream()
                                                .map(Generalization::getGeneral)
                                                .collect(Collectors.toList())));
-        log.debug("Set container for [{}]", id);
-        /*UMLPackage pkg = element.getAPackage();
+        /*log.debug("Set container for [{}]", id);
+        UMLPackage pkg = element.getAPackage();
         if (pkg == null) {
             ooType.setContainer(null);
         } else {

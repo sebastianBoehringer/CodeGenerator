@@ -17,7 +17,6 @@
 
 package edu.horb.dhbw.inputprocessing.transform;
 
-import edu.horb.dhbw.datacore.model.Cardinality;
 import edu.horb.dhbw.datacore.model.OOMethod;
 import edu.horb.dhbw.datacore.model.OOParameter;
 import edu.horb.dhbw.datacore.model.OOType;
@@ -32,12 +31,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
 public final class OOMethodTransformer
         extends CachingTransformer<Operation, OOMethod> {
-    private final OOParameter voidReturn;
+
 
     /**
      * @param registry The registry to use.
@@ -45,12 +45,6 @@ public final class OOMethodTransformer
     public OOMethodTransformer(final ITransformerRegistry registry) {
 
         super(registry);
-        voidReturn = new OOParameter();
-        voidReturn.setName("void");
-        voidReturn.setDirection(ParameterDirectionKind.RETURN);
-        voidReturn.setCardinality(Cardinality.SINGLE);
-        voidReturn.setType(new OOType((OOType.Type.PRIMITIVE)));
-        voidReturn.getType().setName("void");
 
     }
 
@@ -88,13 +82,15 @@ public final class OOMethodTransformer
                 getTransformer(Parameter.class);
         List<OOParameter> params =
                 parameterITransformer.transform(element.getOwnedParameter());
-        OOParameter returnParam = params.stream().filter(p -> p.getDirection()
-                .equals(ParameterDirectionKind.RETURN)).findFirst()
-                .orElse(voidReturn);
-        params.remove(returnParam);
+        Optional<OOParameter> returnParam = params.stream()
+                .filter(p -> p.getDirection()
+                        .equals(ParameterDirectionKind.RETURN)).findFirst();
+        if (returnParam.isPresent()) {
+            params.remove(returnParam.get());
+            log.debug("Set returnParam for [{}]", id);
+            ooMethod.setReturnParam(returnParam.get());
+        }
         ooMethod.setParameters(params);
-        log.debug("Set returnParam for [{}]", id);
-        ooMethod.setReturnParam(returnParam);
         log.debug("Set exceptions for [{}]", id);
         ITransformer<Type, OOType> typeITransformer =
                 getTransformer(Type.class);
@@ -102,12 +98,12 @@ public final class OOMethodTransformer
                 typeITransformer.transform(element.getRaisedException()));
         log.debug("Set comments for [{}]", id);
         if (element.getMethod().size() > 0) {
-            ITransformer<Behavior, BehaviorTransformer.OOBaseStringWrapper>
-                    logicITransformer = getTransformer(Behavior.class);
+            ITransformer<Behavior, OOBaseStringWrapper> logicITransformer =
+                    getTransformer(Behavior.class);
             ooMethod.setLogic(
                     logicITransformer.transform(element.getMethod().get(0)));
         } else {
-            ooMethod.setLogic(BehaviorTransformer.OOBaseStringWrapper.EMPTY);
+            ooMethod.setLogic(OOBaseStringWrapper.EMPTY);
         }
 
         ooMethod.getParameters()
