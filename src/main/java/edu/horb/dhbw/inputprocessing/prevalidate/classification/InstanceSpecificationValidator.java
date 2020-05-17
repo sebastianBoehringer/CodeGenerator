@@ -47,7 +47,7 @@ public final class InstanceSpecificationValidator implements IPreValidator {
         if (slots.size() != featureIds.size()) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "InstanceSpecification [%s] had slots that "
-                            + "defined the same feature more than once",
+                    + "defined the same feature more than once",
                     specification.getId()));
         }
         //TODO

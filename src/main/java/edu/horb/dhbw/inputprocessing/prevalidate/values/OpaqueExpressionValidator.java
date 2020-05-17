@@ -47,22 +47,22 @@ public final class OpaqueExpressionValidator implements IPreValidator {
                     .size()) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "OpaqueExpression [%s] had languages set but "
-                                + "not the same amount as its body"
-                                + " strings", expression.getId()));
+                        + "not the same amount as its body" + " strings",
+                        expression.getId()));
             }
         }
         if (expression.getBehavior() != null) {
             Behavior behavior = expression.getBehavior();
             List<Parameter> validParams = behavior.getOwnedParameter().stream()
-                    .filter(p -> (
-                            p.getDirection().equals(ParameterDirectionKind.IN)
-                                    && !p.getIsStream()) || p.getDirection()
-                            .equals(ParameterDirectionKind.RETURN))
+                    .filter(p -> (p.getDirection()
+                                          .equals(ParameterDirectionKind.IN)
+                                  && !p.getIsStream()) || p.getDirection()
+                                         .equals(ParameterDirectionKind.RETURN))
                     .collect(Collectors.toList());
             if (validParams.size() != behavior.getOwnedParameter().size()) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "OpaqueExpression [%s]'s behavior had parameters that "
-                                + "were not of direction return or in",
+                        + "were not of direction return or in",
                         expression.getId()));
             }
             List<Parameter> returnParam = validParams.stream()
@@ -72,8 +72,7 @@ public final class OpaqueExpressionValidator implements IPreValidator {
             if (returnParam.size() != 1) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "OpaqueExpression [%s]'s behavior did not have "
-                                + "exactly one return parameter",
-                        expression.getId()));
+                        + "exactly one return parameter", expression.getId()));
             }
         }
         return IPreValidator.VALID;

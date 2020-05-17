@@ -40,11 +40,11 @@ public final class StateMachineValidator implements IPreValidator {
         StateMachine machine = (StateMachine) base;
         for (State state : machine.getConnectionPoint()) {
             if (!PseudostateKind.EXITPOINT.equals(state.getKind())
-                    || !PseudostateKind.ENTRYPOINT.equals(state.getKind())) {
+                || !PseudostateKind.ENTRYPOINT.equals(state.getKind())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "StateMachine [%s] has connectionPoints "
-                                + "that are not of kind exit- or "
-                                + "entrypoint", machine.getId()));
+                        + "that are not of kind exit- or " + "entrypoint",
+                        machine.getId()));
             }
         }
         //TODO constraint classifier_context is not checked
@@ -53,7 +53,7 @@ public final class StateMachineValidator implements IPreValidator {
                 .isEmpty(machine.getConnectionPoint())) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "StateMachine [%s] implements a "
-                            + "BehavioralFeature but has connectionPoints",
+                    + "BehavioralFeature but has connectionPoints",
                     machine.getId()));
         }
         return VALID;

@@ -55,7 +55,7 @@ public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
 
         Model model = parseXMI(
                 "src/test/resources/componentdiagrams/SimpleComponent"
-                        + ".xmi");
+                + ".xmi");
         IRestructurerMediator mediator = new RestructurerMediator();
         List<Component> components =
                 mediator.getIRestructurer(Component.class).restructure(model);
@@ -70,21 +70,23 @@ public final class ComponentRestrucuturerTest extends BaseRestructurerTest {
                      "Component should package a single element");
         PackageableElement element = component.getPackagedElement().get(0);
         assertEquals(element.getName(), "InnerRealizingClass");
-        assertEquals(UMLClassImpl.class, element.getClass(), "packagedElement"
-                + " should be a class and no subtype of it either");
+        assertEquals(UMLClassImpl.class, element.getClass(),
+                     "packagedElement" + " should be a " + "class and no "
+                     + "subtype of it" + " either");
 
-        assertEquals(component.getRealization().size(), 2, "Component should "
-                + "be realized by two non packaged elements");
+        assertEquals(component.getRealization().size(), 2,
+                     "Component should " + "be realized by " + "two non "
+                     + "packaged " + "elements");
         List<String> possibleRealizingClassifierNames =
                 Arrays.asList("RealizingClassA", "RealizingClassB");
         for (ComponentRealization realization : component.getRealization()) {
             assertEquals(realization.getRealizingClassifier().size(), 1,
                          "Only a single classifier should participate in the "
-                                 + "realization of the component");
+                         + "realization of the component");
             Classifier classifier = realization.getRealizingClassifier().get(0);
             assertEquals(classifier.getClass(), UMLClassImpl.class,
                          "Classifier should be an instance of UMLClass and "
-                                 + "not any of its subtypes");
+                         + "not any of its subtypes");
             assertTrue(possibleRealizingClassifierNames
                                .contains(classifier.getName()), String.format(
                     "Classifier was named %s which was not expected",

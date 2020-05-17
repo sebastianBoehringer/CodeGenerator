@@ -46,7 +46,7 @@ public final class GeneralizationRestructurer
         log.info("Beginning restructuring of Generalization [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading Generalization from "
-                             + "cache", id);
+                     + "cache", id);
             return processed.get(id);
         }
         Generalization generalization = new Generalization();

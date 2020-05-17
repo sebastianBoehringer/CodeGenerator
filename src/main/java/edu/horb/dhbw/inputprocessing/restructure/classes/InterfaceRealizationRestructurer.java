@@ -49,7 +49,7 @@ public final class InterfaceRealizationRestructurer
         log.info("Beginning restructuring of InterfaceRealization [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading InterfaceRealization "
-                             + "from cache", id);
+                     + "from cache", id);
             return processed.get(id);
         }
 

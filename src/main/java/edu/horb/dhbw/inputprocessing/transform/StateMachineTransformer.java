@@ -171,7 +171,7 @@ public final class StateMachineTransformer extends
                             wrapper = wrapper.prepend("        exit();\n")
                                     .append(String.format(
                                             "\n        state_context.transit"
-                                                    + "(state_context.%s);",
+                                            + "(state_context.%s);",
                                             getStateFieldName(aClass)));
 
                         }
@@ -181,8 +181,8 @@ public final class StateMachineTransformer extends
                     boolean hasGuard = transition.getGuard() != null;
                     if (hasGuard) {
                         wrapper = wrapper.prepend(") {\n").prepend(
-                                extractConditionFromTransition(
-                                        transition)).prepend("if (");
+                                extractConditionFromTransition(transition))
+                                .prepend("if (");
                         wrapper.append("\n        }");
                     }
                     someMethod.setLogic(wrapper);
@@ -462,8 +462,8 @@ public final class StateMachineTransformer extends
             body = expression.getBody().get(index);
         } else {
             log.warn("Language [{}] has no corresponding body in opaque "
-                             + "expression [{}]",
-                     Config.CONFIG.getLanguage().getName(), expression.getId());
+                     + "expression [{}]", Config.CONFIG.getLanguage().getName(),
+                     expression.getId());
             body = expression.getBody().size() > 0 ? expression.getBody().get(0)
                                                    : "false";
         }

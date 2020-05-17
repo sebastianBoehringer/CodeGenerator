@@ -37,11 +37,10 @@ public final class PackageImportValidator implements IPreValidator {
 
         PackageImport packageImport = (PackageImport) base;
         if (!(VisibilityKind.PRIVATE.equals(packageImport.getVisibility())
-                || VisibilityKind.PUBLIC
-                .equals(packageImport.getVisibility()))) {
+              || VisibilityKind.PUBLIC.equals(packageImport.getVisibility()))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "PackageImport [%s] does not have public or "
-                            + "private visibility", packageImport.getId()));
+                    + "private visibility", packageImport.getId()));
         }
         return VALID;
     }

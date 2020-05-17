@@ -46,7 +46,7 @@ public final class OperationValidator implements IPreValidator {
         if (returnParams.size() > 1) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Operation [%s] had more than Parameter with direction "
-                            + "return", op.getId()));
+                    + "return", op.getId()));
         }
         if (op.getBodyCondition() != null && !op.getIsQuery()) {
             return new Pair<>(Boolean.FALSE, String.format(

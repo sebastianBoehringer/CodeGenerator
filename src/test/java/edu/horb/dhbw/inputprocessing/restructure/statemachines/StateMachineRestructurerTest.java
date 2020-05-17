@@ -67,7 +67,7 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
 
         List<Region> regions = machine.getRegion();
         assertEquals(regions.size(), 1, "There should be a single region in "
-                + "this statemachine");
+                                        + "this statemachine");
 
         assertTrue(machine.getIsReentrant(),
                    "StateMachine should be reentrant");
@@ -76,11 +76,12 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
         List<State> states = regions.get(0).getSubvertex();
 
         assertEquals(transitions.size(), 2, "There should be two transitions."
-                + " One from init to intermediate and one from intermediate "
-                + "to final");
+                                            + " One from init to intermediate"
+                                            + " and one from intermediate "
+                                            + "to final");
 
         assertEquals(states.size(), 3, "There should be 3 states. initial, "
-                + "intermediate and final");
+                                       + "intermediate and final");
 
         State initial = null;
         State intermediate = null;
@@ -101,7 +102,7 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
                     break;
                 default:
                     fail("There should not be any other kind of state in the "
-                                 + "diagram");
+                         + "diagram");
             }
         }
         assertNotNull(initial, "One state should have had type INITIAL");
@@ -121,18 +122,19 @@ public class StateMachineRestructurerTest extends BaseRestructurerTest {
                 second = transition;
             } else {
                 fail("No transition should start from a state different to "
-                             + "intermediate and initial");
+                     + "intermediate and initial");
             }
         }
 
         assertNotNull(first, "One transition should start from initial state");
         assertNotNull(second, "One transition should start from intermediate "
-                + "state");
+                              + "state");
 
-        assertEquals(first.getTarget(), intermediate, "first should "
-                + "transition from initial to intermediate");
+        assertEquals(first.getTarget(), intermediate,
+                     "first should " + "transition from " + "initial to "
+                     + "intermediate");
         assertEquals(second.getTarget(), end, "second should transition from "
-                + "intermediate to final");
+                                              + "intermediate to final");
     }
 
     private void testName(final State toTest, final String name) {

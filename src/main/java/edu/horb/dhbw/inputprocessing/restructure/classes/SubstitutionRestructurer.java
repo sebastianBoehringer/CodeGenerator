@@ -73,7 +73,7 @@ public final class SubstitutionRestructurer
             substitution.setSubstitutingClassifier(client.get(0));
         } else {
             log.error("Substitution [{}] has [{}] as substituting classifier/"
-                              + " client instead of 1", id, client.size());
+                      + " client instead of 1", id, client.size());
         }
         log.debug("Processing supplier for Substitution [{}]", id);
         Collection<ModelElement> suppliers =
@@ -83,7 +83,7 @@ public final class SubstitutionRestructurer
             substitution.setSubstitutingClassifier(supplier.get(0));
         } else {
             log.error("Substitution [{}] has [{}] as contract/"
-                              + " supplier instead of 1", id, supplier.size());
+                      + " supplier instead of 1", id, supplier.size());
         }
         log.info("Completed restructuring of Substitution [{}]", id);
         return substitution;

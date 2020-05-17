@@ -36,11 +36,10 @@ public final class BehavioredClassifierValidator implements IPreValidator {
 
         BehavioredClassifier classifier = (BehavioredClassifier) base;
         if (classifier.getClassifierBehavior() != null
-                && classifier.getClassifierBehavior().getSpecification()
-                != null) {
+            && classifier.getClassifierBehavior().getSpecification() != null) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "BehavioredClassifier [%s] has a classifierBehavior with a "
-                            + "specification", classifier.getId()));
+                    + "specification", classifier.getId()));
         }
         return VALID;
     }

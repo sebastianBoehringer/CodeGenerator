@@ -55,12 +55,12 @@ public final class PackageRestructurer
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.info("Trying to delegate from package to specialized type "
-                             + "for [{}]", umlType);
+                     + "for [{}]", umlType);
             Class<? extends UMLPackage> aClass =
                     LookupUtil.packageFromUMLType(umlType);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
-                                 + "as class", umlType);
+                         + "as class", umlType);
             } else {
                 return delegateRestructuring(element, aClass);
             }

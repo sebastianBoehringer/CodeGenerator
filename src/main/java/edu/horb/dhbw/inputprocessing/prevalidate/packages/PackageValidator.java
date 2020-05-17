@@ -39,12 +39,11 @@ public final class PackageValidator implements IPreValidator {
         UMLPackage pkg = (UMLPackage) base;
         for (PackageableElement element : pkg.getPackagedElement()) {
             if (!VisibilityKind.PUBLIC.equals(element.getVisibility())
-                    && !VisibilityKind.PRIVATE
-                    .equals(element.getVisibility())) {
+                && !VisibilityKind.PRIVATE.equals(element.getVisibility())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "Package [%s] packaged an element with a "
-                                + "visibility different from public and "
-                                + "private", pkg.getId()));
+                        + "visibility different from public and " + "private",
+                        pkg.getId()));
             }
         }
         return VALID;

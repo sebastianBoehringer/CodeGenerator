@@ -54,10 +54,10 @@ public class EnumValidator extends TypeValidator {
     public Pair<Boolean, String> continueTypeValidation(final OOType type) {
 
         if (!canImplementInterfaces
-                && type.getImplementedInterfaces().size() != 0) {
+            && type.getImplementedInterfaces().size() != 0) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Enumeration [%s] implements interfaces but is not "
-                            + "allowed to", type.getName()));
+                    + "allowed to", type.getName()));
         }
         if (type.isAbstract()) {
             return new Pair<>(Boolean.FALSE,

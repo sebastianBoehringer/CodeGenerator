@@ -290,7 +290,7 @@ public final class XMIModelProcessor implements IModelProcessor {
             throw new ModelParseException(e);
         }
         log.info("Parsing successful, clearing caches of mediator and this "
-                         + "class");
+                 + "class");
         parsedClasses.clear();
         parsedInterfaces.clear();
         parsedPackages.clear();
@@ -319,7 +319,7 @@ public final class XMIModelProcessor implements IModelProcessor {
             }
             throw new ModelValidationException(
                     "PreValidation of the Model failed. See the log"
-                            + " for more details");
+                    + " for more details");
         }
 
         registry.readyForNextTransforming();
@@ -381,7 +381,7 @@ public final class XMIModelProcessor implements IModelProcessor {
             }
             throw new ModelValidationException(
                     "PostValidation of the Model failed. See the log"
-                            + " for more details");
+                    + " for more details");
         }
         log.info("Completed PostValidation phase");
     }

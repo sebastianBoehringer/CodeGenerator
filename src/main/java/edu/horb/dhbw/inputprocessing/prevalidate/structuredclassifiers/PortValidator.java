@@ -44,10 +44,10 @@ public final class PortValidator implements IPreValidator {
                                             port.getId()));
         }
         if (port.getType() instanceof Interface
-                && port.getDefaultValue() != null) {
+            && port.getDefaultValue() != null) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Port [%s] is typed by an interface but has a "
-                            + "defaultValue", port.getId()));
+                    + "defaultValue", port.getId()));
         }
         if (!(port.getOwner() instanceof EncapsulatedClassifier)) {
             return new Pair<>(Boolean.FALSE, String.format(

@@ -68,12 +68,12 @@ public final class UMLClassRestructurer
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.debug("Trying to delegate from Class to specialized type "
-                              + "for [{}]", umlType);
+                      + "for [{}]", umlType);
             Class<? extends UMLClass> aClass =
                     LookupUtil.classFromUMLType(umlType);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
-                                 + "as class", umlType);
+                         + "as class", umlType);
             } else {
                 return delegateRestructuring(element, aClass);
             }

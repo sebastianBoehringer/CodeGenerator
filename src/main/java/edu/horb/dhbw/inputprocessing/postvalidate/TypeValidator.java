@@ -68,7 +68,7 @@ public abstract class TypeValidator extends NamingValidator {
         }
 
         if (!VisibilityKind.PUBLIC.equals(type.getVisibility())
-                && !VisibilityKind.PACKAGE.equals(type.getVisibility())) {
+            && !VisibilityKind.PACKAGE.equals(type.getVisibility())) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Type [%s] is not visible to any other type",
                     type.getName()));

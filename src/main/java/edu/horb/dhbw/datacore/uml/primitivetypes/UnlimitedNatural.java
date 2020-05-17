@@ -96,7 +96,7 @@ public final class UnlimitedNatural extends PrimitiveTypeImpl {
                 } else {
                     throw new IllegalArgumentException(String.format(
                             "Could not parse [%s] as long and it wasnt "
-                                    + "[*] either", string));
+                            + "[*] either", string));
                 }
             }
         }

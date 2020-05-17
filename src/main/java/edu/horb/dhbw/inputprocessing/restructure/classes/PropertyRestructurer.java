@@ -61,13 +61,13 @@ public final class PropertyRestructurer
         String umlType = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(umlType)) {
             log.debug("Trying to delegate from property to specialized type for"
-                              + " [{}]", umlType);
+                      + " [{}]", umlType);
 
             Class<? extends Property> toRestructure =
                     LookupUtil.propertyFromUMLType(umlType);
             if (toRestructure == null) {
                 log.warn("Did not find matching class for [{}], restructuring "
-                                 + "as property", umlType);
+                         + "as property", umlType);
             } else {
                 return delegateRestructuring(element, toRestructure);
             }

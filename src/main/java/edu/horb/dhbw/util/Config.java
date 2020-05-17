@@ -41,6 +41,16 @@ public enum Config {
     CONFIG();
 
     /**
+     * Field holding the metamodel resource made available via the classpath.
+     */
+    public static String METAMODEL_RESOURCE = "SDMetricsConfig/metamodel2.xml";
+    /**
+     * Field holding the transformation resource made available via the
+     * classpath.
+     */
+    public static String TRANSFORMATIONS_RESOURCE =
+            "SDMetricsConfig/xmiTrans2_0.xml";
+    /**
      * The path to the SDMetrics metamodel file.
      * Corresponds to property {@code xmi.sdmetrics.metamodel}.
      */
@@ -55,17 +65,6 @@ public enum Config {
      * Handles all of the properties with a prefix of {@code language}.
      */
     private Language language;
-    /**
-     * Field holding the metamodel resource made available via the classpath.
-     */
-    public static String METAMODEL_RESOURCE = "SDMetricsConfig/metamodel2.xml";
-
-    /**
-     * Field holding the transformation resource made available via the
-     * classpath.
-     */
-    public static String TRANSFORMATIONS_RESOURCE =
-            "SDMetricsConfig/xmiTrans2_0.xml";
 
     /**
      * Constructor that initializes the config with default.properties.

@@ -39,8 +39,7 @@ public final class ClassifierValidator implements IPreValidator {
             if (general.getIsFinalSpecialization()) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "Classifier [%s] extends a classifier that "
-                                + "cannot be extended anymore",
-                        classifier.getId()));
+                        + "cannot be extended anymore", classifier.getId()));
             }
         }
         //TODO

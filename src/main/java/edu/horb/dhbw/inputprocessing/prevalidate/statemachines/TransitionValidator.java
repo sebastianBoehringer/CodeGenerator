@@ -39,8 +39,9 @@ public final class TransitionValidator implements IPreValidator {
         Transition transition = (Transition) base;
         if (transition.getKind().equals(TransitionKind.EXTERNAL)) {
             if (transition.getTarget().getKind()
-                    .equals(PseudostateKind.EXITPOINT) || transition.getTarget()
-                    .getKind().equals(PseudostateKind.ENTRYPOINT)) {
+                        .equals(PseudostateKind.EXITPOINT) || transition
+                        .getTarget().getKind()
+                        .equals(PseudostateKind.ENTRYPOINT)) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "External Transition [%s] targets Entry- or ExitPoint",
                         transition.getId()));
@@ -56,7 +57,7 @@ public final class TransitionValidator implements IPreValidator {
                     .equals(transition.getSource().getId())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "Internal Transition [%s] targets two "
-                                + "different states", transition.getId()));
+                        + "different states", transition.getId()));
             }
         }
         //TODO constraint transition_vertices is not checked

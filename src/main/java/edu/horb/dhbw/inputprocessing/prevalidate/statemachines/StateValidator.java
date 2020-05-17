@@ -42,22 +42,22 @@ public final class StateValidator implements IPreValidator {
         State state = (State) base;
         for (State point : state.getConnectionPoint()) {
             if (!PseudostateKind.ENTRYPOINT.equals(point.getKind())
-                    || !PseudostateKind.EXITPOINT.equals(point.getKind())) {
+                || !PseudostateKind.EXITPOINT.equals(point.getKind())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "State [%s] contains connectionpoints that are not "
-                                + "entry- or exitpoints", state.getId()));
+                        + "entry- or exitpoints", state.getId()));
             }
         }
         if (!state.isSubmachineState() && !ListUtils
                 .isEmpty(state.getConnectionPoint())) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "State [%s] owns connectionPoints but has no "
-                            + "submachine", state.getId()));
+                    + "submachine", state.getId()));
         }
         if (state.isSubmachineState() && state.isComposite()) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "State [%s] is both a composite and a "
-                            + "submachine state", state.getId()));
+                    + "submachine state", state.getId()));
         }
         return VALID;
     }

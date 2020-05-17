@@ -40,7 +40,7 @@ public final class BehavioralFeatureValidator implements IPreValidator {
             if (!ListUtils.isEmpty(feature.getMethod())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "BehavioralFeature [%s] is abstract but has "
-                                + "implementing methods", feature.getId()));
+                        + "implementing methods", feature.getId()));
             }
         }
         return VALID;

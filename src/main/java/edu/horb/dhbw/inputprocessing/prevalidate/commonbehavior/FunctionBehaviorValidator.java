@@ -48,7 +48,7 @@ public final class FunctionBehaviorValidator implements IPreValidator {
         if (outputParams.size() < 1) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "FunctionBehavior [%s] has less than 1 outgoing"
-                            + " parameter", behavior.getId()));
+                    + " parameter", behavior.getId()));
         }
         for (Parameter parameter : behavior.getOwnedParameter()) {
             if (parameter.getType() instanceof DataType) {
@@ -56,14 +56,14 @@ public final class FunctionBehaviorValidator implements IPreValidator {
                 if (!onlyDataTypeAttributes(dataType)) {
                     return new Pair<>(Boolean.FALSE, String.format(
                             "FunctionBehavior [%s] has a parameter with a "
-                                    + "DataType that has attributes not typed"
-                                    + " by a DataType. Namely Datatype [%s]",
+                            + "DataType that has attributes not typed"
+                            + " by a DataType. Namely Datatype [%s]",
                             behavior.getId(), dataType.getId()));
                 }
             } else {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "FunctionBehavior [%s] has a parameter that is not "
-                                + "typed by a DataType", behavior.getId()));
+                        + "typed by a DataType", behavior.getId()));
             }
         }
         return VALID;

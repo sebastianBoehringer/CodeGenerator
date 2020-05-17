@@ -57,12 +57,12 @@ public final class InstanceSpecRestructurer
         String type = XMIUtil.getUMLType(element);
         if (!PROCESSED_METAMODEL_ELEMENT.equals(type)) {
             log.debug("Trying to delegate from InstanceSpecification to "
-                              + "specialized type [{}]", type);
+                      + "specialized type [{}]", type);
             Class<? extends InstanceSpecification> aClass =
                     LookupUtil.instanceSpecFromUMLType(type);
             if (aClass == null) {
                 log.warn("Did not find matching class for [{}], restructuring"
-                                 + " as InstanceSpecification", type);
+                         + " as InstanceSpecification", type);
             } else {
                 return delegateRestructuring(element, aClass);
             }
@@ -71,7 +71,7 @@ public final class InstanceSpecRestructurer
         log.info("Beginning restructuring of InstanceSpecification [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading instancespecification "
-                             + "from cache", id);
+                     + "from cache", id);
             return processed.get(id);
         }
         InstanceSpecification specification = new InstanceSpecification();

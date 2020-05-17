@@ -33,7 +33,7 @@ public final class PseudoStateValidator implements IPreValidator {
         if (base instanceof State) {
             State state = (State) base;
             return !PseudostateKind.FINAL.equals(state.getKind())
-                    && !PseudostateKind.STATE.equals(state.getKind());
+                   && !PseudostateKind.STATE.equals(state.getKind());
         }
         return false;
     }
@@ -48,48 +48,45 @@ public final class PseudoStateValidator implements IPreValidator {
                 if (state.getOutgoing().size() > 1) {
                     return new Pair<>(Boolean.FALSE, String.format(
                             "Initial PseudoState [%s] has more"
-                                    + " than 1 outgoing transition",
-                            state.getId()));
+                            + " than 1 outgoing transition", state.getId()));
                 }
                 if (state.getOutgoing().size() == 1) {
                     Transition t = state.getOutgoing().get(0);
                     if (t.getGuard() != null) {
                         return new Pair<>(Boolean.FALSE, String.format(
                                 "Transition [%s] outgoing from Initial "
-                                        + "PseudoState [%s] has a guard",
-                                t.getId(), state.getId()));
+                                + "PseudoState [%s] has a guard", t.getId(),
+                                state.getId()));
                     }
                 }
                 break;
             case DEEPHISTORY:
             case SHALLOWHISTORY:
                 return new Pair<>(Boolean.FALSE, "The codegenerator does not "
-                        + "support history states");
+                                                 + "support history states");
             case JOIN:
                 return new Pair<>(Boolean.FALSE, String.format(
                         "The codegenerator does not support composite "
-                                + "states. Thus the constraint "
-                                + "\"transitions_incoming\" for PseudoState "
-                                + "[%s] can never be fulfilled",
-                        state.getId()));
+                        + "states. Thus the constraint "
+                        + "\"transitions_incoming\" for PseudoState "
+                        + "[%s] can never be fulfilled", state.getId()));
             case FORK:
                 return new Pair<>(Boolean.FALSE, String.format(
                         "The codegenerator does not support composite "
-                                + "states. Thus the constraint "
-                                + "\"transitions_outgoing\" for PseudoState "
-                                + "[%s] can never be fulfilled",
-                        state.getId()));
+                        + "states. Thus the constraint "
+                        + "\"transitions_outgoing\" for PseudoState "
+                        + "[%s] can never be fulfilled", state.getId()));
             case JUNCTION:
             case CHOICE:
                 if (state.getOutgoing().size() < 1) {
                     return new Pair<>(Boolean.FALSE, String.format(
                             "PseudoState [%s] must have at least one outgoing "
-                                    + "transition", state.getId()));
+                            + "transition", state.getId()));
                 }
                 if (state.getIncoming().size() < 1) {
                     return new Pair<>(Boolean.FALSE, String.format(
                             "PseudoState [%s] must have at least one incoming "
-                                    + "transition", state.getId()));
+                            + "transition", state.getId()));
                 }
 
                 break;

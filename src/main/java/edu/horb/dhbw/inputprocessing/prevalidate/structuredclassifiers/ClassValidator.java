@@ -36,10 +36,10 @@ public final class ClassValidator implements IPreValidator {
 
         UMLClass umlClass = (UMLClass) base;
         if (!umlClass.getIsActive()
-                && umlClass.getClassifierBehavior() != null) {
+            && umlClass.getClassifierBehavior() != null) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Class [%s] has a classifierBehavior but is not "
-                            + "active", umlClass.getId()));
+                    + "active", umlClass.getId()));
         }
 
         return VALID;

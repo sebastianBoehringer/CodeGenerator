@@ -46,19 +46,19 @@ public final class PropertyValidator implements IPreValidator {
             if (opposite.getUpper().getValue() > 1L) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "Property [%s] is composite but should belong to "
-                                + "multiple others", property.getId()));
+                        + "multiple others", property.getId()));
             }
         }
         if (property.getIsDerivedUnion() && !property.getIsDerived()) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Property [%s] is derived as union but derived is not "
-                            + "true", property.getId()));
+                    + "true", property.getId()));
         }
         if (property.getAssociation() != null && !ListUtils
                 .isEmpty(property.getQualifier())) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Property [%s] is qualified but does not belong"
-                            + " to an association", property.getId()));
+                    + " to an association", property.getId()));
         }
         return VALID;
     }

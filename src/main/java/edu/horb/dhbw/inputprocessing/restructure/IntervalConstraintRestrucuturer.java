@@ -47,7 +47,7 @@ public final class IntervalConstraintRestrucuturer
         log.info("Beginning restructuring of IntervalConstraint [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading IntervalConstraint from "
-                             + "cache", id);
+                     + "cache", id);
             return processed.get(id);
         }
         IntervalConstraint constraint = new IntervalConstraint();
@@ -57,7 +57,7 @@ public final class IntervalConstraintRestrucuturer
         log.debug("Processing umltype for IntervalConstraint [{}]", id);
         constraint.setUmlType(element.getPlainAttribute("umltype"));
         log.debug("Processing intervalspecification for IntervalConstraint "
-                          + "[{}]", id);
+                  + "[{}]", id);
         ModelElement specification =
                 element.getRefAttribute("intervalspecification");
         constraint.setSpecification(

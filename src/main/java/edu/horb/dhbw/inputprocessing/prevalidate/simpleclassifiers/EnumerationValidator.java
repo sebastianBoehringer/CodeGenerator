@@ -40,7 +40,7 @@ public final class EnumerationValidator implements IPreValidator {
             if (!property.getIsReadOnly()) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "Enumeration [%s] has an attribute that is "
-                                + "not read only", enumeration.getId()));
+                        + "not read only", enumeration.getId()));
             }
         }
         return VALID;

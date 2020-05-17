@@ -56,7 +56,7 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
         fileResolver.setTemplateMode(TemplateMode.TEXT);
         String separator = FileSystems.getDefault().getSeparator();
         String prefix = language.getTemplatingOptions().getTemplateLocation()
-                .toAbsolutePath().toString() + separator;
+                                .toAbsolutePath().toString() + separator;
         fileResolver.setPrefix(prefix);
         log.info("Set fileresolver to search with prefix [{}]", prefix);
         fileResolver.setSuffix(
@@ -67,7 +67,7 @@ public final class ThymeleafAdapter implements ITemplateEngineAdapter {
         fileResolver.setOrder(1);
 
         log.info("Finished configuring file resolver, starting "
-                         + "configuration of classloadresolver now");
+                 + "configuration of classloadresolver now");
         ClassLoaderTemplateResolver classLoaderResolver =
                 new ClassLoaderTemplateResolver();
         classLoaderResolver.setTemplateMode(TemplateMode.TEXT);

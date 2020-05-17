@@ -41,14 +41,13 @@ public final class ElementImportValidator implements IPreValidator {
                 .equals(kind))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "ElementImport [%s] does not have "
-                            + "public or private visibility",
-                    elementImport.getId()));
+                    + "public or private visibility", elementImport.getId()));
         }
         kind = elementImport.getImportedElement().getVisibility();
         if (!(kind == null || kind.equals(VisibilityKind.PUBLIC))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Imported element %s does not "
-                            + "have public or no visibility",
+                    + "have public or no visibility",
                     elementImport.getImportedElement().getId()));
         }
         return VALID;

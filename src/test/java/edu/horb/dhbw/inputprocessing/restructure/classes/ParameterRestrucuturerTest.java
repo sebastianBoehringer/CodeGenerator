@@ -67,7 +67,7 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
 
             assertEquals(aReturn.getEffect(), ParameterEffectKind.UNDEFINED,
                          "Neither Modelio nor Papyrus seem to serialize "
-                                 + "CREATE on a return param");
+                         + "CREATE on a return param");
             testDefaultValues(aReturn);
         }
         for (Parameter input : inputs) {
@@ -79,7 +79,7 @@ public class ParameterRestrucuturerTest extends BaseRestructurerTest {
             } else {
                 assertEquals(input.getEffect(), ParameterEffectKind.UNDEFINED,
                              "Modelio seemingly does not serialize "
-                                     + "effectkinds at all");
+                             + "effectkinds at all");
             }
             testDefaultValues(input);
         }

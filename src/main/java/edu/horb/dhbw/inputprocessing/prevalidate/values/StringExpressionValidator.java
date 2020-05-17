@@ -44,13 +44,13 @@ public final class StringExpressionValidator implements IPreValidator {
             if (!ListUtils.isEmpty(expression.getOperand())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "StringExpression [%s] has both subexpressions and "
-                                + "operands", expression.getId()));
+                        + "operands", expression.getId()));
             }
         } else {
             if (ListUtils.isEmpty(expression.getOperand())) {
                 return new Pair<>(Boolean.FALSE, String.format(
                         "StringExpression [%s] neither has subexpressions nor "
-                                + "operands", expression.getId()));
+                        + "operands", expression.getId()));
             }
         }
 
@@ -59,7 +59,7 @@ public final class StringExpressionValidator implements IPreValidator {
         if (operand.isPresent()) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "StringExpression [%s] had an operand that was not a"
-                            + " LiteralString", expression.getId()));
+                    + " LiteralString", expression.getId()));
         }
         return IPreValidator.VALID;
     }

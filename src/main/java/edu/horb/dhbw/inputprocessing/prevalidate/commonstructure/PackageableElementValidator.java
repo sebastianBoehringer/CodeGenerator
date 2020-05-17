@@ -38,7 +38,7 @@ public final class PackageableElementValidator implements IPreValidator {
         if (element.getNamespace() != null && element.getVisibility() == null) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "PackageableElement [%s] is owned by a namespace but "
-                            + "does not have an associated visibility",
+                    + "does not have an associated visibility",
                     element.getId()));
         }
         return VALID;

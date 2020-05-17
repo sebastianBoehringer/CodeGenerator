@@ -69,7 +69,7 @@ public final class BehaviorTransformer
                 body = behavior.getBody().get(index);
             } else {
                 log.warn("Language [{}] has no corresponding body in opaque "
-                                 + "behavior [{}]",
+                         + "behavior [{}]",
                          Config.CONFIG.getLanguage().getName(),
                          behavior.getId());
                 body = behavior.getBody().size() > 0 ? behavior.getBody().get(0)

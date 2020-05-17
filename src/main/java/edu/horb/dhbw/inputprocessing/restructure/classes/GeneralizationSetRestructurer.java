@@ -49,7 +49,7 @@ public final class GeneralizationSetRestructurer
         log.info("Beginning restructuring of GeneralizationSet [{}]", id);
         if (processed.containsKey(id)) {
             log.info("Found id [{}] in cache, loading GeneralizationSet from "
-                             + "cache", id);
+                     + "cache", id);
             return processed.get(id);
         }
         GeneralizationSet generalizationSet = new GeneralizationSet();

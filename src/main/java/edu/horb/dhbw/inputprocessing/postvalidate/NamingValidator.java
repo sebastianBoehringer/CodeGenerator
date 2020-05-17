@@ -44,13 +44,13 @@ public abstract class NamingValidator implements IPostValidator {
                 .isUpperCase(base.getName().charAt(0))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Element [%s] does not start with a uppercase letter but "
-                            + "has to", base.getName()));
+                    + "has to", base.getName()));
         }
         if (FirstLetter.LOWER.equals(nameStart) && !Character
                 .isLowerCase(base.getName().charAt(0))) {
             return new Pair<>(Boolean.FALSE, String.format(
                     "Element [%s] does not start with a lowercase letter but "
-                            + "has to", base.getName()));
+                    + "has to", base.getName()));
         }
         return continueValidation(base);
     }
