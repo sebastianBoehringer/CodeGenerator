@@ -165,7 +165,6 @@ public final class StateMachineTransformer extends
                     aClass.getMethods().add(someMethod);
                     OOBaseStringWrapper wrapper = wrapperITransformer
                             .transform(transition.getEffect());
-                    boolean hasGuard = transition.getGuard() != null;
                     switch (transition.getKind()) {
                         case INTERNAL -> someMethod.setLogic(wrapper);
                         case LOCAL, EXTERNAL -> {
@@ -174,17 +173,19 @@ public final class StateMachineTransformer extends
                                             "\n        state_context.transit"
                                                     + "(state_context.%s);",
                                             getStateFieldName(aClass)));
-                            if (hasGuard) {
-                                wrapper = wrapper.prepend(") {\n").prepend(
-                                        extractConditionFromTransition(
-                                                transition)).prepend("if (");
-                                wrapper.append("\n        }");
-                            }
-                            someMethod.setLogic(wrapper);
+
                         }
                         default -> throw new IllegalStateException(
                                 "Unexpected value: " + transition.getKind());
                     }
+                    boolean hasGuard = transition.getGuard() != null;
+                    if (hasGuard) {
+                        wrapper = wrapper.prepend(") {\n").prepend(
+                                extractConditionFromTransition(
+                                        transition)).prepend("if (");
+                        wrapper.append("\n        }");
+                    }
+                    someMethod.setLogic(wrapper);
                 }
             }
             generateMemberStateInContext(context, baseClass, aClass);
@@ -215,8 +216,9 @@ public final class StateMachineTransformer extends
      * @param baseClass The abstractState class
      * @param aClass    The concreteState class
      */
-    private void generateMemberStateInContext(OOType context,
-                                              OOType baseClass, OOType aClass) {
+    private void generateMemberStateInContext(final OOType context,
+                                              final OOType baseClass,
+                                              final OOType aClass) {
 
         OOField stateInContext = new OOField();
         stateInContext.setParent(context);
@@ -238,7 +240,8 @@ public final class StateMachineTransformer extends
      * @param context   The context in which the transit method is created
      * @param baseClass The abstractState class
      */
-    private void createTransitMethod(OOType context, OOType baseClass) {
+    private void createTransitMethod(final OOType context,
+                                     final OOType baseClass) {
 
         OOMethod method = createMethod(context, "transit");
         method.setVisibility(VisibilityKind.PACKAGE);
