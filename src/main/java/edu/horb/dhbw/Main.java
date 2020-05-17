@@ -1,5 +1,6 @@
 package edu.horb.dhbw;
 
+import edu.horb.dhbw.exception.CodeGenerationException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -22,11 +23,17 @@ public final class Main {
 
         CodeGenerator gen = new CodeGenerator();
         for (String name : fileNames) {
-            gen.generateCode(Path.of(name));
+            System.out.println("Generating code for file " + name);
+            try {
+                gen.generateCode(Path.of(name));
+            } catch (CodeGenerationException e) {
+                e.printStackTrace();
+                System.out.println("Codegeneration failed for file " + name);
+            }
         }
         if (fileNames.isEmpty()) {
             System.out.println("Please enter the path to a file with an .xmi "
-                                       + "extension");
+                               + "or .uml extension");
         }
     }
 }
