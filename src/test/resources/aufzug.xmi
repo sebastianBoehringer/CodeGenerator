@@ -1,79 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ActionLanguage="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ">
   <uml:Model xmi:id="_ZbzjIIl4EeqbqO-7YnuqMA" name="aufzug">
-    <packageImport xmi:type="uml:PackageImport" xmi:id="_ZfctAIl4EeqbqO-7YnuqMA">
-      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-    </packageImport>
-    <packagedElement xmi:type="uml:Component" xmi:id="_4gMwYIoJEeqzs-HLfxzOjg" name="java.lang">
-      <realization xmi:type="uml:ComponentRealization" xmi:id="_8GjMAIoJEeqzs-HLfxzOjg" client="_32UyIIn3Eeqzs-HLfxzOjg" supplier="_4gMwYIoJEeqzs-HLfxzOjg" realizingClassifier="_32UyIIn3Eeqzs-HLfxzOjg"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_GsGcIIoPEeqzs-HLfxzOjg" name="ShoppingCenter">
-      <packagedElement xmi:type="uml:Class" xmi:id="_lFVyEIl4EeqbqO-7YnuqMA" name="Aufzug" classifierBehavior="_8B-dQJdrEeqeJp6fNQ2rfw" isActive="true">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_q6fAgIl4EeqbqO-7YnuqMA" name="NumberOfPassengers" isDerived="true">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_0wL6UIl4EeqbqO-7YnuqMA" name="WeightLimit">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_4rD0cIl4EeqbqO-7YnuqMA" name="CurrentFloor" type="_dQYoAIl4EeqbqO-7YnuqMA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_61tHEIl4EeqbqO-7YnuqMA" name="Door" type="_faERUIl4EeqbqO-7YnuqMA"/>
-        <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_8B-dQJdrEeqeJp6fNQ2rfw" name="ZustandsautomatAufzug">
-          <region xmi:type="uml:Region" xmi:id="_8vtF8JdrEeqeJp6fNQ2rfw" name="Region1">
-            <transition xmi:type="uml:Transition" xmi:id="_M2uM0JdsEeqeJp6fNQ2rfw" source="_Db2N0JdsEeqeJp6fNQ2rfw" target="_HhVcgJdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_w7fbkJdsEeqeJp6fNQ2rfw" name="doorsClosing" event="_vaCP4JdsEeqeJp6fNQ2rfw"/>
-            </transition>
-            <transition xmi:type="uml:Transition" xmi:id="_Ny9yoJdsEeqeJp6fNQ2rfw" source="_HhVcgJdsEeqeJp6fNQ2rfw" target="_Db2N0JdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_3GF8oJdsEeqeJp6fNQ2rfw" name="doorsOpening" event="_2997YJdsEeqeJp6fNQ2rfw"/>
-            </transition>
-            <transition xmi:type="uml:Transition" xmi:id="_OYL_kJdsEeqeJp6fNQ2rfw" source="_Bb-n0JdsEeqeJp6fNQ2rfw" target="_Db2N0JdsEeqeJp6fNQ2rfw"/>
-            <transition xmi:type="uml:Transition" xmi:id="_WOOHsJdsEeqeJp6fNQ2rfw" source="_HhVcgJdsEeqeJp6fNQ2rfw" target="_QR7IYJdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_P5_UEJdtEeqeJp6fNQ2rfw" name="goUp" event="_PrRioJdtEeqeJp6fNQ2rfw"/>
-            </transition>
-            <transition xmi:type="uml:Transition" xmi:id="_WzQucJdsEeqeJp6fNQ2rfw" source="_HhVcgJdsEeqeJp6fNQ2rfw" target="_UnL4cJdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_f1r7wJdtEeqeJp6fNQ2rfw" name="goDown" event="_fp7XsJdtEeqeJp6fNQ2rfw"/>
-            </transition>
-            <transition xmi:type="uml:Transition" xmi:id="_XwGxMJdsEeqeJp6fNQ2rfw" name="when FloorIsReached" source="_UnL4cJdsEeqeJp6fNQ2rfw" target="_HhVcgJdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_x7mYQJdtEeqeJp6fNQ2rfw" name="targetReached" event="_xvOwMJdtEeqeJp6fNQ2rfw"/>
-            </transition>
-            <transition xmi:type="uml:Transition" xmi:id="_YTJM0JdsEeqeJp6fNQ2rfw" name="when FloorIsReached" source="_QR7IYJdsEeqeJp6fNQ2rfw" target="_HhVcgJdsEeqeJp6fNQ2rfw">
-              <trigger xmi:type="uml:Trigger" xmi:id="_23JFMJdtEeqeJp6fNQ2rfw" name="floorReached" event="_xvOwMJdtEeqeJp6fNQ2rfw"/>
-            </transition>
-            <subvertex xmi:type="uml:Pseudostate" xmi:id="_Bb-n0JdsEeqeJp6fNQ2rfw" name="Start"/>
-            <subvertex xmi:type="uml:State" xmi:id="_Db2N0JdsEeqeJp6fNQ2rfw" name="TuerOffen"/>
-            <subvertex xmi:type="uml:State" xmi:id="_HhVcgJdsEeqeJp6fNQ2rfw" name="TuerGeschlossen"/>
-            <subvertex xmi:type="uml:State" xmi:id="_QR7IYJdsEeqeJp6fNQ2rfw" name="FaehrtHoch"/>
-            <subvertex xmi:type="uml:State" xmi:id="_UnL4cJdsEeqeJp6fNQ2rfw" name="FaehrtRunter"/>
-          </region>
-        </ownedBehavior>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_9PFZQIl4EeqbqO-7YnuqMA" name="moveUp">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_BzLPgIl5EeqbqO-7YnuqMA" name="numberOfFloors">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-          </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_EXmUEIl5EeqbqO-7YnuqMA" name="passengers" type="_dpdPUIl4EeqbqO-7YnuqMA" direction="return">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZwLB4Il-EeqbqO-7YnuqMA"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZuuQYIl-EeqbqO-7YnuqMA" value="*"/>
-          </ownedParameter>
-        </ownedOperation>
-          <ownedOperation xmi:type="uml:Operation"
-                          xmi:id="_FQZkUIl5EeqbqO-7YnuqMA" name="moveDown">
-              <ownedParameter xmi:type="uml:Parameter"
-                              xmi:id="_RWDVQIl-EeqbqO-7YnuqMA"
-                              name="numberOfFloors">
+      <packageImport xmi:type="uml:PackageImport"
+                     xmi:id="_ZfctAIl4EeqbqO-7YnuqMA">
+          <importedPackage xmi:type="uml:Model"
+                           href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+      </packageImport>
+      <packagedElement xmi:type="uml:Component" xmi:id="_4gMwYIoJEeqzs-HLfxzOjg"
+                       name="java.lang">
+          <realization xmi:type="uml:ComponentRealization"
+                       xmi:id="_8GjMAIoJEeqzs-HLfxzOjg"
+                       client="_32UyIIn3Eeqzs-HLfxzOjg"
+                       supplier="_4gMwYIoJEeqzs-HLfxzOjg"
+                       realizingClassifier="_32UyIIn3Eeqzs-HLfxzOjg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_GsGcIIoPEeqzs-HLfxzOjg"
+                       name="ShoppingCenter">
+          <packagedElement xmi:type="uml:Class" xmi:id="_lFVyEIl4EeqbqO-7YnuqMA"
+                           name="Aufzug"
+                           classifierBehavior="_8B-dQJdrEeqeJp6fNQ2rfw"
+                           isActive="true">
+              <ownedAttribute xmi:type="uml:Property"
+                              xmi:id="_q6fAgIl4EeqbqO-7YnuqMA"
+                              name="NumberOfPassengers" isDerived="true">
                   <type xmi:type="uml:PrimitiveType"
                         href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-              </ownedParameter>
-              <ownedParameter xmi:type="uml:Parameter"
-                              xmi:id="_LGteIIl-EeqbqO-7YnuqMA" name="passengers"
-                              type="_dpdPUIl4EeqbqO-7YnuqMA" direction="return">
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property"
+                              xmi:id="_0wL6UIl4EeqbqO-7YnuqMA"
+                              name="WeightLimit">
+                  <type xmi:type="uml:PrimitiveType"
+                        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property"
+                              xmi:id="_4rD0cIl4EeqbqO-7YnuqMA"
+                              name="CurrentFloor"
+                              type="_dQYoAIl4EeqbqO-7YnuqMA"/>
+              <ownedAttribute xmi:type="uml:Property"
+                              xmi:id="_61tHEIl4EeqbqO-7YnuqMA" name="Door"
+                              type="_faERUIl4EeqbqO-7YnuqMA"/>
+              <ownedAttribute xmi:type="uml:Property"
+                              xmi:id="_myOqkJeCEeqeJp6fNQ2rfw" name="Passengers"
+                              type="_dpdPUIl4EeqbqO-7YnuqMA"
+                              association="_myGuwJeCEeqeJp6fNQ2rfw">
                   <lowerValue xmi:type="uml:LiteralInteger"
-                              xmi:id="_cKWlUIl-EeqbqO-7YnuqMA"/>
+                              xmi:id="_0oyxwJeCEeqeJp6fNQ2rfw"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural"
-                              xmi:id="_cHp2oIl-EeqbqO-7YnuqMA" value="*"/>
-              </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:type="uml:Operation"
-                          xmi:id="_gWFYMIl5EeqbqO-7YnuqMA" name="openDoors"
-                          method="_th94AJeNEeqeJp6fNQ2rfw"/>
+                              xmi:id="_1DoToJeCEeqeJp6fNQ2rfw" value="*"/>
+              </ownedAttribute>
+              <ownedBehavior xmi:type="uml:StateMachine"
+                             xmi:id="_8B-dQJdrEeqeJp6fNQ2rfw"
+                             name="ZustandsautomatAufzug">
+                  <region xmi:type="uml:Region" xmi:id="_8vtF8JdrEeqeJp6fNQ2rfw"
+                          name="Region1">
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_M2uM0JdsEeqeJp6fNQ2rfw"
+                                  source="_Db2N0JdsEeqeJp6fNQ2rfw"
+                                  target="_HhVcgJdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_w7fbkJdsEeqeJp6fNQ2rfw"
+                                   name="doorsClosing"
+                                   event="_vaCP4JdsEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_Ny9yoJdsEeqeJp6fNQ2rfw"
+                                  source="_HhVcgJdsEeqeJp6fNQ2rfw"
+                                  target="_Db2N0JdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_3GF8oJdsEeqeJp6fNQ2rfw"
+                                   name="doorsOpening"
+                                   event="_2997YJdsEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_OYL_kJdsEeqeJp6fNQ2rfw"
+                                  source="_Bb-n0JdsEeqeJp6fNQ2rfw"
+                                  target="_Db2N0JdsEeqeJp6fNQ2rfw"/>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_WOOHsJdsEeqeJp6fNQ2rfw"
+                                  source="_HhVcgJdsEeqeJp6fNQ2rfw"
+                                  target="_QR7IYJdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_P5_UEJdtEeqeJp6fNQ2rfw" name="goUp"
+                                   event="_PrRioJdtEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_WzQucJdsEeqeJp6fNQ2rfw"
+                                  source="_HhVcgJdsEeqeJp6fNQ2rfw"
+                                  target="_UnL4cJdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_f1r7wJdtEeqeJp6fNQ2rfw"
+                                   name="goDown"
+                                   event="_fp7XsJdtEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_XwGxMJdsEeqeJp6fNQ2rfw"
+                                  name="when FloorIsReached"
+                                  source="_UnL4cJdsEeqeJp6fNQ2rfw"
+                                  target="_HhVcgJdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_x7mYQJdtEeqeJp6fNQ2rfw"
+                                   name="targetReached"
+                                   event="_xvOwMJdtEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <transition xmi:type="uml:Transition"
+                                  xmi:id="_YTJM0JdsEeqeJp6fNQ2rfw"
+                                  name="when FloorIsReached"
+                                  source="_QR7IYJdsEeqeJp6fNQ2rfw"
+                                  target="_HhVcgJdsEeqeJp6fNQ2rfw">
+                          <trigger xmi:type="uml:Trigger"
+                                   xmi:id="_23JFMJdtEeqeJp6fNQ2rfw"
+                                   name="floorReached"
+                                   event="_xvOwMJdtEeqeJp6fNQ2rfw"/>
+                      </transition>
+                      <subvertex xmi:type="uml:Pseudostate"
+                                 xmi:id="_Bb-n0JdsEeqeJp6fNQ2rfw" name="Start"/>
+                      <subvertex xmi:type="uml:State"
+                                 xmi:id="_Db2N0JdsEeqeJp6fNQ2rfw"
+                                 name="TuerOffen"/>
+                      <subvertex xmi:type="uml:State"
+                                 xmi:id="_HhVcgJdsEeqeJp6fNQ2rfw"
+                                 name="TuerGeschlossen"/>
+                      <subvertex xmi:type="uml:State"
+                                 xmi:id="_QR7IYJdsEeqeJp6fNQ2rfw"
+                                 name="FaehrtHoch"/>
+                      <subvertex xmi:type="uml:State"
+                                 xmi:id="_UnL4cJdsEeqeJp6fNQ2rfw"
+                                 name="FaehrtRunter"/>
+                  </region>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation"
+                              xmi:id="_9PFZQIl4EeqbqO-7YnuqMA" name="moveUp">
+                  <ownedParameter xmi:type="uml:Parameter"
+                                  xmi:id="_BzLPgIl5EeqbqO-7YnuqMA"
+                                  name="numberOfFloors">
+                      <type xmi:type="uml:PrimitiveType"
+                            href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+                  </ownedParameter>
+                  <ownedParameter xmi:type="uml:Parameter"
+                                  xmi:id="_EXmUEIl5EeqbqO-7YnuqMA"
+                                  name="passengers"
+                                  type="_dpdPUIl4EeqbqO-7YnuqMA"
+                                  direction="return">
+                      <lowerValue xmi:type="uml:LiteralInteger"
+                                  xmi:id="_ZwLB4Il-EeqbqO-7YnuqMA"/>
+                      <upperValue xmi:type="uml:LiteralUnlimitedNatural"
+                                  xmi:id="_ZuuQYIl-EeqbqO-7YnuqMA" value="*"/>
+                  </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation"
+                              xmi:id="_FQZkUIl5EeqbqO-7YnuqMA" name="moveDown">
+                  <ownedParameter xmi:type="uml:Parameter"
+                                  xmi:id="_RWDVQIl-EeqbqO-7YnuqMA"
+                                  name="numberOfFloors">
+                      <type xmi:type="uml:PrimitiveType"
+                            href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+                  </ownedParameter>
+                  <ownedParameter xmi:type="uml:Parameter"
+                                  xmi:id="_LGteIIl-EeqbqO-7YnuqMA"
+                                  name="passengers"
+                                  type="_dpdPUIl4EeqbqO-7YnuqMA"
+                                  direction="return">
+                      <lowerValue xmi:type="uml:LiteralInteger"
+                                  xmi:id="_cKWlUIl-EeqbqO-7YnuqMA"/>
+                      <upperValue xmi:type="uml:LiteralUnlimitedNatural"
+                                  xmi:id="_cHp2oIl-EeqbqO-7YnuqMA" value="*"/>
+                  </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation"
+                              xmi:id="_gWFYMIl5EeqbqO-7YnuqMA" name="openDoors"
+                              method="_th94AJeNEeqeJp6fNQ2rfw"/>
           <ownedOperation xmi:type="uml:Operation"
                           xmi:id="_jMXo0Il5EeqbqO-7YnuqMA" name="closeDoors"
                           method="_5N-MIJeNEeqeJp6fNQ2rfw"/>
@@ -153,84 +248,131 @@ OpaqueBehavior  betreteAufzug</body>
           </region>
         </ownedBehavior>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_NL4tkIoQEeqzs-HLfxzOjg" name="Exception">
-        <packagedElement xmi:type="uml:Class" xmi:id="_cOROQIl5EeqbqO-7YnuqMA" name="InvalidDoorState">
-          <elementImport xmi:type="uml:ElementImport" xmi:id="_2rmkEIn6Eeqzs-HLfxzOjg" alias="" importedElement="_32UyIIn3Eeqzs-HLfxzOjg"/>
-          <generalization xmi:type="uml:Generalization" xmi:id="_BIUakIn7Eeqzs-HLfxzOjg" general="_32UyIIn3Eeqzs-HLfxzOjg"/>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Component" xmi:id="_pDV4sIl4EeqbqO-7YnuqMA" name="Exception">
-          <realization xmi:type="uml:ComponentRealization" xmi:id="_MTEKQImDEeqbqO-7YnuqMA" client="_cOROQIl5EeqbqO-7YnuqMA" supplier="_pDV4sIl4EeqbqO-7YnuqMA" realizingClassifier="_cOROQIl5EeqbqO-7YnuqMA"/>
-        </packagedElement>
-      </packagedElement>
-      <packagedElement xmi:type="uml:CallEvent" xmi:id="_vaCP4JdsEeqeJp6fNQ2rfw" name="closeTheDoors" operation="_jMXo0Il5EeqbqO-7YnuqMA"/>
-      <packagedElement xmi:type="uml:CallEvent" xmi:id="_2997YJdsEeqeJp6fNQ2rfw" name="openTheDoors" operation="_gWFYMIl5EeqbqO-7YnuqMA"/>
-      <packagedElement xmi:type="uml:CallEvent" xmi:id="_PrRioJdtEeqeJp6fNQ2rfw" name="moveFloorsUp" operation="_9PFZQIl4EeqbqO-7YnuqMA"/>
-      <packagedElement xmi:type="uml:CallEvent" xmi:id="_fp7XsJdtEeqeJp6fNQ2rfw" name="moveFloorsDown" operation="_FQZkUIl5EeqbqO-7YnuqMA"/>
-      <packagedElement xmi:type="uml:ChangeEvent" xmi:id="_xvOwMJdtEeqeJp6fNQ2rfw" name="targetIsReached">
-        <changeExpression xmi:type="uml:OpaqueExpression" xmi:id="_xvOwMZdtEeqeJp6fNQ2rfw" name="floorIsTargetFloor">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <language>JAVA</language>
-          <body>numberOfFloors == 0;</body>
-        </changeExpression>
-      </packagedElement>
-      <packagedElement xmi:type="uml:ChangeEvent" xmi:id="_xKkQAJeFEeqeJp6fNQ2rfw" name="aufzugDa">
-        <changeExpression xmi:type="uml:OpaqueExpression" xmi:id="_xKkQAZeFEeqeJp6fNQ2rfw" name="aufzugDaExpression">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <language>Java</language>
-            <body>Aufzug.CurrentFloor == CurrentFloor</body>
-        </changeExpression>
-      </packagedElement>
-        <packagedElement xmi:type="uml:ChangeEvent"
-                         xmi:id="_G3ZI0JeGEeqeJp6fNQ2rfw" name="zielErreicht">
-            <changeExpression xmi:type="uml:OpaqueExpression"
-                              xmi:id="_G3ZI0ZeGEeqeJp6fNQ2rfw">
-                <type xmi:type="uml:PrimitiveType"
-                      href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-                <language>Java</language>
-                <body>Aufzug.CurrentFloor == Destination</body>
-            </changeExpression>
-        </packagedElement>
+          <packagedElement xmi:type="uml:Package"
+                           xmi:id="_NL4tkIoQEeqzs-HLfxzOjg" name="Exception">
+              <packagedElement xmi:type="uml:Class"
+                               xmi:id="_cOROQIl5EeqbqO-7YnuqMA"
+                               name="InvalidDoorState">
+                  <elementImport xmi:type="uml:ElementImport"
+                                 xmi:id="_2rmkEIn6Eeqzs-HLfxzOjg" alias=""
+                                 importedElement="_32UyIIn3Eeqzs-HLfxzOjg"/>
+                  <generalization xmi:type="uml:Generalization"
+                                  xmi:id="_BIUakIn7Eeqzs-HLfxzOjg"
+                                  general="_32UyIIn3Eeqzs-HLfxzOjg"/>
+              </packagedElement>
+              <packagedElement xmi:type="uml:Component"
+                               xmi:id="_pDV4sIl4EeqbqO-7YnuqMA"
+                               name="Exception">
+                  <realization xmi:type="uml:ComponentRealization"
+                               xmi:id="_MTEKQImDEeqbqO-7YnuqMA"
+                               client="_cOROQIl5EeqbqO-7YnuqMA"
+                               supplier="_pDV4sIl4EeqbqO-7YnuqMA"
+                               realizingClassifier="_cOROQIl5EeqbqO-7YnuqMA"/>
+              </packagedElement>
+          </packagedElement>
+          <packagedElement xmi:type="uml:CallEvent"
+                           xmi:id="_vaCP4JdsEeqeJp6fNQ2rfw" name="closeTheDoors"
+                           operation="_jMXo0Il5EeqbqO-7YnuqMA"/>
+          <packagedElement xmi:type="uml:CallEvent"
+                           xmi:id="_2997YJdsEeqeJp6fNQ2rfw" name="openTheDoors"
+                           operation="_gWFYMIl5EeqbqO-7YnuqMA"/>
+          <packagedElement xmi:type="uml:CallEvent"
+                           xmi:id="_PrRioJdtEeqeJp6fNQ2rfw" name="moveFloorsUp"
+                           operation="_9PFZQIl4EeqbqO-7YnuqMA"/>
+          <packagedElement xmi:type="uml:CallEvent"
+                           xmi:id="_fp7XsJdtEeqeJp6fNQ2rfw"
+                           name="moveFloorsDown"
+                           operation="_FQZkUIl5EeqbqO-7YnuqMA"/>
+          <packagedElement xmi:type="uml:ChangeEvent"
+                           xmi:id="_xvOwMJdtEeqeJp6fNQ2rfw"
+                           name="targetIsReached">
+              <changeExpression xmi:type="uml:OpaqueExpression"
+                                xmi:id="_xvOwMZdtEeqeJp6fNQ2rfw"
+                                name="floorIsTargetFloor">
+                  <type xmi:type="uml:PrimitiveType"
+                        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+                  <language>JAVA</language>
+                  <body>numberOfFloors == 0;</body>
+              </changeExpression>
+          </packagedElement>
+          <packagedElement xmi:type="uml:ChangeEvent"
+                           xmi:id="_xKkQAJeFEeqeJp6fNQ2rfw" name="aufzugDa">
+              <changeExpression xmi:type="uml:OpaqueExpression"
+                                xmi:id="_xKkQAZeFEeqeJp6fNQ2rfw"
+                                name="aufzugDaExpression">
+                  <type xmi:type="uml:PrimitiveType"
+                        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+                  <language>Java</language>
+                  <body>Aufzug.CurrentFloor == CurrentFloor</body>
+              </changeExpression>
+          </packagedElement>
+          <packagedElement xmi:type="uml:ChangeEvent"
+                           xmi:id="_G3ZI0JeGEeqeJp6fNQ2rfw" name="zielErreicht">
+              <changeExpression xmi:type="uml:OpaqueExpression"
+                                xmi:id="_G3ZI0ZeGEeqeJp6fNQ2rfw">
+                  <type xmi:type="uml:PrimitiveType"
+                        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+                  <language>Java</language>
+                  <body>Aufzug.CurrentFloor == Destination</body>
+              </changeExpression>
+          </packagedElement>
         <packagedElement xmi:type="uml:OpaqueBehavior"
                          xmi:id="_th94AJeNEeqeJp6fNQ2rfw" name="openDoorImpl"
                          specification="_gWFYMIl5EeqbqO-7YnuqMA">
             <language>Java</language>
+            <language>JAVA</language>
             <body>Door = DoorState.Opening;&#xD;
                 Door = DoorState.Open;
             </body>
+            <body>//hello</body>
         </packagedElement>
-        <packagedElement xmi:type="uml:OpaqueBehavior"
-                         xmi:id="_5N-MIJeNEeqeJp6fNQ2rfw" name="closeDoorImpl"
-                         specification="_jMXo0Il5EeqbqO-7YnuqMA">
-            <language>Java</language>
-            <body>Door = DoorState.Closing;&#xD;
-                Door = DoorState.Closed;
-            </body>
-        </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_zok_UIn3Eeqzs-HLfxzOjg" name="java.lang">
-      <packagedElement xmi:type="uml:Class" xmi:id="_32UyIIn3Eeqzs-HLfxzOjg" name="Exception"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_myGuwJeCEeqeJp6fNQ2rfw" visibility="public" memberEnd="_myLnQZeCEeqeJp6fNQ2rfw _myOqkJeCEeqeJp6fNQ2rfw" navigableOwnedEnd="_myOqkJeCEeqeJp6fNQ2rfw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_myLAMJeCEeqeJp6fNQ2rfw" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_myLnQJeCEeqeJp6fNQ2rfw" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_myOqkJeCEeqeJp6fNQ2rfw" name="Passengers" type="_dpdPUIl4EeqbqO-7YnuqMA" association="_myGuwJeCEeqeJp6fNQ2rfw">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0oyxwJeCEeqeJp6fNQ2rfw"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1DoToJeCEeqeJp6fNQ2rfw" value="*"/>
-      </ownedEnd>
-    </packagedElement>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_M2xf0Il5EeqbqO-7YnuqMA">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M2yt8Il5EeqbqO-7YnuqMA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
-      </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
-    </profileApplication>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_fXtsMIoNEeqzs-HLfxzOjg">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fYNbcIoNEeqzs-HLfxzOjg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
-      </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
-    </profileApplication>
+          <packagedElement xmi:type="uml:OpaqueBehavior"
+                           xmi:id="_5N-MIJeNEeqeJp6fNQ2rfw" name="closeDoorImpl"
+                           specification="_jMXo0Il5EeqbqO-7YnuqMA">
+              <language>Java</language>
+              <body>Door = DoorState.Closing;&#xD;
+                  Door = DoorState.Closed;
+              </body>
+          </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_zok_UIn3Eeqzs-HLfxzOjg"
+                       name="java.lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_32UyIIn3Eeqzs-HLfxzOjg"
+                           name="Exception"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association"
+                       xmi:id="_myGuwJeCEeqeJp6fNQ2rfw" visibility="public"
+                       memberEnd="_myLnQZeCEeqeJp6fNQ2rfw _myOqkJeCEeqeJp6fNQ2rfw">
+          <eAnnotations xmi:type="ecore:EAnnotation"
+                        xmi:id="_myLAMJeCEeqeJp6fNQ2rfw"
+                        source="org.eclipse.papyrus">
+              <details xmi:type="ecore:EStringToStringMapEntry"
+                       xmi:id="_myLnQJeCEeqeJp6fNQ2rfw" key="nature"
+                       value="UML_Nature"/>
+          </eAnnotations>
+      </packagedElement>
+      <profileApplication xmi:type="uml:ProfileApplication"
+                          xmi:id="_M2xf0Il5EeqbqO-7YnuqMA">
+          <eAnnotations xmi:type="ecore:EAnnotation"
+                        xmi:id="_M2yt8Il5EeqbqO-7YnuqMA"
+                        source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <references xmi:type="ecore:EPackage"
+                          href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+          </eAnnotations>
+          <appliedProfile xmi:type="uml:Profile"
+                          href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+      </profileApplication>
+      <profileApplication xmi:type="uml:ProfileApplication"
+                          xmi:id="_fXtsMIoNEeqzs-HLfxzOjg">
+          <eAnnotations xmi:type="ecore:EAnnotation"
+                        xmi:id="_fYNbcIoNEeqzs-HLfxzOjg"
+                        source="http://www.eclipse.org/uml2/2.0.0/UML">
+              <references xmi:type="ecore:EPackage"
+                          href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+          </eAnnotations>
+          <appliedProfile xmi:type="uml:Profile"
+                          href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+      </profileApplication>
   </uml:Model>
   <ActionLanguage:TextualRepresentation xmi:id="_zsSl4JeFEeqeJp6fNQ2rfw" base_Comment="_zrzdsJeFEeqeJp6fNQ2rfw" language="org.eclipse.papyrus.uml.textedit.transition.xtext.UmlTransition"/>
 </xmi:XMI>
