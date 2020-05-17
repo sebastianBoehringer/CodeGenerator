@@ -242,47 +242,45 @@ public final class CodeGenerator {
         } catch (ModelValidationException e) {
             throw new CodeGenerationException(e);
         }
-        createOutputDirectory();
+        createOutputDirectory(language);
         for (OOPackage parsedPackage : modelProcessor.getParsedPackages()) {
-            createPackageDirectory(parsedPackage);
+            createPackageDirectory(parsedPackage, language);
         }
-        TemplatingOptions options =
-                Config.CONFIG.getLanguage().getTemplatingOptions();
+        TemplatingOptions options = language.getTemplatingOptions();
 
         adapter.initialize(language);
         for (OOType parsedClass : modelProcessor.getParsedClasses()) {
             log.info("Generating template for [{}]", parsedClass.getName());
             adapter.addToContext(options.getClassVariable(), parsedClass);
-            addImports(parsedClass);
+            addImports(parsedClass, language);
             adapter.process(options.getClassTemplateName(),
-                            getFullPath(parsedClass, options));
+                            getFullPath(parsedClass, language));
         }
         for (OOType parsedEnum : modelProcessor.getParsedEnums()) {
             log.info("Generating template for [{}]", parsedEnum.getName());
             adapter.addToContext(options.getEnumVariable(), parsedEnum);
-            addImports(parsedEnum);
+            addImports(parsedEnum, language);
             adapter.process(options.getEnumTemplateName(),
-                            getFullPath(parsedEnum, options));
+                            getFullPath(parsedEnum, language));
         }
         for (OOType parsedInterface : modelProcessor.getParsedInterfaces()) {
             log.info("Generating template for [{}]", parsedInterface.getName());
             adapter.addToContext(options.getInterfaceVariable(),
                                  parsedInterface);
-            addImports(parsedInterface);
+            addImports(parsedInterface, language);
             adapter.process(options.getInterfaceTemplateName(),
-                            getFullPath(parsedInterface, options));
+                            getFullPath(parsedInterface, language));
         }
     }
 
-    private void createOutputDirectory()
+    private void createOutputDirectory(final Language language)
             throws CodeGenerationException {
 
-        if (!Files.exists(Config.CONFIG.getLanguage().getTemplatingOptions()
-                                  .getOutputDirectory())) {
+        if (!Files
+                .exists(language.getTemplatingOptions().getOutputDirectory())) {
             try {
                 Files.createDirectories(
-                        Config.CONFIG.getLanguage().getTemplatingOptions()
-                                .getOutputDirectory());
+                        language.getTemplatingOptions().getOutputDirectory());
             } catch (IOException e) {
                 throw new CodeGenerationException(e);
             }
@@ -290,18 +288,20 @@ public final class CodeGenerator {
     }
 
     /**
-     * @param pkg The package to create a directory for
+     * @param pkg      The package to create a directory for
+     * @param language The language to generate code for
      * @throws CodeGenerationException IF the directory could not be created.
      *                                 Essentially a wrapper around
      *                                 {@link IOException} in this case
      */
-    private void createPackageDirectory(final OOPackage pkg)
+    private void createPackageDirectory(final OOPackage pkg,
+                                        final Language language)
             throws CodeGenerationException {
 
         String fqName = pkg.getFQName();
-        String path = Config.CONFIG.getLanguage().getTemplatingOptions()
-                              .getOutputDirectory() + "\\" + fqNameToPath(
-                fqName);
+        String path =
+                language.getTemplatingOptions().getOutputDirectory() + "\\"
+                + fqNameToPath(fqName, language);
         Path output = Path.of(path);
         try {
             Files.createDirectories(output);
@@ -315,29 +315,30 @@ public final class CodeGenerator {
 
     }
 
-    private void addImports(final OOType type) {
+    private void addImports(final OOType type, final Language language) {
 
-        adapter.addToContext("imports", importResolver
-                .resolveImports(Config.CONFIG.getLanguage(), type));
+        adapter.addToContext("imports",
+                             importResolver.resolveImports(language, type));
     }
 
-    private String getFullPath(final OOType type,
-                               final TemplatingOptions options) {
+    private String getFullPath(final OOType type, final Language language) {
 
-        return options.getOutputDirectory().toAbsolutePath().toString() + "\\"
-               + fqNameToPath(type.getFQName()) + Config.CONFIG.getLanguage()
-                       .getExtension();
+        return language.getTemplatingOptions().getOutputDirectory()
+                       .toAbsolutePath().toString() + "\\" + fqNameToPath(
+                type.getFQName(), language) + language.getExtension();
     }
 
     /**
-     * @param fqName The fully qualified name of either a {@link OOType} or a
-     *               {@link OOPackage}.
+     * @param fqName   The fully qualified name of either a {@link OOType} or a
+     *                 {@link OOPackage}.
+     * @param language The language to generate code for
      * @return The fqName but the {@link Language#packageNameLimiter} is
      * replaced by the path separator of the filesystem.
      */
-    private String fqNameToPath(final String fqName) {
+    private String fqNameToPath(final String fqName, final Language language) {
 
-        return fqName.replaceAll(Pattern.quote(
-                Config.CONFIG.getLanguage().getPackageNameLimiter()), "/");
+        return fqName
+                .replaceAll(Pattern.quote(language.getPackageNameLimiter()),
+                            "/");
     }
 }
