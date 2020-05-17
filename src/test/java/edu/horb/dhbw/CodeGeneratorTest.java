@@ -19,10 +19,8 @@ package edu.horb.dhbw;
 
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.util.Config;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 
@@ -30,24 +28,6 @@ import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class CodeGeneratorTest {
-
-    @BeforeMethod
-    public void cleanUp() {
-
-        deleteDirectory(Config.CONFIG.getLanguage().getTemplatingOptions()
-                                .getOutputDirectory().toFile());
-    }
-
-    private void deleteDirectory(final File file) {
-
-        if (file.isDirectory()) {
-            for (File listFile : file.listFiles()) {
-                deleteDirectory(listFile);
-            }
-        } else {
-            file.delete();
-        }
-    }
 
     @Test
     public void smokeTestWithUmlAsModel() {
