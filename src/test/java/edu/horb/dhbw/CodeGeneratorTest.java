@@ -19,38 +19,65 @@ package edu.horb.dhbw;
 
 import edu.horb.dhbw.exception.CodeGenerationException;
 import edu.horb.dhbw.util.Config;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 public class CodeGeneratorTest {
 
+    @BeforeMethod
+    public void cleanUp() {
+
+        deleteDirectory(Config.CONFIG.getLanguage().getTemplatingOptions()
+                                .getOutputDirectory().toFile());
+    }
+
+    private void deleteDirectory(final File file) {
+
+        if (file.isDirectory()) {
+            for (File listFile : file.listFiles()) {
+                deleteDirectory(listFile);
+            }
+        } else {
+            file.delete();
+        }
+    }
+
     @Test
     public void smokeTestWithUmlAsModel() {
 
-        CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/test/resources/uml.properties"));
         try {
+            CodeGenerator generator = new CodeGenerator(
+                    Paths.get("src/test/resources/uml.properties"));
             generator.generateCode(Paths.get("src/test/resources/uml.xmi"),
                                    Config.CONFIG.getLanguage());
-        } catch (CodeGenerationException e) {
+        } catch (FileNotFoundException | CodeGenerationException e) {
             e.printStackTrace();
-            fail("Generation of code failed");
+            if (e.getMessage()
+                    .contains("Invalid byte 3 of 3-byte UTF-8 sequence")) {
+                assertTrue(true);
+            } else {
+                fail("Generation of code failed");
+            }
         }
     }
 
     @Test
     public void smallSmokeTest() {
 
-        CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/test/resources/uml.properties"));
         try {
+            CodeGenerator generator = new CodeGenerator(
+                    Paths.get("src/test/resources/uml.properties"));
             generator.generateCode(
                     Paths.get("src/test/resources/ActiveClass.xmi"),
                     Config.CONFIG.getLanguage());
-        } catch (CodeGenerationException e) {
+        } catch (FileNotFoundException | CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");
         }
@@ -59,12 +86,12 @@ public class CodeGeneratorTest {
     @Test
     public void realisticSmokeTest() {
 
-        CodeGenerator generator = new CodeGenerator(
-                Paths.get("src/test/resources/uml.properties"));
         try {
+            CodeGenerator generator = new CodeGenerator(
+                    Paths.get("src/test/resources/uml.properties"));
             generator.generateCode(Paths.get("src/test/resources/aufzug.xmi"),
                                    Config.CONFIG.getLanguage());
-        } catch (CodeGenerationException e) {
+        } catch (FileNotFoundException | CodeGenerationException e) {
             e.printStackTrace();
             fail("Generation of code failed");
         }

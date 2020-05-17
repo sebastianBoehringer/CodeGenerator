@@ -36,12 +36,11 @@ import edu.horb.dhbw.util.Config;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -85,53 +84,41 @@ public final class CodeGenerator {
     public CodeGenerator() {
 
         if (Files.exists(Path.of("codegenerator.properties"))) {
-            initFromPath(Path.of("codegenerator.properties"));
+
+            try {
+                initFromInputStream(new BufferedInputStream(
+                        new FileInputStream("codegenerator.properties")));
+                return;
+            } catch (FileNotFoundException e) {
+                log.warn("Files.exists returned true but file was not found, "
+                         + "trying other options");
+            }
+        }
+        InputStream in = this.getClass().getClassLoader()
+                .getResourceAsStream("codegenerator.properties");
+        if (in != null) {
+            this.initFromInputStream(in);
+            return;
+
+        }
+        in = this.getClass().getClassLoader()
+                .getResourceAsStream("default.properties");
+        if (in != null) {
+            initFromInputStream(in);
             return;
         }
-        URL url = this.getClass().getClassLoader()
-                .getResource("codegenerator.properties");
-        if (url != null) {
-            try {
-                this.initFromPath(Path.of(url.toURI()));
-                return;
-            } catch (URISyntaxException e) {
-                log.warn("Could not convert URL [{}]. Skipping "
-                                 + "codegenerator.properties on class path",
-                         url.toString());
-            }
-        }
-        url = this.getClass().getClassLoader()
-                .getResource("default.properties");
-        if (url != null) {
-            try {
-                initFromPath(Path.of(url.toURI()));
-                return;
-            } catch (URISyntaxException e) {
-                log.warn("Could not convert URL [{}]. Skipping "
-                                 + "default.properties on class path",
-                         url.toString());
-            }
-        }
-        initFromPath(Path.of("nonexisting.properties"));
+        initFromInputStream(null);
     }
 
 
-    private void initFromPath(final Path propertyLocation) {
+    private void initFromInputStream(final InputStream in) {
 
         Properties properties = new Properties();
-        log.info("Trying to load properties from location [{}]",
-                 propertyLocation.toAbsolutePath().toString());
-        try (InputStream in = new BufferedInputStream(
-                Files.newInputStream(propertyLocation))) {
+        try {
             properties.load(in);
             Config.CONFIG.readInProperties(properties);
             log.info("Successfully read in properties");
-        } catch (FileNotFoundException ex) {
-            log.error("Did not find properties at location [{}]",
-                      propertyLocation.toString());
-            log.warn("Using default properties");
-            Config.CONFIG.readInProperties(new Properties());
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException ex) {
             log.error("Something went wrong, exception message [{}]",
                       ex.getMessage());
             log.warn("Using default properties");
@@ -172,15 +159,15 @@ public final class CodeGenerator {
                     "Could not instanciate " + adapterClass);
         } catch (InvocationTargetException e) {
             log.error("Constructor of class [{}] threw an exception with "
-                              + "message [{}]", adapterClass, e.getMessage());
+                      + "message [{}]", adapterClass, e.getMessage());
         } catch (NoSuchMethodException e) {
             log.error("[{}] does not offer a parameterless default "
-                              + "constructor", adapterClass);
+                      + "constructor", adapterClass);
             throw new InvalidConfigurationException(
                     adapterClass + " does not offer a default constructor");
         } catch (IllegalAccessException e) {
             log.error("Could not access constructor of [{}], it might not be "
-                              + "public", adapterClass);
+                      + "public", adapterClass);
             throw new InvalidConfigurationException(
                     "Could not access constructor of " + adapterClass);
         }
@@ -193,10 +180,15 @@ public final class CodeGenerator {
      * {@link Config#readInProperties(Properties)} for more details.
      *
      * @param propertyLocation The location of the properties file to use
+     * @throws FileNotFoundException If the file specified by the path cannot
+     *                               be found
      */
-    public CodeGenerator(final Path propertyLocation) {
+    public CodeGenerator(final Path propertyLocation)
+            throws FileNotFoundException {
 
-        initFromPath(propertyLocation);
+        InputStream in = new BufferedInputStream(
+                new FileInputStream(propertyLocation.toFile()));
+        initFromInputStream(in);
     }
 
     /**
@@ -308,16 +300,17 @@ public final class CodeGenerator {
 
         String fqName = pkg.getFQName();
         String path = Config.CONFIG.getLanguage().getTemplatingOptions()
-                .getOutputDirectory() + "\\" + fqNameToPath(fqName);
+                              .getOutputDirectory() + "\\" + fqNameToPath(
+                fqName);
         Path output = Path.of(path);
         try {
             Files.createDirectories(output);
         } catch (IOException e) {
             throw new CodeGenerationException(
                     "Could not generate Code since output directory "
-                            + "could not be generated. Nested "
-                            + "Exception is " + e.getClass().getSimpleName()
-                            + ", cause: " + e.getMessage());
+                    + "could not be generated. Nested " + "Exception is " + e
+                            .getClass().getSimpleName() + ", cause: " + e
+                            .getMessage());
         }
 
     }
@@ -332,8 +325,8 @@ public final class CodeGenerator {
                                final TemplatingOptions options) {
 
         return options.getOutputDirectory().toAbsolutePath().toString() + "\\"
-                + fqNameToPath(type.getFQName()) + Config.CONFIG.getLanguage()
-                .getExtension();
+               + fqNameToPath(type.getFQName()) + Config.CONFIG.getLanguage()
+                       .getExtension();
     }
 
     /**

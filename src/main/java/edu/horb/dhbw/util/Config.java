@@ -26,8 +26,6 @@ import lombok.Getter;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Properties;
@@ -57,6 +55,17 @@ public enum Config {
      * Handles all of the properties with a prefix of {@code language}.
      */
     private Language language;
+    /**
+     * Field holding the metamodel resource made available via the classpath.
+     */
+    public static String METAMODEL_RESOURCE = "SDMetricsConfig/metamodel2.xml";
+
+    /**
+     * Field holding the transformation resource made available via the
+     * classpath.
+     */
+    public static String TRANSFORMATIONS_RESOURCE =
+            "SDMetricsConfig/xmiTrans2_0.xml";
 
     /**
      * Constructor that initializes the config with default.properties.
@@ -80,33 +89,10 @@ public enum Config {
      */
     public void readInProperties(final Properties props) {
 
-        metaModelPath = (String) props.get("xmi.sdmetrics.metamodel");
-        if (metaModelPath == null) {
-            URL url = getClass().getClassLoader()
-                    .getResource("SDMetricsConfig/metamodel2.xml");
-            if (url != null) {
-                try {
-                    metaModelPath =
-                            Path.of(url.toURI()).toAbsolutePath().toString();
-                } catch (URISyntaxException e) {
-                    //praying that classLoaders return proper urls
-                }
-            }
-        }
-        transformationsPath =
-                (String) props.get("xmi.sdmetrics.transformations");
-        if (transformationsPath == null) {
-            URL url = getClass().getClassLoader()
-                    .getResource("SDMetricsConfig/xmiTrans2_0.xml");
-            if (url != null) {
-                try {
-                    transformationsPath =
-                            Path.of(url.toURI()).toAbsolutePath().toString();
-                } catch (URISyntaxException e) {
-                    //praying that classLoaders return proper urls
-                }
-            }
-        }
+        metaModelPath = props.getProperty("xmi.sdmetrics.metamodel",
+                                          METAMODEL_RESOURCE);
+        transformationsPath = props.getProperty("xmi.sdmetrics.transformations",
+                                                TRANSFORMATIONS_RESOURCE);
 
         String publicVis =
                 props.getProperty("language.visibility.public", "public");
@@ -226,12 +212,12 @@ public enum Config {
                                         "java.util.List,java.util.ArrayList");
         String bag = props.getProperty("language.imports.bag",
                                        "java.util.Collection,java.util"
-                                               + ".ArrayList");
+                                       + ".ArrayList");
         String set = props.getProperty("language.imports.set",
                                        "java.util.Set,java.util.HashSet");
         String orderedSet = props.getProperty("language.imports.orderedSet",
                                               "java.util.Set,java.util"
-                                                      + ".LinkedHashSet");
+                                              + ".LinkedHashSet");
         ImportOptions options = new ImportOptions();
         options.getSingleImports().addAll(Arrays.asList(split(single)));
         options.getOptionalImports().addAll(Arrays.asList(split(optional)));

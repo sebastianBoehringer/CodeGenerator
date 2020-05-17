@@ -24,6 +24,8 @@ import com.sdmetrics.model.XMITransformations;
 import com.sdmetrics.util.XMLParser;
 import lombok.NonNull;
 
+import java.io.InputStream;
+
 /**
  * Utility class that eases the deserialization fo XMI files with
  * {@link XMIReader}.
@@ -71,8 +73,15 @@ public final class SDMetricsUtil {
 
         XMLParser parser = new XMLParser();
         MetaModel metaModel = new MetaModel();
-        parser.parse(Config.CONFIG.getMetaModelPath(),
-                     metaModel.getSAXParserHandler());
+        String metaModelPath = Config.CONFIG.getMetaModelPath();
+        if (Config.METAMODEL_RESOURCE.equals(metaModelPath)) {
+            InputStream in = SDMetricsUtil.class.getClassLoader()
+                    .getResourceAsStream(metaModelPath);
+            parser.parse(in, metaModel.getSAXParserHandler());
+        } else {
+            parser.parse(metaModelPath, metaModel.getSAXParserHandler());
+        }
+
         return metaModel;
     }
 
@@ -87,8 +96,14 @@ public final class SDMetricsUtil {
             throws Exception {
 
         XMITransformations trans = new XMITransformations(metaModel);
-        parser.parse(Config.CONFIG.getTransformationsPath(),
-                     trans.getSAXParserHandler());
+        String transformationsPath = Config.CONFIG.getTransformationsPath();
+        if (Config.TRANSFORMATIONS_RESOURCE.equals(transformationsPath)) {
+            InputStream in = SDMetricsUtil.class.getClassLoader()
+                    .getResourceAsStream(transformationsPath);
+            parser.parse(in, trans.getSAXParserHandler());
+        } else {
+            parser.parse(transformationsPath, trans.getSAXParserHandler());
+        }
         return trans;
     }
 
