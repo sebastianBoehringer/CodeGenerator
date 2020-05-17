@@ -54,17 +54,29 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZuuQYIl-EeqbqO-7YnuqMA" value="*"/>
           </ownedParameter>
         </ownedOperation>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_FQZkUIl5EeqbqO-7YnuqMA" name="moveDown">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_RWDVQIl-EeqbqO-7YnuqMA" name="numberOfFloors">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
-          </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_LGteIIl-EeqbqO-7YnuqMA" name="passengers" type="_dpdPUIl4EeqbqO-7YnuqMA" direction="return">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cKWlUIl-EeqbqO-7YnuqMA"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cHp2oIl-EeqbqO-7YnuqMA" value="*"/>
-          </ownedParameter>
-        </ownedOperation>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_gWFYMIl5EeqbqO-7YnuqMA" name="openDoors"/>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_jMXo0Il5EeqbqO-7YnuqMA" name="closeDoors"/>
+          <ownedOperation xmi:type="uml:Operation"
+                          xmi:id="_FQZkUIl5EeqbqO-7YnuqMA" name="moveDown">
+              <ownedParameter xmi:type="uml:Parameter"
+                              xmi:id="_RWDVQIl-EeqbqO-7YnuqMA"
+                              name="numberOfFloors">
+                  <type xmi:type="uml:PrimitiveType"
+                        href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+              </ownedParameter>
+              <ownedParameter xmi:type="uml:Parameter"
+                              xmi:id="_LGteIIl-EeqbqO-7YnuqMA" name="passengers"
+                              type="_dpdPUIl4EeqbqO-7YnuqMA" direction="return">
+                  <lowerValue xmi:type="uml:LiteralInteger"
+                              xmi:id="_cKWlUIl-EeqbqO-7YnuqMA"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural"
+                              xmi:id="_cHp2oIl-EeqbqO-7YnuqMA" value="*"/>
+              </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation"
+                          xmi:id="_gWFYMIl5EeqbqO-7YnuqMA" name="openDoors"
+                          method="_th94AJeNEeqeJp6fNQ2rfw"/>
+          <ownedOperation xmi:type="uml:Operation"
+                          xmi:id="_jMXo0Il5EeqbqO-7YnuqMA" name="closeDoors"
+                          method="_5N-MIJeNEeqeJp6fNQ2rfw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_faERUIl4EeqbqO-7YnuqMA" name="DoorState">
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_gbQBgIl4EeqbqO-7YnuqMA" name="Open"/>
@@ -125,7 +137,7 @@ OpaqueBehavior  betreteAufzug</body>
             <transition xmi:type="uml:Transition" xmi:id="_HcIcUJeAEeqeJp6fNQ2rfw" name="when ZielErreicht/ verlasseAufzug" source="_8nsCUJd_EeqeJp6fNQ2rfw" target="_4j0kQJd_EeqeJp6fNQ2rfw">
               <effect xmi:type="uml:OpaqueBehavior" xmi:id="_88zvAJeFEeqeJp6fNQ2rfw" name="verlasseAufzug">
                 <language>Java</language>
-                <body>System.out.println(&quot;Fahrgast verlaesst Aufzug&quot;);</body>
+                  <body>System.out.println(&quot;Fahrgast verlässt Aufzug&quot;);</body>
               </effect>
               <trigger xmi:type="uml:Trigger" xmi:id="_G-oZQJeGEeqeJp6fNQ2rfw" name="zielErreichtTrigger" event="_G3ZI0JeGEeqeJp6fNQ2rfw"/>
             </transition>
@@ -135,7 +147,7 @@ OpaqueBehavior  betreteAufzug</body>
             <subvertex xmi:type="uml:State" xmi:id="_8nsCUJd_EeqeJp6fNQ2rfw" name="FahreMitAufzug">
               <entry xmi:type="uml:OpaqueBehavior" xmi:id="_t8kfcJeEEeqeJp6fNQ2rfw" name="WaehleStockwerk">
                 <language>Java</language>
-                <body>System.out.println(&quot;Fahrgast waehlt Stockwerk&quot;);</body>
+                  <body>System.out.println(&quot;Fahrgast wählt Stockwerk&quot;);</body>
               </entry>
             </subvertex>
           </region>
@@ -164,17 +176,36 @@ OpaqueBehavior  betreteAufzug</body>
       <packagedElement xmi:type="uml:ChangeEvent" xmi:id="_xKkQAJeFEeqeJp6fNQ2rfw" name="aufzugDa">
         <changeExpression xmi:type="uml:OpaqueExpression" xmi:id="_xKkQAZeFEeqeJp6fNQ2rfw" name="aufzugDaExpression">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <language>Java</language>
-          <body>Aufzug.CurrentFloor == CurrentFloor</body>
+            <language>Java</language>
+            <body>Aufzug.CurrentFloor == CurrentFloor</body>
         </changeExpression>
       </packagedElement>
-      <packagedElement xmi:type="uml:ChangeEvent" xmi:id="_G3ZI0JeGEeqeJp6fNQ2rfw" name="zielErreicht">
-        <changeExpression xmi:type="uml:OpaqueExpression" xmi:id="_G3ZI0ZeGEeqeJp6fNQ2rfw">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <language>Java</language>
-          <body>Aufzug.CurrentFloor == Destination</body>
-        </changeExpression>
-      </packagedElement>
+        <packagedElement xmi:type="uml:ChangeEvent"
+                         xmi:id="_G3ZI0JeGEeqeJp6fNQ2rfw" name="zielErreicht">
+            <changeExpression xmi:type="uml:OpaqueExpression"
+                              xmi:id="_G3ZI0ZeGEeqeJp6fNQ2rfw">
+                <type xmi:type="uml:PrimitiveType"
+                      href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+                <language>Java</language>
+                <body>Aufzug.CurrentFloor == Destination</body>
+            </changeExpression>
+        </packagedElement>
+        <packagedElement xmi:type="uml:OpaqueBehavior"
+                         xmi:id="_th94AJeNEeqeJp6fNQ2rfw" name="openDoorImpl"
+                         specification="_gWFYMIl5EeqbqO-7YnuqMA">
+            <language>Java</language>
+            <body>Door = DoorState.Opening;&#xD;
+                Door = DoorState.Open;
+            </body>
+        </packagedElement>
+        <packagedElement xmi:type="uml:OpaqueBehavior"
+                         xmi:id="_5N-MIJeNEeqeJp6fNQ2rfw" name="closeDoorImpl"
+                         specification="_jMXo0Il5EeqbqO-7YnuqMA">
+            <language>Java</language>
+            <body>Door = DoorState.Closing;&#xD;
+                Door = DoorState.Closed;
+            </body>
+        </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_zok_UIn3Eeqzs-HLfxzOjg" name="java.lang">
       <packagedElement xmi:type="uml:Class" xmi:id="_32UyIIn3Eeqzs-HLfxzOjg" name="Exception"/>
